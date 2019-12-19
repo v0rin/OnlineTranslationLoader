@@ -14,4 +14,8 @@ public class Util {
 		}
     }
 
+    public static String stripSurroundingQuotes(String s) {
+        return s.replaceAll("^\"|\"$", "");
+    }
+
 }

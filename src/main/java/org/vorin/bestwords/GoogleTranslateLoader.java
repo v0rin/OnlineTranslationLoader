@@ -3,6 +3,11 @@ package org.vorin.bestwords;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -15,6 +20,7 @@ import static java.lang.String.format;
 
 import static org.vorin.bestwords.Util.print;
 import static org.vorin.bestwords.Util.sleep;
+import static org.vorin.bestwords.Util.stripSurroundingQuotes;
 
 public class GoogleTranslateLoader {
 
@@ -31,7 +37,9 @@ public class GoogleTranslateLoader {
 		this.testMode = testMode;
     }
 
-    public void load(String[] words) throws IOException {
+    public Map<String, List<String>> load(List<String> words) throws IOException {
+        print("GoogleTranslateLoader starting...");
+        var translations = new HashMap<String, List<String>>();
         for (String word : words) {
             JsonNode node = objectMapper.readTree(getJsonForWord(word));
 
@@ -39,19 +47,29 @@ public class GoogleTranslateLoader {
                 String wordType = node.get(1).get(i).get(0).toString();
                 for (int j = 0; j < node.get(1).get(i).get(2).size(); j++)
                 {
-                    String translation = node.get(1).get(i).get(2).get(j).get(0).toString();
+                    String meaning = stripSurroundingQuotes(node.get(1).get(i).get(2).get(j).get(0).toString());
                     double score = Double.parseDouble(node.get(1).get(i).get(2).get(j).get(3).toString());
-                    print(translation + " - " + Double.toString(score) + " - " + wordType);
+                    if (score >= 0.01) {
+                        var meanings = translations.computeIfAbsent(word, w -> new ArrayList<>());
+                        meanings.add(meaning);
+                        print("added " + meaning + " - " + Double.toString(score) + " - " + wordType);
+                    }
+                    else {
+                        print("skipped " + meaning + " - " + Double.toString(score) + " - " + wordType);
+                    }
+
                 }
             }
 
             if (!testMode) sleep(SLEEP_BETWEEN_REQUESTS_MS); // wait before making another request to Google
         }
+        print("GoogleTranslateLoader loading complete");
+        return translations;
     }
 
     private InputStream getJsonForWord(String word) throws IOException {
         if (testMode) {
-            return new FileInputStream("CodeEnvy1/res/translations-" + word + ".json");
+            return new FileInputStream("CodeEnvy/res/translations-" + word + ".json");
         }
 
         HttpRequest request = Unirest.get(GOOGLE_TRANSLATE_URL + word);
