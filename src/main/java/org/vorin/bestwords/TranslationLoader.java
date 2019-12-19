@@ -1,5 +1,6 @@
 package org.vorin.bestwords;
 
+import java.io.File;
 import java.io.IOException;
 import java.util.Arrays;
 import java.util.List;
@@ -71,7 +72,7 @@ public class TranslationLoader {
         var words = Arrays.asList("work", "take");
         //List<String> words = Arrays.asList();
 
-        var xmlTranslationPublisher = new XmlTranslationPublisher();
+        var xmlTranslationPublisher = new XmlTranslationPublisher(new File("CodeEnvy/res/googleTranslateWordlist.xml"));
         var googleTranslateMeaningLoader = new GoogleTranslateMeaningLoader(xmlTranslationPublisher, true);
         googleTranslateMeaningLoader.load(words);
     }
