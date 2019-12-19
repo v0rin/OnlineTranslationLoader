@@ -14,11 +14,12 @@ import com.mashape.unirest.request.HttpRequest;
 
 import static java.lang.String.format;
 
-import static org.vorin.bestwords.Util.print;
 import static org.vorin.bestwords.Util.sleep;
 import static org.vorin.bestwords.Util.stripSurroundingQuotes;
 
 public class GoogleTranslateMeaningLoader {
+
+    private static final Logger LOG = Logger.get(GoogleTranslateMeaningLoader.class);
 
     private static final long SLEEP_BETWEEN_REQUESTS_MS = 5000;
 
@@ -37,7 +38,7 @@ public class GoogleTranslateMeaningLoader {
     }
 
     public void load(List<String> words) throws IOException {
-        print("GoogleTranslateLoader started...");
+        LOG.info("started...");
         for (String word : words) {
             JsonNode node = objectMapper.readTree(getJsonForWord(word));
 
@@ -49,10 +50,10 @@ public class GoogleTranslateMeaningLoader {
                     double score = Double.parseDouble(node.get(1).get(i).get(2).get(j).get(3).toString());
                     if (score >= 0.01) {
                         translationPublisher.addTranslation(word, meaning, null, null);
-                        print("added " + meaning + " - " + Double.toString(score) + " - " + wordType);
+                        LOG.info("added " + meaning + " - " + Double.toString(score) + " - " + wordType);
                     }
                     else {
-                        print("skipped " + meaning + " - " + Double.toString(score) + " - " + wordType);
+                        // print("skipped " + meaning + " - " + Double.toString(score) + " - " + wordType);
                     }
 
                 }
@@ -60,7 +61,7 @@ public class GoogleTranslateMeaningLoader {
 
             if (!testMode) sleep(SLEEP_BETWEEN_REQUESTS_MS); // wait before making another request to Google
         }
-        print("GoogleTranslateLoader loading complete");
+        LOG.info("loading complete");
     }
 
     private InputStream getJsonForWord(String word) throws IOException {

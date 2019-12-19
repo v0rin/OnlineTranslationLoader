@@ -5,12 +5,9 @@ import static java.lang.String.format;
 import java.io.File;
 import java.io.IOException;
 
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
-
 public class XmlTranslationPublisher implements TranslationPublisher {
 
-    private static final Logger LOG = LogManager.getLogger();
+    private static final Logger LOG = Logger.get(XmlTranslationPublisher.class);
 
     private File xmlFile;
 
@@ -20,7 +17,7 @@ public class XmlTranslationPublisher implements TranslationPublisher {
 
 	@Override
 	public void addTranslation(String foreignWord, String meaning, String exampleForeignSentence, String exampleTranslatedSentence) {
-        LOG.info(format("Added translation: foreightWord=%s, meaning=%s, exampleForeignSentence=%s, exampleTranslatedSentence=%s",
+        LOG.info(format("added translation: foreightWord=%s, meaning=%s, exampleForeignSentence=%s, exampleTranslatedSentence=%s",
                     foreignWord, meaning, exampleForeignSentence, exampleTranslatedSentence));
 	}
 

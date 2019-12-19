@@ -8,8 +8,6 @@ import java.util.List;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.mashape.unirest.http.exceptions.UnirestException;
 
-import static org.vorin.bestwords.Util.print;
-
 
 /* Tool do redagowania wordlisty:
 - najlepsze podejscie to Google Sheets
