@@ -7,22 +7,22 @@ import java.io.IOException;
 
 public class XmlTranslationPublisher implements TranslationPublisher {
 
-    private static final Logger LOG = Logger.get(XmlTranslationPublisher.class);
+	private static final Logger LOG = Logger.get(XmlTranslationPublisher.class);
 
-    private File xmlFile;
+	private File xmlFile;
 
 	public XmlTranslationPublisher(File xmlFile) {
 		this.xmlFile = xmlFile;
-    }
-
-	@Override
-	public void addTranslation(String foreignWord, String meaning, String exampleForeignSentence, String exampleTranslatedSentence) {
-        LOG.info(format("added translation: foreightWord=%s, meaning=%s, exampleForeignSentence=%s, exampleTranslatedSentence=%s",
-                    foreignWord, meaning, exampleForeignSentence, exampleTranslatedSentence));
 	}
 
 	@Override
-	public void write() throws IOException {
+	public void addTranslation(String foreignWord, String meaning, String exampleForeignSentence, String exampleTranslatedSentence) {
+		LOG.info(format("added translation: foreightWord=%s, meaning=%s, exampleForeignSentence=%s, exampleTranslatedSentence=%s",
+				foreignWord, meaning, exampleForeignSentence, exampleTranslatedSentence));
+	}
+
+	@Override
+	public void writeToTarget() throws IOException {
 		// TODO @af write to the xml file
 	}
 

@@ -4,5 +4,5 @@ import java.io.IOException;
 
 public interface TranslationPublisher {
     void addTranslation(String foreignWord, String meaning, String exampleForeignSentence, String exampleTranslatedSentence) throws IOException;
-    void write() throws IOException;
+    void writeToTarget() throws IOException;
 }

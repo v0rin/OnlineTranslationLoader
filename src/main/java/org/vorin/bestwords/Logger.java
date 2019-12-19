@@ -16,7 +16,7 @@ public class Logger {
         return get(clazz.getSimpleName());
     }
 
-	public static Logger get(String tag) {
+    public static Logger get(String tag) {
         return loggers.computeIfAbsent(tag, t -> {
             LOG_TAG_PADDING = Math.max(LOG_TAG_PADDING, tag.length());
             return new Logger(t);
@@ -24,10 +24,10 @@ public class Logger {
     }
 
     private Logger(String tag) {
-		this.tag = tag;
+        this.tag = tag;
     }
 
     public void info(String s) {
-        System.out.println(format("[%" + LOG_TAG_PADDING + "s][INFO] - %s", tag, s));
+        System.out.println(format("| %" + LOG_TAG_PADDING + "s | INFO | - %s", tag, s));
     }
 }
