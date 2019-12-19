@@ -1,12 +1,11 @@
 package org.vorin.bestwords;
 
+import javax.xml.bind.JAXB;
 import java.io.File;
-import java.io.IOException;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
 import java.util.Arrays;
-import java.util.List;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.mashape.unirest.http.exceptions.UnirestException;
 
 
 /* Tool do redagowania wordlisty:
@@ -66,13 +65,17 @@ znalezc 2-3 zrodla (nie tylko wordreference) i jak jest alert to miec wybor
 
 public class TranslationLoader {
 
-    public static void main(String... argvs) throws JsonProcessingException, IOException, UnirestException, InterruptedException {
-        var words = Arrays.asList("work", "take");
-        //List<String> words = Arrays.asList();
+    public static void main(String... argvs) throws Exception {
+        var wordlist = JAXB.unmarshal(new FileInputStream("res/EnglishWordList12.xml"), WordList.class);
 
-        var xmlTranslationPublisher = new XmlTranslationPublisher(new File("CodeEnvy/res/googleTranslateWordlist.xml"));
-        var googleTranslateMeaningLoader = new GoogleTranslateMeaningLoader(xmlTranslationPublisher, true);
-        googleTranslateMeaningLoader.load(words);
+        JAXB.marshal(wordlist, new FileOutputStream(new File("TmpEnglishWordList12.xml")));
+
+        var words = Arrays.asList("work", "take");
+//        //List<String> words = Arrays.asList();
+//
+//        var xmlTranslationPublisher = new XmlTranslationPublisher(new File("res/googleTranslateWordlist.xml"));
+//        var googleTranslateMeaningLoader = new GoogleTranslateMeaningLoader(xmlTranslationPublisher, true);
+//        googleTranslateMeaningLoader.load(words);
     }
 
 }

@@ -66,7 +66,7 @@ public class GoogleTranslateMeaningLoader {
 
     private InputStream getJsonForWord(String word) throws IOException {
         if (testMode) {
-            return new FileInputStream("CodeEnvy/res/translations-" + word + ".json");
+            return new FileInputStream("res/GoogleTranslateMeaningLoaderCache/translations-" + word + ".json");
         }
 
         HttpRequest request = Unirest.get(GOOGLE_TRANSLATE_URL + word);
