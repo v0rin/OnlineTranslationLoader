@@ -35,6 +35,8 @@ http://phpminiadmin.sourceforge.net/
 */
 
 /* TODO @af
+add cachowanie do GooglTranslateMeaningLoader, na zasadzie, check if the file exists
+
 powinno zaladowac translations i przykladowe zdania z roznych zrodel
 niektore zrodla beda mialy tylko przykladowe zdania, niektore tlumaczenie, a niektore oba
 chyba wszystkie powinny tworzyc xml a potem mergowalbym xml

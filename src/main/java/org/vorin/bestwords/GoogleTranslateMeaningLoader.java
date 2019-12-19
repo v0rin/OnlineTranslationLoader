@@ -29,12 +29,14 @@ public class GoogleTranslateMeaningLoader {
 
 	private TranslationPublisher translationPublisher;
 
-    private boolean testMode;
-    private ObjectMapper objectMapper = new ObjectMapper();
+    private final boolean testMode;
+    private final boolean useCache;
+    private final ObjectMapper objectMapper = new ObjectMapper();
 
-    public GoogleTranslateMeaningLoader(TranslationPublisher translationPublisher, boolean testMode) {
+    public GoogleTranslateMeaningLoader(TranslationPublisher translationPublisher, boolean testMode, boolean useCache) {
 		this.translationPublisher = translationPublisher;
 		this.testMode = testMode;
+        this.useCache = useCache;
     }
 
     public void load(List<String> words) throws IOException {
