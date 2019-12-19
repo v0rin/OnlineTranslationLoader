@@ -3,11 +3,7 @@ package org.vorin.bestwords;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -22,7 +18,7 @@ import static org.vorin.bestwords.Util.print;
 import static org.vorin.bestwords.Util.sleep;
 import static org.vorin.bestwords.Util.stripSurroundingQuotes;
 
-public class GoogleTranslateLoader {
+public class GoogleTranslateMeaningLoader {
 
     private static final long SLEEP_BETWEEN_REQUESTS_MS = 5000;
 
@@ -30,16 +26,18 @@ public class GoogleTranslateLoader {
     //https://stackoverflow.com/questions/57397073/difference-between-the-google-translate-api
     private static final String GOOGLE_TRANSLATE_URL = "https://translate.googleapis.com/translate_a/single?client=gtx&sl=en&tl=es&hl=en&dt=at&dt=bd&dt=ex&dt=ld&dt=md&dt=qca&dt=rw&dt=rm&dt=ss&dt=t&dt=gt&source=bh&ssel=0&tsel=0&kc=1&q=";
 
+	private TranslationPublisher translationPublisher;
+
     private boolean testMode;
     private ObjectMapper objectMapper = new ObjectMapper();
 
-    public GoogleTranslateLoader(boolean testMode) {
+    public GoogleTranslateMeaningLoader(TranslationPublisher translationPublisher, boolean testMode) {
+		this.translationPublisher = translationPublisher;
 		this.testMode = testMode;
     }
 
-    public Map<String, List<String>> load(List<String> words) throws IOException {
-        print("GoogleTranslateLoader starting...");
-        var translations = new HashMap<String, List<String>>();
+    public void load(List<String> words) throws IOException {
+        print("GoogleTranslateLoader started...");
         for (String word : words) {
             JsonNode node = objectMapper.readTree(getJsonForWord(word));
 
@@ -50,8 +48,7 @@ public class GoogleTranslateLoader {
                     String meaning = stripSurroundingQuotes(node.get(1).get(i).get(2).get(j).get(0).toString());
                     double score = Double.parseDouble(node.get(1).get(i).get(2).get(j).get(3).toString());
                     if (score >= 0.01) {
-                        var meanings = translations.computeIfAbsent(word, w -> new ArrayList<>());
-                        meanings.add(meaning);
+                        translationPublisher.addTranslation(word, meaning, null, null);
                         print("added " + meaning + " - " + Double.toString(score) + " - " + wordType);
                     }
                     else {
@@ -64,7 +61,6 @@ public class GoogleTranslateLoader {
             if (!testMode) sleep(SLEEP_BETWEEN_REQUESTS_MS); // wait before making another request to Google
         }
         print("GoogleTranslateLoader loading complete");
-        return translations;
     }
 
     private InputStream getJsonForWord(String word) throws IOException {

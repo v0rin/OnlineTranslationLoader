@@ -71,9 +71,9 @@ public class TranslationLoader {
         var words = Arrays.asList("work", "take");
         //List<String> words = Arrays.asList();
 
-        var googleTranslateLoader = new GoogleTranslateLoader(true);
-        var translations = googleTranslateLoader.load(words);
-        print(translations.toString());
+        var xmlTranslationPublisher = new XmlTranslationPublisher();
+        var googleTranslateMeaningLoader = new GoogleTranslateMeaningLoader(xmlTranslationPublisher, true);
+        googleTranslateMeaningLoader.load(words);
     }
 
 }
