@@ -1,6 +1,5 @@
 package org.vorin;
 
-import java.io.File;
 import java.io.IOException;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
@@ -59,23 +58,18 @@ https://www.youtube.com/watch?v=nyr3EJH0lTY
 
 public class GoogleTranslator {
 
-    public static void main(String... argvs) throws JsonProcessingException, IOException, UnirestException, InterruptedException {
-        String a = "Che";
-        print("Hello World " + a + "!");
-        print("curr dir=" + System.getProperty("user.dir"));
+    //https://stackoverflow.com/questions/8085743/google-translate-vs-translate-api
+    //https://stackoverflow.com/questions/57397073/difference-between-the-google-translate-api
+    private static final String GOOGLE_TRANSLATE_URL = "https://translate.googleapis.com/translate_a/single?client=gtx&sl=en&tl=es&hl=en&dt=at&dt=bd&dt=ex&dt=ld&dt=md&dt=qca&dt=rw&dt=rm&dt=ss&dt=t&dt=gt&source=bh&ssel=0&tsel=0&kc=1&q=";
 
+    public static void main(String... argvs) throws JsonProcessingException, IOException, UnirestException, InterruptedException {
         String[] words = {"work", "take"};
         for (String word : words) {
             print("");
             print("####################");
             print("### " + word + " ###");
             print("####################");
-            HttpRequest request = Unirest.get("https://translate.googleapis.com/translate_a/single?client=gtx&sl=en&tl=es&hl=en&dt=at&dt=bd&dt=ex&dt=ld&dt=md&dt=qca&dt=rw&dt=rm&dt=ss&dt=t&dt=gt&source=bh&ssel=0&tsel=0&kc=1&q=" + word);
-            //https://stackoverflow.com/questions/8085743/google-translate-vs-translate-api
-            //https://stackoverflow.com/questions/57397073/difference-between-the-google-translate-api
-            // HttpRequest request = Unirest.get("https://translate.google.com/translate_a/single?client=webapp&sl=en&tl=es&hl=en&dt=at&dt=bd&dt=ex&dt=ld&dt=md&dt=qca&dt=rw&dt=rm&dt=ss&dt=t&dt=gt&source=bh&ssel=0&tsel=0&kc=1&tk=179080.267586&q=" + word);
-            //https://translate.google.com/translate_a/single?client=webapp&sl=en&tl=es&hl=en&dt=at&dt=bd&dt=ex&dt=ld&dt=md&dt=qca&dt=rw&dt=rm&dt=ss&dt=t&dt=gt&source=bh&ssel=0&tsel=0&kc=1&tk=765728.852462&q=take
-            //https://translate.google.com/translate_a/single?client=webapp&sl=en&tl=es&hl=en&dt=at&dt=bd&dt=ex&dt=ld&dt=md&dt=qca&dt=rw&dt=rm&dt=ss&dt=t&dt=gt&source=bh&ssel=0&tsel=0&kc=1&tk=765728.852462&q=take
+            HttpRequest request = Unirest.get(GOOGLE_TRANSLATE_URL + word);
 
             var objectMapper = new ObjectMapper();
 //            JsonNode node = objectMapper.readTree(new File("CodeEnvy1/translations.json"));
@@ -93,8 +87,6 @@ public class GoogleTranslator {
             }
             Thread.sleep(5000); // wait before making another request to Google
         }
-
-        print("End");
     }
 
     private static void print(String s) {
