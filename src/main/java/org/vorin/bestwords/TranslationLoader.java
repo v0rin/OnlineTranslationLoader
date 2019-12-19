@@ -60,8 +60,8 @@ public class TranslationLoader {
         // String[] words = {"work", "take"};
         String[] words = {};
 
-        var googleTranslateLoader = new GoogleTranslateLoader();
-        googleTranslateLoader.load();
+        var googleTranslateLoader = new GoogleTranslateLoader(true);
+        googleTranslateLoader.load(words);
     }
 
 }

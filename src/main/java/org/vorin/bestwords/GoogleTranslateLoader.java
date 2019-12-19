@@ -1,17 +1,20 @@
 package org.vorin.bestwords;
 
+import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
-import java.io.StringWriter;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.mashape.unirest.http.HttpResponse;
 import com.mashape.unirest.http.Unirest;
 import com.mashape.unirest.http.exceptions.UnirestException;
 import com.mashape.unirest.request.HttpRequest;
 
+import static java.lang.String.format;
+
 import static org.vorin.bestwords.Util.print;
+import static org.vorin.bestwords.Util.sleep;
 
 public class GoogleTranslateLoader {
 
@@ -33,7 +36,6 @@ public class GoogleTranslateLoader {
             JsonNode node = objectMapper.readTree(getJsonForWord(word));
 
             for (int i = 0; i < node.get(1).size(); i++) {
-                //print(node.get(1).get(i).toPrettyString());
                 String wordType = node.get(1).get(i).get(0).toString();
                 for (int j = 0; j < node.get(1).get(i).get(2).size(); j++)
                 {
@@ -42,24 +44,22 @@ public class GoogleTranslateLoader {
                     print(translation + " - " + Double.toString(score) + " - " + wordType);
                 }
             }
-            if (!testMode) Thread.sleep(SLEEP_BETWEEN_REQUESTS_MS); // wait before making another request to Google
+
+            if (!testMode) sleep(SLEEP_BETWEEN_REQUESTS_MS); // wait before making another request to Google
         }
     }
 
     private InputStream getJsonForWord(String word) throws IOException {
         if (testMode) {
-
+            return new FileInputStream("CodeEnvy1/res/translations-" + word + ".json");
         }
-//            JsonNode node = objectMapper.readTree(new File("CodeEnvy1/translations.json"));
 
         HttpRequest request = Unirest.get(GOOGLE_TRANSLATE_URL + word);
         try {
-            Http<Response> response = request.asString();
+            HttpResponse<String> response = request.asString();
 			return response.getRawBody();
 		} catch (UnirestException e) {
-            StringWriter writer = new StringWriter();
-            IOUtils.copy(inputStream, writer, encoding);
-			throw new IOException(format("Exception while parsing json for word %s. The response was [%s]", word, writer.toString()), e);
+			throw new IOException(format("Exception while parsing json for word %s", word), e);
 		}
     }
 
