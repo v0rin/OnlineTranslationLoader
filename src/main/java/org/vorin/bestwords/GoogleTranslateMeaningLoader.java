@@ -24,6 +24,8 @@ import static org.vorin.bestwords.Util.stripSurroundingQuotes;
 
 public class GoogleTranslateMeaningLoader {
 
+    private static final String WORKING_DIR = System.getProperty("user.dir");
+
     private static final Logger LOG = Logger.get(GoogleTranslateMeaningLoader.class);
 
     private static final long SLEEP_BETWEEN_REQUESTS_MS = 5000;
@@ -84,7 +86,7 @@ public class GoogleTranslateMeaningLoader {
     private InputStream getJsonForWord(String word) throws IOException {
         // TODO @af add cache - so I don't have to go to google each time, there can be a flag use cache, in case I would start pulling diff information
         if (testMode) {
-            return new FileInputStream("CodeEnvy/res/translations-" + word + ".json");
+            return new FileInputStream(WORKING_DIR + "/res/translations-" + word + ".json");
         }
 
         HttpRequest request = Unirest.get(GOOGLE_TRANSLATE_URL + word);

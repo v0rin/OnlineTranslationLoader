@@ -67,10 +67,16 @@ znalezc 2-3 zrodla (nie tylko wordreference) i jak jest alert to miec wybor
 
 public class TranslationLoader {
 
-    public static void main(String... argvs) throws Exception {
-        var wordlist = JAXB.unmarshal(new FileInputStream("res/EnglishWordList12.xml"), WordList.class);
+    private static final Logger LOG = Logger.get(TranslationLoader.class);
 
-        JAXB.marshal(wordlist, new FileOutputStream(new File("TmpEnglishWordList12.xml")));
+    private static final String WORKING_DIR = System.getProperty("user.dir");
+
+
+    public static void main(String... argvs) throws Exception {
+        LOG.info("user.dir=" + System.getProperty("user.dir"));
+        var wordlist = JAXB.unmarshal(new FileInputStream(WORKING_DIR + "/res/EnglishWordList12.xml"), WordList.class);
+
+        JAXB.marshal(wordlist, new FileOutputStream(new File(WORKING_DIR + "/TmpEnglishWordList12.xml")));
 
         var words = Arrays.asList("work", "take");
 //        //List<String> words = Arrays.asList();
