@@ -4,25 +4,31 @@ import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 
+import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlType;
 
 import static com.google.common.base.Preconditions.checkNotNull;
 
-@XmlType(propOrder={"wordMeaning","exampleSentence","imgName"})
+@XmlType(propOrder={"wordMeaning","exampleSentence","imgName", "wordMeaningSource", "exampleSentenceSource", "comment"})
 public class Meaning {
 
     private String wordMeaning;
-    private String exampleSentence = "";
-    private String imgName = "";
+    private String exampleSentence;
+    private String imgName;
+    private String exampleSentenceSource;
+    private String wordMeaningSource;
+    private String comment;
+
 
     public Meaning() {} // needed for JAXB unmarshalling
 
-    public Meaning(String wordMeaning, String exampleSentence, String imgName) {
+    public Meaning(String wordMeaning, String exampleSentence, String imgName, String wordMeaningSource) {
         checkNotNull(wordMeaning);
         this.wordMeaning = wordMeaning;
         this.exampleSentence = exampleSentence;
         this.imgName = imgName;
+        this.wordMeaningSource = wordMeaningSource;
     }
 
     public String getWordMeaning() {
@@ -35,7 +41,7 @@ public class Meaning {
     }
 
     public String getExampleSentence() {
-        return getEmptyIfNull(exampleSentence);
+        return emptyIfNull(exampleSentence);
     }
 
     @XmlElement
@@ -44,12 +50,39 @@ public class Meaning {
     }
 
     public String getImgName() {
-        return getEmptyIfNull(imgName);
+        return emptyIfNull(imgName);
     }
 
     @XmlElement
     public void setImgName(String imgName) {
         this.imgName = imgName;
+    }
+
+    public String getExampleSentenceSource() {
+        return emptyIfNull(exampleSentenceSource);
+    }
+
+    @XmlAttribute
+    public void setExampleSentenceSource(String exampleSentenceSource) {
+        this.exampleSentenceSource = exampleSentenceSource;
+    }
+
+    public String getWordMeaningSource() {
+        return emptyIfNull(wordMeaningSource);
+    }
+
+    @XmlAttribute
+    public void setWordMeaningSource(String wordMeaningSource) {
+        this.wordMeaningSource = wordMeaningSource;
+    }
+
+    public String getComment() {
+        return emptyIfNull(comment);
+    }
+
+    @XmlAttribute
+    public void setComment(String comment) {
+        this.comment = comment;
     }
 
     @Override
@@ -64,6 +97,9 @@ public class Meaning {
                 .append(wordMeaning, meaning.wordMeaning)
                 .append(exampleSentence, meaning.exampleSentence)
                 .append(imgName, meaning.imgName)
+                .append(wordMeaningSource, meaning.wordMeaningSource)
+                .append(exampleSentenceSource, meaning.exampleSentenceSource)
+                .append(comment, meaning.comment)
                 .isEquals();
     }
 
@@ -73,6 +109,9 @@ public class Meaning {
                 .append(wordMeaning)
                 .append(exampleSentence)
                 .append(imgName)
+                .append(wordMeaningSource)
+                .append(exampleSentenceSource)
+                .append(comment)
                 .toHashCode();
     }
 
@@ -80,12 +119,15 @@ public class Meaning {
     public String toString() {
         return new ToStringBuilder(this)
                 .append("wordMeaning", wordMeaning)
+                .append("wordMeaningSource", wordMeaningSource)
                 .append("exampleSentence", exampleSentence)
+                .append("exampleSentenceSource", exampleSentenceSource)
                 .append("imgName", imgName)
+                .append("comment", comment)
                 .toString();
     }
 
-    private String getEmptyIfNull(String s) {
+    private String emptyIfNull(String s) {
         return s == null ? "" : s;
     }
 

@@ -34,6 +34,7 @@ public class GoogleTranslateMeaningLoader {
     //https://stackoverflow.com/questions/8085743/google-translate-vs-translate-api
     //https://stackoverflow.com/questions/57397073/difference-between-the-google-translate-api
     private static final String GOOGLE_TRANSLATE_URL = "https://translate.googleapis.com/translate_a/single?client=gtx&sl=en&tl=es&hl=en&dt=at&dt=bd&dt=ex&dt=ld&dt=md&dt=qca&dt=rw&dt=rm&dt=ss&dt=t&dt=gt&source=bh&ssel=0&tsel=0&kc=1&q=";
+    private static final String GOOGLE_TRANSLATE_SOURCE = "GOOGLE_TRANSLATE";
 
     private ObjectMapper objectMapper = new ObjectMapper();
 
@@ -77,7 +78,7 @@ public class GoogleTranslateMeaningLoader {
             meaningsWithScores.stream()
                     .limit(Math.min(meaningsWithScores.size(), maxMeaningCount))
                     .forEachOrdered(ms -> {
-                        translationPublisher.addTranslation(word, ms.getRight(), null, null);
+                        translationPublisher.addMeaning(word, ms.getRight(), GOOGLE_TRANSLATE_SOURCE);
                     });
         }
         LOG.info("loading complete");

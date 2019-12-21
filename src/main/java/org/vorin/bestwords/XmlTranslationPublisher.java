@@ -20,15 +20,27 @@ public class XmlTranslationPublisher implements TranslationPublisher {
 		this.wordlist = new WordList();
 	}
 
-	@Override
-	public void addTranslation(String foreignWord,
-							   String wordMeaning,
-							   String exampleForeignSentence,
-							   String exampleTranslatedSentence) {
-		LOG.info(format("added translation: foreightWord=%s, meaning=%s, exampleForeignSentence=%s, exampleTranslatedSentence=%s",
-				foreignWord, wordMeaning, exampleForeignSentence, exampleTranslatedSentence));
+	public XmlTranslationPublisher(File xmlFile, WordList wordList) {
+		this.xmlFile = xmlFile;
+		this.wordlist = wordList;
+	}
 
-		wordlist.addTranslation(foreignWord, wordMeaning, exampleForeignSentence, exampleTranslatedSentence);
+	@Override
+	public void addMeaning(String foreignWord,
+						   String wordMeaning,
+						   String source) {
+		LOG.info(format("added meaning from [%s]: foreignWord=%s, meaning=%s", source, foreignWord, wordMeaning));
+		wordlist.addMeaning(foreignWord, wordMeaning, source);
+	}
+
+	@Override
+	public void addExampleSentence(String foreignWord,
+								   String wordMeaning,
+								   String exampleSentence,
+								   String source) {
+		LOG.info(format("added example sentence from [%s]: foreignWord=%s, meaning=%s, exampleSentence=%s",
+						source, foreignWord, wordMeaning, exampleSentence));
+		wordlist.addExampleSentence(foreignWord, wordMeaning, exampleSentence, source);
 	}
 
 	@Override
