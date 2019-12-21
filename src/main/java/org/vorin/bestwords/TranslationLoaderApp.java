@@ -1,10 +1,12 @@
 package org.vorin.bestwords;
 
-import javax.xml.bind.JAXB;
+import org.vorin.bestwords.loaders.GoogleTranslateMeaningLoader;
+import org.vorin.bestwords.util.Logger;
+
 import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
 import java.util.Arrays;
+
+import static org.vorin.bestwords.AppConfig.RES_DIR;
 
 
 
@@ -63,25 +65,17 @@ znalezc 2-3 zrodla (nie tylko wordreference) i jak jest alert to miec wybor
 
 */
 
-public class TranslationLoader {
+public class TranslationLoaderApp {
 
-    private static final Logger LOG = Logger.get(TranslationLoader.class);
-
-    private static final String WORKING_DIR = System.getProperty("user.dir");
-
+    private static final Logger LOG = Logger.get(TranslationLoaderApp.class);
 
     public static void main(String... argvs) throws Exception {
-        LOG.info("user.dir=" + System.getProperty("user.dir"));
-//        var wordlist = JAXB.unmarshal(new FileInputStream(WORKING_DIR + "/res/EnglishWordList12.xml"), WordList.class);
-//
-//        JAXB.marshal(wordlist, new FileOutputStream(new File(WORKING_DIR + "/TmpEnglishWordList12.xml")));
-
         var words = Arrays.asList("work", "take");
-//        //List<String> words = Arrays.asList();
 
-        var xmlTranslationPublisher = new XmlTranslationPublisher(new File("res/googleTranslateTranslationsWordlist.xml"));
+        var xmlTranslationPublisher = new XmlTranslationPublisher(new File(RES_DIR + "googleTranslateMeaningsLoaderWordlist.xml"));
         var googleTranslateMeaningLoader = new GoogleTranslateMeaningLoader(xmlTranslationPublisher, 0.01, 5, true);
         googleTranslateMeaningLoader.load(words);
+        xmlTranslationPublisher.writeToTarget();
     }
 
 }

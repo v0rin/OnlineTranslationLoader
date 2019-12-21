@@ -1,5 +1,8 @@
 package org.vorin.bestwords;
 
+import org.vorin.bestwords.model.WordList;
+import org.vorin.bestwords.util.Logger;
+
 import static java.lang.String.format;
 
 import java.io.File;
@@ -9,21 +12,28 @@ public class XmlTranslationPublisher implements TranslationPublisher {
 
 	private static final Logger LOG = Logger.get(XmlTranslationPublisher.class);
 
-	private File xmlFile;
+	private final File xmlFile;
+	private final WordList wordlist;
 
 	public XmlTranslationPublisher(File xmlFile) {
 		this.xmlFile = xmlFile;
+		this.wordlist = new WordList();
 	}
 
 	@Override
-	public void addTranslation(String foreignWord, String meaning, String exampleForeignSentence, String exampleTranslatedSentence) {
+	public void addTranslation(String foreignWord,
+							   String wordMeaning,
+							   String exampleForeignSentence,
+							   String exampleTranslatedSentence) {
 		LOG.info(format("added translation: foreightWord=%s, meaning=%s, exampleForeignSentence=%s, exampleTranslatedSentence=%s",
-				foreignWord, meaning, exampleForeignSentence, exampleTranslatedSentence));
+				foreignWord, wordMeaning, exampleForeignSentence, exampleTranslatedSentence));
+
+		wordlist.addTranslation(foreignWord, wordMeaning, exampleForeignSentence, exampleTranslatedSentence);
 	}
 
 	@Override
 	public void writeToTarget() throws IOException {
-		// TODO @af write to the xml file
+		wordlist.writeToXml(xmlFile);
 	}
 
 }

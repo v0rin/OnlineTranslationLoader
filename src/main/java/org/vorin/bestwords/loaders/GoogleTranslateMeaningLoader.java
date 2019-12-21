@@ -1,4 +1,4 @@
-package org.vorin.bestwords;
+package org.vorin.bestwords.loaders;
 
 import java.io.*;
 import java.util.ArrayList;
@@ -15,16 +15,17 @@ import com.mashape.unirest.request.HttpRequest;
 import org.apache.commons.io.IOUtils;
 import org.apache.commons.lang3.tuple.ImmutablePair;
 import org.apache.commons.lang3.tuple.Pair;
+import org.vorin.bestwords.util.Logger;
+import org.vorin.bestwords.TranslationPublisher;
 
 import static java.lang.String.format;
 import static java.util.stream.Collectors.toList;
 
-import static org.vorin.bestwords.Util.sleep;
-import static org.vorin.bestwords.Util.stripSurroundingQuotes;
+import static org.vorin.bestwords.AppConfig.RES_DIR;
+import static org.vorin.bestwords.util.Util.sleep;
+import static org.vorin.bestwords.util.Util.stripSurroundingQuotes;
 
 public class GoogleTranslateMeaningLoader {
-
-    private static final String WORKING_DIR = System.getProperty("user.dir");
 
     private static final Logger LOG = Logger.get(GoogleTranslateMeaningLoader.class);
 
@@ -119,7 +120,7 @@ public class GoogleTranslateMeaningLoader {
     }
 
     private File getJsonFileForWord(String word) {
-        return new File(WORKING_DIR + "/res/GoogleTranslateMeaningLoaderCache/translation-" + word + ".json");
+        return new File(RES_DIR + "GoogleTranslateMeaningLoaderCache/translation-" + word + ".json");
     }
 
 }

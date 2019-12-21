@@ -1,4 +1,4 @@
-package org.vorin.bestwords;
+package org.vorin.bestwords.util;
 
 import static java.lang.String.format;
 

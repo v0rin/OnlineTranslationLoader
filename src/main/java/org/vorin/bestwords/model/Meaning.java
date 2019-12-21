@@ -1,4 +1,4 @@
-package org.vorin.bestwords;
+package org.vorin.bestwords.model;
 
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
@@ -7,16 +7,19 @@ import org.apache.commons.lang3.builder.ToStringBuilder;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlType;
 
+import static com.google.common.base.Preconditions.checkNotNull;
+
 @XmlType(propOrder={"wordMeaning","exampleSentence","imgName"})
 public class Meaning {
 
     private String wordMeaning;
-    private String exampleSentence;
-    private String imgName;
+    private String exampleSentence = "";
+    private String imgName = "";
 
     public Meaning() {} // needed for JAXB unmarshalling
 
     public Meaning(String wordMeaning, String exampleSentence, String imgName) {
+        checkNotNull(wordMeaning);
         this.wordMeaning = wordMeaning;
         this.exampleSentence = exampleSentence;
         this.imgName = imgName;
@@ -32,7 +35,7 @@ public class Meaning {
     }
 
     public String getExampleSentence() {
-        return exampleSentence;
+        return getEmptyIfNull(exampleSentence);
     }
 
     @XmlElement
@@ -41,7 +44,7 @@ public class Meaning {
     }
 
     public String getImgName() {
-        return imgName;
+        return getEmptyIfNull(imgName);
     }
 
     @XmlElement
@@ -80,6 +83,10 @@ public class Meaning {
                 .append("exampleSentence", exampleSentence)
                 .append("imgName", imgName)
                 .toString();
+    }
+
+    private String getEmptyIfNull(String s) {
+        return s == null ? "" : s;
     }
 
 }

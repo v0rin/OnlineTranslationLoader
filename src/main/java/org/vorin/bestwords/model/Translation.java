@@ -1,4 +1,4 @@
-package org.vorin.bestwords;
+package org.vorin.bestwords.model;
 
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
@@ -8,6 +8,8 @@ import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlElementWrapper;
 import javax.xml.bind.annotation.XmlType;
 import java.util.List;
+
+import static com.google.common.base.Preconditions.checkNotNull;
 
 @XmlType(propOrder={"foreignWord","pronunciation","audioName","meanings"})
 public class Translation {
@@ -23,7 +25,10 @@ public class Translation {
                        String pronunciation,
                        String audioName,
                        List<Meaning> meanings) {
-
+        checkNotNull(foreignWord);
+        checkNotNull(pronunciation);
+        checkNotNull(audioName);
+        checkNotNull(meanings);
         this.foreignWord = foreignWord;
         this.pronunciation = pronunciation;
         this.audioName = audioName;
