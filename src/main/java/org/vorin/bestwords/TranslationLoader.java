@@ -35,8 +35,6 @@ http://phpminiadmin.sourceforge.net/
 */
 
 /* TODO @af
-add cachowanie do GooglTranslateMeaningLoader, na zasadzie, check if the file exists
-
 powinno zaladowac translations i przykladowe zdania z roznych zrodel
 niektore zrodla beda mialy tylko przykladowe zdania, niektore tlumaczenie, a niektore oba
 chyba wszystkie powinny tworzyc xml a potem mergowalbym xml
@@ -74,16 +72,16 @@ public class TranslationLoader {
 
     public static void main(String... argvs) throws Exception {
         LOG.info("user.dir=" + System.getProperty("user.dir"));
-        var wordlist = JAXB.unmarshal(new FileInputStream(WORKING_DIR + "/res/EnglishWordList12.xml"), WordList.class);
-
-        JAXB.marshal(wordlist, new FileOutputStream(new File(WORKING_DIR + "/TmpEnglishWordList12.xml")));
+//        var wordlist = JAXB.unmarshal(new FileInputStream(WORKING_DIR + "/res/EnglishWordList12.xml"), WordList.class);
+//
+//        JAXB.marshal(wordlist, new FileOutputStream(new File(WORKING_DIR + "/TmpEnglishWordList12.xml")));
 
         var words = Arrays.asList("work", "take");
 //        //List<String> words = Arrays.asList();
-//
-//        var xmlTranslationPublisher = new XmlTranslationPublisher(new File("res/googleTranslateWordlist.xml"));
-//        var googleTranslateMeaningLoader = new GoogleTranslateMeaningLoader(xmlTranslationPublisher, true);
-//        googleTranslateMeaningLoader.load(words);
+
+        var xmlTranslationPublisher = new XmlTranslationPublisher(new File("res/googleTranslateTranslationsWordlist.xml"));
+        var googleTranslateMeaningLoader = new GoogleTranslateMeaningLoader(xmlTranslationPublisher, 0.01, 5, true);
+        googleTranslateMeaningLoader.load(words);
     }
 
 }

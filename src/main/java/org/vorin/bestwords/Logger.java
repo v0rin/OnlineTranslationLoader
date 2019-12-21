@@ -2,15 +2,22 @@ package org.vorin.bestwords;
 
 import static java.lang.String.format;
 
+import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
+/**
+ * I created the class coz there were some issues with log4j when working on che.openshift.io
+ * couldn't find the configuration file or something (and I had to use it when working from BNP Paribas)
+ */
 public class Logger {
 
-    private String tag;
-
-    private static Map<String, Logger> loggers = new ConcurrentHashMap<>();
+    private static final DateTimeFormatter DATE_TIME_FORMATTER = DateTimeFormatter.ofPattern("HH:mm:ss.SSS");
+    private static final Map<String, Logger> loggers = new ConcurrentHashMap<>();
     private static int LOG_TAG_PADDING = 16;
+
+    private final String tag;
 
     public static Logger get(Class<?> clazz) {
         return get(clazz.getSimpleName());
@@ -28,6 +35,7 @@ public class Logger {
     }
 
     public void info(String s) {
-        System.out.println(format("| %" + LOG_TAG_PADDING + "s | INFO | - %s", tag, s));
+        System.out.println(format("%s | %" + LOG_TAG_PADDING + "s | INFO | - %s",
+                DATE_TIME_FORMATTER.format(LocalTime.now()), tag, s));
     }
 }
