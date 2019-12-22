@@ -23,12 +23,17 @@ public class Meaning {
 
     public Meaning() {} // needed for JAXB unmarshalling
 
-    public Meaning(String wordMeaning, String exampleSentence, String imgName, String wordMeaningSource) {
+    public Meaning(String wordMeaning,
+                   String exampleSentence,
+                   String imgName,
+                   String wordMeaningSource,
+                   String exampleSentenceSource) {
         checkNotNull(wordMeaning);
         this.wordMeaning = wordMeaning;
         this.exampleSentence = exampleSentence;
         this.imgName = imgName;
         this.wordMeaningSource = wordMeaningSource;
+        this.exampleSentenceSource = exampleSentenceSource;
     }
 
     public String getWordMeaning() {

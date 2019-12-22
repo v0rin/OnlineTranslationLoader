@@ -20,11 +20,6 @@ public class XmlTranslationPublisher implements TranslationPublisher {
 		this.wordlist = new WordList();
 	}
 
-	public XmlTranslationPublisher(File xmlFile, WordList wordList) {
-		this.xmlFile = xmlFile;
-		this.wordlist = wordList;
-	}
-
 	@Override
 	public void addMeaning(String foreignWord,
 						   String wordMeaning,

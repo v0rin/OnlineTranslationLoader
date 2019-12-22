@@ -68,7 +68,7 @@ public class WordList {
             translations.add(translation);
         }
 
-        translation.getMeanings().add(new Meaning(wordMeaning, null, null, source));
+        translation.getMeanings().add(new Meaning(wordMeaning, null, null, source, null));
     }
 
 

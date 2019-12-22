@@ -1,0 +1,503 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wordList>
+	<translation>
+		<foreignWord>take</foreignWord>
+		<pronunciation>/teɪk/</pronunciation>
+		<audioName>take</audioName>
+		<meanings>
+			<meaning>
+				<wordMeaning>wziąć</wordMeaning>
+				<exampleSentence>I took a couple of aspirins - wziąłem parę aspiryn</exampleSentence>
+				<imgName></imgName>
+			</meaning>
+			<meaning>
+				<wordMeaning>zabierać</wordMeaning>
+				<exampleSentence>it takes a lot of time - to zabiera dużo czasu</exampleSentence>
+				<imgName></imgName>
+			</meaning>
+		</meanings>
+	</translation>
+	<translation>
+		<foreignWord>mean</foreignWord>
+		<pronunciation>/miːn/</pronunciation>
+		<audioName>mean</audioName>
+		<meanings>
+			<meaning>
+				<wordMeaning>znaczyć</wordMeaning>
+				<exampleSentence>it means a lot to me - to dużo dla mnie znaczy</exampleSentence>
+				<imgName></imgName>
+			</meaning>
+			<meaning>
+				<wordMeaning>złośliwy</wordMeaning>
+				<exampleSentence>he is mean - on jest złośliwy</exampleSentence>
+				<imgName></imgName>
+			</meaning>
+			<meaning>
+				<wordMeaning>sposób</wordMeaning>
+				<exampleSentence>means to an end - środki do celu</exampleSentence>
+				<imgName></imgName>
+			</meaning>
+		</meanings>
+	</translation>
+	<translation>
+		<foreignWord>tell</foreignWord>
+		<pronunciation>/tɛl/</pronunciation>
+		<audioName>tell</audioName>
+		<meanings>
+			<meaning>
+				<wordMeaning>powiedzieć</wordMeaning>
+				<exampleSentence>I told him it was stupid - powiedziałem mu, że to było głupie</exampleSentence>
+				<imgName></imgName>
+			</meaning>
+			<meaning>
+				<wordMeaning>mówić</wordMeaning>
+				<exampleSentence>I'm telling you - mówię ci</exampleSentence>
+				<imgName></imgName>
+			</meaning>
+			<meaning>
+				<wordMeaning>opowiadać</wordMeaning>
+				<exampleSentence>he tells interesting stories - on opowiada interesujące historie</exampleSentence>
+				<imgName></imgName>
+			</meaning>
+		</meanings>
+	</translation>
+	<translation>
+		<foreignWord>call</foreignWord>
+		<pronunciation>/kɔːl/</pronunciation>
+		<audioName>call</audioName>
+		<meanings>
+			<meaning>
+				<wordMeaning>nazwać</wordMeaning>
+				<exampleSentence>I called my dog Burek - nazwałem mojego psa Burek</exampleSentence>
+				<imgName></imgName>
+			</meaning>
+			<meaning>
+				<wordMeaning>wezwać</wordMeaning>
+				<exampleSentence>I called my assistant - wezwałem mojego asystenta</exampleSentence>
+				<imgName></imgName>
+			</meaning>
+			<meaning>
+				<wordMeaning>wołać</wordMeaning>
+				<exampleSentence>he called her name - on zawołał jej imię</exampleSentence>
+				<imgName></imgName>
+			</meaning>
+			<meaning>
+				<wordMeaning>dzwonić</wordMeaning>
+				<exampleSentence>she called me on the phone - ona do mnie zadzwoniła przez telefon</exampleSentence>
+				<imgName></imgName>
+			</meaning>
+			<meaning>
+				<wordMeaning>wezwanie</wordMeaning>
+				<exampleSentence>I heard her call - usłyszałem jej wezwanie</exampleSentence>
+				<imgName></imgName>
+			</meaning>
+			<meaning>
+				<wordMeaning>rozmowa telefoniczna</wordMeaning>
+				<exampleSentence>I received the (phone) call - odebrałem rozmowę telefoniczną</exampleSentence>
+				<imgName></imgName>
+			</meaning>
+		</meanings>
+	</translation>
+	<translation>
+		<foreignWord>make</foreignWord>
+		<pronunciation>/meɪk/</pronunciation>
+		<audioName>make</audioName>
+		<meanings>
+			<meaning>
+				<wordMeaning>robić</wordMeaning>
+				<exampleSentence>you are making a mistake - robisz błąd</exampleSentence>
+				<imgName></imgName>
+			</meaning>
+			<meaning>
+				<wordMeaning>produkować</wordMeaning>
+				<exampleSentence>he makes furniture - on produkuje meble</exampleSentence>
+				<imgName></imgName>
+			</meaning>
+			<meaning>
+				<wordMeaning>zarabiać</wordMeaning>
+				<exampleSentence>he makes one thousand dollars a month</exampleSentence>
+				<imgName></imgName>
+			</meaning>
+			<meaning>
+				<wordMeaning>zmuszać</wordMeaning>
+				<exampleSentence>she made him do it - ona zmusiła go, żeby to zrobił</exampleSentence>
+				<imgName></imgName>
+			</meaning>
+		</meanings>
+	</translation>
+	<translation>
+		<foreignWord>love</foreignWord>
+		<pronunciation>/lʌv/</pronunciation>
+		<audioName>love</audioName>
+		<meanings>
+			<meaning>
+				<wordMeaning>miłość</wordMeaning>
+				<exampleSentence>children need love - dzieci potrzebują miłości</exampleSentence>
+				<imgName></imgName>
+			</meaning>
+			<meaning>
+				<wordMeaning>kochać</wordMeaning>
+				<exampleSentence>I love you - kocham cię</exampleSentence>
+				<imgName></imgName>
+			</meaning>
+			<meaning>
+				<wordMeaning>kochać się</wordMeaning>
+				<exampleSentence>we made love - kochaliśmy się</exampleSentence>
+				<imgName></imgName>
+			</meaning>
+		</meanings>
+	</translation>
+	<translation>
+		<foreignWord>you</foreignWord>
+		<pronunciation>/juː/</pronunciation>
+		<audioName>you</audioName>
+		<meanings>
+			<meaning>
+				<wordMeaning>ty / wy / pan / pani</wordMeaning>
+				<exampleSentence>you are very kind - (ty / wy / pan / pani) jesteś/jest bardzo miły/a</exampleSentence>
+				<imgName></imgName>
+			</meaning>
+			<meaning>
+				<wordMeaning>cię / ciebie</wordMeaning>
+				<exampleSentence>I like you - lubię cię</exampleSentence>
+				<imgName></imgName>
+			</meaning>
+		</meanings>
+	</translation>
+	<translation>
+		<foreignWord>know</foreignWord>
+		<pronunciation>/nəʊ/</pronunciation>
+		<audioName>know</audioName>
+		<meanings>
+			<meaning>
+				<wordMeaning>wiedzieć</wordMeaning>
+				<exampleSentence>I know it - wiem to</exampleSentence>
+				<imgName></imgName>
+			</meaning>
+			<meaning>
+				<wordMeaning>znać</wordMeaning>
+				<exampleSentence>he knows her - on ją zna</exampleSentence>
+				<imgName></imgName>
+			</meaning>
+		</meanings>
+	</translation>
+	<translation>
+		<foreignWord>can</foreignWord>
+		<pronunciation>/kan/</pronunciation>
+		<audioName>can</audioName>
+		<meanings>
+			<meaning>
+				<wordMeaning>móc</wordMeaning>
+				<exampleSentence>I can swim - potrafię pływać</exampleSentence>
+				<imgName></imgName>
+			</meaning>
+			<meaning>
+				<wordMeaning>puszka</wordMeaning>
+				<exampleSentence>Coca-Cola can - puszka Coca-Coli</exampleSentence>
+				<imgName></imgName>
+			</meaning>
+		</meanings>
+	</translation>
+	<translation>
+		<foreignWord>get</foreignWord>
+		<pronunciation>/gɛt/</pronunciation>
+		<audioName>get</audioName>
+		<meanings>
+			<meaning>
+				<wordMeaning>dostać</wordMeaning>
+				<exampleSentence>he gets everything he wants - on dostaje wszystko czego chce</exampleSentence>
+				<imgName></imgName>
+			</meaning>
+			<meaning>
+				<wordMeaning>dotrzeć</wordMeaning>
+				<exampleSentence>to get home - dotrzeć do domu</exampleSentence>
+				<imgName></imgName>
+			</meaning>
+			<meaning>
+				<wordMeaning>robić się</wordMeaning>
+				<exampleSentence>it is getting late - robi się późno</exampleSentence>
+				<imgName></imgName>
+			</meaning>
+		</meanings>
+	</translation>
+	<translation>
+		<foreignWord>like</foreignWord>
+		<pronunciation>/lʌɪk/</pronunciation>
+		<audioName>like</audioName>
+		<meanings>
+			<meaning>
+				<wordMeaning>lubić</wordMeaning>
+				<exampleSentence>I like her - lubię ją</exampleSentence>
+				<imgName></imgName>
+			</meaning>
+			<meaning>
+				<wordMeaning>tak jak</wordMeaning>
+				<exampleSentence>this building looks like church – ten budynek wygląda jak kościół </exampleSentence>
+				<imgName></imgName>
+			</meaning>
+		</meanings>
+	</translation>
+	<translation>
+		<foreignWord>think</foreignWord>
+		<pronunciation>/θɪŋk/</pronunciation>
+		<audioName>think</audioName>
+		<meanings>
+			<meaning>
+				<wordMeaning>myśleć</wordMeaning>
+				<exampleSentence>I think she is beautiful - myślę, że ona jest piękna</exampleSentence>
+				<imgName></imgName>
+			</meaning>
+		</meanings>
+	</translation>
+	<translation>
+		<foreignWord>right</foreignWord>
+		<pronunciation>/rʌɪt/</pronunciation>
+		<audioName>right</audioName>
+		<meanings>
+			<meaning>
+				<wordMeaning>prawo</wordMeaning>
+				<exampleSentence>turn right - skręć w prawo</exampleSentence>
+				<imgName></imgName>
+			</meaning>
+			<meaning>
+				<wordMeaning>dobrze</wordMeaning>
+				<exampleSentence>did I guess right? - czy dobrze zgadłem?</exampleSentence>
+				<imgName></imgName>
+			</meaning>
+			<meaning>
+				<wordMeaning>odpowiedni</wordMeaning>
+				<exampleSentence>he is the right person - on jest odpowiednią osobą</exampleSentence>
+				<imgName></imgName>
+			</meaning>
+			<meaning>
+				<wordMeaning>racja / słuszność</wordMeaning>
+				<exampleSentence>he is right - on ma słuszność</exampleSentence>
+				<imgName></imgName>
+			</meaning>
+		</meanings>
+	</translation>
+	<translation>
+		<foreignWord>man</foreignWord>
+		<pronunciation>/man/</pronunciation>
+		<audioName>man</audioName>
+		<meanings>
+			<meaning>
+				<wordMeaning>człowiek</wordMeaning>
+				<exampleSentence>the most dangerous poison known to man - najgroźniejsza trucizna znana człowiekowi</exampleSentence>
+				<imgName></imgName>
+			</meaning>
+			<meaning>
+				<wordMeaning>mężczyzna</wordMeaning>
+				<exampleSentence>Larry is a strong man - Larry jest silnym mężczyzną</exampleSentence>
+				<imgName></imgName>
+			</meaning>
+		</meanings>
+	</translation>
+	<translation>
+		<foreignWord>help</foreignWord>
+		<pronunciation>/hɛlp/</pronunciation>
+		<audioName>help</audioName>
+		<meanings>
+			<meaning>
+				<wordMeaning>pomoc</wordMeaning>
+				<exampleSentence>I need your help - potrzebuję twojej pomocy</exampleSentence>
+				<imgName></imgName>
+			</meaning>
+			<meaning>
+				<wordMeaning>pomagać</wordMeaning>
+				<exampleSentence>can I help you? - w czym mogę pomóc? </exampleSentence>
+				<imgName></imgName>
+			</meaning>
+			<meaning>
+				<wordMeaning>pomocy</wordMeaning>
+				<exampleSentence>help! - pomocy!</exampleSentence>
+				<imgName></imgName>
+			</meaning>
+		</meanings>
+	</translation>
+	<translation>
+		<foreignWord>wrong</foreignWord>
+		<pronunciation>/rɒŋ/</pronunciation>
+		<audioName>wrong</audioName>
+		<meanings>
+			<meaning>
+				<wordMeaning>zły</wordMeaning>
+				<exampleSentence>It was wrong decision – to była zła decyzja</exampleSentence>
+				<imgName></imgName>
+			</meaning>
+			<meaning>
+				<wordMeaning>mylić się</wordMeaning>
+				<exampleSentence>you are wrong – mylisz się</exampleSentence>
+				<imgName></imgName>
+			</meaning>
+		</meanings>
+	</translation>
+	<translation>
+		<foreignWord>offer</foreignWord>
+		<pronunciation>/ˈɒfə/</pronunciation>
+		<audioName>offer</audioName>
+		<meanings>
+			<meaning>
+				<wordMeaning>oferta</wordMeaning>
+				<exampleSentence>he accepted my offer - zaakceptował moją ofertę</exampleSentence>
+				<imgName></imgName>
+			</meaning>
+			<meaning>
+				<wordMeaning>oferować</wordMeaning>
+				<exampleSentence>I offer you my help - oferuję ci moją pomoc</exampleSentence>
+				<imgName></imgName>
+			</meaning>
+		</meanings>
+	</translation>
+	<translation>
+		<foreignWord>fancy</foreignWord>
+		<pronunciation>/ˈfansi/</pronunciation>
+		<audioName>fancy</audioName>
+		<meanings>
+			<meaning>
+				<wordMeaning>fantazyjny / ekstrawagancki</wordMeaning>
+				<exampleSentence>it is a fancy dress - to jest fantazyjna suknia</exampleSentence>
+				<imgName></imgName>
+			</meaning>
+			<meaning>
+				<wordMeaning>mieć ochotę na</wordMeaning>
+				<exampleSentence>do you fancy a cup of tea? - masz ochotę na filiżankę herbaty?</exampleSentence>
+				<imgName></imgName>
+			</meaning>
+			<meaning>
+				<wordMeaning>podobać się</wordMeaning>
+				<exampleSentence>I fancy her - ona mi się podoba</exampleSentence>
+				<imgName></imgName>
+			</meaning>
+		</meanings>
+	</translation>
+	<translation>
+		<foreignWord>fool</foreignWord>
+		<pronunciation>/fuːl/</pronunciation>
+		<audioName>fool</audioName>
+		<meanings>
+			<meaning>
+				<wordMeaning>nabierać</wordMeaning>
+				<exampleSentence>you can't fool me - mnie nie nabierzesz</exampleSentence>
+				<imgName></imgName>
+			</meaning>
+			<meaning>
+				<wordMeaning>głupiec</wordMeaning>
+				<exampleSentence>you're a fool - jesteś głupcem</exampleSentence>
+				<imgName></imgName>
+			</meaning>
+			<meaning>
+				<wordMeaning>wygłupiać się</wordMeaning>
+				<exampleSentence>don't worry, I was only fooling - nie martw, tylko się wygłupiałem</exampleSentence>
+				<imgName></imgName>
+			</meaning>
+		</meanings>
+	</translation>
+	<translation>
+		<foreignWord>block</foreignWord>
+		<pronunciation>/blɒk/</pronunciation>
+		<audioName>block</audioName>
+		<meanings>
+			<meaning>
+				<wordMeaning>blokować</wordMeaning>
+				<exampleSentence>the street was blocked - ulica była zablokowana</exampleSentence>
+				<imgName></imgName>
+			</meaning>
+			<meaning>
+				<wordMeaning>blok (mieszkalny)</wordMeaning>
+				<exampleSentence>he lives in this block - on mieszka w tym blocku</exampleSentence>
+				<imgName></imgName>
+			</meaning>
+			<meaning>
+				<wordMeaning>blok / bryła</wordMeaning>
+				<exampleSentence>a block of ice - bryła lodu</exampleSentence>
+				<imgName></imgName>
+			</meaning>
+		</meanings>
+	</translation>
+	<translation>
+		<foreignWord>often</foreignWord>
+		<pronunciation>/ˈɒf(ə)n/</pronunciation>
+		<audioName>often</audioName>
+		<meanings>
+			<meaning>
+				<wordMeaning>często</wordMeaning>
+				<exampleSentence>we often meet over a cup of coffee - często spotykamy się przy filiżance kawy</exampleSentence>
+				<imgName></imgName>
+			</meaning>
+		</meanings>
+	</translation>
+	<translation>
+		<foreignWord>shape</foreignWord>
+		<pronunciation>/ʃeɪp/</pronunciation>
+		<audioName>shape</audioName>
+		<meanings>
+			<meaning>
+				<wordMeaning>kształt</wordMeaning>
+				<exampleSentence>I saw a strange shape in the fog - ujrzałem dziwny kszałt we mgle</exampleSentence>
+				<imgName></imgName>
+			</meaning>
+			<meaning>
+				<wordMeaning>forma</wordMeaning>
+				<exampleSentence>he is in a good shape - on jest w dobrej formie</exampleSentence>
+				<imgName></imgName>
+			</meaning>
+			<meaning>
+				<wordMeaning>kształtować</wordMeaning>
+				<exampleSentence>my father shaped my character - mój ojciec ukształtował mój charakter</exampleSentence>
+				<imgName></imgName>
+			</meaning>
+		</meanings>
+	</translation>
+	<translation>
+		<foreignWord>honey</foreignWord>
+		<pronunciation>/ˈhʌni/</pronunciation>
+		<audioName>honey</audioName>
+		<meanings>
+			<meaning>
+				<wordMeaning>miód</wordMeaning>
+				<exampleSentence>honey is very sweet - miód jest bardzo słodki</exampleSentence>
+				<imgName></imgName>
+			</meaning>
+			<meaning>
+				<wordMeaning>kochanie</wordMeaning>
+				<exampleSentence>Hi honey - cześć kochanie</exampleSentence>
+				<imgName></imgName>
+			</meaning>
+		</meanings>
+	</translation>
+	<translation>
+		<foreignWord>load</foreignWord>
+		<pronunciation>/ləʊd/</pronunciation>
+		<audioName>load</audioName>
+		<meanings>
+			<meaning>
+				<wordMeaning>ładować</wordMeaning>
+				<exampleSentence>they loaded the truck - załadowali ciężarówkę</exampleSentence>
+				<imgName></imgName>
+			</meaning>
+			<meaning>
+				<wordMeaning>ładunek</wordMeaning>
+				<exampleSentence>he helped me to carry the load - pomógł mi nieść ładunek</exampleSentence>
+				<imgName></imgName>
+			</meaning>
+			<meaning>
+				<wordMeaning>obciążenie</wordMeaning>
+				<exampleSentence>the system crashed under excessive load - system padł pod zbyt dużym obciążeniem</exampleSentence>
+				<imgName></imgName>
+			</meaning>
+		</meanings>
+	</translation>
+	<translation>
+		<foreignWord>hardly</foreignWord>
+		<pronunciation>/ˈhɑːdli/</pronunciation>
+		<audioName>hardly</audioName>
+		<meanings>
+			<meaning>
+				<wordMeaning>prawie nie</wordMeaning>
+				<exampleSentence>he could hardly walk - on prawie nie mógł chodzić</exampleSentence>
+				<imgName></imgName>
+			</meaning>
+		</meanings>
+	</translation>
+</wordList>
