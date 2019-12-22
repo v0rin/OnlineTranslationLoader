@@ -24,7 +24,8 @@ public class XmlTranslationPublisher implements TranslationPublisher {
 	public void addMeaning(String foreignWord,
 						   String wordMeaning,
 						   String source) {
-		LOG.info(format("added meaning from [%s]: foreignWord=%s, meaning=%s", source, foreignWord, wordMeaning));
+		LOG.info(format("added meaning from [%s]: foreignWord=%s, meaning=%s, total words=%s",
+						source, foreignWord, wordMeaning, wordlist.size()));
 		wordlist.addMeaning(foreignWord, wordMeaning, source);
 	}
 

@@ -68,6 +68,11 @@ public class WordList {
             translations.add(translation);
         }
 
+        if (findMeaning(translation, wordMeaning) != null) {
+            throw new RuntimeException(format("The translation: foreignWord [%s] and wordMeaning [%s] already exists",
+                                              foreignWord, wordMeaning));
+        }
+
         translation.getMeanings().add(new Meaning(wordMeaning, null, null, source, null));
     }
 
@@ -109,6 +114,15 @@ public class WordList {
     }
 
 
+    public Meaning findMeaning(String foreignWord, String wordMeaning) {
+        var t = findTranslationForWord(foreignWord);
+        if (t == null) {
+            return null;
+        }
+        return findMeaning(t, wordMeaning);
+    }
+
+
     public Meaning findMeaning(Translation translation, String wordMeaning) {
         var meanings = translation.getMeanings().stream().filter(m -> m.getWordMeaning().equals(wordMeaning)).collect(toList());
         if (meanings.isEmpty()) {
@@ -130,6 +144,11 @@ public class WordList {
     @XmlElement(name = "translation")
     public void setTranslations(List<Translation> translations) {
         this.translations = translations;
+    }
+
+
+    public int size() {
+        return getTranslations().size();
     }
 
 
@@ -164,11 +183,19 @@ public class WordList {
 
 
     private String getAudioName(String foreignWord) {
+        var t = originalWordList.get(foreignWord);
+        if (t == null) {
+            return "";
+        }
         return originalWordList.get(foreignWord).getAudioName();
     }
 
 
     private String getPronunciation(String foreignWord) {
+        var t = originalWordList.get(foreignWord);
+        if (t == null) {
+            return "";
+        }
         return originalWordList.get(foreignWord).getPronunciation();
     }
 

@@ -1,7 +1,10 @@
 package org.vorin.bestwords.loaders;
 
 import java.io.*;
+import java.net.URLEncoder;
+import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 
 import com.fasterxml.jackson.databind.JsonNode;
@@ -15,6 +18,7 @@ import com.mashape.unirest.request.HttpRequest;
 import org.apache.commons.io.IOUtils;
 import org.apache.commons.lang3.tuple.ImmutablePair;
 import org.apache.commons.lang3.tuple.Pair;
+import org.vorin.bestwords.model.WordList;
 import org.vorin.bestwords.util.Logger;
 import org.vorin.bestwords.TranslationPublisher;
 
@@ -27,47 +31,81 @@ import static org.vorin.bestwords.util.Util.stripSurroundingQuotes;
 
 public class GoogleTranslateMeaningLoader {
 
+    public enum Dictionary {
+        EN_ES, ES_EN;
+    }
+
     private static final Logger LOG = Logger.get(GoogleTranslateMeaningLoader.class);
 
     private static final long WAIT_BETWEEN_REQUESTS_MS = 5000;
 
     //https://stackoverflow.com/questions/8085743/google-translate-vs-translate-api
     //https://stackoverflow.com/questions/57397073/difference-between-the-google-translate-api
-    private static final String GOOGLE_TRANSLATE_URL = "https://translate.googleapis.com/translate_a/single?client=gtx&sl=en&tl=es&hl=en&dt=at&dt=bd&dt=ex&dt=ld&dt=md&dt=qca&dt=rw&dt=rm&dt=ss&dt=t&dt=gt&source=bh&ssel=0&tsel=0&kc=1&q=";
+    private static final String URL_EN_ES = "https://translate.googleapis.com/translate_a/single?client=gtx&sl=en&tl=es&hl=en&dt=at&dt=bd&dt=ex&dt=ld&dt=md&dt=qca&dt=rw&dt=rm&dt=ss&dt=t&dt=gt&source=bh&ssel=0&tsel=0&kc=1&q=";
+    private static final String URL_ES_EN = "https://translate.googleapis.com/translate_a/single?client=gtx&sl=es&tl=en&hl=en&dt=at&dt=bd&dt=ex&dt=ld&dt=md&dt=qca&dt=rw&dt=rm&dt=ss&dt=t&dt=gt&source=bh&ssel=0&tsel=0&kc=1&q=";
     private static final String GOOGLE_TRANSLATE_SOURCE = "google-translate";
 
     private ObjectMapper objectMapper = new ObjectMapper();
 
+    private String url;
     private TranslationPublisher translationPublisher;
     private int maxMeaningCount;
     private double minScore;
     private boolean useCache;
+    private final WordList reverseWordList;
 
     private Stopwatch googleRequestsStopwatch;
 
-    public GoogleTranslateMeaningLoader(TranslationPublisher translationPublisher, double minScore, int maxMeaningCount, boolean useCache) {
+    public GoogleTranslateMeaningLoader(Dictionary dictionary,
+                                        TranslationPublisher translationPublisher,
+                                        double minScore,
+                                        int maxMeaningCount,
+                                        boolean useCache) {
+        this(dictionary, translationPublisher, minScore, maxMeaningCount, useCache, null);
+    }
+
+    public GoogleTranslateMeaningLoader(Dictionary dictionary,
+                                        TranslationPublisher translationPublisher,
+                                        double minScore,
+                                        int maxMeaningCount,
+                                        boolean useCache,
+                                        WordList reverseWordList) {
+        if (dictionary == Dictionary.EN_ES) {
+            this.url = URL_EN_ES;
+        } else if (dictionary == Dictionary.ES_EN) {
+            this.url = URL_ES_EN;
+        }
         this.translationPublisher = translationPublisher;
         this.minScore = minScore;
         this.maxMeaningCount = maxMeaningCount;
         this.useCache = useCache;
+        this.reverseWordList = reverseWordList;
     }
 
     public void load(List<String> words) throws IOException {
         LOG.info("started...");
         googleRequestsStopwatch = Stopwatch.createUnstarted();
+        var addedForeignWords = new HashSet<String>();
         for (String word : words) {
+            if (addedForeignWords.contains(word)) {
+                throw new RuntimeException(format("foreignWord [%s] has been already added - there are some duplicated words it seems", word));
+            }
             JsonNode node = objectMapper.readTree(getJsonForWord(word));
 
             List<Pair<Double, String>> meaningsWithScores = new ArrayList<>();
             for (int i = 0; i < node.get(1).size(); i++) {
-                // String wordType = node.get(1).get(i).get(0).toString();
+                String wordType = node.get(1).get(i).get(0).toString();
                 for (int j = 0; j < node.get(1).get(i).get(2).size(); j++)
                 {
                     String meaning = stripSurroundingQuotes(node.get(1).get(i).get(2).get(j).get(0).toString());
-                    double score = Double.parseDouble(node.get(1).get(i).get(2).get(j).get(3).toString());
+                    var scoreObj = node.get(1).get(i).get(2).get(j).get(3);
+                    if (scoreObj == null) continue;
+                    double score = Double.parseDouble(scoreObj.toString());
 
                     if (score >= minScore) {
                         meaningsWithScores.add(new ImmutablePair<>(score, meaning));
+//                        LOG.info(format("possible meaning from [%s]: foreignWord=%s, meaning=%s; wordType=%s",
+//                                        GOOGLE_TRANSLATE_SOURCE, word, meaning, wordType));
                     }
                 }
             }
@@ -75,13 +113,35 @@ public class GoogleTranslateMeaningLoader {
             meaningsWithScores = meaningsWithScores.stream().sorted((m1, m2) -> m2.getLeft().compareTo(m1.getLeft())).collect(toList());
             LOG.info(format("meanings for [%s] - %s", word, meaningsWithScores.toString()));
 
-            meaningsWithScores.stream()
-                    .limit(Math.min(meaningsWithScores.size(), maxMeaningCount))
-                    .forEachOrdered(ms -> {
-                        translationPublisher.addMeaning(word, ms.getRight(), GOOGLE_TRANSLATE_SOURCE);
-                    });
+            var addedMeanings = new HashSet<String>();
+            for (var ms : meaningsWithScores) {
+                String meaning = ms.getRight();
+                if (!addedMeanings.contains(meaning)) { // don't add duplicate meanings
+                    if (!existsInReverseWordList(word, meaning)) {
+                        LOG.info(format("meaning from [%s] foreignWord=%s, meaning=%s discarded as it does not exist in the reverse wordlist",
+                                        GOOGLE_TRANSLATE_SOURCE, word, meaning));
+                        continue;
+                    }
+                    translationPublisher.addMeaning(word, meaning, GOOGLE_TRANSLATE_SOURCE);
+                    addedMeanings.add(meaning);
+                    if (addedMeanings.size() >= maxMeaningCount) break;
+                }
+            }
+            addedForeignWords.add(word);
         }
         LOG.info("loading complete");
+    }
+
+    private boolean existsInReverseWordList(String word, String meaning) {
+        if (reverseWordList == null) {
+            return true;
+        }
+
+        if (reverseWordList.findMeaning(meaning, word) != null) {
+            return true;
+        }
+
+        return false;
     }
 
     private InputStream getJsonForWord(String word) throws IOException {
@@ -94,7 +154,7 @@ public class GoogleTranslateMeaningLoader {
             LOG.info(format("no cached file for word=%s asking Google...", word));
         }
 
-        HttpRequest request = Unirest.get(GOOGLE_TRANSLATE_URL + word);
+        HttpRequest request = Unirest.get(url + URLEncoder.encode(word, StandardCharsets.UTF_8));
         try {
 
             while (googleRequestsStopwatch.isRunning() && googleRequestsStopwatch.elapsed().toMillis() < WAIT_BETWEEN_REQUESTS_MS) {

@@ -1,0 +1,568 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<wordList>
+    <translation>
+        <foreignWord>take</foreignWord>
+        <pronunciation>/teɪk/</pronunciation>
+        <audioName>take</audioName>
+        <meanings>
+            <meaning wordMeaningSource="google-translate" exampleSentenceSource="" comment="">
+                <wordMeaning>toma</wordMeaning>
+                <exampleSentence></exampleSentence>
+                <imgName></imgName>
+            </meaning>
+            <meaning wordMeaningSource="google-translate" exampleSentenceSource="" comment="">
+                <wordMeaning>tomar</wordMeaning>
+                <exampleSentence></exampleSentence>
+                <imgName></imgName>
+            </meaning>
+            <meaning wordMeaningSource="google-translate" exampleSentenceSource="" comment="">
+                <wordMeaning>llevar</wordMeaning>
+                <exampleSentence></exampleSentence>
+                <imgName></imgName>
+            </meaning>
+            <meaning wordMeaningSource="google-translate" exampleSentenceSource="" comment="">
+                <wordMeaning>aprovechar</wordMeaning>
+                <exampleSentence></exampleSentence>
+                <imgName></imgName>
+            </meaning>
+        </meanings>
+    </translation>
+    <translation>
+        <foreignWord>mean</foreignWord>
+        <pronunciation>/miːn/</pronunciation>
+        <audioName>mean</audioName>
+        <meanings>
+            <meaning wordMeaningSource="google-translate" exampleSentenceSource="" comment="">
+                <wordMeaning>media</wordMeaning>
+                <exampleSentence></exampleSentence>
+                <imgName></imgName>
+            </meaning>
+            <meaning wordMeaningSource="google-translate" exampleSentenceSource="" comment="">
+                <wordMeaning>significar</wordMeaning>
+                <exampleSentence></exampleSentence>
+                <imgName></imgName>
+            </meaning>
+            <meaning wordMeaningSource="google-translate" exampleSentenceSource="" comment="">
+                <wordMeaning>promedio</wordMeaning>
+                <exampleSentence></exampleSentence>
+                <imgName></imgName>
+            </meaning>
+        </meanings>
+    </translation>
+    <translation>
+        <foreignWord>tell</foreignWord>
+        <pronunciation>/tɛl/</pronunciation>
+        <audioName>tell</audioName>
+        <meanings>
+            <meaning wordMeaningSource="google-translate" exampleSentenceSource="" comment="">
+                <wordMeaning>contar</wordMeaning>
+                <exampleSentence></exampleSentence>
+                <imgName></imgName>
+            </meaning>
+            <meaning wordMeaningSource="google-translate" exampleSentenceSource="" comment="">
+                <wordMeaning>decir</wordMeaning>
+                <exampleSentence></exampleSentence>
+                <imgName></imgName>
+            </meaning>
+        </meanings>
+    </translation>
+    <translation>
+        <foreignWord>call</foreignWord>
+        <pronunciation>/kɔːl/</pronunciation>
+        <audioName>call</audioName>
+        <meanings>
+            <meaning wordMeaningSource="google-translate" exampleSentenceSource="" comment="">
+                <wordMeaning>llamada</wordMeaning>
+                <exampleSentence></exampleSentence>
+                <imgName></imgName>
+            </meaning>
+            <meaning wordMeaningSource="google-translate" exampleSentenceSource="" comment="">
+                <wordMeaning>llamar</wordMeaning>
+                <exampleSentence></exampleSentence>
+                <imgName></imgName>
+            </meaning>
+            <meaning wordMeaningSource="google-translate" exampleSentenceSource="" comment="">
+                <wordMeaning>llamamiento</wordMeaning>
+                <exampleSentence></exampleSentence>
+                <imgName></imgName>
+            </meaning>
+        </meanings>
+    </translation>
+    <translation>
+        <foreignWord>make</foreignWord>
+        <pronunciation>/meɪk/</pronunciation>
+        <audioName>make</audioName>
+        <meanings>
+            <meaning wordMeaningSource="google-translate" exampleSentenceSource="" comment="">
+                <wordMeaning>hacer</wordMeaning>
+                <exampleSentence></exampleSentence>
+                <imgName></imgName>
+            </meaning>
+            <meaning wordMeaningSource="google-translate" exampleSentenceSource="" comment="">
+                <wordMeaning>marca</wordMeaning>
+                <exampleSentence></exampleSentence>
+                <imgName></imgName>
+            </meaning>
+        </meanings>
+    </translation>
+    <translation>
+        <foreignWord>love</foreignWord>
+        <pronunciation>/lʌv/</pronunciation>
+        <audioName>love</audioName>
+        <meanings>
+            <meaning wordMeaningSource="google-translate" exampleSentenceSource="" comment="">
+                <wordMeaning>amor</wordMeaning>
+                <exampleSentence></exampleSentence>
+                <imgName></imgName>
+            </meaning>
+            <meaning wordMeaningSource="google-translate" exampleSentenceSource="" comment="">
+                <wordMeaning>amar</wordMeaning>
+                <exampleSentence></exampleSentence>
+                <imgName></imgName>
+            </meaning>
+        </meanings>
+    </translation>
+    <translation>
+        <foreignWord>you</foreignWord>
+        <pronunciation>/juː/</pronunciation>
+        <audioName>you</audioName>
+        <meanings>
+            <meaning wordMeaningSource="google-translate" exampleSentenceSource="" comment="">
+                <wordMeaning>usted</wordMeaning>
+                <exampleSentence></exampleSentence>
+                <imgName></imgName>
+            </meaning>
+            <meaning wordMeaningSource="google-translate" exampleSentenceSource="" comment="">
+                <wordMeaning>le</wordMeaning>
+                <exampleSentence></exampleSentence>
+                <imgName></imgName>
+            </meaning>
+            <meaning wordMeaningSource="google-translate" exampleSentenceSource="" comment="">
+                <wordMeaning>te</wordMeaning>
+                <exampleSentence></exampleSentence>
+                <imgName></imgName>
+            </meaning>
+            <meaning wordMeaningSource="google-translate" exampleSentenceSource="" comment="">
+                <wordMeaning>ustedes</wordMeaning>
+                <exampleSentence></exampleSentence>
+                <imgName></imgName>
+            </meaning>
+            <meaning wordMeaningSource="google-translate" exampleSentenceSource="" comment="">
+                <wordMeaning>vosotros</wordMeaning>
+                <exampleSentence></exampleSentence>
+                <imgName></imgName>
+            </meaning>
+        </meanings>
+    </translation>
+    <translation>
+        <foreignWord>know</foreignWord>
+        <pronunciation>/nəʊ/</pronunciation>
+        <audioName>know</audioName>
+        <meanings>
+            <meaning wordMeaningSource="google-translate" exampleSentenceSource="" comment="">
+                <wordMeaning>saber</wordMeaning>
+                <exampleSentence></exampleSentence>
+                <imgName></imgName>
+            </meaning>
+            <meaning wordMeaningSource="google-translate" exampleSentenceSource="" comment="">
+                <wordMeaning>conocer</wordMeaning>
+                <exampleSentence></exampleSentence>
+                <imgName></imgName>
+            </meaning>
+        </meanings>
+    </translation>
+    <translation>
+        <foreignWord>can</foreignWord>
+        <pronunciation>/kan/</pronunciation>
+        <audioName>can</audioName>
+        <meanings>
+            <meaning wordMeaningSource="google-translate" exampleSentenceSource="" comment="">
+                <wordMeaning>lata</wordMeaning>
+                <exampleSentence></exampleSentence>
+                <imgName></imgName>
+            </meaning>
+            <meaning wordMeaningSource="google-translate" exampleSentenceSource="" comment="">
+                <wordMeaning>poder</wordMeaning>
+                <exampleSentence></exampleSentence>
+                <imgName></imgName>
+            </meaning>
+        </meanings>
+    </translation>
+    <translation>
+        <foreignWord>get</foreignWord>
+        <pronunciation>/gɛt/</pronunciation>
+        <audioName>get</audioName>
+        <meanings>
+            <meaning wordMeaningSource="google-translate" exampleSentenceSource="" comment="">
+                <wordMeaning>obtener</wordMeaning>
+                <exampleSentence></exampleSentence>
+                <imgName></imgName>
+            </meaning>
+            <meaning wordMeaningSource="google-translate" exampleSentenceSource="" comment="">
+                <wordMeaning>llegar</wordMeaning>
+                <exampleSentence></exampleSentence>
+                <imgName></imgName>
+            </meaning>
+            <meaning wordMeaningSource="google-translate" exampleSentenceSource="" comment="">
+                <wordMeaning>conseguir</wordMeaning>
+                <exampleSentence></exampleSentence>
+                <imgName></imgName>
+            </meaning>
+            <meaning wordMeaningSource="google-translate" exampleSentenceSource="" comment="">
+                <wordMeaning>recibir</wordMeaning>
+                <exampleSentence></exampleSentence>
+                <imgName></imgName>
+            </meaning>
+        </meanings>
+    </translation>
+    <translation>
+        <foreignWord>like</foreignWord>
+        <pronunciation>/lʌɪk/</pronunciation>
+        <audioName>like</audioName>
+        <meanings>
+            <meaning wordMeaningSource="google-translate" exampleSentenceSource="" comment="">
+                <wordMeaning>gustar</wordMeaning>
+                <exampleSentence></exampleSentence>
+                <imgName></imgName>
+            </meaning>
+            <meaning wordMeaningSource="google-translate" exampleSentenceSource="" comment="">
+                <wordMeaning>como</wordMeaning>
+                <exampleSentence></exampleSentence>
+                <imgName></imgName>
+            </meaning>
+            <meaning wordMeaningSource="google-translate" exampleSentenceSource="" comment="">
+                <wordMeaning>igual</wordMeaning>
+                <exampleSentence></exampleSentence>
+                <imgName></imgName>
+            </meaning>
+        </meanings>
+    </translation>
+    <translation>
+        <foreignWord>think</foreignWord>
+        <pronunciation>/θɪŋk/</pronunciation>
+        <audioName>think</audioName>
+        <meanings>
+            <meaning wordMeaningSource="google-translate" exampleSentenceSource="" comment="">
+                <wordMeaning>pensar</wordMeaning>
+                <exampleSentence></exampleSentence>
+                <imgName></imgName>
+            </meaning>
+            <meaning wordMeaningSource="google-translate" exampleSentenceSource="" comment="">
+                <wordMeaning>imaginar</wordMeaning>
+                <exampleSentence></exampleSentence>
+                <imgName></imgName>
+            </meaning>
+            <meaning wordMeaningSource="google-translate" exampleSentenceSource="" comment="">
+                <wordMeaning>creer</wordMeaning>
+                <exampleSentence></exampleSentence>
+                <imgName></imgName>
+            </meaning>
+        </meanings>
+    </translation>
+    <translation>
+        <foreignWord>right</foreignWord>
+        <pronunciation>/rʌɪt/</pronunciation>
+        <audioName>right</audioName>
+        <meanings>
+            <meaning wordMeaningSource="google-translate" exampleSentenceSource="" comment="">
+                <wordMeaning>derecho</wordMeaning>
+                <exampleSentence></exampleSentence>
+                <imgName></imgName>
+            </meaning>
+            <meaning wordMeaningSource="google-translate" exampleSentenceSource="" comment="">
+                <wordMeaning>derecha</wordMeaning>
+                <exampleSentence></exampleSentence>
+                <imgName></imgName>
+            </meaning>
+            <meaning wordMeaningSource="google-translate" exampleSentenceSource="" comment="">
+                <wordMeaning>enderezar</wordMeaning>
+                <exampleSentence></exampleSentence>
+                <imgName></imgName>
+            </meaning>
+            <meaning wordMeaningSource="google-translate" exampleSentenceSource="" comment="">
+                <wordMeaning>justo</wordMeaning>
+                <exampleSentence></exampleSentence>
+                <imgName></imgName>
+            </meaning>
+        </meanings>
+    </translation>
+    <translation>
+        <foreignWord>man</foreignWord>
+        <pronunciation>/man/</pronunciation>
+        <audioName>man</audioName>
+        <meanings>
+            <meaning wordMeaningSource="google-translate" exampleSentenceSource="" comment="">
+                <wordMeaning>hombre</wordMeaning>
+                <exampleSentence></exampleSentence>
+                <imgName></imgName>
+            </meaning>
+            <meaning wordMeaningSource="google-translate" exampleSentenceSource="" comment="">
+                <wordMeaning>tripular</wordMeaning>
+                <exampleSentence></exampleSentence>
+                <imgName></imgName>
+            </meaning>
+        </meanings>
+    </translation>
+    <translation>
+        <foreignWord>help</foreignWord>
+        <pronunciation>/hɛlp/</pronunciation>
+        <audioName>help</audioName>
+        <meanings>
+            <meaning wordMeaningSource="google-translate" exampleSentenceSource="" comment="">
+                <wordMeaning>ayuda</wordMeaning>
+                <exampleSentence></exampleSentence>
+                <imgName></imgName>
+            </meaning>
+            <meaning wordMeaningSource="google-translate" exampleSentenceSource="" comment="">
+                <wordMeaning>ayudar</wordMeaning>
+                <exampleSentence></exampleSentence>
+                <imgName></imgName>
+            </meaning>
+        </meanings>
+    </translation>
+    <translation>
+        <foreignWord>wrong</foreignWord>
+        <pronunciation>/rɒŋ/</pronunciation>
+        <audioName>wrong</audioName>
+        <meanings>
+            <meaning wordMeaningSource="google-translate" exampleSentenceSource="" comment="">
+                <wordMeaning>incorrecto</wordMeaning>
+                <exampleSentence></exampleSentence>
+                <imgName></imgName>
+            </meaning>
+            <meaning wordMeaningSource="google-translate" exampleSentenceSource="" comment="">
+                <wordMeaning>mal</wordMeaning>
+                <exampleSentence></exampleSentence>
+                <imgName></imgName>
+            </meaning>
+            <meaning wordMeaningSource="google-translate" exampleSentenceSource="" comment="">
+                <wordMeaning>equivocado</wordMeaning>
+                <exampleSentence></exampleSentence>
+                <imgName></imgName>
+            </meaning>
+            <meaning wordMeaningSource="google-translate" exampleSentenceSource="" comment="">
+                <wordMeaning>malo</wordMeaning>
+                <exampleSentence></exampleSentence>
+                <imgName></imgName>
+            </meaning>
+            <meaning wordMeaningSource="google-translate" exampleSentenceSource="" comment="">
+                <wordMeaning>erróneo</wordMeaning>
+                <exampleSentence></exampleSentence>
+                <imgName></imgName>
+            </meaning>
+        </meanings>
+    </translation>
+    <translation>
+        <foreignWord>offer</foreignWord>
+        <pronunciation>/ˈɒfə/</pronunciation>
+        <audioName>offer</audioName>
+        <meanings>
+            <meaning wordMeaningSource="google-translate" exampleSentenceSource="" comment="">
+                <wordMeaning>oferta</wordMeaning>
+                <exampleSentence></exampleSentence>
+                <imgName></imgName>
+            </meaning>
+            <meaning wordMeaningSource="google-translate" exampleSentenceSource="" comment="">
+                <wordMeaning>ofrecer</wordMeaning>
+                <exampleSentence></exampleSentence>
+                <imgName></imgName>
+            </meaning>
+            <meaning wordMeaningSource="google-translate" exampleSentenceSource="" comment="">
+                <wordMeaning>ofrecimiento</wordMeaning>
+                <exampleSentence></exampleSentence>
+                <imgName></imgName>
+            </meaning>
+        </meanings>
+    </translation>
+    <translation>
+        <foreignWord>fancy</foreignWord>
+        <pronunciation>/ˈfansi/</pronunciation>
+        <audioName>fancy</audioName>
+        <meanings>
+            <meaning wordMeaningSource="google-translate" exampleSentenceSource="" comment="">
+                <wordMeaning>fantasía</wordMeaning>
+                <exampleSentence></exampleSentence>
+                <imgName></imgName>
+            </meaning>
+            <meaning wordMeaningSource="google-translate" exampleSentenceSource="" comment="">
+                <wordMeaning>suposición</wordMeaning>
+                <exampleSentence></exampleSentence>
+                <imgName></imgName>
+            </meaning>
+            <meaning wordMeaningSource="google-translate" exampleSentenceSource="" comment="">
+                <wordMeaning>lujoso</wordMeaning>
+                <exampleSentence></exampleSentence>
+                <imgName></imgName>
+            </meaning>
+        </meanings>
+    </translation>
+    <translation>
+        <foreignWord>fool</foreignWord>
+        <pronunciation>/fuːl/</pronunciation>
+        <audioName>fool</audioName>
+        <meanings>
+            <meaning wordMeaningSource="google-translate" exampleSentenceSource="" comment="">
+                <wordMeaning>engañar</wordMeaning>
+                <exampleSentence></exampleSentence>
+                <imgName></imgName>
+            </meaning>
+            <meaning wordMeaningSource="google-translate" exampleSentenceSource="" comment="">
+                <wordMeaning>tonto</wordMeaning>
+                <exampleSentence></exampleSentence>
+                <imgName></imgName>
+            </meaning>
+            <meaning wordMeaningSource="google-translate" exampleSentenceSource="" comment="">
+                <wordMeaning>necio</wordMeaning>
+                <exampleSentence></exampleSentence>
+                <imgName></imgName>
+            </meaning>
+            <meaning wordMeaningSource="google-translate" exampleSentenceSource="" comment="">
+                <wordMeaning>idiota</wordMeaning>
+                <exampleSentence></exampleSentence>
+                <imgName></imgName>
+            </meaning>
+            <meaning wordMeaningSource="google-translate" exampleSentenceSource="" comment="">
+                <wordMeaning>imbécil</wordMeaning>
+                <exampleSentence></exampleSentence>
+                <imgName></imgName>
+            </meaning>
+        </meanings>
+    </translation>
+    <translation>
+        <foreignWord>block</foreignWord>
+        <pronunciation>/blɒk/</pronunciation>
+        <audioName>block</audioName>
+        <meanings>
+            <meaning wordMeaningSource="google-translate" exampleSentenceSource="" comment="">
+                <wordMeaning>bloquear</wordMeaning>
+                <exampleSentence></exampleSentence>
+                <imgName></imgName>
+            </meaning>
+            <meaning wordMeaningSource="google-translate" exampleSentenceSource="" comment="">
+                <wordMeaning>bloque</wordMeaning>
+                <exampleSentence></exampleSentence>
+                <imgName></imgName>
+            </meaning>
+            <meaning wordMeaningSource="google-translate" exampleSentenceSource="" comment="">
+                <wordMeaning>cuadra</wordMeaning>
+                <exampleSentence></exampleSentence>
+                <imgName></imgName>
+            </meaning>
+            <meaning wordMeaningSource="google-translate" exampleSentenceSource="" comment="">
+                <wordMeaning>manzana</wordMeaning>
+                <exampleSentence></exampleSentence>
+                <imgName></imgName>
+            </meaning>
+            <meaning wordMeaningSource="google-translate" exampleSentenceSource="" comment="">
+                <wordMeaning>bloqueo</wordMeaning>
+                <exampleSentence></exampleSentence>
+                <imgName></imgName>
+            </meaning>
+        </meanings>
+    </translation>
+    <translation>
+        <foreignWord>often</foreignWord>
+        <pronunciation>/ˈɒf(ə)n/</pronunciation>
+        <audioName>often</audioName>
+        <meanings>
+            <meaning wordMeaningSource="google-translate" exampleSentenceSource="" comment="">
+                <wordMeaning>a menudo</wordMeaning>
+                <exampleSentence></exampleSentence>
+                <imgName></imgName>
+            </meaning>
+            <meaning wordMeaningSource="google-translate" exampleSentenceSource="" comment="">
+                <wordMeaning>con frecuencia</wordMeaning>
+                <exampleSentence></exampleSentence>
+                <imgName></imgName>
+            </meaning>
+            <meaning wordMeaningSource="google-translate" exampleSentenceSource="" comment="">
+                <wordMeaning>muchas veces</wordMeaning>
+                <exampleSentence></exampleSentence>
+                <imgName></imgName>
+            </meaning>
+        </meanings>
+    </translation>
+    <translation>
+        <foreignWord>shape</foreignWord>
+        <pronunciation>/ʃeɪp/</pronunciation>
+        <audioName>shape</audioName>
+        <meanings>
+            <meaning wordMeaningSource="google-translate" exampleSentenceSource="" comment="">
+                <wordMeaning>forma</wordMeaning>
+                <exampleSentence></exampleSentence>
+                <imgName></imgName>
+            </meaning>
+            <meaning wordMeaningSource="google-translate" exampleSentenceSource="" comment="">
+                <wordMeaning>dar forma</wordMeaning>
+                <exampleSentence></exampleSentence>
+                <imgName></imgName>
+            </meaning>
+            <meaning wordMeaningSource="google-translate" exampleSentenceSource="" comment="">
+                <wordMeaning>conformar</wordMeaning>
+                <exampleSentence></exampleSentence>
+                <imgName></imgName>
+            </meaning>
+            <meaning wordMeaningSource="google-translate" exampleSentenceSource="" comment="">
+                <wordMeaning>modelar</wordMeaning>
+                <exampleSentence></exampleSentence>
+                <imgName></imgName>
+            </meaning>
+        </meanings>
+    </translation>
+    <translation>
+        <foreignWord>honey</foreignWord>
+        <pronunciation>/ˈhʌni/</pronunciation>
+        <audioName>honey</audioName>
+        <meanings>
+            <meaning wordMeaningSource="google-translate" exampleSentenceSource="" comment="">
+                <wordMeaning>miel</wordMeaning>
+                <exampleSentence></exampleSentence>
+                <imgName></imgName>
+            </meaning>
+            <meaning wordMeaningSource="google-translate" exampleSentenceSource="" comment="">
+                <wordMeaning>cariño</wordMeaning>
+                <exampleSentence></exampleSentence>
+                <imgName></imgName>
+            </meaning>
+        </meanings>
+    </translation>
+    <translation>
+        <foreignWord>load</foreignWord>
+        <pronunciation>/ləʊd/</pronunciation>
+        <audioName>load</audioName>
+        <meanings>
+            <meaning wordMeaningSource="google-translate" exampleSentenceSource="" comment="">
+                <wordMeaning>carga</wordMeaning>
+                <exampleSentence></exampleSentence>
+                <imgName></imgName>
+            </meaning>
+            <meaning wordMeaningSource="google-translate" exampleSentenceSource="" comment="">
+                <wordMeaning>cargar</wordMeaning>
+                <exampleSentence></exampleSentence>
+                <imgName></imgName>
+            </meaning>
+            <meaning wordMeaningSource="google-translate" exampleSentenceSource="" comment="">
+                <wordMeaning>cargarse</wordMeaning>
+                <exampleSentence></exampleSentence>
+                <imgName></imgName>
+            </meaning>
+        </meanings>
+    </translation>
+    <translation>
+        <foreignWord>hardly</foreignWord>
+        <pronunciation>/ˈhɑːdli/</pronunciation>
+        <audioName>hardly</audioName>
+        <meanings>
+            <meaning wordMeaningSource="google-translate" exampleSentenceSource="" comment="">
+                <wordMeaning>apenas</wordMeaning>
+                <exampleSentence></exampleSentence>
+                <imgName></imgName>
+            </meaning>
+            <meaning wordMeaningSource="google-translate" exampleSentenceSource="" comment="">
+                <wordMeaning>difícilmente</wordMeaning>
+                <exampleSentence></exampleSentence>
+                <imgName></imgName>
+            </meaning>
+        </meanings>
+    </translation>
+</wordList>
