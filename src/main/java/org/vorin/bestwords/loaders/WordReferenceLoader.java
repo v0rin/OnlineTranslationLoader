@@ -28,21 +28,19 @@ import static org.vorin.bestwords.AppConfig.RES_DIR;
 import static org.vorin.bestwords.util.Util.sleep;
 import static org.vorin.bestwords.util.Util.stripSurroundingQuotes;
 
-public class GoogleTranslateMeaningLoader {
+public class WordReferenceLoader {
 
     public enum Dictionary {
         EN_ES, ES_EN;
     }
 
-    private static final Logger LOG = Logger.get(GoogleTranslateMeaningLoader.class);
+    private static final Logger LOG = Logger.get(WordReferenceLoader.class);
 
     private static final long WAIT_BETWEEN_REQUESTS_MS = 5000;
 
-    //https://stackoverflow.com/questions/8085743/google-translate-vs-translate-api
-    //https://stackoverflow.com/questions/57397073/difference-between-the-google-translate-api
-    private static final String URL_EN_ES = "https://translate.googleapis.com/translate_a/single?client=gtx&sl=en&tl=es&hl=en&dt=at&dt=bd&dt=ex&dt=ld&dt=md&dt=qca&dt=rw&dt=rm&dt=ss&dt=t&dt=gt&source=bh&ssel=0&tsel=0&kc=1&q=";
-    private static final String URL_ES_EN = "https://translate.googleapis.com/translate_a/single?client=gtx&sl=es&tl=en&hl=en&dt=at&dt=bd&dt=ex&dt=ld&dt=md&dt=qca&dt=rw&dt=rm&dt=ss&dt=t&dt=gt&source=bh&ssel=0&tsel=0&kc=1&q=";
-    private static final String GOOGLE_TRANSLATE_SOURCE = "google-translate";
+    private static final String URL_EN_ES = "https://www.wordreference.com/es/translation.asp?tranword=";
+    private static final String URL_ES_EN = "https://www.wordreference.com/es/en/translation.asp?spen=";
+    private static final String SOURCE = "wordreference";
 
     private ObjectMapper objectMapper = new ObjectMapper();
 
@@ -52,9 +50,9 @@ public class GoogleTranslateMeaningLoader {
     private double minScore;
     private boolean useCache;
 
-    private Stopwatch googleRequestsStopwatch;
+    private Stopwatch requestsStopwatch;
 
-    public GoogleTranslateMeaningLoader(Dictionary dictionary,
+    public WordReferenceLoader(Dictionary dictionary,
                                         TranslationPublisher translationPublisher,
                                         double minScore,
                                         int maxMeaningCount,
@@ -72,13 +70,13 @@ public class GoogleTranslateMeaningLoader {
 
     public void load(List<String> words) throws IOException {
         LOG.info("started...");
-        googleRequestsStopwatch = Stopwatch.createUnstarted();
+        requestsStopwatch = Stopwatch.createUnstarted();
         var addedForeignWords = new HashSet<String>();
         for (String word : words) {
             if (addedForeignWords.contains(word)) {
                 throw new RuntimeException(format("foreignWord [%s] has been already added - there are some duplicated words it seems", word));
             }
-            JsonNode node = objectMapper.readTree(getJsonForWord(word));
+            JsonNode node = objectMapper.readTree(getDataForWord(word));
 
             List<Pair<Double, String>> meaningsWithScores = new ArrayList<>();
             for (int i = 0; i < node.get(1).size(); i++) {
@@ -93,7 +91,7 @@ public class GoogleTranslateMeaningLoader {
                     if (score >= minScore) {
                         meaningsWithScores.add(new ImmutablePair<>(score, meaning));
 //                        LOG.info(format("possible meaning from [%s]: foreignWord=%s, meaning=%s; wordType=%s",
-//                                        GOOGLE_TRANSLATE_SOURCE, word, meaning, wordType));
+//                                        SOURCE, word, meaning, wordType));
                     }
                 }
             }
@@ -105,7 +103,7 @@ public class GoogleTranslateMeaningLoader {
             for (var ms : meaningsWithScores) {
                 String meaning = ms.getRight();
                 if (!addedMeanings.contains(meaning)) { // don't add duplicate meanings
-                    translationPublisher.addMeaning(word, meaning, GOOGLE_TRANSLATE_SOURCE);
+                    translationPublisher.addMeaning(word, meaning, SOURCE);
                     addedMeanings.add(meaning);
                     if (addedMeanings.size() >= maxMeaningCount) break;
                 }
@@ -115,44 +113,45 @@ public class GoogleTranslateMeaningLoader {
         LOG.info("loading complete");
     }
 
-    private InputStream getJsonForWord(String word) throws IOException {
+    private InputStream getDataForWord(String word) throws IOException {
         if (useCache) {
-            File jsonFile = getJsonFileForWord(word);
-            if (jsonFile.exists()) {
+            File dataFile = getDataFileForWord(word);
+            if (dataFile.exists()) {
                 LOG.info("using the cached file for word=" + word);
-                return new FileInputStream(jsonFile);
+                return new FileInputStream(dataFile);
             }
-            LOG.info(format("no cached file for word=%s asking Google...", word));
+            LOG.info(format("no cached file for word=%s making http request...", word));
         }
 
         HttpRequest request = Unirest.get(url + URLEncoder.encode(word, StandardCharsets.UTF_8));
         try {
 
-            while (googleRequestsStopwatch.isRunning() && googleRequestsStopwatch.elapsed().toMillis() < WAIT_BETWEEN_REQUESTS_MS) {
+            while (requestsStopwatch.isRunning() && requestsStopwatch.elapsed().toMillis() < WAIT_BETWEEN_REQUESTS_MS) {
                 sleep(WAIT_BETWEEN_REQUESTS_MS/50);
             }
             HttpResponse<String> response = request.asString();
-            googleRequestsStopwatch.reset().start();
+            requestsStopwatch.reset().start();
 
-            File jsonFile = saveToJsonFile(word, response.getRawBody());
-            return new FileInputStream(jsonFile);
+            File dataFile = saveToDataFile(word, response.getRawBody());
+            return new FileInputStream(dataFile);
         }
         catch (UnirestException e) {
-            throw new IOException(format("Exception while parsing json for word %s", word), e);
+            throw new IOException(format("Exception while parsing data for word %s", word), e);
         }
     }
 
-    private File saveToJsonFile(String word, InputStream responseRawBody) throws IOException {
-        File jsonFile = getJsonFileForWord(word);
-        try(OutputStream fos = new FileOutputStream(jsonFile)){
+    private File saveToDataFile(String word, InputStream responseRawBody) throws IOException {
+        File dataFile = getDataFileForWord(word);
+        // TODO @af extract the interesting part and write to file
+        try(OutputStream fos = new FileOutputStream(dataFile)){
             IOUtils.copy(responseRawBody, fos);
         }
 
-        return jsonFile;
+        return dataFile;
     }
 
-    private File getJsonFileForWord(String word) {
-        return new File(RES_DIR + "GoogleTranslateMeaningLoaderCache/translation-" + word + ".json");
+    private File getDataFileForWord(String word) {
+        return new File(RES_DIR + "WordReferenceLoaderCache/translation-" + word);
     }
 
 }

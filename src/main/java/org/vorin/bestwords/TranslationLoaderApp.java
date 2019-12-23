@@ -22,8 +22,8 @@ https://support.google.com/docs/answer/3093342?hl=en
 https://www.youtube.com/watch?v=nyr3EJH0lTY
 
 TODO @af
-check if the meaning is in SpanishCombined2954.txt
 zrobic parsowanie dla tych 3 slownikow ponizej najpierw - zaczac od example sentences bo tego jeszcze nie mam, zeby w praktyce przetestowac
+
 
 powinno zaladowac translations i przykladowe zdania z roznych zrodel
 niektore zrodla beda mialy tylko przykladowe zdania, niektore tlumaczenie, a niektore oba
@@ -39,11 +39,15 @@ https://www.collinsdictionary.com/dictionary/spanish-english/tomar - taki sam ja
 https://www.linguee.com/english-spanish/search?source=auto&query=work
 https://www.linguee.com/english-spanish/search?source=auto&query=tomar
 
-ALERTS:
-oznacz jako podejrzane jezeli za dlugie sprawdz, jakie sa najdluzsze w polskim - ew. jakie sie miesza najlepiej na ekranie
-nie moze tez byc za krotkie
-sprawdz czy zawiera angielskie slow, z ew. formami przeszlymi albo w liczbie mnogiej (nie powinno byc ich az tak duzo, moge manualnie je wpisac do kazdego slowa) - jak nie to alert
-znalezc 2-3 zrodla (nie tylko wordreference) i jak jest alert to miec wybor
+CHECKS & ALERTS:
+meanings:
+- check if the meaning is in SpanishCombined2954.txt
+
+example sentences:
+- oznacz jako podejrzane jezeli za dlugie sprawdz, jakie sa najdluzsze w polskim - ew. jakie sie miesza najlepiej na ekranie
+- nie moze tez byc za krotkie
+- sprawdz czy zawiera angielskie slow, z ew. formami przeszlymi albo w liczbie mnogiej (nie powinno byc ich az tak duzo, moge manualnie je wpisac do kazdego slowa) - jak nie to alert
+- znalezc 2-3 zrodla (nie tylko wordreference) i jak jest alert to miec wybor
 
 */
 
@@ -53,26 +57,24 @@ public class TranslationLoaderApp {
 
     public static void main(String... argvs) throws IOException {
 
-        createWordList();
+        createGoogleWordList();
 //        createReverseWordList();
     }
 
 
-    private static void createWordList() throws IOException {
-        var xmlTranslationPublisher = new XmlTranslationPublisher(new File(RES_DIR + "googleTranslateMeaningsLoaderWordlist2.xml"));
-        var googleReverseWordList = WordList.loadFromXml(new File(RES_DIR + "googleTranslateMeaningsLoaderReverseWordlist.xml"));
-//        WordList googleReverseWordList = null;
-        var googleTranslateMeaningLoader = new GoogleTranslateMeaningLoader(Dictionary.EN_ES, xmlTranslationPublisher, 0.01, 5, true, googleReverseWordList);
+    private static void createGoogleWordList() throws IOException {
+        var xmlTranslationPublisher = new XmlTranslationPublisher(new File(RES_DIR + "googleTranslateMeaningsLoaderWordlist.xml"));
+        var googleTranslateMeaningLoader = new GoogleTranslateMeaningLoader(Dictionary.EN_ES, xmlTranslationPublisher, 0.01, 5, true);
 
-        var english25WordList = WordList.loadFromXml(new File(RES_DIR + "EnglishWordList25.xml"));
-        var words = english25WordList.getTranslations().stream().map(Translation::getForeignWord).distinct().collect(toList());
+        var wl = WordList.loadFromXml(new File(RES_DIR + "EnglishWordList25.xml"));
+        var words = wl.getTranslations().stream().map(Translation::getForeignWord).distinct().collect(toList());
 
         googleTranslateMeaningLoader.load(words);
         xmlTranslationPublisher.writeToTarget();
     }
 
 
-    private static void createReverseWordList() throws IOException {
+    private static void createReverseGoogleWordList() throws IOException {
         var xmlTranslationPublisher = new XmlTranslationPublisher(new File(RES_DIR + "googleTranslateMeaningsLoaderReverseWordlist.xml"));
         var googleTranslateMeaningLoader = new GoogleTranslateMeaningLoader(Dictionary.ES_EN, xmlTranslationPublisher, 0.01, 5, true);
 
