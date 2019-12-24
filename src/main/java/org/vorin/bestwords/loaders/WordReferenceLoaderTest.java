@@ -31,26 +31,25 @@ public class WordReferenceLoaderTest {
         Elements rows = doc.select("table.WRD").select("tr[class~=even|odd|wrtopsection]");
         var iter = rows.iterator();
         iter.next(); // skip the header
+        var row = iter.next();
         while (iter.hasNext()) {
-            var row = iter.next();
             if (row.hasClass("wrtopsection")) {
                 break;
             }
             if (row.id().contains("enes:")) {
                 LOG.info("##############");
                 printRow("1 - ", row);
-                while (iter.hasNext()) {
-                    row = iter.next();
-                    if (row.id().contains("enes:")) {
-                        break;
-                    }
-                    printRow("2 - ", row);
-                }
+                row = iter.next();
+            }
+            while (iter.hasNext() && !row.id().contains("enes:")) {
+                printRow("2 - ", row);
+                row = iter.next();
             }
         }
 
     }
 
+    // <td class="ToWrd">agarrar<a title="conjugate agarrar" class="conjugate" href="/conj/EsVerbs.aspx?v=agarrar">⇒</a> <em class="tooltip POS2">vtr<span><i>verbo transitivo</i>: Verbo que requiere de un objeto directo ("[b]di[/b] la verdad", "[b]encontré[/b] una moneda").</span></em></td>
     private static void printRow(String prefix, Element row) {
         var cols = row.select("td.ToWrd");
         if (!cols.isEmpty()) {
