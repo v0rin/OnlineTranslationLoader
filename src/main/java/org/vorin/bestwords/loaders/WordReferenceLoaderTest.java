@@ -50,6 +50,7 @@ public class WordReferenceLoaderTest {
     }
 
     // <td class="ToWrd">agarrar<a title="conjugate agarrar" class="conjugate" href="/conj/EsVerbs.aspx?v=agarrar">⇒</a> <em class="tooltip POS2">vtr<span><i>verbo transitivo</i>: Verbo que requiere de un objeto directo ("[b]di[/b] la verdad", "[b]encontré[/b] una moneda").</span></em></td>
+    // indexOf("<");
     private static void printRow(String prefix, Element row) {
         var cols = row.select("td.ToWrd");
         if (!cols.isEmpty()) {
