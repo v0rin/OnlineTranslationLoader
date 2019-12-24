@@ -18,6 +18,8 @@ import com.mashape.unirest.request.HttpRequest;
 import org.apache.commons.io.IOUtils;
 import org.apache.commons.lang3.tuple.ImmutablePair;
 import org.apache.commons.lang3.tuple.Pair;
+import org.jsoup.Jsoup;
+import org.jsoup.nodes.Document;
 import org.vorin.bestwords.util.Logger;
 import org.vorin.bestwords.TranslationPublisher;
 
@@ -123,21 +125,22 @@ public class WordReferenceLoader {
             LOG.info(format("no cached file for word=%s making http request...", word));
         }
 
-        HttpRequest request = Unirest.get(url + URLEncoder.encode(word, StandardCharsets.UTF_8));
-        try {
+        return null;
+        // try {
 
-            while (requestsStopwatch.isRunning() && requestsStopwatch.elapsed().toMillis() < WAIT_BETWEEN_REQUESTS_MS) {
-                sleep(WAIT_BETWEEN_REQUESTS_MS/50);
-            }
-            HttpResponse<String> response = request.asString();
-            requestsStopwatch.reset().start();
+        //     while (requestsStopwatch.isRunning() && requestsStopwatch.elapsed().toMillis() < WAIT_BETWEEN_REQUESTS_MS) {
+        //         sleep(WAIT_BETWEEN_REQUESTS_MS/50);
+        //     }
+            // HttpResponse<String> response = request.asString();
+            // requestsStopwatch.reset().start();
 
-            File dataFile = saveToDataFile(word, response.getRawBody());
-            return new FileInputStream(dataFile);
-        }
-        catch (UnirestException e) {
-            throw new IOException(format("Exception while parsing data for word %s", word), e);
-        }
+            // File dataFile = saveToDataFile(word, response.getRawBody());
+            // return new FileInputStream(dataFile);
+
+        // }
+        // catch (UnirestException e) {
+        //     throw new IOException(format("Exception while parsing data for word %s", word), e);
+        // }
     }
 
     private File saveToDataFile(String word, InputStream responseRawBody) throws IOException {
