@@ -2,6 +2,7 @@ package org.vorin.bestwords;
 
 import org.vorin.bestwords.loaders.GoogleTranslateMeaningLoader;
 import org.vorin.bestwords.loaders.GoogleTranslateMeaningLoader.Dictionary;
+import org.vorin.bestwords.loaders.XmlTranslationPublisher;
 import org.vorin.bestwords.model.Meaning;
 import org.vorin.bestwords.model.Translation;
 import org.vorin.bestwords.model.WordList;
@@ -24,6 +25,9 @@ https://www.youtube.com/watch?v=nyr3EJH0lTY
 TODO @af
 zrobic parsowanie dla tych 3 slownikow ponizej najpierw - zaczac od example sentences bo tego jeszcze nie mam, zeby w praktyce przetestowac
 
+stworzyc parser do kolejnego na zasadzie kopiuj i wklej na poczatek, a potem ujednolicic
+zrobic test na podstawie jakiegos pliku z cache dla kazdego loadera
+
 
 powinno zaladowac translations i przykladowe zdania z roznych zrodel
 niektore zrodla beda mialy tylko przykladowe zdania, niektore tlumaczenie, a niektore oba
@@ -40,6 +44,8 @@ https://www.linguee.com/english-spanish/search?source=auto&query=work
 https://www.linguee.com/english-spanish/search?source=auto&query=tomar
 
 CHECKS & ALERTS:
+
+
 meanings:
 - check if the meaning is in SpanishCombined2954.txt
 
@@ -48,6 +54,10 @@ example sentences:
 - nie moze tez byc za krotkie
 - sprawdz czy zawiera angielskie slow, z ew. formami przeszlymi albo w liczbie mnogiej (nie powinno byc ich az tak duzo, moge manualnie je wpisac do kazdego slowa) - jak nie to alert
 - znalezc 2-3 zrodla (nie tylko wordreference) i jak jest alert to miec wybor
+- the example sentences need to be checked by me, if they really contain the wordMeaning
+    choc moge zrobic automatyczny mechanizm, ze jezeli zawiera pierwsze 3 litery z czasownika, albo w sumie regule na regularne to automatycznie jest okroic
+         a sprawdze tylko te co nie przejda tej reguly pewnie z max 200
+    ale to na samym koncu - jak juz bede mial decolowa liste to wtedy bedzie jakas seria checkow, z tymi alertami
 
 */
 

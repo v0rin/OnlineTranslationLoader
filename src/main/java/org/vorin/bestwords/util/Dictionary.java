@@ -1,4 +1,5 @@
 package org.vorin.bestwords.util;
 
-public class Dictionary {
+public enum Dictionary {
+    EN_ES, ES_EN
 }

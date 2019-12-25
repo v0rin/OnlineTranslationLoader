@@ -1,8 +1,10 @@
-package org.vorin.bestwords;
+package org.vorin.bestwords.loaders;
 
 import java.io.IOException;
 import java.io.InputStream;
 
 public interface TranslationDataParser {
-    void parse(InputStream translationData) throws IOException;
+    void parseAndPublish(String foreignWord,
+                         InputStream translationData,
+                         TranslationPublisher translationPublisher) throws IOException;
 }
