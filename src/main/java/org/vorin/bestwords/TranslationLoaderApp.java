@@ -1,20 +1,14 @@
 package org.vorin.bestwords;
 
-import org.vorin.bestwords.loaders.GoogleTranslateDownloader;
-import org.vorin.bestwords.loaders.GoogleTranslateParser;
-import org.vorin.bestwords.loaders.TranslationLoader;
-import org.vorin.bestwords.loaders.XmlTranslationPublisher;
-import org.vorin.bestwords.model.Meaning;
-import org.vorin.bestwords.model.Translation;
-import org.vorin.bestwords.model.WordList;
+import org.vorin.bestwords.loaders.*;
 import org.vorin.bestwords.util.Dictionary;
 import org.vorin.bestwords.util.Logger;
+import org.vorin.bestwords.util.Util;
 
 import java.io.File;
 import java.io.IOException;
 import java.util.List;
 
-import static java.util.stream.Collectors.toList;
 import static org.vorin.bestwords.AppConfig.*;
 import static org.vorin.bestwords.util.Sources.*;
 
@@ -71,38 +65,44 @@ public class TranslationLoaderApp {
 
     public static void main(String... argvs) throws IOException {
 
-        createGoogleWordList();
-//        createReverseWordList();
+        var words = Util.getForeignWordsFromXml(RES_DIR + "EnglishWordList25.xml");
+//        createGoogleWordList(words);
+        createWordReferenceWordList(words);
+//        createReverseGoogleWordList(Util.getForeignWordsFromXml(RES_DIR + "googleTranslateWordList.xml"));
+
     }
 
 
-    private static void createGoogleWordList() throws IOException {
-        var xmlPublisher = new XmlTranslationPublisher(new File(RES_DIR + "googleTranslateMeaningsLoaderWordlist.xml"));
+    private static void createGoogleWordList(List<String> words) throws IOException {
+        var xmlPublisher = new XmlTranslationPublisher(new File(RES_DIR + "googleTranslateWordList.xml"));
         var downloader = new GoogleTranslateDownloader(Dictionary.EN_ES);
         var parser = new GoogleTranslateParser(0.01, 5);
-        var googleTranslateMeaningLoader = new TranslationLoader(downloader, parser, xmlPublisher, GOOGLE_TRANSLATE_SOURCE, true);
-        var words = getForeignWordsFromXml(RES_DIR + "EnglishWordList25.xml");
+        var loader = new TranslationLoader(downloader, parser, xmlPublisher, GOOGLE_TRANSLATE_SOURCE, true);
 
-        googleTranslateMeaningLoader.load(words);
+        loader.load(words);
         xmlPublisher.writeToTarget();
     }
 
 
-    private static void createReverseGoogleWordList() throws IOException {
-        var xmlPublisher = new XmlTranslationPublisher(new File(RES_DIR + "googleTranslateMeaningsLoaderReverseWordlist.xml"));
+    private static void createWordReferenceWordList(List<String> words) throws IOException {
+        var xmlPublisher = new XmlTranslationPublisher(new File(RES_DIR + "wordReferenceWordList.xml"));
+        var downloader = new WordReferenceDownloader(Dictionary.EN_ES);
+        var parser = new WordReferenceParser();
+        var loader = new TranslationLoader(downloader, parser, xmlPublisher, WORD_REFERENCE_SOURCE, true);
+
+        loader.load(words);
+        xmlPublisher.writeToTarget();
+    }
+
+
+    private static void createReverseGoogleWordList(List<String> words) throws IOException {
+        var xmlPublisher = new XmlTranslationPublisher(new File(RES_DIR + "googleTranslateReverseWordList.xml"));
         var downloader = new GoogleTranslateDownloader(Dictionary.ES_EN);
         var parser = new GoogleTranslateParser(0.01, 5);
-        var googleTranslateMeaningLoader = new TranslationLoader(downloader, parser, xmlPublisher, GOOGLE_TRANSLATE_SOURCE, true);
-        var words = getForeignWordsFromXml(RES_DIR + "googleTranslateMeaningsLoaderWordlist.xml");
+        var loader = new TranslationLoader(downloader, parser, xmlPublisher, GOOGLE_TRANSLATE_SOURCE, true);
 
-        googleTranslateMeaningLoader.load(words);
+        loader.load(words);
         xmlPublisher.writeToTarget();
-    }
-
-
-    private static List<String> getForeignWordsFromXml(String xmlPath) throws IOException {
-        var wl = WordList.loadFromXml(new File(xmlPath));
-        return wl.getTranslations().stream().map(Translation::getForeignWord).distinct().collect(toList());
     }
 
 }

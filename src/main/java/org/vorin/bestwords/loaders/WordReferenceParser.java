@@ -40,13 +40,12 @@ public class WordReferenceParser implements TranslationDataParser {
         var addedMeaninigs = new HashSet<String>();
         String foreignSentence = null;
         var iter = rows.iterator();
-        boolean first = true;
         while (iter.hasNext()) {
             var row = iter.next();
 
             if (row.id().contains("enes:") || !row.select("td.wrtopsection").isEmpty()) {
                 // sort out sentences - except the first one
-                if (!first) {
+                if (foreignSentence != null) {
                     for (int i = 0; i < Math.min(meanings.size(), translatedSentences.size()); i++) {
                         var meaning = meanings.get(i);
                         if (!translationPublisher.exampleSentenceExists(foreignWord, meaning)) {
@@ -55,7 +54,6 @@ public class WordReferenceParser implements TranslationDataParser {
                         }
                     }
                 }
-                first = false;
 
                 meanings = new ArrayList<>();
                 foreignSentence = null;

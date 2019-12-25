@@ -19,7 +19,6 @@ public class WordReferenceTest {
     private static final String TEST_FOREIGN_WORD = "can";
     private static final String TEST_CACHE_FILE_PATH = AppConfig.TEST_RES_DIR + "loaders/WordReference/" + TEST_FOREIGN_WORD;
 
-
     @Test
     public void parseAndPublish() throws IOException {
         // given
@@ -27,9 +26,23 @@ public class WordReferenceTest {
         var parser = new WordReferenceParser();
 
         var expectedWordList = new WordList();
-        expectedWordList.addMeaning(TEST_FOREIGN_WORD, "lata", WORD_REFERENCE_SOURCE);
-        expectedWordList.addMeaning(TEST_FOREIGN_WORD, "bote", WORD_REFERENCE_SOURCE);
         expectedWordList.addMeaning(TEST_FOREIGN_WORD, "poder", WORD_REFERENCE_SOURCE);
+        expectedWordList.addExampleSentence(TEST_FOREIGN_WORD, "poder", "I can carry those suitcases for you - Puedo llevarte esas maletas", WORD_REFERENCE_SOURCE);
+
+        expectedWordList.addMeaning(TEST_FOREIGN_WORD, "saber", WORD_REFERENCE_SOURCE);
+        expectedWordList.addExampleSentence(TEST_FOREIGN_WORD, "saber", "She can play the piano - Ella sabe tocar el piano", WORD_REFERENCE_SOURCE);
+
+        expectedWordList.addMeaning(TEST_FOREIGN_WORD, "ser posible", WORD_REFERENCE_SOURCE);
+        expectedWordList.addExampleSentence(TEST_FOREIGN_WORD, "ser posible", "Such things can happen if you're not careful - Es posible que pasen cosas asi si no llevas cuidado", WORD_REFERENCE_SOURCE);
+
+        expectedWordList.addMeaning(TEST_FOREIGN_WORD, "bote", WORD_REFERENCE_SOURCE);
+        expectedWordList.addExampleSentence(TEST_FOREIGN_WORD, "bote", "We need three more cans of paint - Necesitamos tres botes mas de pintura", WORD_REFERENCE_SOURCE);
+
+        expectedWordList.addMeaning(TEST_FOREIGN_WORD, "lata", WORD_REFERENCE_SOURCE);
+        expectedWordList.addExampleSentence(TEST_FOREIGN_WORD, "lata", "Pass me that can of peas - Pasame esa lata de guisantes", WORD_REFERENCE_SOURCE);
+
+        expectedWordList.addMeaning(TEST_FOREIGN_WORD, "tacho", WORD_REFERENCE_SOURCE);
+        expectedWordList.addMeaning(TEST_FOREIGN_WORD, "cesto", WORD_REFERENCE_SOURCE);
 
         // when
         try (var canCacheFileIS = new FileInputStream(new File(TEST_CACHE_FILE_PATH))) {
