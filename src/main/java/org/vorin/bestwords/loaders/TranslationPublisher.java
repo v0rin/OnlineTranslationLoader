@@ -1,5 +1,7 @@
 package org.vorin.bestwords;
 
+import org.vorin.bestwords.model.WordList;
+
 import java.io.IOException;
 
 public interface TranslationPublisher {
@@ -12,6 +14,8 @@ public interface TranslationPublisher {
                             String wordMeaning,
                             String exampleSentence,
                             String source);
+
+    WordList getWordList();
 
     void writeToTarget() throws IOException;
 

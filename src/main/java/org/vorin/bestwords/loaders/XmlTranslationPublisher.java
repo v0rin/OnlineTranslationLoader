@@ -40,6 +40,11 @@ public class XmlTranslationPublisher implements TranslationPublisher {
 	}
 
 	@Override
+	public WordList getWordList() {
+		return wordlist;
+	}
+
+	@Override
 	public void writeToTarget() throws IOException {
 		wordlist.writeToXml(xmlFile);
 	}
