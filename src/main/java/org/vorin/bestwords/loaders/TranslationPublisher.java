@@ -15,6 +15,8 @@ public interface TranslationPublisher {
                             String exampleSentence,
                             String source);
 
+    boolean exampleSentenceExists(String foreignWord, String wordMeaning);
+
     WordList getWordList();
 
     void writeToTarget() throws IOException;

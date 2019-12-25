@@ -14,4 +14,11 @@ public class Util {
         return s.replaceAll("^\"|\"$", "");
     }
 
+    public static String trimAndStripTrailingDot(String s) {
+        s = s.strip();
+        if (s.substring(s.length() - 1).equals(".")) {
+            return s.substring(0, s.length() - 1);
+        }
+        return s;
+    }
 }

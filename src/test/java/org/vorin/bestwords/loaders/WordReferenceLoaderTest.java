@@ -1,29 +1,32 @@
 package org.vorin.bestwords.loaders;
 
 import java.io.File;
+import java.io.IOException;
 import java.net.URLEncoder;
 import java.nio.charset.StandardCharsets;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import org.apache.commons.io.IOUtils;
 import org.jsoup.Connection;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.vorin.bestwords.AppConfig;
+import org.vorin.bestwords.util.Dictionary;
 import org.vorin.bestwords.util.Logger;
 
 public class WordReferenceLoaderTest {
     private static final Logger LOG = Logger.get(WordReferenceLoaderTest.class);
 
     private static final Pattern MEANING_PATTERN = Pattern.compile("^<td class=\"ToWrd\">(.+?)<");
-
     private static final String URL_EN_ES = "https://www.wordreference.com/es/translation.asp?tranword=";
     private static final String URL_ES_EN = "https://www.wordreference.com/es/en/translation.asp?spen=";
-    private static final String SOURCE = "wordreference";
 
+    private static final String SOURCE = "wordreference";
 
     @Test
     public void test() throws Exception {
