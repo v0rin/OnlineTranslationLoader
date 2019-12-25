@@ -30,7 +30,7 @@ public class TranslationLoaderTest {
 
     @Before
     public void setUp() {
-        AppConfig.CACHES_DIR = AppConfig.WORKING_DIR + "/src/test/resources/loaders/TranslationLoader/";
+        AppConfig.CACHES_DIR = AppConfig.TEST_RES_DIR + "/loaders/TranslationLoader/";
         translationDataParser = new TestTranslationParser(TEST_CONTENT);
         translationCachedDataParser = new TestTranslationParser(TEST_CONTENT_CACHED);
         translationDownloader = new TestTranslationDownloader();
@@ -41,7 +41,7 @@ public class TranslationLoaderTest {
     @Test
     public void shouldLoadAndParseDataCorrectlyWhenNoCacheDataExists() throws Exception {
         // given
-        AppConfig.CACHES_DIR = AppConfig.WORKING_DIR + "/src/test/resources/loaders/TranslationLoader/tmp/";
+        AppConfig.CACHES_DIR = AppConfig.TEST_RES_DIR + "loaders/TranslationLoader/tmp/";
         String testCacheDir = AppConfig.CACHES_DIR + "test-source-cache/";
         new File(testCacheDir).mkdirs();
         var loader = new TranslationLoader(translationDownloader, translationDataParser, publisher, TEST_SOURCE, true);

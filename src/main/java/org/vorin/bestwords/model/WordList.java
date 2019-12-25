@@ -45,12 +45,16 @@ public class WordList {
 
 
     public static WordList loadFromXml(File xmlFile) throws IOException {
-        return JAXB.unmarshal(new FileInputStream(xmlFile), WordList.class);
+        try (var xmlFileIS = new FileInputStream(xmlFile)) {
+            return JAXB.unmarshal(xmlFileIS, WordList.class);
+        }
     }
 
 
     public void writeToXml(File xmlFile) throws IOException {
-        JAXB.marshal(this, new FileOutputStream(xmlFile));
+        try (var xmlFileOS = new FileOutputStream(xmlFile)) {
+            JAXB.marshal(this, xmlFileOS);
+        }
     }
 
 

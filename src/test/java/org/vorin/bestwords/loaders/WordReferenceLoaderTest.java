@@ -74,7 +74,7 @@ public class WordReferenceLoaderTest {
     }
 
     @Test
-    public void old() throws Exception {
+    public void testConnection() throws Exception {
         Connection conn = jsoupConnection(URL_EN_ES + URLEncoder.encode("take", StandardCharsets.UTF_8));
         Document doc = conn.get();
         Elements elems = doc.select("table.WRD");

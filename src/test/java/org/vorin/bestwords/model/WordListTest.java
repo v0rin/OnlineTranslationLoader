@@ -1,8 +1,13 @@
 package org.vorin.bestwords.model;
 
+import org.apache.commons.io.FileUtils;
 import org.junit.Before;
 import org.junit.Test;
+import org.vorin.bestwords.AppConfig;
 
+import java.io.File;
+import java.io.IOException;
+import java.nio.charset.StandardCharsets;
 import java.util.Arrays;
 
 import static org.hamcrest.CoreMatchers.containsString;
@@ -83,5 +88,25 @@ public class WordListTest {
 
         // then
         assertThat(wl.findMeaning(workTranslation, "funcionar").getWordMeaning(), is("funcionar"));
+    }
+
+    @Test
+    public void xmlLoadAndWrite() throws IOException {
+        // given
+        File originalWordListXmlFile = new File(AppConfig.TEST_RES_DIR + "model/WordList/testEnglishWordList25.xml");
+        File tmpWordListXmlFile = new File(AppConfig.TEST_RES_DIR + "model/WordList/tmpTestEnglishWordList25.xml");
+
+        // when
+        var wordlist = WordList.loadFromXml(originalWordListXmlFile);
+        wordlist.writeToXml(tmpWordListXmlFile);
+
+        // then
+        assertThat(wordlist.size(), is(25));
+        var t = wordlist.getTranslations().get(8);
+        assertThat(t.getForeignWord(), is("can"));
+        assertThat(t.getMeanings().get(1).getWordMeaning(), is("puszka"));
+        assertTrue(FileUtils.contentEquals(originalWordListXmlFile, tmpWordListXmlFile));
+
+        tmpWordListXmlFile.delete();
     }
 }
