@@ -33,7 +33,7 @@ public class GoogleTranslateParser implements TranslationDataParser {
     }
 
     @Override
-    public void parseAndPublish(String foreignWord,
+    public void parseAndPublish(WordInfo wordInfo,
                                 InputStream translationData,
                                 TranslationPublisher translationPublisher) throws IOException {
 
@@ -59,13 +59,13 @@ public class GoogleTranslateParser implements TranslationDataParser {
         }
 
         meaningsWithScores = meaningsWithScores.stream().sorted((m1, m2) -> m2.getLeft().compareTo(m1.getLeft())).collect(toList());
-        LOG.info(format("meanings for [%s] - %s", foreignWord, meaningsWithScores.toString()));
+        LOG.info(format("meanings for [%s] - %s", wordInfo.getForeignWord(), meaningsWithScores.toString()));
 
         var addedMeanings = new HashSet<String>();
         for (var ms : meaningsWithScores) {
             String meaning = ms.getRight();
             if (!addedMeanings.contains(meaning)) { // don't add duplicate meanings
-                translationPublisher.addMeaning(foreignWord, meaning, GOOGLE_TRANSLATE_SOURCE);
+                translationPublisher.addMeaning(wordInfo.getForeignWord(), meaning, GOOGLE_TRANSLATE_SOURCE);
                 addedMeanings.add(meaning);
                 if (addedMeanings.size() >= maxMeaningCount) break;
             }

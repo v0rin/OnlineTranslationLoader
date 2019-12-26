@@ -49,42 +49,42 @@ public class TranslationLoader {
         this.waitBetweenRequestsMs = waitBetweenRequestsMs;
     }
 
-    public void load(List<String> words) throws IOException {
+    public void load(List<WordInfo> wordInfos) throws IOException {
         LOG.info(format("source [%s] - loading has started...", source));
         requestStopwatch = Stopwatch.createUnstarted();
-        var addedForeignWords = new HashSet<String>();
-        for (String word : words) {
-            if (addedForeignWords.contains(word)) {
-                throw new RuntimeException(format("source [%s] - foreignWord [%s] has been already added - there are some duplicated words it seems", source, word));
+        var addedWordInfos = new HashSet<WordInfo>();
+        for (var wordInfo : wordInfos) {
+            if (addedWordInfos.contains(wordInfo)) {
+                throw new RuntimeException(format("source [%s] - wordInfo [%s] has been already added - there are some duplicated words it seems", source, wordInfo));
             }
 
-            translationDataParser.parseAndPublish(word, getDataForWord(word), translationPublisher);
+            translationDataParser.parseAndPublish(wordInfo, getDataForForeignWord(wordInfo.getForeignWord()), translationPublisher);
 
-            addedForeignWords.add(word);
+            addedWordInfos.add(wordInfo);
         }
         LOG.info(format("source [%s] - loading complete", source));
     }
 
-    private InputStream getDataForWord(String word) throws IOException {
+    private InputStream getDataForForeignWord(String foreignWord) throws IOException {
         if (useCache) {
-            File cacheFile = getCacheFileForWord(word);
+            File cacheFile = getCacheFileForWord(foreignWord);
             if (cacheFile.exists()) {
-                LOG.info(format("source [%s] - using the cached file for word=%s", source, word));
+                LOG.info(format("source [%s] - using the cached file for word=%s", source, foreignWord));
                 return new FileInputStream(cacheFile);
             }
-            LOG.info(format("source [%s] - no cached file for word=%s - downloading content...", source, word));
+            LOG.info(format("source [%s] - no cached file for word=%s - downloading content...", source, foreignWord));
         }
 
         while (requestStopwatch.isRunning() && requestStopwatch.elapsed().toMillis() < waitBetweenRequestsMs) {
             sleep(waitBetweenRequestsMs / 50);
         }
 
-        InputStream translationData = translationDataDownloader.download(word);
+        InputStream translationData = translationDataDownloader.download(foreignWord);
 
         requestStopwatch.reset().start();
 
         if (useCache) {
-            File cacheFile = saveTranslationDataToCacheFile(word, translationData);
+            File cacheFile = saveTranslationDataToCacheFile(foreignWord, translationData);
             return new FileInputStream(cacheFile);
         }
         else {

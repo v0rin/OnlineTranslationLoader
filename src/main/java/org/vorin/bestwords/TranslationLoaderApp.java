@@ -55,55 +55,55 @@ public class TranslationLoaderApp {
 
     public static void main(String... argvs) throws IOException {
 
-        var words = Util.getForeignWordsFromXml(RES_DIR + "EnglishWordList25.xml");
-//        createGoogleWordList(words);
-//        createWordReferenceWordList(words);
-        createLingueeWordList(words);
+        var wordInfos = Util.getForeignWordsFromXml(RES_DIR + "EnglishWordList25.xml");
+//        createGoogleWordList(wordInfos);
+//        createWordReferenceWordList(wordInfos);
+        createLingueeWordList(wordInfos);
 //        createReverseGoogleWordList(Util.getForeignWordsFromXml(RES_DIR + "googleTranslateWordList.xml"));
 
     }
 
 
-    private static void createGoogleWordList(List<String> words) throws IOException {
+    private static void createGoogleWordList(List<WordInfo> wordInfos) throws IOException {
         var xmlPublisher = new XmlTranslationPublisher(new File(RES_DIR + "googleTranslateWordList.xml"));
         var downloader = new GoogleTranslateDownloader(Dictionary.EN_ES);
         var parser = new GoogleTranslateParser(0.01, 5);
         var loader = new TranslationLoader(downloader, parser, xmlPublisher, GOOGLE_TRANSLATE_SOURCE, true);
 
-        loader.load(words);
+        loader.load(wordInfos);
         xmlPublisher.writeToTarget();
     }
 
 
-    private static void createWordReferenceWordList(List<String> words) throws IOException {
+    private static void createWordReferenceWordList(List<WordInfo> wordInfos) throws IOException {
         var xmlPublisher = new XmlTranslationPublisher(new File(RES_DIR + "wordReferenceWordList.xml"));
         var downloader = new WordReferenceDownloader(Dictionary.EN_ES);
         var parser = new WordReferenceParser();
         var loader = new TranslationLoader(downloader, parser, xmlPublisher, WORD_REFERENCE_SOURCE, true);
 
-        loader.load(words);
+        loader.load(wordInfos);
         xmlPublisher.writeToTarget();
     }
 
 
-    private static void createLingueeWordList(List<String> words) throws IOException {
+    private static void createLingueeWordList(List<WordInfo> wordInfos) throws IOException {
         var xmlPublisher = new XmlTranslationPublisher(new File(RES_DIR + "lingueeWordList.xml"));
         var downloader = new LingueeDownloader(Dictionary.EN_ES);
         var parser = new LingueeParser();
         var loader = new TranslationLoader(downloader, parser, xmlPublisher, LINGUEE_SOURCE, true, 1000);
 
-        loader.load(words);
+        loader.load(wordInfos);
         xmlPublisher.writeToTarget();
     }
 
 
-    private static void createReverseGoogleWordList(List<String> words) throws IOException {
+    private static void createReverseGoogleWordList(List<WordInfo> wordInfos) throws IOException {
         var xmlPublisher = new XmlTranslationPublisher(new File(RES_DIR + "googleTranslateReverseWordList.xml"));
         var downloader = new GoogleTranslateDownloader(Dictionary.ES_EN);
         var parser = new GoogleTranslateParser(0.01, 5);
         var loader = new TranslationLoader(downloader, parser, xmlPublisher, GOOGLE_TRANSLATE_SOURCE, true);
 
-        loader.load(words);
+        loader.load(wordInfos);
         xmlPublisher.writeToTarget();
     }
 

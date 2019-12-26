@@ -4,7 +4,7 @@ import java.io.IOException;
 import java.io.InputStream;
 
 public interface TranslationDataParser {
-    void parseAndPublish(String foreignWord,
+    void parseAndPublish(WordInfo wordInfo,
                          InputStream translationData,
                          TranslationPublisher translationPublisher) throws IOException;
 }

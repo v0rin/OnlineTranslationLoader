@@ -16,8 +16,8 @@ import static org.vorin.bestwords.util.Sources.GOOGLE_TRANSLATE_SOURCE;
 
 public class GoogleTranslateTest {
 
-    private static final String TEST_FOREIGN_WORD = "can";
-    private static final String TEST_CACHE_FILE_PATH = AppConfig.TEST_RES_DIR + "loaders/GoogleTranslate/" + TEST_FOREIGN_WORD;
+    private static final WordInfo TEST_WORD_INFO = new WordInfo("can", null);
+    private static final String TEST_CACHE_FILE_PATH = AppConfig.TEST_RES_DIR + "loaders/GoogleTranslate/" + TEST_WORD_INFO.getForeignWord();
 
 
     @Test
@@ -27,13 +27,13 @@ public class GoogleTranslateTest {
         var parser = new GoogleTranslateParser(0.01, 5);
 
         var expectedWordList = new WordList();
-        expectedWordList.addMeaning(TEST_FOREIGN_WORD, "lata", GOOGLE_TRANSLATE_SOURCE);
-        expectedWordList.addMeaning(TEST_FOREIGN_WORD, "bote", GOOGLE_TRANSLATE_SOURCE);
-        expectedWordList.addMeaning(TEST_FOREIGN_WORD, "poder", GOOGLE_TRANSLATE_SOURCE);
+        expectedWordList.addMeaning(TEST_WORD_INFO.getForeignWord(), "lata", GOOGLE_TRANSLATE_SOURCE);
+        expectedWordList.addMeaning(TEST_WORD_INFO.getForeignWord(), "bote", GOOGLE_TRANSLATE_SOURCE);
+        expectedWordList.addMeaning(TEST_WORD_INFO.getForeignWord(), "poder", GOOGLE_TRANSLATE_SOURCE);
 
         // when
         try (var canCacheFileIS = new FileInputStream(new File(TEST_CACHE_FILE_PATH))) {
-            parser.parseAndPublish(TEST_FOREIGN_WORD, canCacheFileIS, publisher);
+            parser.parseAndPublish(TEST_WORD_INFO, canCacheFileIS, publisher);
         }
 
         // then
@@ -45,7 +45,7 @@ public class GoogleTranslateTest {
     public void downloadTest() throws IOException {
         var downloader = new GoogleTranslateDownloader(Dictionary.EN_ES);
 
-        try (var downloadedDataIS = downloader.download(TEST_FOREIGN_WORD);) {
+        try (var downloadedDataIS = downloader.download(TEST_WORD_INFO.getForeignWord());) {
 //            // creating a test file
 //            try(OutputStream fos = new FileOutputStream(TEST_CACHE_FILE_PATH)){
 //                IOUtils.copy(downloadedDataIS, fos);

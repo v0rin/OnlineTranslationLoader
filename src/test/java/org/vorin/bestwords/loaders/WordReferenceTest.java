@@ -8,7 +8,6 @@ import org.vorin.bestwords.model.WordList;
 import org.vorin.bestwords.util.Dictionary;
 
 import java.io.*;
-import java.nio.charset.StandardCharsets;
 
 import static org.hamcrest.core.Is.is;
 import static org.junit.Assert.assertThat;
@@ -16,8 +15,8 @@ import static org.vorin.bestwords.util.Sources.WORD_REFERENCE_SOURCE;
 
 public class WordReferenceTest {
 
-    private static final String TEST_FOREIGN_WORD = "can";
-    private static final String TEST_CACHE_FILE_PATH = AppConfig.TEST_RES_DIR + "loaders/WordReference/" + TEST_FOREIGN_WORD;
+    private static final WordInfo TEST_WORD_INFO = new WordInfo("can", null);
+    private static final String TEST_CACHE_FILE_PATH = AppConfig.TEST_RES_DIR + "loaders/WordReference/" + TEST_WORD_INFO.getForeignWord();
 
     @Test
     public void parseAndPublish() throws IOException {
@@ -26,27 +25,27 @@ public class WordReferenceTest {
         var parser = new WordReferenceParser();
 
         var expectedWordList = new WordList();
-        expectedWordList.addMeaning(TEST_FOREIGN_WORD, "poder", WORD_REFERENCE_SOURCE);
-        expectedWordList.addExampleSentence(TEST_FOREIGN_WORD, "poder", "I can carry those suitcases for you - Puedo llevarte esas maletas", WORD_REFERENCE_SOURCE);
+        expectedWordList.addMeaning(TEST_WORD_INFO.getForeignWord(), "poder", WORD_REFERENCE_SOURCE);
+        expectedWordList.addExampleSentence(TEST_WORD_INFO.getForeignWord(), "poder", "I can carry those suitcases for you - Puedo llevarte esas maletas", WORD_REFERENCE_SOURCE);
 
-        expectedWordList.addMeaning(TEST_FOREIGN_WORD, "saber", WORD_REFERENCE_SOURCE);
-        expectedWordList.addExampleSentence(TEST_FOREIGN_WORD, "saber", "She can play the piano - Ella sabe tocar el piano", WORD_REFERENCE_SOURCE);
+        expectedWordList.addMeaning(TEST_WORD_INFO.getForeignWord(), "saber", WORD_REFERENCE_SOURCE);
+        expectedWordList.addExampleSentence(TEST_WORD_INFO.getForeignWord(), "saber", "She can play the piano - Ella sabe tocar el piano", WORD_REFERENCE_SOURCE);
 
-        expectedWordList.addMeaning(TEST_FOREIGN_WORD, "ser posible", WORD_REFERENCE_SOURCE);
-        expectedWordList.addExampleSentence(TEST_FOREIGN_WORD, "ser posible", "Such things can happen if you're not careful - Es posible que pasen cosas asi si no llevas cuidado", WORD_REFERENCE_SOURCE);
+        expectedWordList.addMeaning(TEST_WORD_INFO.getForeignWord(), "ser posible", WORD_REFERENCE_SOURCE);
+        expectedWordList.addExampleSentence(TEST_WORD_INFO.getForeignWord(), "ser posible", "Such things can happen if you're not careful - Es posible que pasen cosas asi si no llevas cuidado", WORD_REFERENCE_SOURCE);
 
-        expectedWordList.addMeaning(TEST_FOREIGN_WORD, "bote", WORD_REFERENCE_SOURCE);
-        expectedWordList.addExampleSentence(TEST_FOREIGN_WORD, "bote", "We need three more cans of paint - Necesitamos tres botes mas de pintura", WORD_REFERENCE_SOURCE);
+        expectedWordList.addMeaning(TEST_WORD_INFO.getForeignWord(), "bote", WORD_REFERENCE_SOURCE);
+        expectedWordList.addExampleSentence(TEST_WORD_INFO.getForeignWord(), "bote", "We need three more cans of paint - Necesitamos tres botes mas de pintura", WORD_REFERENCE_SOURCE);
 
-        expectedWordList.addMeaning(TEST_FOREIGN_WORD, "lata", WORD_REFERENCE_SOURCE);
-        expectedWordList.addExampleSentence(TEST_FOREIGN_WORD, "lata", "Pass me that can of peas - Pasame esa lata de guisantes", WORD_REFERENCE_SOURCE);
+        expectedWordList.addMeaning(TEST_WORD_INFO.getForeignWord(), "lata", WORD_REFERENCE_SOURCE);
+        expectedWordList.addExampleSentence(TEST_WORD_INFO.getForeignWord(), "lata", "Pass me that can of peas - Pasame esa lata de guisantes", WORD_REFERENCE_SOURCE);
 
-        expectedWordList.addMeaning(TEST_FOREIGN_WORD, "tacho", WORD_REFERENCE_SOURCE);
-        expectedWordList.addMeaning(TEST_FOREIGN_WORD, "cesto", WORD_REFERENCE_SOURCE);
+        expectedWordList.addMeaning(TEST_WORD_INFO.getForeignWord(), "tacho", WORD_REFERENCE_SOURCE);
+        expectedWordList.addMeaning(TEST_WORD_INFO.getForeignWord(), "cesto", WORD_REFERENCE_SOURCE);
 
         // when
         try (var canCacheFileIS = new FileInputStream(new File(TEST_CACHE_FILE_PATH))) {
-            parser.parseAndPublish(TEST_FOREIGN_WORD, canCacheFileIS, publisher);
+            parser.parseAndPublish(TEST_WORD_INFO, canCacheFileIS, publisher);
         }
 
         // then
@@ -58,7 +57,7 @@ public class WordReferenceTest {
     public void downloadTest() throws IOException {
         var downloader = new WordReferenceDownloader(Dictionary.EN_ES);
 
-        try (var downloadedDataIS = downloader.download(TEST_FOREIGN_WORD);) {
+        try (var downloadedDataIS = downloader.download(TEST_WORD_INFO.getForeignWord())) {
 
             // creating a test file
             try(OutputStream fos = new FileOutputStream(TEST_CACHE_FILE_PATH)) {

@@ -28,7 +28,7 @@ public class WordReferenceParser implements TranslationDataParser {
     }
 
     @Override
-    public void parseAndPublish(String foreignWord,
+    public void parseAndPublish(WordInfo wordInfo,
                                 InputStream translationData,
                                 TranslationPublisher translationPublisher) throws IOException {
         Document doc = Jsoup.parse(translationData, StandardCharsets.UTF_8.name(), "");
@@ -48,9 +48,9 @@ public class WordReferenceParser implements TranslationDataParser {
                 if (foreignSentence != null) {
                     for (int i = 0; i < Math.min(meanings.size(), translatedSentences.size()); i++) {
                         var meaning = meanings.get(i);
-                        if (!translationPublisher.exampleSentenceExists(foreignWord, meaning)) {
+                        if (!translationPublisher.exampleSentenceExists(wordInfo.getForeignWord(), meaning)) {
                             String sentence = trimAndStripTrailingDot(foreignSentence) + " - " + trimAndStripTrailingDot(translatedSentences.get(i));
-                            translationPublisher.addExampleSentence(foreignWord, meaning, sentence, WORD_REFERENCE_SOURCE);
+                            translationPublisher.addExampleSentence(wordInfo.getForeignWord(), meaning, sentence, WORD_REFERENCE_SOURCE);
                         }
                     }
                 }
@@ -71,7 +71,7 @@ public class WordReferenceParser implements TranslationDataParser {
                 for (String meaning : meaningsArr) {
                     meaning = meaning.trim();
                     if (!addedMeaninigs.contains(meaning)) {
-                        translationPublisher.addMeaning(foreignWord, meaning, WORD_REFERENCE_SOURCE);
+                        translationPublisher.addMeaning(wordInfo.getForeignWord(), meaning, WORD_REFERENCE_SOURCE);
                         addedMeaninigs.add(meaning);
                     }
                     meanings.add(meaning);

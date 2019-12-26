@@ -27,7 +27,7 @@ public class LingueeParser implements TranslationDataParser {
     private static final Logger LOG = Logger.get(LingueeParser.class);
 
     @Override
-    public void parseAndPublish(String foreignWord,
+    public void parseAndPublish(WordInfo wordInfo,
                                 InputStream translationData,
                                 TranslationPublisher translationPublisher) throws IOException {
         Document doc = Jsoup.parse(translationData, StandardCharsets.UTF_8.name(), "");
@@ -61,10 +61,10 @@ public class LingueeParser implements TranslationDataParser {
             }
 
             if (!addedMeaninigs.contains(meaning)) {
-                translationPublisher.addMeaning(foreignWord, meaning, LINGUEE_SOURCE);
+                translationPublisher.addMeaning(wordInfo.getForeignWord(), meaning, LINGUEE_SOURCE);
                 addedMeaninigs.add(meaning);
                 if (!sentences.isEmpty()) {
-                    translationPublisher.addExampleSentence(foreignWord, meaning, Util.chooseShortestString(sentences), LINGUEE_SOURCE);
+                    translationPublisher.addExampleSentence(wordInfo.getForeignWord(), meaning, Util.chooseShortestString(sentences), LINGUEE_SOURCE);
                 }
             }
             sentences.clear();

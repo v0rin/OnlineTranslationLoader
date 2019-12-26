@@ -19,9 +19,10 @@ public class TranslationLoaderTest {
     private static final String TEST_CONTENT = "TEST_CONTENT";
     private static final String TEST_CONTENT_CACHED = "TEST_CONTENT_CACHED";
     private static final String TEST_SOURCE = "test-source";
-    private static final String TEST_FOREIGN_WORD = "test-foreign-word";
+    private static final WordInfo TEST_WORD_INFO = new WordInfo("test-foreign-word", "test-meaning");
     private static final String TEST_MEANING1 = "TEST_MEANING1";
     private static final String TEST_MEANING2 = "TEST_MEANING2";
+    private static final String TEST_EXAMPLE_SENTENCE = "EXAMPLE_SENTENCE";
 
     private TranslationPublisher publisher;
     private TestTranslationParser translationDataParser;
@@ -46,16 +47,14 @@ public class TranslationLoaderTest {
         new File(testCacheDir).mkdirs();
         var loader = new TranslationLoader(translationDownloader, translationDataParser, publisher, TEST_SOURCE, true);
 
-        var expectedWordList = new WordList();
-        expectedWordList.addMeaning(TEST_FOREIGN_WORD, TEST_MEANING1, TEST_SOURCE);
-        expectedWordList.addMeaning(TEST_FOREIGN_WORD, TEST_MEANING2, TEST_SOURCE);
+        var expectedWordList = getExpectedWordList();
 
         // when
-        loader.load(Arrays.asList(TEST_FOREIGN_WORD));
+        loader.load(Arrays.asList(TEST_WORD_INFO));
 
         // then
         assertThat(publisher.getWordList(), is(expectedWordList));
-        String cachedFilePath = testCacheDir + TEST_FOREIGN_WORD;
+        String cachedFilePath = testCacheDir + TEST_WORD_INFO.getForeignWord();
         assertTrue(new File(cachedFilePath).exists());
         try (var cachedFileIS = new FileInputStream(cachedFilePath)) {
             assertThat(IOUtils.toString(cachedFileIS, StandardCharsets.UTF_8), is(TEST_CONTENT));
@@ -69,12 +68,10 @@ public class TranslationLoaderTest {
         // given
         var loader = new TranslationLoader(translationDownloader, translationDataParser, publisher, TEST_SOURCE, false);
 
-        var expectedWordList = new WordList();
-        expectedWordList.addMeaning(TEST_FOREIGN_WORD, TEST_MEANING1, TEST_SOURCE);
-        expectedWordList.addMeaning(TEST_FOREIGN_WORD, TEST_MEANING2, TEST_SOURCE);
+        var expectedWordList = getExpectedWordList();
 
         // when
-        loader.load(Arrays.asList(TEST_FOREIGN_WORD));
+        loader.load(Arrays.asList(TEST_WORD_INFO));
 
         // then
         assertThat(publisher.getWordList(), is(expectedWordList));
@@ -86,17 +83,24 @@ public class TranslationLoaderTest {
         // given
         var loader = new TranslationLoader(translationDownloader, translationCachedDataParser, publisher, TEST_SOURCE, true);
 
-        var expectedWordList = new WordList();
-        expectedWordList.addMeaning(TEST_FOREIGN_WORD, TEST_MEANING1, TEST_SOURCE);
-        expectedWordList.addMeaning(TEST_FOREIGN_WORD, TEST_MEANING2, TEST_SOURCE);
+        var expectedWordList = getExpectedWordList();
 
         // when
-        loader.load(Arrays.asList(TEST_FOREIGN_WORD));
+        loader.load(Arrays.asList(TEST_WORD_INFO));
 
         // then
         assertThat(publisher.getWordList(), is(expectedWordList));
     }
 
+
+    private WordList getExpectedWordList() {
+        var expectedWordList = new WordList();
+        expectedWordList.addMeaning(TEST_WORD_INFO.getForeignWord(), TEST_MEANING1, TEST_SOURCE);
+        expectedWordList.addMeaning(TEST_WORD_INFO.getForeignWord(), TEST_MEANING2, TEST_SOURCE);
+        expectedWordList.addMeaning(TEST_WORD_INFO.getForeignWord(), TEST_WORD_INFO.getWordMeaning(), TEST_SOURCE);
+        expectedWordList.addExampleSentence(TEST_WORD_INFO.getForeignWord(), TEST_WORD_INFO.getWordMeaning(), TEST_EXAMPLE_SENTENCE, TEST_SOURCE);
+        return expectedWordList;
+    }
 
     static class TestTranslationDownloader implements TranslationDataDownloader {
         @Override
@@ -112,12 +116,14 @@ public class TranslationLoaderTest {
         }
 
         @Override
-        public void parseAndPublish(String foreignWord, InputStream translationData, TranslationPublisher translationPublisher) throws IOException {
+        public void parseAndPublish(WordInfo wordInfo, InputStream translationData, TranslationPublisher translationPublisher) throws IOException {
             String dataStr = IOUtils.toString(translationData, StandardCharsets.UTF_8);
 
             if (dataStr.equals(expectedContent)) {
-                translationPublisher.addMeaning(foreignWord, TEST_MEANING1, TEST_SOURCE);
-                translationPublisher.addMeaning(foreignWord, TEST_MEANING2, TEST_SOURCE);
+                translationPublisher.addMeaning(wordInfo.getForeignWord(), TEST_MEANING1, TEST_SOURCE);
+                translationPublisher.addMeaning(wordInfo.getForeignWord(), TEST_MEANING2, TEST_SOURCE);
+                translationPublisher.addMeaning(wordInfo.getForeignWord(), wordInfo.getWordMeaning(), TEST_SOURCE);
+                translationPublisher.addExampleSentence(wordInfo.getForeignWord(), wordInfo.getWordMeaning(), TEST_EXAMPLE_SENTENCE, TEST_SOURCE);
             }
             translationData.close();
         }

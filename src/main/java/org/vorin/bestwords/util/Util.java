@@ -1,5 +1,6 @@
 package org.vorin.bestwords.util;
 
+import org.vorin.bestwords.loaders.WordInfo;
 import org.vorin.bestwords.model.Translation;
 import org.vorin.bestwords.model.WordList;
 
@@ -31,9 +32,9 @@ public class Util {
         return s;
     }
 
-    public static List<String> getForeignWordsFromXml(String xmlPath) throws IOException {
+    public static List<WordInfo> getForeignWordsFromXml(String xmlPath) throws IOException {
         var wl = WordList.loadFromXml(new File(xmlPath));
-        return wl.getTranslations().stream().map(Translation::getForeignWord).distinct().collect(toList());
+        return wl.getTranslations().stream().map(t -> new WordInfo(t.getForeignWord(), null)).distinct().collect(toList());
     }
 
     public static String chooseShortestString(List<String> strings) {
