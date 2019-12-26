@@ -35,4 +35,16 @@ public class Util {
         var wl = WordList.loadFromXml(new File(xmlPath));
         return wl.getTranslations().stream().map(Translation::getForeignWord).distinct().collect(toList());
     }
+
+    public static String chooseShortestString(List<String> strings) {
+        String shortest = null;
+        int minLength = Integer.MAX_VALUE;
+        for (String s : strings) {
+            if (s.length() < minLength) {
+                shortest = s;
+                minLength = s.length();
+            }
+        }
+        return shortest;
+    }
 }

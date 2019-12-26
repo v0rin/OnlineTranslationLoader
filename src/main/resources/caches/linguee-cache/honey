@@ -1,0 +1,52 @@
+<html><body><table>
+<div class="exact">
+ <div class="lemma featured" wt="101">
+  <div>
+   <h2 class="line lemma_desc" lid="EN:honey9063"><span class="tag_lemma"><a class="dictLink" rel="nofollow" href="/english-spanish/translation/honey.html">honey</a> <a id="EN_US/b6/b60eb83bf533eecf1bde65940925a981-101" class="audio" onclick="playSound(this,&quot;EN_US/b6/b60eb83bf533eecf1bde65940925a981-101&quot;,&quot;American English&quot;,&quot;EN_UK/b6/b60eb83bf533eecf1bde65940925a981-101&quot;,&quot;British English&quot;);"></a> <span class="tag_wordtype">noun</span></span><span class="dash">&#x2014;</span></h2>
+   <div class="lemma_content">
+    <div class="meaninggroup  sortablemg" gid="0">
+     <div class="translation_lines">
+      <div class="translation sortablemg featured">
+       <h3 class="translation_desc"><span class="tag_trans" bid="10002089776" lid="ES:miel34118"><a id="dictEntry10002089776" href="/spanish-english/translation/miel.html" class="dictLink featured">miel</a> <span class="tag_type" title="noun,&nbsp;feminine">f</span> <a id="ES_ES/9d/9da97b3176475838fd6c55d8543b50ee-104" class="audio" onclick="playSound(this,&quot;ES_ES/9d/9da97b3176475838fd6c55d8543b50ee-104&quot;,&quot;Spanish&quot;);"></a><a class="expand_i"></a></span>
+        <!--tag_trans--> <span class="tag_c usedalmostalways">(almost always used)</span> <span class="tag_forms forms_plural"> (<span class="tag_formname">plural: </span><span class="tag_t"><a class="formLink" href="/spanish-english/translation/mieles.html" rel="nofollow">mieles</a> <span class="tag_type">f</span></span>)</span></h3>
+       <!--translation_desc-->
+       <!-- editorial isFeatured 1 inType 0 allowFeatured 1 available: 1 --> 
+       <div class="example_lines">
+        <div class="example line " sid="34570">
+         <span class="tag_e"><span class="tag_s">The honey you bought has an amber tone.</span> <span class="dash">&#x2014;</span>&nbsp;<span class="tag_t">La miel que compraste tiene un tono ambarino.</span><span class="tag_e_end"></span></span>
+        </div>
+       </div>
+      </div> 
+      <div class="translation_group">
+       <div class="line group_line translation_group_line">
+        <span class="notascommon">less common:</span> 
+        <div class="translation sortablemg translation_first">
+         <div class="translation_desc">
+          <span class="tag_trans" bid="10000862677" lid="ES:tesoro61951"><a id="dictEntry10000862677" href="/spanish-english/translation/tesoro.html" class="dictLink">tesoro</a> <span class="tag_type" title="noun,&nbsp;masculine">m</span> <a id="ES_ES/d5/d58226630c591bc739061c1cc1a79a50-106" class="audio" onclick="playSound(this,&quot;ES_ES/d5/d58226630c591bc739061c1cc1a79a50-106&quot;,&quot;Spanish&quot;);"></a></span>
+          <!--tag_trans-->
+         </div>
+         <!--translation_desc-->
+         <!-- editorial isFeatured 0 inType 0 allowFeatured 1 available: 0 --> 
+         <span class="sep">·</span> 
+        </div> 
+        <div class="translation sortablemg">
+         <div class="translation_desc">
+          <span class="tag_trans" bid="10000827046" lid="ES:cari#o14632"><a id="dictEntry10000827046" href="/spanish-english/translation/cari%C3%B1o.html" class="dictLink">cariño</a> <span class="tag_type" title="noun,&nbsp;masculine">m</span> <a id="ES_ES/b6/b662121329d93828f4cc1b3383e982e7-106" class="audio" onclick="playSound(this,&quot;ES_ES/b6/b662121329d93828f4cc1b3383e982e7-106&quot;,&quot;Spanish&quot;);"></a></span>
+          <!--tag_trans-->
+         </div>
+         <!--translation_desc-->
+         <!-- editorial isFeatured 0 inType 0 allowFeatured 1 available: 0 --> 
+        </div> 
+       </div>
+      </div> 
+     </div>
+     <!--translation_lines--> 
+    </div>
+    <!--meaninggroup--> 
+   </div>
+   <!--lemma_content-->
+  </div>
+ </div>
+ <!--lemma--> 
+</div>
+</table></body></html>

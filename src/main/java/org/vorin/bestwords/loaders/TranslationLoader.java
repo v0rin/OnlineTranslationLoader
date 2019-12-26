@@ -16,13 +16,14 @@ public class TranslationLoader {
 
     private static final Logger LOG = Logger.get(TranslationLoader.class);
 
-    private static final long WAIT_BETWEEN_REQUESTS_MS = 5000;
+    private static final long DEFAULT_WAIT_BETWEEN_REQUESTS_MS = 5000;
 
     private final TranslationDataDownloader translationDataDownloader;
     private final TranslationDataParser translationDataParser;
     private final TranslationPublisher translationPublisher;
     private final String source;
     private final boolean useCache;
+    private final long waitBetweenRequestsMs;
 
     private Stopwatch requestStopwatch;
 
@@ -31,11 +32,21 @@ public class TranslationLoader {
                              TranslationPublisher translationPublisher,
                              String source,
                              boolean useCache) {
+        this(translationDataDownloader, translationDataParser, translationPublisher, source, useCache, DEFAULT_WAIT_BETWEEN_REQUESTS_MS);
+    }
+
+    public TranslationLoader(TranslationDataDownloader translationDataDownloader,
+                             TranslationDataParser translationDataParser,
+                             TranslationPublisher translationPublisher,
+                             String source,
+                             boolean useCache,
+                             long waitBetweenRequestsMs) {
         this.translationDataDownloader = translationDataDownloader;
         this.translationDataParser = translationDataParser;
         this.translationPublisher = translationPublisher;
         this.source = source;
         this.useCache = useCache;
+        this.waitBetweenRequestsMs = waitBetweenRequestsMs;
     }
 
     public void load(List<String> words) throws IOException {
@@ -64,8 +75,8 @@ public class TranslationLoader {
             LOG.info(format("source [%s] - no cached file for word=%s - downloading content...", source, word));
         }
 
-        while (requestStopwatch.isRunning() && requestStopwatch.elapsed().toMillis() < WAIT_BETWEEN_REQUESTS_MS) {
-            sleep(WAIT_BETWEEN_REQUESTS_MS / 50);
+        while (requestStopwatch.isRunning() && requestStopwatch.elapsed().toMillis() < waitBetweenRequestsMs) {
+            sleep(waitBetweenRequestsMs / 50);
         }
 
         InputStream translationData = translationDataDownloader.download(word);

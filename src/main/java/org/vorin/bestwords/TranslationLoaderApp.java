@@ -23,27 +23,17 @@ https://www.youtube.com/watch?v=nyr3EJH0lTY
 TODO @af
 zrobic parsowanie dla tych 3 slownikow ponizej najpierw - zaczac od example sentences bo tego jeszcze nie mam, zeby w praktyce przetestowac
 
-stworzyc parser do kolejnego na zasadzie kopiuj i wklej na poczatek, a potem ujednolicic
-zrobic test na podstawie jakiegos pliku z cache dla kazdego loadera
-
-
-powinno zaladowac translations i przykladowe zdania z roznych zrodel
-niektore zrodla beda mialy tylko przykladowe zdania, niektore tlumaczenie, a niektore oba
-chyba wszystkie powinny tworzyc xml a potem mergowalbym xml
-te zrodla ktore maja tylko zdania beda pracowac na meanings
-moze powinienem miec 2 osobne tory, jeden dla meanings drugi dla example sentences
+powinno zaladowac translations i przykladowe zdania z roznych zrodel,
 nastepnie porownac, zmergowac i tam gdzie sa problemy/sugestie to ustawic alert i ew. pokazac wszystkie opcje
 
 https://www.wordreference.com/es/en/translation.asp?spen=tomar
-class="FrEx"
-class="ToEx"
 https://www.collinsdictionary.com/dictionary/spanish-english/tomar - taki sam jak zakladka collins w wordreference ale moze latwiejszy do parsowania
 https://www.linguee.com/english-spanish/search?source=auto&query=work
 https://www.linguee.com/english-spanish/search?source=auto&query=tomar
 
+move the app to bestwords
+
 CHECKS & ALERTS:
-
-
 meanings:
 - check if the meaning is in SpanishCombined2954.txt
 
@@ -67,7 +57,8 @@ public class TranslationLoaderApp {
 
         var words = Util.getForeignWordsFromXml(RES_DIR + "EnglishWordList25.xml");
 //        createGoogleWordList(words);
-        createWordReferenceWordList(words);
+//        createWordReferenceWordList(words);
+        createLingueeWordList(words);
 //        createReverseGoogleWordList(Util.getForeignWordsFromXml(RES_DIR + "googleTranslateWordList.xml"));
 
     }
@@ -89,6 +80,17 @@ public class TranslationLoaderApp {
         var downloader = new WordReferenceDownloader(Dictionary.EN_ES);
         var parser = new WordReferenceParser();
         var loader = new TranslationLoader(downloader, parser, xmlPublisher, WORD_REFERENCE_SOURCE, true);
+
+        loader.load(words);
+        xmlPublisher.writeToTarget();
+    }
+
+
+    private static void createLingueeWordList(List<String> words) throws IOException {
+        var xmlPublisher = new XmlTranslationPublisher(new File(RES_DIR + "lingueeWordList.xml"));
+        var downloader = new LingueeDownloader(Dictionary.EN_ES);
+        var parser = new LingueeParser();
+        var loader = new TranslationLoader(downloader, parser, xmlPublisher, LINGUEE_SOURCE, true, 1000);
 
         loader.load(words);
         xmlPublisher.writeToTarget();
