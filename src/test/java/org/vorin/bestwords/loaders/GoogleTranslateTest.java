@@ -45,7 +45,7 @@ public class GoogleTranslateTest {
     public void downloadTest() throws IOException {
         var downloader = new GoogleTranslateDownloader(Dictionary.EN_ES);
 
-        try (var downloadedDataIS = downloader.download(TEST_WORD_INFO.getForeignWord());) {
+        try (var downloadedDataIS = downloader.download(TEST_WORD_INFO.getForeignWord())) {
 //            // creating a test file
 //            try(OutputStream fos = new FileOutputStream(TEST_CACHE_FILE_PATH)){
 //                IOUtils.copy(downloadedDataIS, fos);

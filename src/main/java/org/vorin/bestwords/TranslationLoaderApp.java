@@ -1,6 +1,7 @@
 package org.vorin.bestwords;
 
 import org.vorin.bestwords.loaders.*;
+import org.vorin.bestwords.model.Meaning;
 import org.vorin.bestwords.util.Dictionary;
 import org.vorin.bestwords.util.Logger;
 import org.vorin.bestwords.util.Util;
@@ -9,6 +10,7 @@ import java.io.File;
 import java.io.IOException;
 import java.util.List;
 
+import static java.util.stream.Collectors.toList;
 import static org.vorin.bestwords.AppConfig.*;
 import static org.vorin.bestwords.util.Sources.*;
 
@@ -21,8 +23,6 @@ https://support.google.com/docs/answer/3093342?hl=en
 https://www.youtube.com/watch?v=nyr3EJH0lTY
 
 TODO @af
-zrobic parsowanie dla tych 3 slownikow ponizej najpierw - zaczac od example sentences bo tego jeszcze nie mam, zeby w praktyce przetestowac
-
 powinno zaladowac translations i przykladowe zdania z roznych zrodel,
 nastepnie porownac, zmergowac i tam gdzie sa problemy/sugestie to ustawic alert i ew. pokazac wszystkie opcje
 
@@ -56,52 +56,63 @@ public class TranslationLoaderApp {
     public static void main(String... argvs) throws IOException {
 
         var wordInfos = Util.getForeignWordsFromXml(RES_DIR + "EnglishWordList25.xml");
-//        createGoogleWordList(wordInfos);
-//        createWordReferenceWordList(wordInfos);
-        createLingueeWordList(wordInfos);
-//        createReverseGoogleWordList(Util.getForeignWordsFromXml(RES_DIR + "googleTranslateWordList.xml"));
+
+//        createGoogleWordList(Dictionary.EN_ES, wordInfos,"googleTranslateWordList.xml");
+
+//        // reverse wordlist
+//        createGoogleWordList(Dictionary.ES_EN,
+//                Util.getReverseForeignWordsFromXml(RES_DIR + "googleTranslateWordList.xml"),
+//                "googleTranslateReverseWordList.xml");
+
+//        createWordReferenceWordList(Dictionary.EN_ES, wordInfos, "wordReferenceWordList.xml");
+
+//        createLingueeWordList(Dictionary.EN_ES, wordInfos, "lingueeWordList.xml");
+
+        createCollinsWordList(Dictionary.ES_EN,
+                              Util.getReverseForeignWordsWithMeaningsFromXml(RES_DIR + "googleTranslateWordList.xml"),
+                              "collinsReverseWordList.xml");
 
     }
 
 
-    private static void createGoogleWordList(List<WordInfo> wordInfos) throws IOException {
-        var xmlPublisher = new XmlTranslationPublisher(new File(RES_DIR + "googleTranslateWordList.xml"));
-        var downloader = new GoogleTranslateDownloader(Dictionary.EN_ES);
+    private static void createGoogleWordList(Dictionary dict, List<WordInfo> wordInfos, String outputXml) throws IOException {
+        var xmlPublisher = new XmlTranslationPublisher(new File(RES_DIR + outputXml));
+        var downloader = new GoogleTranslateDownloader(dict);
         var parser = new GoogleTranslateParser(0.01, 5);
-        var loader = new TranslationLoader(downloader, parser, xmlPublisher, GOOGLE_TRANSLATE_SOURCE, true);
+        var loader = new TranslationLoader(downloader, parser, xmlPublisher, true);
 
         loader.load(wordInfos);
         xmlPublisher.writeToTarget();
     }
 
 
-    private static void createWordReferenceWordList(List<WordInfo> wordInfos) throws IOException {
-        var xmlPublisher = new XmlTranslationPublisher(new File(RES_DIR + "wordReferenceWordList.xml"));
-        var downloader = new WordReferenceDownloader(Dictionary.EN_ES);
+    private static void createWordReferenceWordList(Dictionary dict, List<WordInfo> wordInfos, String outputXml) throws IOException {
+        var xmlPublisher = new XmlTranslationPublisher(new File(RES_DIR + outputXml));
+        var downloader = new WordReferenceDownloader(dict);
         var parser = new WordReferenceParser();
-        var loader = new TranslationLoader(downloader, parser, xmlPublisher, WORD_REFERENCE_SOURCE, true);
+        var loader = new TranslationLoader(downloader, parser, xmlPublisher, true);
 
         loader.load(wordInfos);
         xmlPublisher.writeToTarget();
     }
 
 
-    private static void createLingueeWordList(List<WordInfo> wordInfos) throws IOException {
-        var xmlPublisher = new XmlTranslationPublisher(new File(RES_DIR + "lingueeWordList.xml"));
-        var downloader = new LingueeDownloader(Dictionary.EN_ES);
+    private static void createLingueeWordList(Dictionary dict, List<WordInfo> wordInfos, String outputXml) throws IOException {
+        var xmlPublisher = new XmlTranslationPublisher(new File(RES_DIR + outputXml));
+        var downloader = new LingueeDownloader(dict);
         var parser = new LingueeParser();
-        var loader = new TranslationLoader(downloader, parser, xmlPublisher, LINGUEE_SOURCE, true, 1000);
+        var loader = new TranslationLoader(downloader, parser, xmlPublisher, true, 1000);
 
         loader.load(wordInfos);
         xmlPublisher.writeToTarget();
     }
 
 
-    private static void createReverseGoogleWordList(List<WordInfo> wordInfos) throws IOException {
-        var xmlPublisher = new XmlTranslationPublisher(new File(RES_DIR + "googleTranslateReverseWordList.xml"));
-        var downloader = new GoogleTranslateDownloader(Dictionary.ES_EN);
-        var parser = new GoogleTranslateParser(0.01, 5);
-        var loader = new TranslationLoader(downloader, parser, xmlPublisher, GOOGLE_TRANSLATE_SOURCE, true);
+    private static void createCollinsWordList(Dictionary dict, List<WordInfo> wordInfos, String outputXml) throws IOException {
+        var xmlPublisher = new XmlTranslationPublisher(new File(RES_DIR + outputXml));
+        var downloader = new CollinsDownloader(dict);
+        var parser = new CollinsSentencesParser(30);
+        var loader = new TranslationLoader(downloader, parser, xmlPublisher, true, 1000);
 
         loader.load(wordInfos);
         xmlPublisher.writeToTarget();

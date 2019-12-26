@@ -7,4 +7,6 @@ public interface TranslationDataParser {
     void parseAndPublish(WordInfo wordInfo,
                          InputStream translationData,
                          TranslationPublisher translationPublisher) throws IOException;
+
+    String getSource();
 }

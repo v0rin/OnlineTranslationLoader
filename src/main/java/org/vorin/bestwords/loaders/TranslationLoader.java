@@ -21,7 +21,6 @@ public class TranslationLoader {
     private final TranslationDataDownloader translationDataDownloader;
     private final TranslationDataParser translationDataParser;
     private final TranslationPublisher translationPublisher;
-    private final String source;
     private final boolean useCache;
     private final long waitBetweenRequestsMs;
 
@@ -30,49 +29,46 @@ public class TranslationLoader {
     public TranslationLoader(TranslationDataDownloader translationDataDownloader,
                              TranslationDataParser translationDataParser,
                              TranslationPublisher translationPublisher,
-                             String source,
                              boolean useCache) {
-        this(translationDataDownloader, translationDataParser, translationPublisher, source, useCache, DEFAULT_WAIT_BETWEEN_REQUESTS_MS);
+        this(translationDataDownloader, translationDataParser, translationPublisher, useCache, DEFAULT_WAIT_BETWEEN_REQUESTS_MS);
     }
 
     public TranslationLoader(TranslationDataDownloader translationDataDownloader,
                              TranslationDataParser translationDataParser,
                              TranslationPublisher translationPublisher,
-                             String source,
                              boolean useCache,
                              long waitBetweenRequestsMs) {
         this.translationDataDownloader = translationDataDownloader;
         this.translationDataParser = translationDataParser;
         this.translationPublisher = translationPublisher;
-        this.source = source;
         this.useCache = useCache;
         this.waitBetweenRequestsMs = waitBetweenRequestsMs;
     }
 
     public void load(List<WordInfo> wordInfos) throws IOException {
-        LOG.info(format("source [%s] - loading has started...", source));
+        LOG.info(format("source [%s] - loading has started...", translationDataParser.getSource()));
         requestStopwatch = Stopwatch.createUnstarted();
         var addedWordInfos = new HashSet<WordInfo>();
         for (var wordInfo : wordInfos) {
             if (addedWordInfos.contains(wordInfo)) {
-                throw new RuntimeException(format("source [%s] - wordInfo [%s] has been already added - there are some duplicated words it seems", source, wordInfo));
+                throw new RuntimeException(format("source [%s] - wordInfo [%s] has been already added - there are some duplicated words it seems", translationDataParser.getSource(), wordInfo));
             }
 
             translationDataParser.parseAndPublish(wordInfo, getDataForForeignWord(wordInfo.getForeignWord()), translationPublisher);
 
             addedWordInfos.add(wordInfo);
         }
-        LOG.info(format("source [%s] - loading complete", source));
+        LOG.info(format("source [%s] - loading complete", translationDataParser.getSource()));
     }
 
     private InputStream getDataForForeignWord(String foreignWord) throws IOException {
         if (useCache) {
             File cacheFile = getCacheFileForWord(foreignWord);
             if (cacheFile.exists()) {
-                LOG.info(format("source [%s] - using the cached file for word=%s", source, foreignWord));
+                LOG.info(format("source [%s] - using the cached file for word=%s", translationDataParser.getSource(), foreignWord));
                 return new FileInputStream(cacheFile);
             }
-            LOG.info(format("source [%s] - no cached file for word=%s - downloading content...", source, foreignWord));
+            LOG.info(format("source [%s] - no cached file for word=%s - downloading content...", translationDataParser.getSource(), foreignWord));
         }
 
         while (requestStopwatch.isRunning() && requestStopwatch.elapsed().toMillis() < waitBetweenRequestsMs) {
@@ -103,7 +99,7 @@ public class TranslationLoader {
     }
 
     private File getCacheFileForWord(String word) {
-        return new File(CACHES_DIR + source + "-cache/" + word);
+        return new File(CACHES_DIR + translationDataParser.getSource() + "-cache/" + word);
     }
 
 }

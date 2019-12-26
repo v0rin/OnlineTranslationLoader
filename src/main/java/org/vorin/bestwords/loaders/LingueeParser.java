@@ -32,7 +32,7 @@ public class LingueeParser implements TranslationDataParser {
                                 TranslationPublisher translationPublisher) throws IOException {
         Document doc = Jsoup.parse(translationData, StandardCharsets.UTF_8.name(), "");
 
-        Elements rows = doc.select("div.translation_lines > div.translation");;
+        Elements rows = doc.select("div.translation_lines > div.translation");
 
         var addedMeaninigs = new HashSet<String>();
         var sentences = new ArrayList<String>();
@@ -41,7 +41,7 @@ public class LingueeParser implements TranslationDataParser {
             var row = iter.next();
             var meaningElem = row.select("h3.translation_desc > span.tag_trans > a.dictLink[id~=dictEntry]");
             Matcher matcher = MEANING_PATTERN.matcher(meaningElem.toString());
-            String meaning = null;
+            String meaning;
             if (matcher.find()) {
                 meaning = matcher.group(1);
             }
@@ -69,6 +69,11 @@ public class LingueeParser implements TranslationDataParser {
             }
             sentences.clear();
         }
+    }
+
+    @Override
+    public String getSource() {
+        return LINGUEE_SOURCE;
     }
 
 }

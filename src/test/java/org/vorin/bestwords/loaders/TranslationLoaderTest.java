@@ -45,7 +45,7 @@ public class TranslationLoaderTest {
         AppConfig.CACHES_DIR = AppConfig.TEST_RES_DIR + "loaders/TranslationLoader/tmp/";
         String testCacheDir = AppConfig.CACHES_DIR + "test-source-cache/";
         new File(testCacheDir).mkdirs();
-        var loader = new TranslationLoader(translationDownloader, translationDataParser, publisher, TEST_SOURCE, true);
+        var loader = new TranslationLoader(translationDownloader, translationDataParser, publisher, true);
 
         var expectedWordList = getExpectedWordList();
 
@@ -66,7 +66,7 @@ public class TranslationLoaderTest {
     @Test
     public void shouldLoadAndParseDataCorrectlyWithoutUsingCache() throws Exception {
         // given
-        var loader = new TranslationLoader(translationDownloader, translationDataParser, publisher, TEST_SOURCE, false);
+        var loader = new TranslationLoader(translationDownloader, translationDataParser, publisher, false);
 
         var expectedWordList = getExpectedWordList();
 
@@ -81,7 +81,7 @@ public class TranslationLoaderTest {
     @Test
     public void shouldLoadAndParseDataCorrectlyFromCache() throws Exception {
         // given
-        var loader = new TranslationLoader(translationDownloader, translationCachedDataParser, publisher, TEST_SOURCE, true);
+        var loader = new TranslationLoader(translationDownloader, translationCachedDataParser, publisher, true);
 
         var expectedWordList = getExpectedWordList();
 
@@ -126,6 +126,11 @@ public class TranslationLoaderTest {
                 translationPublisher.addExampleSentence(wordInfo.getForeignWord(), wordInfo.getWordMeaning(), TEST_EXAMPLE_SENTENCE, TEST_SOURCE);
             }
             translationData.close();
+        }
+
+        @Override
+        public String getSource() {
+            return TEST_SOURCE;
         }
     }
 }

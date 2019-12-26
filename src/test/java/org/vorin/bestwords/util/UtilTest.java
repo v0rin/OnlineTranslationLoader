@@ -25,6 +25,10 @@ public class UtilTest {
         assertThat(Util.chooseShortestString(List.of("1", "22", "333")), is("1"));
         assertThat(Util.chooseShortestString(List.of("22", "1", "333")), is("1"));
         assertThat(Util.chooseShortestString(List.of("22", "333", "1")), is("1"));
+
+        assertThat(Util.chooseShortestString(List.of("1", "22", "333"), 2), is("22"));
+        assertThat(Util.chooseShortestString(List.of("22", "1", "333"), 2), is("22"));
+        assertThat(Util.chooseShortestString(List.of("22", "333", "1"), 2), is("22"));
     }
 
 }

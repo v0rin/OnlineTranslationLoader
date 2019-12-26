@@ -1,0 +1,95 @@
+<html><body><table>
+<div class="hom">
+ <span class="gramGrp"><span class="xr ptr"></span><span class=" hi rend-sc pos">feminine noun</span></span>
+ <div class="sense">
+  <span class=" sensenum bluebold">1.&nbsp;</span> 
+  <span class="lbl type-misc"><span class=" punctuation">(</span>para caballos<span class=" punctuation">)</span></span> 
+  <span class="cit type-translation quote">stable</span>
+  <div class="cit type-example">
+   <span class="quote">los mejores son los caballos de la cuadra Martín</span> 
+   <span class="cit type-translation quote">the best horses are from the Martín stable</span>
+  </div>
+  <div class="cit type-example">
+   <span class="quote">tienes la habitación que parece una cuadra</span>
+   <span class="lbl type-register"> <span class=" punctuation">(</span>informal<span class=" punctuation">)</span></span> 
+   <span class="cit type-translation quote">your room looks like a pigsty<span class="lbl type-register"> <span class=" punctuation">(</span>informal<span class=" punctuation">)</span></span></span>
+   <span class=" bluebold"> ⧫ </span>
+   <span class="cit type-translation quote">your room is an absolute tip<span class="lbl type-register"> <span class=" punctuation">(</span>informal<span class=" punctuation">)</span></span></span>
+  </div>
+  <div class="sense xr">
+   <span class="lbl">See </span> 
+   <a href="https://www.collinsdictionary.com/dictionary/spanish-english/cuadra-de-carreras" title="Translation of cuadra de carreras" class="ref"><span class="orth">cuadra de carreras</span></a>
+  </div> 
+ </div>
+ <div class="sense">
+  <span class=" sensenum bluebold">2.&nbsp;</span> 
+  <span class="lbl type-geo"><span class=" punctuation">(</span>Latin America<span class="lbl type-syn"><span class=" punctuation">) (</span><span class=" punctuation">=&nbsp;</span>manzana<span class=" punctuation">)</span></span></span> 
+  <span class="cit type-translation quote">block</span>
+  <div class="cit type-example">
+   <span class="quote">vivo a dos cuadras de aquí</span> 
+   <span class="cit type-translation quote">I live two blocks from here</span>
+  </div>
+ </div>
+ <div class="sense">
+  <span class=" sensenum bluebold">3.&nbsp;</span> 
+  <span class="gramGrp colloc"><span class=" punctuation">[</span>de hospital<span class=" punctuation">]</span></span> 
+  <span class="cit type-translation quote">ward</span>
+ </div>
+ <div class="sense">
+  <span class=" sensenum bluebold">4.&nbsp;</span> 
+  <span class="lbl type-subj"><span class=" punctuation">(</span>Military<span class=" punctuation">)</span></span>
+  <div class="sense">
+   <span class="lbl type-syn"><span class=" punctuation">(</span><span class=" punctuation">=&nbsp;</span>barracón<span class=" punctuation">)</span></span> 
+   <span class="cit type-translation quote">barracks <span class="lbl type-pos">plural</span></span>
+  </div>
+ </div>
+ <div class="sense">
+  <span class=" sensenum bluebold">5.&nbsp;</span> 
+  <span class="lbl type-syn"><span class=" punctuation">(</span><span class=" punctuation">=&nbsp;</span>sala<span class=" punctuation">)</span></span> 
+  <span class="cit type-translation quote">hall</span>
+  <span class=" bluebold"> ⧫ </span>
+  <span class="cit type-translation quote">large room</span>
+  <div class="sense">
+   <span class="lbl type-geo"><span class=" punctuation">(</span>Andes<span class=" punctuation">)</span></span> 
+   <span class="cit type-translation quote">reception room</span>
+  </div>
+ </div>
+ <div class="sense">
+  <span class=" sensenum bluebold">6.&nbsp;</span> 
+  <span class="lbl type-geo"><span class=" punctuation">(</span>Andes<span class="lbl type-syn"><span class=" punctuation">) (</span><span class=" punctuation">=&nbsp;</span>casa<span class=" punctuation">)</span></span></span> 
+  <span class="cit type-translation quote">small rural property <span class="lbl type-misc"><span class=" punctuation">(</span>near a town<span class=" punctuation">)</span></span></span> 
+  <div class="mpuslot_b-container"> 
+   <div id="ad_contentslot_1" class="am-default contentslot"> 
+    <script>googletag.cmd.push(function() { googletag.display('ad_contentslot_1'); });</script> 
+   </div> 
+   <div id="hcdcrt-4731815852495294464" class="hcdcrt" style="width:300px;height:250px;"></div> 
+   <script>
+Criteo.DisplayAcceptableAdIfAdblocked({
+"zoneid": 1384197,
+"containerid": "hcdcrt-4731815852495294464",
+"callbackSuccess": function(event){
+stickyslotid = ".ac_leftslot_a.sticky .hcdcrt";
+},
+"callIfNotAdBlocked": function() {
+stickyslotid = refstickyslotid;
+}
+});
+</script> 
+  </div> 
+ </div>
+ <div class="sense">
+  <span class=" sensenum bluebold">7.&nbsp;</span> 
+  <span class="lbl type-syn"><span class=" punctuation">(</span><span class=" punctuation">=&nbsp;</span>medida<span class=" punctuation">)</span></span>
+  <div class="sense">
+   <span class="lbl type-geo"><span class=" punctuation">(</span>Southern Cone<span class=" punctuation">)</span></span> 
+   <span class=" punctuation">≈&nbsp;</span>
+   <span class="cit type-translation quote">125.50 metres</span>
+  </div>
+  <div class="sense">
+   <span class="lbl type-geo"><span class=" punctuation">(</span>Andes<span class="lbl type-geo"><span class=" punctuation">, </span>Central America<span class="lbl type-geo"><span class=" punctuation">, </span>Caribbean<span class="lbl type-geo"><span class=" punctuation">, </span>Uruguay<span class=" punctuation">)</span></span></span></span></span> 
+   <span class=" punctuation">≈&nbsp;</span>
+   <span class="cit type-translation quote">83.5 metres</span>
+  </div>
+ </div>
+</div>
+</table></body></html>

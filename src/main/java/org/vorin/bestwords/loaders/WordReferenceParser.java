@@ -90,6 +90,11 @@ public class WordReferenceParser implements TranslationDataParser {
 
     }
 
+    @Override
+    public String getSource() {
+        return WORD_REFERENCE_SOURCE;
+    }
+
     private RowType getRowType(Element row) {
         var meaningElem = row.select("td.ToWrd").first();
         if (meaningElem != null) {

@@ -73,4 +73,9 @@ public class GoogleTranslateParser implements TranslationDataParser {
 
     }
 
+    @Override
+    public String getSource() {
+        return GOOGLE_TRANSLATE_SOURCE;
+    }
+
 }
