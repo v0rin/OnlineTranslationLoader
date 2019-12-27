@@ -5,6 +5,7 @@ import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 import org.vorin.bestwords.util.Logger;
+import org.vorin.bestwords.util.Util;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -16,7 +17,6 @@ import java.util.regex.Pattern;
 
 import static java.lang.String.format;
 import static org.vorin.bestwords.util.Sources.WORD_REFERENCE_SOURCE;
-import static org.vorin.bestwords.util.Util.trimAndStripTrailingDot;
 
 public class WordReferenceParser implements TranslationDataParser {
 
@@ -49,7 +49,7 @@ public class WordReferenceParser implements TranslationDataParser {
                     for (int i = 0; i < Math.min(meanings.size(), translatedSentences.size()); i++) {
                         var meaning = meanings.get(i);
                         if (!translationPublisher.exampleSentenceExists(wordInfo.getForeignWord(), meaning)) {
-                            String sentence = trimAndStripTrailingDot(foreignSentence) + " - " + trimAndStripTrailingDot(translatedSentences.get(i));
+                            String sentence = Util.createExampleSentence(foreignSentence, translatedSentences.get(i));
                             translationPublisher.addExampleSentence(wordInfo.getForeignWord(), meaning, sentence, WORD_REFERENCE_SOURCE);
                         }
                     }

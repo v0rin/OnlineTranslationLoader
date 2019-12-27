@@ -56,8 +56,7 @@ public class LingueeParser implements TranslationDataParser {
                                                   foreignSentenceRows.size(), translatedSentenceRows.size()));
             }
             for (int i = 0; i < foreignSentenceRows.size(); i++) {
-                sentences.add(Util.trimAndStripTrailingDot(foreignSentenceRows.get(i).text()) + " - " +
-                              Util.trimAndStripTrailingDot(translatedSentenceRows.get(i).text()));
+                sentences.add(Util.createExampleSentence(foreignSentenceRows.get(i).text(), translatedSentenceRows.get(i).text()));
             }
 
             if (!addedMeaninigs.contains(meaning)) {

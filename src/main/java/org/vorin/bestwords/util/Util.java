@@ -1,8 +1,6 @@
 package org.vorin.bestwords.util;
 
 import org.vorin.bestwords.loaders.WordInfo;
-import org.vorin.bestwords.model.Meaning;
-import org.vorin.bestwords.model.Translation;
 import org.vorin.bestwords.model.WordList;
 
 import java.io.File;
@@ -10,7 +8,6 @@ import java.io.IOException;
 import java.util.List;
 
 import static com.google.common.base.Preconditions.checkArgument;
-import static com.google.common.base.Preconditions.checkNotNull;
 import static java.util.stream.Collectors.toList;
 
 public class Util {
@@ -27,12 +24,24 @@ public class Util {
         return s.replaceAll("^\"|\"$", "");
     }
 
+    public static String createExampleSentence(String foreignSentence, String translatedSentence) {
+        return firstLetterOfSentenceToLowerCase(trimAndStripTrailingDot(foreignSentence)) + " - " +
+                firstLetterOfSentenceToLowerCase(trimAndStripTrailingDot(translatedSentence));
+    }
+
     public static String trimAndStripTrailingDot(String s) {
         s = s.strip();
         if (s.substring(s.length() - 1).equals(".")) {
             return s.substring(0, s.length() - 1);
         }
         return s;
+    }
+
+    public static String firstLetterOfSentenceToLowerCase(String s) {
+        if (s.substring(0, 2).equals("I ")) {
+            return s;
+        }
+        return s.substring(0, 1).toLowerCase() + s.substring(1);
     }
 
     public static List<WordInfo> getForeignWordsFromXml(String xmlPath) throws IOException {

@@ -17,6 +17,16 @@ public class WordInfo {
         return foreignWord;
     }
 
+    public String getParsedForeignWord() {
+        int firstSpaceIdx = foreignWord.indexOf(" ");
+        if (firstSpaceIdx > 0) {
+            return foreignWord.substring(0, firstSpaceIdx);
+        }
+        else {
+            return foreignWord;
+        }
+    }
+
     public String getWordMeaning() {
         return wordMeaning;
     }

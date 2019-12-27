@@ -64,21 +64,9 @@ public class CollinsSentencesParser implements TranslationDataParser {
                 for (var example : examples) {
                     var foreignSentenceElem = example.select("div.type-example > span.quote").first();
                     var translatedSentenceElem = example.select("div.type-example > span.type-translation").first();
-                    sentences.add(Util.trimAndStripTrailingDot(foreignSentenceElem.text()) + " - " +
-                            Util.trimAndStripTrailingDot(translatedSentenceElem.text()));
+                    sentences.add(Util.createExampleSentence(foreignSentenceElem.text(), translatedSentenceElem.text()));
                 }
 
-//                var foreignSentenceRows = row.select("div.type-example > span.quote").select("span:not(.type-translation)");
-//                var translatedSentenceRows = row.select("div.type-example > span.type-translation");
-//                if (foreignSentenceRows.size() != translatedSentenceRows.size()) {
-//                    throw new RuntimeException(format("Unexpected scenario foreignSentenceRows.size()[%s] != translatedSentenceRows.size()[%s]",
-//                            foreignSentenceRows.size(), translatedSentenceRows.size()));
-//                }
-//                var sentences = new ArrayList<String>();
-//                for (int i = 0; i < foreignSentenceRows.size(); i++) {
-//                    sentences.add(Util.trimAndStripTrailingDot(foreignSentenceRows.get(i).text()) + " - " +
-//                            Util.trimAndStripTrailingDot(translatedSentenceRows.get(i).text()));
-//                }
                 if (!sentences.isEmpty()) {
                     translationPublisher.addMeaning(wordInfo.getForeignWord(), wordInfo.getWordMeaning(), COLLINS_SOURCE);
                     translationPublisher.addExampleSentence(wordInfo.getForeignWord(),

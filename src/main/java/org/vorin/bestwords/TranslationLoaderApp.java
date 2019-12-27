@@ -1,7 +1,6 @@
 package org.vorin.bestwords;
 
 import org.vorin.bestwords.loaders.*;
-import org.vorin.bestwords.model.Meaning;
 import org.vorin.bestwords.util.Dictionary;
 import org.vorin.bestwords.util.Logger;
 import org.vorin.bestwords.util.Util;
@@ -10,34 +9,34 @@ import java.io.File;
 import java.io.IOException;
 import java.util.List;
 
-import static java.util.stream.Collectors.toList;
 import static org.vorin.bestwords.AppConfig.*;
-import static org.vorin.bestwords.util.Sources.*;
 
 
-/* Tool do redagowania wordlisty:
+/** @Tool-do-redagowania-wordlisty
 nie zrobic z tego zbyt skomplikowanego zadania - zrob pierwsza czesc do tego pierwszego jezyka, z kolejnymi jezykami bedziesz dodawal kolejne elementy
 na razie moze po prostu wyswietlanie tych slowek na stronce zebym mogl udostepnic + checkbox "checked" i comment dla tlumacza
 - najlepsze podejscie to Google Sheets
 https://support.google.com/docs/answer/3093342?hl=en
 https://www.youtube.com/watch?v=nyr3EJH0lTY
+*/
 
-TODO @af
+/** @Weryfikacje-tlumaczen
+ * a sentence should start with a lower case
 powinno zaladowac translations i przykladowe zdania z roznych zrodel,
 nastepnie porownac, zmergowac i tam gdzie sa problemy/sugestie to ustawic alert i ew. pokazac wszystkie opcje
+zrobic test dla tych 25 slowek z polskim
+pewnie bedzie kilka usterek w 1000 np. slowka a / an
 
-https://www.wordreference.com/es/en/translation.asp?spen=tomar
-https://www.collinsdictionary.com/dictionary/spanish-english/tomar - taki sam jak zakladka collins w wordreference ale moze latwiejszy do parsowania
-https://www.linguee.com/english-spanish/search?source=auto&query=work
-https://www.linguee.com/english-spanish/search?source=auto&query=tomar
-
-move the app to bestwords
-
-CHECKS & ALERTS:
 meanings:
-- check if the meaning is in SpanishCombined2954.txt
+- has to be in SpanishCombined2954.txt (it is Spanish1kNeri i Spanish3kAndki2134488481)
+- search for () and other weird characters, search for spaces (two or more words)
+- cannot be more than 3 meanings - it is the first 1000 words - don't make it too complicated
+- often should be just one - I would assume at least 2/3
+- check if google reverse gives the original meaning as the main one
+- cross check if it appears in 2 other dictionaries - possibly also reverse check, we'll see how it works
+- liczby - powinny miec tylko jedno znaczenie
 
-example sentences:
+example sentences}:
 - oznacz jako podejrzane jezeli za dlugie sprawdz, jakie sa najdluzsze w polskim - ew. jakie sie miesza najlepiej na ekranie
 - nie moze tez byc za krotkie
 - sprawdz czy zawiera angielskie slow, z ew. formami przeszlymi albo w liczbie mnogiej (nie powinno byc ich az tak duzo, moge manualnie je wpisac do kazdego slowa) - jak nie to alert
@@ -46,8 +45,13 @@ example sentences:
     choc moge zrobic automatyczny mechanizm, ze jezeli zawiera pierwsze 3 litery z czasownika, albo w sumie regule na regularne to automatycznie jest okroic
          a sprawdze tylko te co nie przejda tej reguly pewnie z max 200
     ale to na samym koncu - jak juz bede mial decolowa liste to wtedy bedzie jakas seria checkow, z tymi alertami
-
+- search for () and other weird characters
 */
+
+/**
+ * TODO @af
+ * move the app to bestwords
+ */
 
 public class TranslationLoaderApp {
 
@@ -111,7 +115,7 @@ public class TranslationLoaderApp {
     private static void createCollinsWordList(Dictionary dict, List<WordInfo> wordInfos, String outputXml) throws IOException {
         var xmlPublisher = new XmlTranslationPublisher(new File(RES_DIR + outputXml));
         var downloader = new CollinsDownloader(dict);
-        var parser = new CollinsSentencesParser(30);
+        var parser = new CollinsSentencesParser(36);
         var loader = new TranslationLoader(downloader, parser, xmlPublisher, true, 1000);
 
         loader.load(wordInfos);

@@ -31,4 +31,10 @@ public class UtilTest {
         assertThat(Util.chooseShortestString(List.of("22", "333", "1"), 2), is("22"));
     }
 
+    @Test
+    public void firstLetterOfSentenceToLowerCase() {
+        assertThat(Util.firstLetterOfSentenceToLowerCase("He is"), is("he is"));
+        assertThat(Util.firstLetterOfSentenceToLowerCase("he is"), is("he is"));
+        assertThat(Util.firstLetterOfSentenceToLowerCase("I am"), is("I am"));
+    }
 }

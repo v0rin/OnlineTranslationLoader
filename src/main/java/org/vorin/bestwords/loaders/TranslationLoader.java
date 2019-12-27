@@ -54,7 +54,7 @@ public class TranslationLoader {
                 throw new RuntimeException(format("source [%s] - wordInfo [%s] has been already added - there are some duplicated words it seems", translationDataParser.getSource(), wordInfo));
             }
 
-            translationDataParser.parseAndPublish(wordInfo, getDataForForeignWord(wordInfo.getForeignWord()), translationPublisher);
+            translationDataParser.parseAndPublish(wordInfo, getDataForForeignWord(wordInfo.getParsedForeignWord()), translationPublisher);
 
             addedWordInfos.add(wordInfo);
         }

@@ -334,7 +334,7 @@
 	<translation>
 		<foreignWord>a / an</foreignWord>
 		<pronunciation>/ə, eɪ/ , /an, ən/</pronunciation>
-		<audioName>a / an</audioName>
+		<audioName>a-an</audioName>
 		<meanings>
 			<meaning>
 				<wordMeaning>zaimek nieokreślony umieszczany przed rzeczownikiem</wordMeaning>
@@ -1721,6 +1721,18 @@
 		</meanings>
 	</translation>
 	<translation>
+		<foreignWord>zero</foreignWord>
+		<pronunciation>/zɪərəʊ/</pronunciation>
+		<audioName>zero</audioName>
+		<meanings>
+			<meaning>
+				<wordMeaning>zero</wordMeaning>
+				<exampleSentence>Less than zero - mniej niż zero</exampleSentence>
+				<imgName></imgName>
+			</meaning>
+		</meanings>
+	</translation>
+	<translation>
 		<foreignWord>one</foreignWord>
 		<pronunciation>/wʌn/</pronunciation>
 		<audioName>one</audioName>
@@ -3066,11 +3078,11 @@
 		<meanings>
 			<meaning>
 				<wordMeaning>pieprzyć (uprawiać seks)</wordMeaning>
-				<exampleSentence>fuck me more – pieprz mnie jeszcze</exampleSentence>
+				<exampleSentence>I want to fuck with you – chcę się z tobą pieprzyć</exampleSentence>
 				<imgName></imgName>
 			</meaning>
 			<meaning>
-				<wordMeaning>pierdolić</wordMeaning>
+				<wordMeaning>pierdolić (wulgarne)</wordMeaning>
 				<exampleSentence>fuck off! – odpierdol się!</exampleSentence>
 				<imgName></imgName>
 			</meaning>
@@ -3787,10 +3799,15 @@
 		</meanings>
 	</translation>
 	<translation>
-		<foreignWord>May</foreignWord>
+		<foreignWord>may</foreignWord>
 		<pronunciation>/meɪ/</pronunciation>
-		<audioName>May</audioName>
+		<audioName>may</audioName>
 		<meanings>
+			<meaning>
+				<wordMeaning>móc</wordMeaning>
+				<exampleSentence>it may rain today - może dziś padać</exampleSentence>
+				<imgName></imgName>
+			</meaning>
 			<meaning>
 				<wordMeaning>maj</wordMeaning>
 				<exampleSentence>it happened in May – to zdarzyło się w maju</exampleSentence>
@@ -4028,7 +4045,7 @@
 	<translation>
 		<foreignWord>okay / OK</foreignWord>
 		<pronunciation>/əʊˈkeɪ/</pronunciation>
-		<audioName>okay / OK</audioName>
+		<audioName>okay-OK</audioName>
 		<meanings>
 			<meaning>
 				<wordMeaning>OK / w porządku</wordMeaning>
@@ -7173,8 +7190,8 @@
 		<audioName>cunt</audioName>
 		<meanings>
 			<meaning>
-				<wordMeaning>(obraźliwe) pizda</wordMeaning>
-				<exampleSentence>she is a stupid cunt - ona jest głupią pizdą</exampleSentence>
+				<wordMeaning>cipa (obraźliwe)</wordMeaning>
+				<exampleSentence>she is a stupid cunt - ona jest głupią cipą</exampleSentence>
 				<imgName></imgName>
 			</meaning>
 		</meanings>
@@ -10110,7 +10127,7 @@
 		<audioName>bitch</audioName>
 		<meanings>
 			<meaning>
-				<wordMeaning>suka</wordMeaning>
+				<wordMeaning>suka (obraźliwe)</wordMeaning>
 				<exampleSentence>she is a bitch - ona jest suką</exampleSentence>
 				<imgName></imgName>
 			</meaning>
@@ -10519,7 +10536,7 @@
 		<meanings>
 			<meaning>
 				<wordMeaning>kutas</wordMeaning>
-				<exampleSentence>he has a big cock - on ma dużego kutasa</exampleSentence>
+				<exampleSentence>he has a cock - on ma kutasa</exampleSentence>
 				<imgName></imgName>
 			</meaning>
 			<meaning>
@@ -12116,7 +12133,7 @@
 	<translation>
 		<foreignWord>almost = nearly</foreignWord>
 		<pronunciation>/ˈɔːlməʊst/</pronunciation>
-		<audioName>almost = nearly</audioName>
+		<audioName>almost</audioName>
 		<meanings>
 			<meaning>
 				<wordMeaning>prawie</wordMeaning>
@@ -12128,7 +12145,7 @@
 	<translation>
 		<foreignWord>nearly = almost</foreignWord>
 		<pronunciation>/ˈnɪəli/</pronunciation>
-		<audioName>nearly = almost</audioName>
+		<audioName>nearly</audioName>
 		<meanings>
 			<meaning>
 				<wordMeaning>prawie</wordMeaning>
@@ -12362,12 +12379,12 @@
 		<meanings>
 			<meaning>
 				<wordMeaning>penis</wordMeaning>
-				<exampleSentence>man have dicks - mężczyźni mają penisy</exampleSentence>
+				<exampleSentence>men have dicks - mężczyźni mają penisy</exampleSentence>
 				<imgName></imgName>
 			</meaning>
 			<meaning>
-				<wordMeaning>kutas</wordMeaning>
-				<exampleSentence>he has a big dick - on ma dużego kutasa</exampleSentence>
+				<wordMeaning>kutas (obraźliwe)</wordMeaning>
+				<exampleSentence>he is a dick - on jest kutasem</exampleSentence>
 				<imgName></imgName>
 			</meaning>
 		</meanings>
@@ -16430,18 +16447,6 @@
 			<meaning>
 				<wordMeaning>dżentelmen</wordMeaning>
 				<exampleSentence>this gentleman here - ten dżentelmen tutaj</exampleSentence>
-				<imgName></imgName>
-			</meaning>
-		</meanings>
-	</translation>
-	<translation>
-		<foreignWord>gentlemen</foreignWord>
-		<pronunciation>/ˈdʒɛnt(ə)lmən/</pronunciation>
-		<audioName>gentlemen</audioName>
-		<meanings>
-			<meaning>
-				<wordMeaning>Panowie</wordMeaning>
-				<exampleSentence>Ladies and Gentlemen - Panie i Panowie</exampleSentence>
 				<imgName></imgName>
 			</meaning>
 		</meanings>
