@@ -4,6 +4,7 @@ import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
+import org.vorin.bestwords.util.LangUtil;
 import org.vorin.bestwords.util.Logger;
 import org.vorin.bestwords.util.Util;
 
@@ -15,6 +16,7 @@ import java.util.HashSet;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import static com.google.common.base.Strings.isNullOrEmpty;
 import static java.lang.String.format;
 import static org.vorin.bestwords.util.Sources.WORD_REFERENCE_SOURCE;
 
@@ -69,12 +71,14 @@ public class WordReferenceParser implements TranslationDataParser {
             if (rowType == RowType.MEANING) {
                 String[] meaningsArr = value.split(",");
                 for (String meaning : meaningsArr) {
-                    meaning = meaning.trim();
-                    if (!addedMeaninigs.contains(meaning)) {
-                        translationPublisher.addMeaning(wordInfo.getForeignWord(), meaning, WORD_REFERENCE_SOURCE);
-                        addedMeaninigs.add(meaning);
+                    meaning = LangUtil.santizeSpanishMeaning(meaning.trim());
+                    if (!isNullOrEmpty(meaning)) {
+                        if (!addedMeaninigs.contains(meaning)) {
+                            translationPublisher.addMeaning(wordInfo.getForeignWord(), meaning, WORD_REFERENCE_SOURCE);
+                            addedMeaninigs.add(meaning);
+                        }
+                        meanings.add(meaning);
                     }
-                    meanings.add(meaning);
                 }
             }
             else if (rowType == RowType.EXAMPLE_FOREIGN_SENTENCE) {

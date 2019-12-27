@@ -22,12 +22,11 @@ https://www.youtube.com/watch?v=nyr3EJH0lTY
 */
 
 /** @Weryfikacje-tlumaczen
- *
+
 zmergowac and check, cross-check translations and example sentences - ustawic alerty gdzie sa problemy
-nastepnie porownac, zmergowac i tam gdzie sa problemy/sugestie to ustawic alert i ew. pokazac wszystkie opcje
 zrobic test moich 34 slowek z polskim
 
-meanings:
+@meanings:
 - has to be in SpanishCombined2954.txt (it is Spanish1kNeri i Spanish3kAndki2134488481)
 - search for () and other weird characters, search for spaces (two or more words)
 - cannot be more than 3 meanings - it is the first 1000 words - don't make it too complicated
@@ -37,7 +36,7 @@ meanings:
 - liczby - powinny miec tylko jedno znaczenie - poza one?
 - nie ma znaczen
 
-example sentences:
+@example sentences:
 - oznacz jako podejrzane jezeli za dlugie sprawdz, jakie sa najdluzsze w polskim - ew. jakie sie miesza najlepiej na ekranie
 - nie moze tez byc za krotkie
 - sprawdz czy zawiera angielskie slow, z ew. formami przeszlymi albo w liczbie mnogiej (nie powinno byc ich az tak duzo, moge manualnie je wpisac do kazdego slowa) - jak nie to alert
@@ -52,7 +51,6 @@ example sentences:
 
 /**
  * TODO @af
- * split caches by dict
  * move the app to bestwords
  */
 
@@ -71,13 +69,13 @@ public class TranslationLoaderApp {
                 Util.getReverseForeignWordsFromXml(RES_DIR + "googleTranslateWordList.xml"),
                 "googleTranslateReverseWordList.xml");
 
-//        createWordReferenceWordList(Dictionary.EN_ES, wordInfos, "wordReferenceWordList.xml");
-//
-//        createLingueeWordList(Dictionary.EN_ES, wordInfos, "lingueeWordList.xml");
-//
-//        createCollinsWordList(Dictionary.ES_EN,
-//                              Util.getReverseForeignWordsWithMeaningsFromXml(RES_DIR + "googleTranslateWordList.xml"),
-//                              "collinsReverseWordList.xml");
+        createWordReferenceWordList(Dictionary.EN_ES, wordInfos, "wordReferenceWordList.xml");
+
+        createLingueeWordList(Dictionary.EN_ES, wordInfos, "lingueeWordList.xml");
+
+        createCollinsWordList(Dictionary.ES_EN,
+                              Util.getReverseForeignWordsWithMeaningsFromXml(RES_DIR + "googleTranslateWordList.xml"),
+                              "collinsReverseWordList.xml");
 
     }
 
