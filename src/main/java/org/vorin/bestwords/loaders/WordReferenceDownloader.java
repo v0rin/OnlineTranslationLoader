@@ -17,8 +17,10 @@ public class WordReferenceDownloader implements TranslationDataDownloader {
     private static final String URL_ES_EN = "https://www.wordreference.com/es/en/translation.asp?spen=";
 
     private String url;
+    private Dictionary dictionary;
 
     public WordReferenceDownloader(Dictionary dictionary) {
+        this.dictionary = dictionary;
         switch (dictionary) {
             case EN_ES: url = URL_EN_ES; break;
             case ES_EN: url = URL_ES_EN; break;
@@ -48,6 +50,11 @@ public class WordReferenceDownloader implements TranslationDataDownloader {
 
         String output = "<html><body><table>\n" + rows.outerHtml() + "\n</table></body></html>";
         return new ByteArrayInputStream(output.getBytes(StandardCharsets.UTF_8));
+    }
+
+    @Override
+    public Dictionary getDictionary() {
+        return dictionary;
     }
 
 }

@@ -18,8 +18,10 @@ public class CollinsDownloader implements TranslationDataDownloader {
     private static final String URL_ES_EN = "https://www.collinsdictionary.com/dictionary/spanish-english/";
 
     private String url;
+    private Dictionary dictionary;
 
     public CollinsDownloader(Dictionary dictionary) {
+        this.dictionary = dictionary;
         switch (dictionary) {
             case ES_EN: url = URL_ES_EN; break;
             case EN_ES: throw new RuntimeException("Unsupported translation - " + EN_ES);
@@ -32,6 +34,11 @@ public class CollinsDownloader implements TranslationDataDownloader {
         Elements rows = doc.select("div.content.definitions.dictionary > div.hom");
         String output = "<html><body><table>\n" + rows.outerHtml() + "\n</table></body></html>";
         return new ByteArrayInputStream(output.getBytes(StandardCharsets.UTF_8));
+    }
+
+    @Override
+    public Dictionary getDictionary() {
+        return dictionary;
     }
 
 }

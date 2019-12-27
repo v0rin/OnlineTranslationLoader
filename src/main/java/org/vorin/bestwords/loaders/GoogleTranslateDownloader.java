@@ -19,8 +19,10 @@ public class GoogleTranslateDownloader implements TranslationDataDownloader {
     private static final String URL_ES_EN = "https://translate.googleapis.com/translate_a/single?client=gtx&sl=es&tl=en&hl=en&dt=at&dt=bd&dt=ex&dt=ld&dt=md&dt=qca&dt=rw&dt=rm&dt=ss&dt=t&dt=gt&source=bh&ssel=0&tsel=0&kc=1&q=";
 
     private String url;
+    private Dictionary dictionary;
 
     public GoogleTranslateDownloader(Dictionary dictionary) {
+        this.dictionary = dictionary;
         switch (dictionary) {
             case EN_ES: url = URL_EN_ES; break;
             case ES_EN: url = URL_ES_EN; break;
@@ -37,6 +39,11 @@ public class GoogleTranslateDownloader implements TranslationDataDownloader {
         catch (UnirestException e) {
             throw new IOException(format("Exception while parsing json for word %s", word), e);
         }
+    }
+
+    @Override
+    public Dictionary getDictionary() {
+        return dictionary;
     }
 
 }

@@ -13,6 +13,7 @@ import static org.vorin.bestwords.AppConfig.*;
 
 
 /** @Tool-do-redagowania-wordlisty
+
 nie zrobic z tego zbyt skomplikowanego zadania - zrob pierwsza czesc do tego pierwszego jezyka, z kolejnymi jezykami bedziesz dodawal kolejne elementy
 na razie moze po prostu wyswietlanie tych slowek na stronce zebym mogl udostepnic + checkbox "checked" i comment dla tlumacza
 - najlepsze podejscie to Google Sheets
@@ -21,11 +22,10 @@ https://www.youtube.com/watch?v=nyr3EJH0lTY
 */
 
 /** @Weryfikacje-tlumaczen
- * a sentence should start with a lower case
-powinno zaladowac translations i przykladowe zdania z roznych zrodel,
+ *
+zmergowac and check, cross-check translations and example sentences - ustawic alerty gdzie sa problemy
 nastepnie porownac, zmergowac i tam gdzie sa problemy/sugestie to ustawic alert i ew. pokazac wszystkie opcje
-zrobic test dla tych 25 slowek z polskim
-pewnie bedzie kilka usterek w 1000 np. slowka a / an
+zrobic test moich 34 slowek z polskim
 
 meanings:
 - has to be in SpanishCombined2954.txt (it is Spanish1kNeri i Spanish3kAndki2134488481)
@@ -34,9 +34,10 @@ meanings:
 - often should be just one - I would assume at least 2/3
 - check if google reverse gives the original meaning as the main one
 - cross check if it appears in 2 other dictionaries - possibly also reverse check, we'll see how it works
-- liczby - powinny miec tylko jedno znaczenie
+- liczby - powinny miec tylko jedno znaczenie - poza one?
+- nie ma znaczen
 
-example sentences}:
+example sentences:
 - oznacz jako podejrzane jezeli za dlugie sprawdz, jakie sa najdluzsze w polskim - ew. jakie sie miesza najlepiej na ekranie
 - nie moze tez byc za krotkie
 - sprawdz czy zawiera angielskie slow, z ew. formami przeszlymi albo w liczbie mnogiej (nie powinno byc ich az tak duzo, moge manualnie je wpisac do kazdego slowa) - jak nie to alert
@@ -46,10 +47,12 @@ example sentences}:
          a sprawdze tylko te co nie przejda tej reguly pewnie z max 200
     ale to na samym koncu - jak juz bede mial decolowa liste to wtedy bedzie jakas seria checkow, z tymi alertami
 - search for () and other weird characters
+ - nie ma przykladowego zdania
 */
 
 /**
  * TODO @af
+ * split caches by dict
  * move the app to bestwords
  */
 
@@ -59,18 +62,18 @@ public class TranslationLoaderApp {
 
     public static void main(String... argvs) throws IOException {
 
-        var wordInfos = Util.getForeignWordsFromXml(RES_DIR + "EnglishWordList25.xml");
+        var wordInfos = Util.getForeignWordsFromXml(RES_DIR + "EnglishWordList34.xml");
 
-//        createGoogleWordList(Dictionary.EN_ES, wordInfos,"googleTranslateWordList.xml");
+        createGoogleWordList(Dictionary.EN_ES, wordInfos,"googleTranslateWordList.xml");
 
 //        // reverse wordlist
-//        createGoogleWordList(Dictionary.ES_EN,
-//                Util.getReverseForeignWordsFromXml(RES_DIR + "googleTranslateWordList.xml"),
-//                "googleTranslateReverseWordList.xml");
+        createGoogleWordList(Dictionary.ES_EN,
+                Util.getReverseForeignWordsFromXml(RES_DIR + "googleTranslateWordList.xml"),
+                "googleTranslateReverseWordList.xml");
 
-//        createWordReferenceWordList(Dictionary.EN_ES, wordInfos, "wordReferenceWordList.xml");
+        createWordReferenceWordList(Dictionary.EN_ES, wordInfos, "wordReferenceWordList.xml");
 
-//        createLingueeWordList(Dictionary.EN_ES, wordInfos, "lingueeWordList.xml");
+        createLingueeWordList(Dictionary.EN_ES, wordInfos, "lingueeWordList.xml");
 
         createCollinsWordList(Dictionary.ES_EN,
                               Util.getReverseForeignWordsWithMeaningsFromXml(RES_DIR + "googleTranslateWordList.xml"),

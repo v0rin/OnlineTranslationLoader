@@ -18,9 +18,13 @@ public class WordInfo {
     }
 
     public String getParsedForeignWord() {
-        int firstSpaceIdx = foreignWord.indexOf(" ");
-        if (firstSpaceIdx > 0) {
-            return foreignWord.substring(0, firstSpaceIdx);
+        int equalCharIdx = foreignWord.indexOf("=");
+        int slashIdx = foreignWord.indexOf("/");
+        if (equalCharIdx > 0) {
+            return foreignWord.substring(0, equalCharIdx).trim();
+        }
+        else if (slashIdx > 0) {
+            return foreignWord.substring(0, slashIdx).trim();
         }
         else {
             return foreignWord;

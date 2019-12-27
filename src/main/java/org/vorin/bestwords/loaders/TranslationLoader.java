@@ -99,7 +99,7 @@ public class TranslationLoader {
     }
 
     private File getCacheFileForWord(String word) {
-        return new File(CACHES_DIR + translationDataParser.getSource() + "-cache/" + word);
+        return new File(CACHES_DIR + translationDataParser.getSource() + "-cache-" + translationDataDownloader.getDictionary() + "/" + word);
     }
 
 }

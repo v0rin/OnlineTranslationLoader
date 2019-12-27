@@ -17,8 +17,10 @@ public class LingueeDownloader implements TranslationDataDownloader {
     private static final String URL_ES_EN = "https://www.linguee.com/english-spanish/search?source=spanish&query=";
 
     private String url;
+    private Dictionary dictionary;
 
     public LingueeDownloader(Dictionary dictionary) {
+        this.dictionary = dictionary;
         switch (dictionary) {
             case EN_ES: url = URL_EN_ES; break;
             case ES_EN: url = URL_ES_EN; break;
@@ -31,6 +33,11 @@ public class LingueeDownloader implements TranslationDataDownloader {
         Elements rows = doc.select("div.isMainTerm > div.exact");
         String output = "<html><body><table>\n" + rows.outerHtml() + "\n</table></body></html>";
         return new ByteArrayInputStream(output.getBytes(StandardCharsets.UTF_8));
+    }
+
+    @Override
+    public Dictionary getDictionary() {
+        return dictionary;
     }
 
 }
