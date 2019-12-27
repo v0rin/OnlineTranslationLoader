@@ -16,7 +16,7 @@ public class TranslationLoader {
 
     private static final Logger LOG = Logger.get(TranslationLoader.class);
 
-    private static final long DEFAULT_WAIT_BETWEEN_REQUESTS_MS = 5000;
+    private static final long DEFAULT_WAIT_BETWEEN_REQUESTS_MS = 3000;
 
     private final TranslationDataDownloader translationDataDownloader;
     private final TranslationDataParser translationDataParser;

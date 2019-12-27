@@ -66,18 +66,18 @@ public class TranslationLoaderApp {
 
         createGoogleWordList(Dictionary.EN_ES, wordInfos,"googleTranslateWordList.xml");
 
-//        // reverse wordlist
+        // reverse wordlist
         createGoogleWordList(Dictionary.ES_EN,
                 Util.getReverseForeignWordsFromXml(RES_DIR + "googleTranslateWordList.xml"),
                 "googleTranslateReverseWordList.xml");
 
-        createWordReferenceWordList(Dictionary.EN_ES, wordInfos, "wordReferenceWordList.xml");
-
-        createLingueeWordList(Dictionary.EN_ES, wordInfos, "lingueeWordList.xml");
-
-        createCollinsWordList(Dictionary.ES_EN,
-                              Util.getReverseForeignWordsWithMeaningsFromXml(RES_DIR + "googleTranslateWordList.xml"),
-                              "collinsReverseWordList.xml");
+//        createWordReferenceWordList(Dictionary.EN_ES, wordInfos, "wordReferenceWordList.xml");
+//
+//        createLingueeWordList(Dictionary.EN_ES, wordInfos, "lingueeWordList.xml");
+//
+//        createCollinsWordList(Dictionary.ES_EN,
+//                              Util.getReverseForeignWordsWithMeaningsFromXml(RES_DIR + "googleTranslateWordList.xml"),
+//                              "collinsReverseWordList.xml");
 
     }
 

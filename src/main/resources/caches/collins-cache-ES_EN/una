@@ -1,0 +1,86 @@
+<html><body><table>
+<div class="hom">
+ <span class="gramGrp hi rend-sc"><span class="pos">pronoun</span></span>
+ <div class="sense">
+  <span class=" sensenum bluebold">1.&nbsp;</span> 
+  <div class="cit type-example">
+   <span class="quote">es la una</span> 
+   <span class="lbl type-syn"><span class=" punctuation">(</span><span class=" punctuation">=&nbsp;</span>hora<span class=" punctuation">)</span></span> 
+   <span class="cit type-translation quote">it’s one o’clock</span>
+  </div>
+  <div class="cit type-example">
+   <span class="quote">¡a la una, a las dos, a las tres!</span> 
+   <span class="lbl type-misc"><span class=" punctuation">(</span>antes de empezar algo<span class=" punctuation">)</span></span> 
+   <span class="cit type-translation quote">one, two, three!</span>
+   <span class=" punctuation">; </span>
+   <span class="lbl type-misc"><span class=" punctuation">(</span>en subasta<span class=" punctuation">)</span></span> 
+   <span class="cit type-translation quote">going, going, gone!</span>
+   <span class=" punctuation">; </span>
+   <span class="lbl type-subj"><span class=" punctuation">(</span>Sport<span class=" punctuation">)</span></span> 
+   <span class="cit type-translation quote">ready, steady, go!</span>
+  </div>
+  <div class="re type-idm">
+   <span class="form type-idm"><span class=" hi rend-sc">▪ idiom: </span><span class="orth"> una de dos</span></span> 
+   <span class="cit type-translation quote">either one thing or the other</span>
+  </div>
+  <div class="re type-idm">
+   <span class="form type-idm"><span class=" hi rend-sc">▪ idiom: </span><span class="orth"> todos a una</span></span> 
+   <span class="cit type-translation quote">all together</span>
+  </div> 
+ </div>
+ <div class="sense">
+  <span class=" sensenum bluebold">2.&nbsp;</span> 
+  <span class="lbl type-misc"><span class=" punctuation">(</span>enfático<span class=" punctuation">)</span></span>
+  <div class="sense"> 
+   <span class=" bold_blue"><span class=" sensenum bluebold">a.</span> </span>
+   <span class="lbl type-syn"><span class=" punctuation">(</span><span class=" punctuation">=&nbsp;</span>pelea, paliza<span class=" punctuation">)</span></span>
+   <div class="cit type-example">
+    <span class="quote">armar una</span> 
+    <span class="cit type-translation quote">to kick up a fuss</span>
+   </div>
+   <div class="cit type-example">
+    <span class="quote">te voy a dar una que verás</span> 
+    <span class="cit type-translation quote">I’m going to give you what for</span>
+   </div>
+   <div class="re type-idm">
+    <span class="form type-idm"><span class=" hi rend-sc">▪ idiom: </span><span class="orth"> no dar una</span></span> 
+    <span class="cit type-translation quote">not to get a single thing right</span>
+   </div>
+  </div>
+  <div class="sense"> 
+   <span class=" bold_blue"><span class=" sensenum bluebold">b.</span> </span>
+   <span class="lbl type-syn"><span class=" punctuation">(</span><span class=" punctuation">=&nbsp;</span>mala pasada<span class=" punctuation">)</span></span>
+   <div class="cit type-example">
+    <span class="quote">hacerle una a algn</span> 
+    <span class="cit type-translation quote">to play a dirty trick on sb</span>
+   </div>
+  </div>
+ </div>
+ <div class="sense">
+  <span class=" sensenum bluebold">3.&nbsp;</span> 
+  <span class="lbl type-misc"><span class=" punctuation">(</span>enfático<span class=" punctuation">)</span></span>
+  <div class="cit type-example">
+   <span class="quote">¡había una de gente!</span> 
+   <span class="cit type-translation quote">what a crowd there was!</span>
+  </div> 
+  <div class="mpuslot_b-container"> 
+   <div id="ad_contentslot_1" class="am-default contentslot"> 
+    <script>googletag.cmd.push(function() { googletag.display('ad_contentslot_1'); });</script> 
+   </div> 
+   <div id="hcdcrt-1382227193755173120" class="hcdcrt" style="width:300px;height:250px;"></div> 
+   <script>
+Criteo.DisplayAcceptableAdIfAdblocked({
+"zoneid": 1384197,
+"containerid": "hcdcrt-1382227193755173120",
+"callbackSuccess": function(event){
+stickyslotid = ".ac_leftslot_a.sticky .hcdcrt";
+},
+"callIfNotAdBlocked": function() {
+stickyslotid = refstickyslotid;
+}
+});
+</script> 
+  </div> 
+ </div>
+</div>
+</table></body></html>

@@ -1,0 +1,59 @@
+<html><body><table>
+<div class="exact">
+ <div class="lemma featured" wt="200">
+  <div>
+   <h2 class="line lemma_desc" lid="EN:may20380"><span class="tag_lemma"><a class="dictLink" rel="nofollow" href="/english-spanish/translation/may.html">may</a> <a id="EN_UK/9a/9a4b6f884971dcb4a5172876b335baab-200" class="audio" onclick="playSound(this,&quot;EN_UK/9a/9a4b6f884971dcb4a5172876b335baab-200&quot;,&quot;British English&quot;,&quot;EN_US/9a/9a4b6f884971dcb4a5172876b335baab-0&quot;,&quot;American English&quot;);"></a> <span class="tag_wordtype">verb</span></span> <span class="tag_forms forms_verb"> (<span class="tag_s"><a class="formLink" href="/english-spanish/translation/might.html">might</a></span>, <span class="tag_s"><a class="formLink" href="/english-spanish/translation/might.html">might</a></span>)</span><span class="dash">&#x2014;</span></h2>
+   <div class="lemma_content">
+    <div class="meaninggroup  sortablemg" gid="0">
+     <div class="translation_lines">
+      <div class="translation sortablemg featured">
+       <h3 class="translation_desc"><span class="tag_trans" bid="10000907827" lid="ES:poder17809"><a id="dictEntry10000907827" href="/spanish-english/translation/poder.html" class="dictLink featured">poder</a> <span class="tag_type" title="verb">v</span> <span class="tag_c">(verbo auxiliar)</span> <a id="ES_ES/6a/6a065a3b0f83da435a7e1f5b7c7c107e-200" class="audio" onclick="playSound(this,&quot;ES_ES/6a/6a065a3b0f83da435a7e1f5b7c7c107e-200&quot;,&quot;Spanish&quot;);"></a><a class="expand_i"></a></span>
+        <!--tag_trans--></h3>
+       <!--translation_desc-->
+       <!-- editorial isFeatured 1 inType 0 allowFeatured 1 available: 2 --> 
+       <div class="example_lines">
+        <div class="example line " sid="43603">
+         <span class="tag_e"><span class="tag_s">High market volatility may scare investors.</span> <span class="dash">&#x2014;</span>&nbsp;<span class="tag_t">Una alta volatilidad en los mercados puede asustar a los inversores.</span><span class="tag_e_end"></span></span>
+        </div>
+        <div class="example line " sid="50969">
+         <span class="tag_e"><span class="tag_s">Mosquitoes may spread certain viruses.</span> <span class="dash">&#x2014;</span>&nbsp;<span class="tag_t">Los mosquitos pueden propagar ciertos virus.</span><span class="tag_e_end"></span></span>
+        </div>
+       </div>
+      </div> 
+     </div>
+     <!--translation_lines--> 
+    </div>
+    <!--meaninggroup--> 
+   </div>
+   <!--lemma_content-->
+  </div>
+ </div>
+ <!--lemma--> 
+ <div class="lemma featured" wt="101">
+  <div>
+   <h2 class="line lemma_desc" lid="EN:May23289"><span class="tag_lemma"><a class="dictLink" rel="nofollow" href="/english-spanish/translation/May.html">May</a> <a id="EN_US/19/195fbb57ffe7449796d23466085ce6d8-101" class="audio" onclick="playSound(this,&quot;EN_US/19/195fbb57ffe7449796d23466085ce6d8-101&quot;,&quot;American English&quot;,&quot;EN_UK/19/195fbb57ffe7449796d23466085ce6d8-101&quot;,&quot;British English&quot;);"></a> <span class="tag_wordtype">noun</span></span><span class="dash">&#x2014;</span></h2>
+   <div class="lemma_content">
+    <div class="meaninggroup  sortablemg" gid="0">
+     <div class="translation_lines">
+      <div class="translation sortablemg featured">
+       <h3 class="translation_desc"><span class="tag_trans" bid="10000805457" lid="ES:mayo20339"><a id="dictEntry10000805457" href="/spanish-english/translation/mayo.html" class="dictLink featured">mayo</a> <span class="tag_type" title="noun,&nbsp;masculine">m</span> <a id="ES_ES/89/8980773d4785a8bdec7235f58934d60b-103" class="audio" onclick="playSound(this,&quot;ES_ES/89/8980773d4785a8bdec7235f58934d60b-103&quot;,&quot;Spanish&quot;);"></a><a class="expand_i"></a></span>
+        <!--tag_trans--></h3>
+       <!--translation_desc-->
+       <!-- editorial isFeatured 1 inType 0 allowFeatured 1 available: 1 --> 
+       <div class="example_lines">
+        <div class="example line " sid="57897">
+         <span class="tag_e"><span class="tag_s">The wedding will take place either in May or June. </span> <span class="dash">&#x2014;</span>&nbsp;<span class="tag_t">La boda se celebrará en mayo o junio.</span><span class="tag_e_end"></span></span>
+        </div>
+       </div>
+      </div> 
+     </div>
+     <!--translation_lines--> 
+    </div>
+    <!--meaninggroup--> 
+   </div>
+   <!--lemma_content-->
+  </div>
+ </div>
+ <!--lemma--> 
+</div>
+</table></body></html>

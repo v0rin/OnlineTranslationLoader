@@ -6,6 +6,7 @@ import org.junit.Before;
 import org.junit.Test;
 import org.vorin.bestwords.AppConfig;
 import org.vorin.bestwords.model.WordList;
+import org.vorin.bestwords.util.Dictionary;
 
 import java.io.*;
 import java.nio.charset.StandardCharsets;
@@ -43,7 +44,7 @@ public class TranslationLoaderTest {
     public void shouldLoadAndParseDataCorrectlyWhenNoCacheDataExists() throws Exception {
         // given
         AppConfig.CACHES_DIR = AppConfig.TEST_RES_DIR + "loaders/TranslationLoader/tmp/";
-        String testCacheDir = AppConfig.CACHES_DIR + "test-source-cache/";
+        String testCacheDir = AppConfig.CACHES_DIR + "test-source-cache-EN_ES/";
         new File(testCacheDir).mkdirs();
         var loader = new TranslationLoader(translationDownloader, translationDataParser, publisher, true);
 
@@ -55,7 +56,7 @@ public class TranslationLoaderTest {
         // then
         assertThat(publisher.getWordList(), is(expectedWordList));
         String cachedFilePath = testCacheDir + TEST_WORD_INFO.getForeignWord();
-        assertTrue(new File(cachedFilePath).exists());
+        assertTrue(String.format("File [%s] does not exist", cachedFilePath), new File(cachedFilePath).exists());
         try (var cachedFileIS = new FileInputStream(cachedFilePath)) {
             assertThat(IOUtils.toString(cachedFileIS, StandardCharsets.UTF_8), is(TEST_CONTENT));
         }
@@ -106,6 +107,11 @@ public class TranslationLoaderTest {
         @Override
         public InputStream download(String word) throws IOException {
             return new ByteArrayInputStream(TEST_CONTENT.getBytes(StandardCharsets.UTF_8));
+        }
+
+        @Override
+        public Dictionary getDictionary() {
+            return Dictionary.EN_ES;
         }
     }
 
