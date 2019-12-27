@@ -8,6 +8,14 @@ import static org.junit.Assert.*;
 public class LangUtilTest {
 
     @Test
+    public void getParsedForeignWord() {
+        assertThat(LangUtil.getParsedForeignWord("a / an"), is("a"));
+        assertThat(LangUtil.getParsedForeignWord("okay / OK"), is("okay"));
+        assertThat(LangUtil.getParsedForeignWord("almost = nearly"), is("almost"));
+        assertThat(LangUtil.getParsedForeignWord("bitch"), is("bitch"));
+    }
+
+    @Test
     public void santizeSpanishMeaning() {
         assertThat(LangUtil.santizeSpanishMeaning("tener la intención"), is("tener la intención"));
         assertThat(LangUtil.santizeSpanishMeaning("llevar algo a"), is("llevar"));

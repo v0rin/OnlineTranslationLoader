@@ -1,10 +1,22 @@
 package org.vorin.bestwords.util;
 
-import java.util.regex.Pattern;
-
 import static com.google.common.base.Strings.isNullOrEmpty;
 
 public class LangUtil {
+
+    public static String getParsedForeignWord(String word) {
+        int equalCharIdx = word.indexOf("=");
+        int slashIdx = word.indexOf("/");
+        if (equalCharIdx > 0) {
+            return word.substring(0, equalCharIdx).trim();
+        }
+        else if (slashIdx > 0) {
+            return word.substring(0, slashIdx).trim();
+        }
+        else {
+            return word;
+        }
+    }
 
     /**
      * 1. if matches the below remove

@@ -6,6 +6,7 @@ import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
+import java.util.logging.Level;
 
 /**
  * I created the class coz there were some issues with log4j when working on che.openshift.io
@@ -35,7 +36,16 @@ public class Logger {
     }
 
     public void info(String s) {
-        System.out.println(format("%s | %" + LOG_TAG_PADDING + "s | INFO | - %s",
-                DATE_TIME_FORMATTER.format(LocalTime.now()), tag, s));
+        log(s, "INFO");
     }
+
+    public void error(String s) {
+        log(s, "ERROR");
+    }
+
+    private void log(String s, String lvl) {
+        System.out.println(format("%s | %" + LOG_TAG_PADDING + "s | %5s | - %s",
+                DATE_TIME_FORMATTER.format(LocalTime.now()), tag, lvl, s));
+    }
+
 }

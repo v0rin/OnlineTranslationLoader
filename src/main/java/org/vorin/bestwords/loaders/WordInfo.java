@@ -3,6 +3,7 @@ package org.vorin.bestwords.loaders;
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
 import org.apache.commons.lang3.builder.ToStringBuilder;
+import org.vorin.bestwords.util.LangUtil;
 
 public class WordInfo {
     private final String foreignWord;
@@ -18,17 +19,7 @@ public class WordInfo {
     }
 
     public String getParsedForeignWord() {
-        int equalCharIdx = foreignWord.indexOf("=");
-        int slashIdx = foreignWord.indexOf("/");
-        if (equalCharIdx > 0) {
-            return foreignWord.substring(0, equalCharIdx).trim();
-        }
-        else if (slashIdx > 0) {
-            return foreignWord.substring(0, slashIdx).trim();
-        }
-        else {
-            return foreignWord;
-        }
+        return LangUtil.getParsedForeignWord(foreignWord);
     }
 
     public String getWordMeaning() {

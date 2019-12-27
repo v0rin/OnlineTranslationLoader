@@ -1,6 +1,7 @@
 package org.vorin.bestwords;
 
 import org.vorin.bestwords.loaders.*;
+import org.vorin.bestwords.model.WordList;
 import org.vorin.bestwords.util.Dictionary;
 import org.vorin.bestwords.util.Logger;
 import org.vorin.bestwords.util.Util;
@@ -59,7 +60,26 @@ public class TranslationLoaderApp {
     private static final Logger LOG = Logger.get(TranslationLoaderApp.class);
 
     public static void main(String... argvs) throws IOException {
+//        createWordLists();
+        processWordList();
+    }
 
+    private static void processWordList() throws IOException {
+        var w = WordList.loadFromXml(new File(RES_DIR + "googleTranslateWordList.xml"));
+
+        var wordListProcessor = new WordListProcessor();
+        int wordsWithProblemsCount = 0;
+        for (var t : w.getTranslations()) {
+            if(!wordListProcessor.processTranslation(t)) {
+                wordsWithProblemsCount++;
+            }
+        }
+
+        LOG.info("wordsWithProblemsCount=" + wordsWithProblemsCount);
+        wordListProcessor.verifyWordList(w);
+    }
+
+    private static void createWordLists() throws IOException {
         var wordInfos = Util.getForeignWordsFromXml(RES_DIR + "EnglishWordList34.xml");
 
         createGoogleWordList(Dictionary.EN_ES, wordInfos,"googleTranslateWordList.xml");
@@ -74,11 +94,9 @@ public class TranslationLoaderApp {
         createLingueeWordList(Dictionary.EN_ES, wordInfos, "lingueeWordList.xml");
 
         createCollinsWordList(Dictionary.ES_EN,
-                              Util.getReverseForeignWordsWithMeaningsFromXml(RES_DIR + "googleTranslateWordList.xml"),
-                              "collinsReverseWordList.xml");
-
+                Util.getReverseForeignWordsWithMeaningsFromXml(RES_DIR + "googleTranslateWordList.xml"),
+                "collinsReverseWordList.xml");
     }
-
 
     private static void createGoogleWordList(Dictionary dict, List<WordInfo> wordInfos, String outputXml) throws IOException {
         var xmlPublisher = new XmlTranslationPublisher(new File(RES_DIR + outputXml));

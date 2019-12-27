@@ -648,4 +648,31 @@
 			</meaning>
 		</meanings>
 	</translation>
+	<translation>
+		<foreignWord>himself</foreignWord>
+		<pronunciation>/hɪmˈsɛlf/</pronunciation>
+		<audioName>himself</audioName>
+		<meanings>
+			<meaning>
+				<wordMeaning>sam (osobiście) </wordMeaning>
+				<exampleSentence>the president himself gave him the medal – sam prezydent dał mu medal</exampleSentence>
+				<imgName></imgName>
+			</meaning>
+			<meaning>
+				<wordMeaning>się</wordMeaning>
+				<exampleSentence>he killed himself – zabił się</exampleSentence>
+				<imgName></imgName>
+			</meaning>
+			<meaning>
+				<wordMeaning>siebie</wordMeaning>
+				<exampleSentence>Tom looked at himself in the mirror – Tom patrzył na siebie w lustrze</exampleSentence>
+				<imgName></imgName>
+			</meaning>
+			<meaning>
+				<wordMeaning>sobie</wordMeaning>
+				<exampleSentence>father brought himself a chair – ojciec przyniósł sobie krzesło</exampleSentence>
+				<imgName></imgName>
+			</meaning>
+		</meanings>
+	</translation>
 </wordList>

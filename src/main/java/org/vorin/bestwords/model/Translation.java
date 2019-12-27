@@ -4,12 +4,14 @@ import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 
+import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlElementWrapper;
 import javax.xml.bind.annotation.XmlType;
 import java.util.List;
 
 import static com.google.common.base.Preconditions.checkNotNull;
+import static com.google.common.base.Strings.isNullOrEmpty;
 
 @XmlType(propOrder={"foreignWord","pronunciation","audioName","meanings"})
 public class Translation {
@@ -18,6 +20,7 @@ public class Translation {
     private String pronunciation;
     private String audioName;
     private List<Meaning> meanings;
+    private String comment;
 
     public Translation() {} // needed for JAXB unmarshalling
 
@@ -72,6 +75,24 @@ public class Translation {
         this.meanings = meanings;
     }
 
+    public String getComment() {
+        return comment;
+    }
+
+    @XmlAttribute
+    public void setComment(String comment) {
+        this.comment = comment;
+    }
+
+    public void addComment(String comment) {
+        if (isNullOrEmpty(this.comment)) {
+            this.comment = comment;
+        }
+        else {
+            this.comment += "; " + comment;
+        }
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -85,6 +106,7 @@ public class Translation {
                 .append(pronunciation, that.pronunciation)
                 .append(audioName, that.audioName)
                 .append(meanings, that.meanings)
+                .append(comment, that.comment)
                 .isEquals();
     }
 
@@ -95,6 +117,7 @@ public class Translation {
                 .append(pronunciation)
                 .append(audioName)
                 .append(meanings)
+                .append(comment)
                 .toHashCode();
     }
 
@@ -105,6 +128,7 @@ public class Translation {
                 .append("pronunciation", pronunciation)
                 .append("audioName", audioName)
                 .append("meaningList", meanings)
+                .append("comment", comment)
                 .toString();
     }
 

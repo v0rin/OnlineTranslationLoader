@@ -9,6 +9,7 @@ import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlType;
 
 import static com.google.common.base.Preconditions.checkNotNull;
+import static com.google.common.base.Strings.isNullOrEmpty;
 
 @XmlType(propOrder={"wordMeaning","exampleSentence","imgName", "wordMeaningSource", "exampleSentenceSource", "comment"})
 public class Meaning {
@@ -88,6 +89,15 @@ public class Meaning {
     @XmlAttribute
     public void setComment(String comment) {
         this.comment = comment;
+    }
+
+    public void addComment(String comment) {
+        if (isNullOrEmpty(this.comment)) {
+            this.comment = comment;
+        }
+        else {
+            this.comment += "; " + comment;
+        }
     }
 
     @Override
