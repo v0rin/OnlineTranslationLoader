@@ -26,10 +26,10 @@ https://www.youtube.com/watch?v=nyr3EJH0lTY
 
 /** @Weryfikacje-tlumaczen
 
-https://www.wordreference.com/enpl/make - rozmieszac
-sciagac kilka innych 3k spanish wordlists
 sciagnac first 3k dla polskiego
 synonimy - polski, spanish
+
+moze wordreference jako zrodlo wyjsciowe?
 
 zmergowac and check, cross-check translations and example sentences - ustawic alerty gdzie sa problemy
 zrobic test moich 34 slowek z polskim
@@ -68,7 +68,7 @@ public class EnEsTranslationLoaderApp {
     private static final Logger LOG = Logger.get(EnPlTranslationLoaderApp.class);
 
     public static void main(String... argvs) throws IOException {
-        createWordLists();
+//        createWordLists();
         processWordList();
     }
 

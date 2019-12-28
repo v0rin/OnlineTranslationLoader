@@ -2,6 +2,9 @@ package org.vorin.bestwords.util;
 
 import static java.lang.String.format;
 
+import java.io.OutputStreamWriter;
+import java.io.PrintWriter;
+import java.io.UnsupportedEncodingException;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Map;
@@ -16,7 +19,17 @@ public class Logger {
 
     private static final DateTimeFormatter DATE_TIME_FORMATTER = DateTimeFormatter.ofPattern("HH:mm:ss.SSS");
     private static final Map<String, Logger> loggers = new ConcurrentHashMap<>();
+    private static final PrintWriter CONSOLE_OUT;
+
     private static int LOG_TAG_PADDING = 16;
+
+    static {
+        try {
+            CONSOLE_OUT = new PrintWriter(new OutputStreamWriter(System.out, "UTF-8"));
+        } catch (UnsupportedEncodingException e) {
+            throw new RuntimeException(e);
+        }
+    }
 
     private final String tag;
 
@@ -48,7 +61,7 @@ public class Logger {
     }
 
     private void log(String s, String lvl) {
-        System.out.println(format("%s | %" + LOG_TAG_PADDING + "s | %5s | - %s",
+        CONSOLE_OUT.println(format("%s | %" + LOG_TAG_PADDING + "s | %5s | - %s",
                 DATE_TIME_FORMATTER.format(LocalTime.now()), tag, lvl, s));
     }
 
