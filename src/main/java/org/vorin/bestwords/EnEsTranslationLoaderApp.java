@@ -106,7 +106,7 @@ public class EnEsTranslationLoaderApp {
         var xmlPublisher = new XmlTranslationPublisher(new File(RES_DIR + outputXml));
         var downloader = new GoogleTranslateDownloader(dict);
         var parser = new GoogleTranslateParser(0.01, 5);
-        var loader = new TranslationLoader(downloader, parser, xmlPublisher, true);
+        var loader = new TranslationLoader(downloader, parser, xmlPublisher, true, 5000);
 
         loader.load(wordInfos);
         xmlPublisher.writeToTarget();
@@ -128,7 +128,7 @@ public class EnEsTranslationLoaderApp {
         var xmlPublisher = new XmlTranslationPublisher(new File(RES_DIR + outputXml));
         var downloader = new LingueeDownloader(dict);
         var parser = new LingueeParser();
-        var loader = new TranslationLoader(downloader, parser, xmlPublisher, true, 1000);
+        var loader = new TranslationLoader(downloader, parser, xmlPublisher, true);
 
         loader.load(wordInfos);
         xmlPublisher.writeToTarget();
@@ -139,7 +139,7 @@ public class EnEsTranslationLoaderApp {
         var xmlPublisher = new XmlTranslationPublisher(new File(RES_DIR + outputXml));
         var downloader = new CollinsDownloader(dict);
         var parser = new CollinsSentencesParser(36);
-        var loader = new TranslationLoader(downloader, parser, xmlPublisher, true, 1000);
+        var loader = new TranslationLoader(downloader, parser, xmlPublisher, true);
 
         loader.load(wordInfos);
         xmlPublisher.writeToTarget();

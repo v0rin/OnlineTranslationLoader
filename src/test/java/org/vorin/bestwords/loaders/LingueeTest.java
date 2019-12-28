@@ -8,6 +8,7 @@ import org.vorin.bestwords.model.WordList;
 import org.vorin.bestwords.util.Dictionary;
 
 import java.io.*;
+import java.nio.charset.StandardCharsets;
 
 import static org.hamcrest.core.Is.is;
 import static org.junit.Assert.assertThat;
@@ -57,10 +58,10 @@ public class LingueeTest {
         try (var downloadedDataIS = downloader.download(TEST_WORD_INFO.getForeignWord())) {
 
             // creating a test file
-            try(OutputStream fos = new FileOutputStream(TEST_CACHE_FILE_PATH)) {
-                IOUtils.copy(downloadedDataIS, fos);
-            }
-//            System.out.println(IOUtils.toString(downloadedDataIS, StandardCharsets.UTF_8));
+//            try(OutputStream fos = new FileOutputStream(TEST_CACHE_FILE_PATH)) {
+//                IOUtils.copy(downloadedDataIS, fos);
+//            }
+            System.out.println(IOUtils.toString(downloadedDataIS, StandardCharsets.UTF_8));
         }
     }
 }

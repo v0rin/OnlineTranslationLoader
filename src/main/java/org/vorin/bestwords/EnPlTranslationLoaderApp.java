@@ -43,15 +43,15 @@ public class EnPlTranslationLoaderApp {
     private static void createWordLists() throws IOException {
         var wordInfos = Util.getForeignWordsFromXml(RES_DIR + "EnglishWordList34.xml");
 
-        createGoogleWordList(Dictionary.EN_PL, wordInfos,"EN_PL-GoogleTranslateWordList.xml");
+//        createGoogleWordList(Dictionary.EN_PL, wordInfos,"EN_PL-GoogleTranslateWordList.xml");
 
         // reverse wordlist
-        createGoogleWordList(Dictionary.ES_EN,
+        createGoogleWordList(Dictionary.PL_EN,
                 Util.getReverseForeignWordsFromXml(RES_DIR + "EN_PL-GoogleTranslateWordList.xml"),
                 "EN_PL-GoogleTranslateReverseWordList.xml");
 
         createWordReferenceWordList(Dictionary.EN_PL, wordInfos, "EN_PL-WordReferenceWordList.xml");
-
+//
         createLingueeWordList(Dictionary.EN_PL, wordInfos, "EN_PL-LingueeWordList.xml");
     }
 
@@ -59,7 +59,7 @@ public class EnPlTranslationLoaderApp {
         var xmlPublisher = new XmlTranslationPublisher(new File(RES_DIR + outputXml));
         var downloader = new GoogleTranslateDownloader(dict);
         var parser = new GoogleTranslateParser(0.01, 5);
-        var loader = new TranslationLoader(downloader, parser, xmlPublisher, true);
+        var loader = new TranslationLoader(downloader, parser, xmlPublisher, true, 5000);
 
         loader.load(wordInfos);
         xmlPublisher.writeToTarget();
@@ -81,7 +81,7 @@ public class EnPlTranslationLoaderApp {
         var xmlPublisher = new XmlTranslationPublisher(new File(RES_DIR + outputXml));
         var downloader = new LingueeDownloader(dict);
         var parser = new LingueeParser();
-        var loader = new TranslationLoader(downloader, parser, xmlPublisher, true, 1000);
+        var loader = new TranslationLoader(downloader, parser, xmlPublisher, true);
 
         loader.load(wordInfos);
         xmlPublisher.writeToTarget();
