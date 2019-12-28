@@ -44,7 +44,7 @@ public class WordListProcessor {
     private final WordList GOOGLE_REVERSE_WORDLIST;
     private final WordList LINGUEE_WORDLIST;
     private final WordList WORD_REFERENCE_WORDLIST;
-    private final WordList COLLINS_REVERSE_WORDLIST;
+//    private final WordList COLLINS_REVERSE_WORDLIST;
 
     private final Dictionary dictionary;
 
@@ -55,7 +55,7 @@ public class WordListProcessor {
             this.GOOGLE_REVERSE_WORDLIST = WordList.loadFromXml( getWordListFile("GoogleTranslateReverseWordList.xml"));
             this.LINGUEE_WORDLIST = WordList.loadFromXml( getWordListFile("LingueeWordList.xml"));
             this.WORD_REFERENCE_WORDLIST = WordList.loadFromXml( getWordListFile("WordReferenceWordList.xml"));
-            this.COLLINS_REVERSE_WORDLIST = WordList.loadFromXml( getWordListFile("CollinsReverseWordList.xml"));
+//            this.COLLINS_REVERSE_WORDLIST = WordList.loadFromXml( getWordListFile("CollinsReverseWordList.xml"));
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
@@ -136,24 +136,24 @@ public class WordListProcessor {
 
 
     private void setExampleSentence(String foreignWord, Meaning meaning) {
-        var collinsMeaning = COLLINS_REVERSE_WORDLIST.findMeaning(meaning.getWordMeaning(), foreignWord);
-        var lingueeMeaning = LINGUEE_WORDLIST.findMeaning(foreignWord, meaning.getWordMeaning());
-        var wrMeaning = WORD_REFERENCE_WORDLIST.findMeaning(foreignWord, meaning.getWordMeaning());
-        if (collinsMeaning != null && !collinsMeaning.getExampleSentence().isEmpty()) {
-            meaning.setExampleSentence(LangUtil.reverseExampleSentence(collinsMeaning.getExampleSentence()));
-            meaning.setExampleSentenceSource(COLLINS_SOURCE);
-        }
-        else if (lingueeMeaning != null && !lingueeMeaning.getExampleSentence().isEmpty()) {
-            meaning.setExampleSentence(lingueeMeaning.getExampleSentence());
-            meaning.setExampleSentenceSource(LINGUEE_SOURCE);
-        }
-        else if (wrMeaning != null && !wrMeaning.getExampleSentence().isEmpty()) {
-            meaning.setExampleSentence(wrMeaning.getExampleSentence());
-            meaning.setExampleSentenceSource(WORD_REFERENCE_SOURCE);
-        }
-        else {
-            addMeaningComment(foreignWord, meaning, "no example sentence");
-        }
+//        var collinsMeaning = COLLINS_REVERSE_WORDLIST.findMeaning(meaning.getWordMeaning(), foreignWord);
+//        var lingueeMeaning = LINGUEE_WORDLIST.findMeaning(foreignWord, meaning.getWordMeaning());
+//        var wrMeaning = WORD_REFERENCE_WORDLIST.findMeaning(foreignWord, meaning.getWordMeaning());
+//        if (collinsMeaning != null && !collinsMeaning.getExampleSentence().isEmpty()) {
+//            meaning.setExampleSentence(LangUtil.reverseExampleSentence(collinsMeaning.getExampleSentence()));
+//            meaning.setExampleSentenceSource(COLLINS_SOURCE);
+//        }
+//        else if (lingueeMeaning != null && !lingueeMeaning.getExampleSentence().isEmpty()) {
+//            meaning.setExampleSentence(lingueeMeaning.getExampleSentence());
+//            meaning.setExampleSentenceSource(LINGUEE_SOURCE);
+//        }
+//        else if (wrMeaning != null && !wrMeaning.getExampleSentence().isEmpty()) {
+//            meaning.setExampleSentence(wrMeaning.getExampleSentence());
+//            meaning.setExampleSentenceSource(WORD_REFERENCE_SOURCE);
+//        }
+//        else {
+//            addMeaningComment(foreignWord, meaning, "no example sentence");
+//        }
     }
 
 

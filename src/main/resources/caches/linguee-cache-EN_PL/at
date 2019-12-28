@@ -1,0 +1,89 @@
+<html><body><table>
+<div class="exact">
+ <div class="lemma featured" wt="500">
+  <div>
+   <h2 class="line lemma_desc" lid="EN:at19233"><span class="tag_lemma"><a class="dictLink" rel="nofollow" href="/english-polish/translation/at.html">at</a> <a id="EN_US/7d/7d0db380a5b95a8ba1da0bca241abda1-500" class="audio" onclick="playSound(this,&quot;EN_US/7d/7d0db380a5b95a8ba1da0bca241abda1-500&quot;,&quot;American English&quot;,&quot;EN_UK/7d/7d0db380a5b95a8ba1da0bca241abda1-500&quot;,&quot;British English&quot;);"></a> <span class="tag_wordtype">preposition</span></span><span class="dash">—</span></h2>
+   <div class="lemma_content">
+    <div class="meaninggroup  sortablemg" gid="0">
+     <div class="translation_lines">
+      <div class="translation sortablemg featured">
+       <h3 class="translation_desc"><span class="tag_trans" bid="10008194196" lid="PL:na4035"><a id="dictEntry10008194196" href="/polish-english/translation/na.html" class="dictLink featured">na</a> <span class="tag_type" title="preposition">prep</span></span>
+        <!--tag_trans--> <span class="tag_c usedalmostalways">(almost always used)</span> </h3>
+       <!--translation_desc-->
+       <!-- editorial isFeatured 1 inType 0 allowFeatured 1 available: 0 --> 
+      </div> 
+      <div class="translation sortablemg featured">
+       <h3 class="translation_desc"><span class="tag_trans" bid="10008196977" lid="PL:po53032"><a id="dictEntry10008196977" href="/polish-english/translation/po.html" class="dictLink featured">po</a> <span class="tag_type" title="preposition">prep</span></span>
+        <!--tag_trans--></h3>
+       <!--translation_desc-->
+       <!-- editorial isFeatured 1 inType 0 allowFeatured 1 available: 0 --> 
+      </div> 
+      <div class="translation_group">
+       <div class="line group_line translation_group_line">
+        <span class="notascommon">less common:</span> 
+        <div class="translation sortablemg translation_first">
+         <div class="translation_desc">
+          <span class="tag_trans" bid="10008198904" lid="PL:wed##ug43578"><a id="dictEntry10008198904" href="/polish-english/translation/wed%C5%82ug.html" class="dictLink">według</a> <span class="tag_type" title="preposition">prep</span></span>
+          <!--tag_trans-->
+         </div>
+         <!--translation_desc-->
+         <!-- editorial isFeatured 0 inType 0 allowFeatured 1 available: 0 --> 
+        </div> 
+       </div>
+      </div> 
+     </div>
+     <!--translation_lines--> 
+    </div>
+    <!--meaninggroup--> 
+   </div>
+   <!--lemma_content-->
+  </div>
+ </div>
+ <!--lemma--> 
+ <div class="lemma" wt="0">
+  <div>
+   <h2 class="line lemma_desc" lid="EN:at19233"><span class="tag_lemma"><a class="dictLink" rel="nofollow" href="/english-polish/translation/at.html">at</a> <a id="EN_US/7d/7d0db380a5b95a8ba1da0bca241abda1-0" class="audio" onclick="playSound(this,&quot;EN_US/7d/7d0db380a5b95a8ba1da0bca241abda1-0&quot;,&quot;American English&quot;,&quot;EN_UK/7d/7d0db380a5b95a8ba1da0bca241abda1-0&quot;,&quot;British English&quot;);"></a></span><span class="dash">—</span></h2>
+   <div class="lemma_content">
+    <div class="meaninggroup  sortablemg" gid="0">
+     <div class="translation_lines">
+      <div class="translation_group">
+       <div class="line group_line translation_group_line">
+        <div class="translation sortablemg translation_first">
+         <div class="translation_desc">
+          <span class="tag_trans" bid="10001092112" lid="PL:przy21252"><a id="dictEntry10001092112" href="/polish-english/translation/przy.html" class="dictLink">przy</a><a class="expand_i"></a></span>
+          <!--tag_trans-->
+         </div>
+         <!--translation_desc-->
+         <!-- editorial isFeatured 0 inType 0 allowFeatured 1 available: 0 --> 
+         <span class="sep">·</span> 
+        </div> 
+        <div class="translation sortablemg">
+         <div class="translation_desc">
+          <span class="tag_trans" bid="10001092113" lid="PL:o47391"><a id="dictEntry10001092113" href="/polish-english/translation/o.html" class="dictLink">o</a><a class="expand_i"></a></span>
+          <!--tag_trans-->
+         </div>
+         <!--translation_desc-->
+         <!-- editorial isFeatured 0 inType 0 allowFeatured 1 available: 0 --> 
+         <span class="sep">·</span> 
+        </div> 
+        <div class="translation sortablemg">
+         <div class="translation_desc">
+          <span class="tag_trans" bid="10001092111" lid="PL:w26599"><a id="dictEntry10001092111" href="/polish-english/translation/w.html" class="dictLink">w</a></span>
+          <!--tag_trans-->
+         </div>
+         <!--translation_desc-->
+         <!-- editorial isFeatured 0 inType 0 allowFeatured 1 available: 0 --> 
+        </div> 
+       </div>
+      </div> 
+     </div>
+     <!--translation_lines--> 
+    </div>
+    <!--meaninggroup--> 
+   </div>
+   <!--lemma_content-->
+  </div>
+ </div>
+ <!--lemma--> 
+</div>
+</table></body></html>

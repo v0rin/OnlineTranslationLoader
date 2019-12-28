@@ -39,6 +39,10 @@ public class Logger {
         log(s, "INFO");
     }
 
+    public void warn(String s) {
+        log(s, "WARN");
+    }
+
     public void error(String s) {
         log(s, "ERROR");
     }

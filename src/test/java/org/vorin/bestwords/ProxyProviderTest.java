@@ -1,5 +1,6 @@
 package org.vorin.bestwords;
 
+import org.junit.Ignore;
 import org.junit.Test;
 import org.vorin.bestwords.util.Logger;
 
@@ -10,7 +11,7 @@ public class ProxyProviderTest {
 
     private static final Logger LOG = Logger.get(ProxyProviderTest.class);
 
-//    @Ignore
+    @Ignore
     @Test
     public void getNextWorkingProxyForUrl() throws IOException {
 

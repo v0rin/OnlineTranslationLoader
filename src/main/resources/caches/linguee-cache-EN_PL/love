@@ -1,0 +1,74 @@
+<html><body><table>
+<div class="exact">
+ <div class="lemma featured" wt="101">
+  <div>
+   <h2 class="line lemma_desc" lid="EN:love57025"><span class="tag_lemma"><a class="dictLink" rel="nofollow" href="/english-polish/translation/love.html">love</a> <a id="EN_US/b5/b5c0b187fe309af0f4d35982fd961d7e-101" class="audio" onclick="playSound(this,&quot;EN_US/b5/b5c0b187fe309af0f4d35982fd961d7e-101&quot;,&quot;American English&quot;,&quot;EN_UK/b5/b5c0b187fe309af0f4d35982fd961d7e-101&quot;,&quot;British English&quot;);"></a> <span class="tag_wordtype">noun</span></span><span class="dash">—</span></h2>
+   <div class="lemma_content">
+    <div class="meaninggroup  sortablemg" gid="0">
+     <div class="translation_lines">
+      <div class="translation sortablemg featured">
+       <h3 class="translation_desc"><span class="tag_trans" bid="10006878554" lid="PL:mi##o####22824"><a id="dictEntry10006878554" href="/polish-english/translation/mi%C5%82o%C5%9B%C4%87.html" class="dictLink featured">miłość</a> <span class="tag_type" title="noun,&nbsp;feminine">f</span><a class="expand_i"></a></span>
+        <!--tag_trans--> <span class="tag_c usedveryoften">(often used)</span> </h3>
+       <!--translation_desc-->
+       <!-- editorial isFeatured 1 inType 0 allowFeatured 1 available: 0 --> 
+      </div> 
+      <div class="translation_group">
+       <div class="line group_line translation_group_line">
+        <span class="notascommon">less common:</span> 
+        <div class="translation sortablemg translation_first">
+         <div class="translation_desc">
+          <span class="tag_trans" bid="10008261350" lid="PL:zami##owanie60132"><a id="dictEntry10008261350" href="/polish-english/translation/zami%C5%82owanie.html" class="dictLink">zamiłowanie</a> <span class="tag_type" title="noun,&nbsp;neuter">nt</span></span>
+          <!--tag_trans-->
+         </div>
+         <!--translation_desc-->
+         <!-- editorial isFeatured 0 inType 0 allowFeatured 1 available: 0 --> 
+        </div> 
+       </div>
+      </div> 
+     </div>
+     <!--translation_lines--> 
+    </div>
+    <!--meaninggroup--> 
+   </div>
+   <!--lemma_content-->
+  </div>
+ </div>
+ <!--lemma--> 
+ <div class="lemma" wt="200">
+  <div>
+   <h2 class="line lemma_desc" lid="EN:love#sb##sth#20663" href="/english-polish/translation/love.html"><span class="tag_lemma"><a class="dictLink" href="/english-polish/translation/love.html">love <span class="placeholder">sb./sth.</span></a> <a id="EN_US/b5/b5c0b187fe309af0f4d35982fd961d7e-200" class="audio" onclick="playSound(this,&quot;EN_US/b5/b5c0b187fe309af0f4d35982fd961d7e-200&quot;,&quot;American English&quot;,&quot;EN_UK/b5/b5c0b187fe309af0f4d35982fd961d7e-200&quot;,&quot;British English&quot;);"></a> <span class="tag_wordtype">verb</span></span><span class="dash">—</span></h2>
+   <div class="lemma_content">
+    <div class="meaninggroup  sortablemg" gid="0">
+     <div class="translation_lines">
+      <div class="translation_group">
+       <div class="line group_line translation_group_line">
+        <div class="translation sortablemg translation_first">
+         <div class="translation_desc">
+          <span class="tag_trans" bid="10008195685" lid="PL:pokocha###kogo###co##56306"><a id="dictEntry10008195685" href="/polish-english/translation/pokocha%C4%87.html" class="dictLink">pokochać <span class="placeholder">kogoś/coś</span></a> <span class="tag_type" title="verb,&nbsp;perfective">v</span></span>
+          <!--tag_trans-->
+         </div>
+         <!--translation_desc-->
+         <!-- editorial isFeatured 0 inType 0 allowFeatured 1 available: 0 --> 
+         <span class="sep">·</span> 
+        </div> 
+        <div class="translation sortablemg">
+         <div class="translation_desc">
+          <span class="tag_trans" bid="10008289852" lid="PL:mi##owa###kogo###co##15381"><a id="dictEntry10008289852" href="/polish-english/translation/mi%C5%82owa%C4%87.html" class="dictLink">miłować <span class="placeholder">kogoś/coś</span></a> <span class="tag_type" title="verb,&nbsp;imperfective">v</span> <span class="tag_usage" title="obsolete">[obs.]</span></span>
+          <!--tag_trans-->
+         </div>
+         <!--translation_desc-->
+         <!-- editorial isFeatured 0 inType 0 allowFeatured 1 available: 0 --> 
+        </div> 
+       </div>
+      </div> 
+     </div>
+     <!--translation_lines--> 
+    </div>
+    <!--meaninggroup--> 
+   </div>
+   <!--lemma_content-->
+  </div>
+ </div>
+ <!--lemma--> 
+</div>
+</table></body></html>

@@ -19,8 +19,8 @@ public class EnPlTranslationLoaderApp {
     private static final Logger LOG = Logger.get(EnEsTranslationLoaderApp.class);
 
     public static void main(String... argvs) throws IOException {
-        createWordLists();
-//        processWordList();
+//        createWordLists();
+        processWordList();
     }
 
     private static void processWordList() throws IOException {

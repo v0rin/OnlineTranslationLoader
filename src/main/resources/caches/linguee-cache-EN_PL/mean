@@ -1,0 +1,113 @@
+<html><body><table>
+<div class="exact">
+ <div class="lemma featured" wt="200">
+  <div>
+   <h2 class="line lemma_desc" lid="EN:mean#sth#35433" href="/english-polish/translation/mean.html"><span class="tag_lemma"><a class="dictLink" href="/english-polish/translation/mean.html">mean <span class="placeholder">sth.</span></a> <a id="EN_US/b9/b93db188572fc4d76cce5660f3823b0a-200" class="audio" onclick="playSound(this,&quot;EN_US/b9/b93db188572fc4d76cce5660f3823b0a-200&quot;,&quot;American English&quot;,&quot;EN_UK/b9/b93db188572fc4d76cce5660f3823b0a-200&quot;,&quot;British English&quot;);"></a> <span class="tag_wordtype">verb</span></span> <span class="tag_forms forms_verb"> (<span class="tag_s"><a class="formLink" href="/english-polish/translation/meant.html">meant</a></span>, <span class="tag_s"><a class="formLink" href="/english-polish/translation/meant.html">meant</a></span>)</span><span class="dash">—</span></h2>
+   <div class="lemma_content">
+    <div class="meaninggroup  sortablemg" gid="0">
+     <div class="translation_lines">
+      <div class="translation sortablemg featured">
+       <h3 class="translation_desc"><span class="tag_trans" bid="10001090433" lid="PL:oznacza###co##20775"><a id="dictEntry10001090433" href="/polish-english/translation/oznacza%C4%87.html" class="dictLink featured">oznaczać <span class="placeholder">coś</span></a> <span class="tag_type" title="verb,&nbsp;imperfective">v</span><a class="expand_i"></a></span>
+        <!--tag_trans--></h3>
+       <!--translation_desc-->
+       <!-- editorial isFeatured 1 inType 0 allowFeatured 1 available: 0 --> 
+      </div> 
+      <div class="translation_group">
+       <div class="line group_line translation_group_line">
+        <span class="notascommon">less common:</span> 
+        <div class="translation sortablemg translation_first">
+         <div class="translation_desc">
+          <span class="tag_trans" bid="10008190908" lid="PL:znaczy###co##29878"><a id="dictEntry10008190908" href="/polish-english/translation/znaczy%C4%87.html" class="dictLink">znaczyć <span class="placeholder">coś</span></a> <span class="tag_type" title="verb,&nbsp;imperfective">v</span></span>
+          <!--tag_trans-->
+         </div>
+         <!--translation_desc-->
+         <!-- editorial isFeatured 0 inType 0 allowFeatured 1 available: 0 --> 
+        </div> 
+       </div>
+      </div> 
+     </div>
+     <!--translation_lines--> 
+    </div>
+    <!--meaninggroup--> 
+   </div>
+   <!--lemma_content-->
+  </div>
+ </div>
+ <!--lemma--> 
+ <div class="lemma" wt="300">
+  <div>
+   <h2 class="line lemma_desc" lid="EN:mean46254"><span class="tag_lemma"><a class="dictLink" rel="nofollow" href="/english-polish/translation/mean.html">mean</a> <a id="EN_US/b9/b93db188572fc4d76cce5660f3823b0a-300" class="audio" onclick="playSound(this,&quot;EN_US/b9/b93db188572fc4d76cce5660f3823b0a-300&quot;,&quot;American English&quot;,&quot;EN_UK/b9/b93db188572fc4d76cce5660f3823b0a-300&quot;,&quot;British English&quot;);"></a> <span class="tag_wordtype">adjective</span></span><span class="dash">—</span></h2>
+   <div class="lemma_content">
+    <div class="meaninggroup  sortablemg" gid="0">
+     <div class="translation_lines">
+      <div class="translation_group">
+       <div class="line group_line translation_group_line">
+        <div class="translation sortablemg translation_first">
+         <div class="translation_desc">
+          <span class="tag_trans" bid="10008402239" lid="PL:##redni6299"><a id="dictEntry10008402239" href="/polish-english/translation/%C5%9Bredni.html" class="dictLink">średni</a> <span class="tag_type" title="adjective">adj</span></span>
+          <!--tag_trans-->
+         </div>
+         <!--translation_desc-->
+         <!-- editorial isFeatured 0 inType 0 allowFeatured 1 available: 0 --> 
+         <span class="sep">·</span> 
+        </div> 
+        <div class="translation sortablemg">
+         <div class="translation_desc">
+          <span class="tag_trans" bid="10008402279" lid="PL:z##o##liwy37236"><a id="dictEntry10008402279" href="/polish-english/translation/z%C5%82o%C5%9Bliwy.html" class="dictLink">złośliwy</a> <span class="tag_type" title="adjective">adj</span></span>
+          <!--tag_trans-->
+         </div>
+         <!--translation_desc-->
+         <!-- editorial isFeatured 0 inType 0 allowFeatured 1 available: 0 --> 
+         <span class="sep">·</span> 
+        </div> 
+        <div class="translation sortablemg">
+         <div class="translation_desc">
+          <span class="tag_trans" bid="10008402342" lid="PL:wredny50296"><a id="dictEntry10008402342" href="/polish-english/translation/wredny.html" class="dictLink">wredny</a> <span class="tag_type" title="adjective">adj</span></span>
+          <!--tag_trans-->
+         </div>
+         <!--translation_desc-->
+         <!-- editorial isFeatured 0 inType 0 allowFeatured 1 available: 0 --> 
+         <span class="sep">·</span> 
+        </div> 
+        <div class="translation sortablemg">
+         <div class="translation_desc">
+          <span class="tag_trans" bid="10001090434" lid="PL:niemi##y48505"><a id="dictEntry10001090434" href="/polish-english/translation/niemi%C5%82y.html" class="dictLink">niemiły</a> <span class="tag_type" title="adjective">adj</span></span>
+          <!--tag_trans-->
+         </div>
+         <!--translation_desc-->
+         <!-- editorial isFeatured 0 inType 0 allowFeatured 1 available: 0 --> 
+        </div> 
+       </div>
+      </div> 
+     </div>
+     <!--translation_lines--> 
+    </div>
+    <!--meaninggroup--> 
+   </div>
+   <!--lemma_content-->
+  </div>
+ </div>
+ <!--lemma--> 
+ <div class="lemma" wt="101">
+  <div>
+   <h2 class="line lemma_desc" lid="EN:mean46254"><span class="tag_lemma"><a class="dictLink" rel="nofollow" href="/english-polish/translation/mean.html">mean</a> <a id="EN_US/b9/b93db188572fc4d76cce5660f3823b0a-101" class="audio" onclick="playSound(this,&quot;EN_US/b9/b93db188572fc4d76cce5660f3823b0a-101&quot;,&quot;American English&quot;,&quot;EN_UK/b9/b93db188572fc4d76cce5660f3823b0a-101&quot;,&quot;British English&quot;);"></a> <span class="tag_wordtype">noun</span></span><span class="dash">—</span></h2>
+   <div class="lemma_content">
+    <div class="meaninggroup  sortablemg" gid="0">
+     <div class="translation_lines">
+      <div class="translation sortablemg">
+       <h3 class="translation_desc"><span class="tag_trans" bid="10008402238" lid="PL:##rednia49887"><a id="dictEntry10008402238" href="/polish-english/translation/%C5%9Brednia.html" class="dictLink">średnia</a> <span class="tag_type" title="noun,&nbsp;feminine">f</span></span>
+        <!--tag_trans--></h3>
+       <!--translation_desc-->
+       <!-- editorial isFeatured 0 inType 0 allowFeatured 1 available: 0 --> 
+      </div> 
+     </div>
+     <!--translation_lines--> 
+    </div>
+    <!--meaninggroup--> 
+   </div>
+   <!--lemma_content-->
+  </div>
+ </div>
+ <!--lemma--> 
+</div>
+</table></body></html>

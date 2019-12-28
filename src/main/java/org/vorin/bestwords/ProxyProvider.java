@@ -4,12 +4,18 @@ import com.mashape.unirest.http.HttpResponse;
 import com.mashape.unirest.http.Unirest;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.apache.http.HttpHost;
+import org.vorin.bestwords.util.Logger;
 
 import java.util.Arrays;
 import java.util.List;
 import java.util.function.Predicate;
 
+import static java.lang.String.format;
+
 public class ProxyProvider {
+
+    private static final Logger LOG = Logger.get(ProxyProvider.class);
+
     // http://www.gatherproxy.com/
     // http://www.gatherproxy.com/proxylist/country/?c=Poland
     private static final List<ProxyHost> PROXY_LIST = Arrays.asList(
@@ -18,18 +24,25 @@ public class ProxyProvider {
             new ProxyHost("83.175.166.234", 8080),
             new ProxyHost("176.103.45.24", 8080));
 
-    private static int currProxyIdx = -1;
+    private static int currProxyIdx = 0;
+
+    public static ProxyHost getCurrProxy() {
+        return PROXY_LIST.get(currProxyIdx);
+    }
 
     public static ProxyHost getNextWorkingProxyForUrl(String url, Predicate<String> responseTester) {
-        int startingProxyIdx = currProxyIdx == -1 ? 0 : currProxyIdx;
+        int startingProxyIdx = currProxyIdx;
         boolean firstPass = true;
 
         while (firstPass || currProxyIdx != startingProxyIdx) {
             currProxyIdx = currProxyIdx < PROXY_LIST.size() - 1 ? ++currProxyIdx : 0;
             ProxyHost proxy = PROXY_LIST.get(currProxyIdx);
+            LOG.info(format("checking proxy %s:%s ...", proxy.getHostName(), proxy.getPort()));
             if (isProxyWorking(proxy, url, responseTester)) {
+                LOG.info(format("proxy %s:%s is working", proxy.getHostName(), proxy.getPort()));
                 return proxy;
             }
+            LOG.warn(format("proxy %s:%s is not working", proxy.getHostName(), proxy.getPort()));
             if (currProxyIdx == startingProxyIdx) { // means we already did one full pass through the proxy list
                 firstPass = false;
             }

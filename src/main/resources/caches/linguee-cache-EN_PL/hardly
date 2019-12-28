@@ -1,0 +1,31 @@
+<html><body><table>
+<div class="exact">
+ <div class="lemma featured" wt="300">
+  <div>
+   <h2 class="line lemma_desc" lid="EN:hard14256" href="/english-polish/translation/hard.html"><span class="tag_lemma"><a class="dictLink" href="/english-polish/translation/hard.html">hard</a> <a id="EN_US/d6/d64a84456adc959f56de6af685d0dadd-300" class="audio" onclick="playSound(this,&quot;EN_US/d6/d64a84456adc959f56de6af685d0dadd-300&quot;,&quot;American English&quot;,&quot;EN_UK/d6/d64a84456adc959f56de6af685d0dadd-300&quot;,&quot;British English&quot;);"></a> <span class="tag_wordtype">adjective</span></span><span class="dash">—</span></h2>
+   <div class="lemma_content">
+    <div class="meaninggroup  sortablemg" gid="0">
+     <div class="translation_lines">
+      <div class="translation sortablemg featured">
+       <h3 class="translation_desc"><span class="tag_trans" bid="10001095794" lid="PL:twardy55782"><a id="dictEntry10001095794" href="/polish-english/translation/twardy.html" class="dictLink featured">twardy</a> <span class="tag_type" title="adjective">adj</span><a class="expand_i"></a></span>
+        <!--tag_trans--></h3>
+       <!--translation_desc-->
+       <!-- editorial isFeatured 1 inType 0 allowFeatured 1 available: 0 --> 
+      </div> 
+      <div class="translation sortablemg featured">
+       <h3 class="translation_desc"><span class="tag_trans" bid="10001095793" lid="PL:trudny40133"><a id="dictEntry10001095793" href="/polish-english/translation/trudny.html" class="dictLink featured">trudny</a> <span class="tag_type" title="adjective">adj</span><a class="expand_i"></a></span>
+        <!--tag_trans--></h3>
+       <!--translation_desc-->
+       <!-- editorial isFeatured 1 inType 0 allowFeatured 1 available: 0 --> 
+      </div> 
+     </div>
+     <!--translation_lines--> 
+    </div>
+    <!--meaninggroup--> 
+   </div>
+   <!--lemma_content-->
+  </div>
+ </div>
+ <!--lemma--> 
+</div>
+</table></body></html>
