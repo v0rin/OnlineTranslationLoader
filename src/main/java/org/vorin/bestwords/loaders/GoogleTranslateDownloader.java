@@ -18,6 +18,9 @@ public class GoogleTranslateDownloader implements TranslationDataDownloader {
     private static final String URL_EN_ES = "https://translate.googleapis.com/translate_a/single?client=gtx&sl=en&tl=es&hl=en&dt=at&dt=bd&dt=ex&dt=ld&dt=md&dt=qca&dt=rw&dt=rm&dt=ss&dt=t&dt=gt&source=bh&ssel=0&tsel=0&kc=1&q=";
     private static final String URL_ES_EN = "https://translate.googleapis.com/translate_a/single?client=gtx&sl=es&tl=en&hl=en&dt=at&dt=bd&dt=ex&dt=ld&dt=md&dt=qca&dt=rw&dt=rm&dt=ss&dt=t&dt=gt&source=bh&ssel=0&tsel=0&kc=1&q=";
 
+    private static final String URL_EN_PL = "https://translate.googleapis.com/translate_a/single?client=gtx&sl=en&tl=pl&hl=en&dt=at&dt=bd&dt=ex&dt=ld&dt=md&dt=qca&dt=rw&dt=rm&dt=ss&dt=t&dt=gt&source=bh&ssel=0&tsel=0&kc=1&q=";
+    private static final String URL_PL_EN = "https://translate.googleapis.com/translate_a/single?client=gtx&sl=pl&tl=en&hl=en&dt=at&dt=bd&dt=ex&dt=ld&dt=md&dt=qca&dt=rw&dt=rm&dt=ss&dt=t&dt=gt&source=bh&ssel=0&tsel=0&kc=1&q=";
+
     private String url;
     private Dictionary dictionary;
 
@@ -26,6 +29,9 @@ public class GoogleTranslateDownloader implements TranslationDataDownloader {
         switch (dictionary) {
             case EN_ES: url = URL_EN_ES; break;
             case ES_EN: url = URL_ES_EN; break;
+
+            case EN_PL: url = URL_EN_PL; break;
+            case PL_EN: url = URL_PL_EN; break;
         }
     }
 

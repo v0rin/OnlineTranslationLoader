@@ -13,6 +13,7 @@ import java.io.InputStream;
 import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.function.Function;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -24,9 +25,14 @@ public class WordReferenceParser implements TranslationDataParser {
 
     private static final Logger LOG = Logger.get(WordReferenceParser.class);
     private static final Pattern MEANING_PATTERN = Pattern.compile("^<td class=\"ToWrd\">(.+?)<");
+    private final Function<String, String> meaningSanitizer;
 
     enum RowType {
         MEANING, EXAMPLE_FOREIGN_SENTENCE, EXAMPLE_TRANSLATED_SENTENCE;
+    }
+
+    public WordReferenceParser(Function<String, String> meaningSanitizer) {
+        this.meaningSanitizer = meaningSanitizer;
     }
 
     @Override
@@ -71,7 +77,7 @@ public class WordReferenceParser implements TranslationDataParser {
             if (rowType == RowType.MEANING) {
                 String[] meaningsArr = value.split(",");
                 for (String meaning : meaningsArr) {
-                    meaning = LangUtil.santizeSpanishMeaning(meaning.trim());
+                    meaning = meaningSanitizer.apply(meaning.trim());
                     if (!isNullOrEmpty(meaning)) {
                         if (!addedMeaninigs.contains(meaning)) {
                             translationPublisher.addMeaning(wordInfo.getForeignWord(), meaning, WORD_REFERENCE_SOURCE);

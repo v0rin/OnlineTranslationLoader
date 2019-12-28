@@ -49,12 +49,7 @@ public class GoogleTranslateParser implements TranslationDataParser {
                 var scoreObj = node.get(1).get(i).get(2).get(j).get(3);
                 if (scoreObj == null) continue;
                 double score = Double.parseDouble(scoreObj.toString());
-
-                if (score >= minScore) {
-                    meaningsWithScores.add(new ImmutablePair<>(score, meaning));
-//                        LOG.info(format("possible meaning from [%s]: foreignWord=%s, meaning=%s; wordType=%s",
-//                                        GOOGLE_TRANSLATE_SOURCE, word, meaning, wordType));
-                }
+                meaningsWithScores.add(new ImmutablePair<>(score, meaning));
             }
         }
 
@@ -64,13 +59,24 @@ public class GoogleTranslateParser implements TranslationDataParser {
         var addedMeanings = new HashSet<String>();
         for (var ms : meaningsWithScores) {
             String meaning = ms.getRight();
+            double score = ms.getLeft();
             if (!addedMeanings.contains(meaning)) { // don't add duplicate meanings
-                translationPublisher.addMeaning(wordInfo.getForeignWord(),
-                                                meaning,
-                                                GOOGLE_TRANSLATE_SOURCE,
-                                                format("Google score=[%s]", ms.getLeft()));
-                addedMeanings.add(meaning);
-                if (addedMeanings.size() >= maxMeaningCount) break;
+                // there are 3 situations
+                // 1. all meanings have scores < minScore -> add the first one and break
+                // 2. some of the meanings have scores >= minScore -> add those and break
+                // 3. maxMeaningCount or more have score >= minScore -> add only maxMeaningCount and break
+
+                if ((score < minScore && addedMeanings.isEmpty()) ||
+                        (score >= minScore && addedMeanings.size() < maxMeaningCount)) {
+                    translationPublisher.addMeaning(wordInfo.getForeignWord(),
+                            meaning,
+                            GOOGLE_TRANSLATE_SOURCE,
+                            format("Google score=[%s]", score));
+                    addedMeanings.add(meaning);
+                }
+                else {
+                    break;
+                }
             }
         }
 

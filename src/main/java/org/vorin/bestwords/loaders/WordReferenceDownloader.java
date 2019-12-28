@@ -15,6 +15,8 @@ public class WordReferenceDownloader implements TranslationDataDownloader {
 
     private static final String URL_EN_ES = "https://www.wordreference.com/es/translation.asp?tranword=";
     private static final String URL_ES_EN = "https://www.wordreference.com/es/en/translation.asp?spen=";
+    private static final String URL_EN_PL = "https://www.wordreference.com/enpl/";
+    private static final String URL_PL_EN = "https://www.wordreference.com/plen/";
 
     private String url;
     private Dictionary dictionary;
@@ -24,6 +26,9 @@ public class WordReferenceDownloader implements TranslationDataDownloader {
         switch (dictionary) {
             case EN_ES: url = URL_EN_ES; break;
             case ES_EN: url = URL_ES_EN; break;
+
+            case EN_PL: url = URL_EN_PL; break;
+            case PL_EN: url = URL_PL_EN; break;
         }
     }
 

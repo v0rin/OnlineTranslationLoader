@@ -15,6 +15,8 @@ public class LingueeDownloader implements TranslationDataDownloader {
 
     private static final String URL_EN_ES = "https://www.linguee.com/english-spanish/search?source=english&query=";
     private static final String URL_ES_EN = "https://www.linguee.com/english-spanish/search?source=spanish&query=";
+    private static final String URL_EN_PL = "https://www.linguee.com/english-polish/search?source=english&query=";
+    private static final String URL_PL_EN = "https://www.linguee.com/english-polish/search?source=polish&query=";
 
     private String url;
     private Dictionary dictionary;
@@ -24,6 +26,9 @@ public class LingueeDownloader implements TranslationDataDownloader {
         switch (dictionary) {
             case EN_ES: url = URL_EN_ES; break;
             case ES_EN: url = URL_ES_EN; break;
+
+            case EN_PL: url = URL_EN_PL; break;
+            case PL_EN: url = URL_PL_EN; break;
         }
     }
 

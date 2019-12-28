@@ -6,6 +6,7 @@ import org.junit.Test;
 import org.vorin.bestwords.AppConfig;
 import org.vorin.bestwords.model.WordList;
 import org.vorin.bestwords.util.Dictionary;
+import org.vorin.bestwords.util.LangUtil;
 
 import java.io.*;
 
@@ -22,7 +23,7 @@ public class WordReferenceTest {
     public void parseAndPublish() throws IOException {
         // given
         var publisher = new XmlTranslationPublisher(null);
-        var parser = new WordReferenceParser();
+        var parser = new WordReferenceParser(LangUtil::santizeSpanishMeaning);
 
         var expectedWordList = new WordList();
         expectedWordList.addMeaning(TEST_WORD_INFO.getForeignWord(), "poder", WORD_REFERENCE_SOURCE);
