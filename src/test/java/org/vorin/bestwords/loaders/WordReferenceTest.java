@@ -5,25 +5,28 @@ import org.junit.Ignore;
 import org.junit.Test;
 import org.vorin.bestwords.AppConfig;
 import org.vorin.bestwords.model.WordList;
-import org.vorin.bestwords.util.Dictionary;
 import org.vorin.bestwords.util.LangUtil;
 
 import java.io.*;
 
 import static org.hamcrest.core.Is.is;
 import static org.junit.Assert.assertThat;
+import static org.vorin.bestwords.util.Dictionary.EN_ES;
+import static org.vorin.bestwords.util.Dictionary.EN_PL;
 import static org.vorin.bestwords.util.Sources.WORD_REFERENCE_SOURCE;
 
 public class WordReferenceTest {
 
     private static final WordInfo TEST_WORD_INFO = new WordInfo("can", null);
     private static final String TEST_CACHE_FILE_PATH = AppConfig.TEST_RES_DIR + "loaders/WordReference/" + TEST_WORD_INFO.getForeignWord();
+    private static final WordInfo TEST_WORD_INFO_2 = new WordInfo("make", null);
+    private static final String TEST_CACHE_FILE_PATH_2 = AppConfig.TEST_RES_DIR + "loaders/WordReference/" + TEST_WORD_INFO_2.getForeignWord();
 
     @Test
     public void parseAndPublish() throws IOException {
         // given
         var publisher = new XmlTranslationPublisher(null);
-        var parser = new WordReferenceParser(LangUtil::santizeSpanishMeaning);
+        var parser = new WordReferenceParser(EN_ES, LangUtil::santizeSpanishMeaning);
 
         var expectedWordList = new WordList();
         expectedWordList.addMeaning(TEST_WORD_INFO.getForeignWord(), "poder", WORD_REFERENCE_SOURCE);
@@ -41,9 +44,6 @@ public class WordReferenceTest {
         expectedWordList.addMeaning(TEST_WORD_INFO.getForeignWord(), "lata", WORD_REFERENCE_SOURCE);
         expectedWordList.addExampleSentence(TEST_WORD_INFO.getForeignWord(), "lata", "pass me that can of peas - pasame esa lata de guisantes", WORD_REFERENCE_SOURCE);
 
-        expectedWordList.addMeaning(TEST_WORD_INFO.getForeignWord(), "tacho", WORD_REFERENCE_SOURCE);
-        expectedWordList.addMeaning(TEST_WORD_INFO.getForeignWord(), "cesto", WORD_REFERENCE_SOURCE);
-
         // when
         try (var canCacheFileIS = new FileInputStream(new File(TEST_CACHE_FILE_PATH))) {
             parser.parseAndPublish(TEST_WORD_INFO, canCacheFileIS, publisher);
@@ -53,15 +53,32 @@ public class WordReferenceTest {
         assertThat(publisher.getWordList(), is(expectedWordList));
     }
 
+    @Test
+    public void parseAndPublish2() throws IOException {
+        // given
+        var publisher = new XmlTranslationPublisher(null);
+        var parser = new WordReferenceParser(EN_PL, LangUtil::santizeSpanishMeaning);
+
+        var expectedWordList = WordList.loadFromXml(new File(AppConfig.TEST_RES_DIR + "loaders/WordReference/EN_PL-make-wordlist.xml"));
+
+        // when
+        try (var canCacheFileIS = new FileInputStream(new File(TEST_CACHE_FILE_PATH_2))) {
+            parser.parseAndPublish(TEST_WORD_INFO_2, canCacheFileIS, publisher);
+        }
+
+        // then
+        assertThat(publisher.getWordList(), is(expectedWordList));
+    }
+
     @Ignore
     @Test
     public void downloadTest() throws IOException {
-        var downloader = new WordReferenceDownloader(Dictionary.EN_ES);
+        var downloader = new WordReferenceDownloader(EN_PL);
 
-        try (var downloadedDataIS = downloader.download(TEST_WORD_INFO.getForeignWord())) {
+        try (var downloadedDataIS = downloader.download(TEST_WORD_INFO_2.getForeignWord())) {
 
             // creating a test file
-            try(OutputStream fos = new FileOutputStream(TEST_CACHE_FILE_PATH)) {
+            try(OutputStream fos = new FileOutputStream(TEST_CACHE_FILE_PATH_2)) {
                 IOUtils.copy(downloadedDataIS, fos);
             }
 //            System.out.println(IOUtils.toString(downloadedDataIS, StandardCharsets.UTF_8));

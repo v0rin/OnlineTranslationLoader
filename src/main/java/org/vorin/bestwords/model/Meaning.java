@@ -19,7 +19,7 @@ public class Meaning {
     private String imgName;
     private String exampleSentenceSource;
     private String wordMeaningSource;
-    private String comment;
+    private String comment = "";
 
 
     public Meaning() {} // needed for JAXB unmarshalling
@@ -31,10 +31,10 @@ public class Meaning {
                    String exampleSentenceSource) {
         checkNotNull(wordMeaning);
         this.wordMeaning = wordMeaning;
-        this.exampleSentence = exampleSentence;
-        this.imgName = imgName;
-        this.wordMeaningSource = wordMeaningSource;
-        this.exampleSentenceSource = exampleSentenceSource;
+        this.exampleSentence = emptyIfNull(exampleSentence);
+        this.imgName = emptyIfNull(imgName);
+        this.wordMeaningSource = emptyIfNull(wordMeaningSource);
+        this.exampleSentenceSource = emptyIfNull(exampleSentenceSource);
     }
 
     public String getWordMeaning() {

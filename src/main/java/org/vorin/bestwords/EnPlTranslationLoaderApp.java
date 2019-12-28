@@ -69,7 +69,7 @@ public class EnPlTranslationLoaderApp {
     private static void createWordReferenceWordList(Dictionary dict, List<WordInfo> wordInfos, String outputXml) throws IOException {
         var xmlPublisher = new XmlTranslationPublisher(new File(RES_DIR + outputXml));
         var downloader = new WordReferenceDownloader(dict);
-        var parser = new WordReferenceParser(LangUtil::santizeSpanishMeaning);
+        var parser = new WordReferenceParser(dict, LangUtil::santizeSpanishMeaning);
         var loader = new TranslationLoader(downloader, parser, xmlPublisher, true);
 
         loader.load(wordInfos);

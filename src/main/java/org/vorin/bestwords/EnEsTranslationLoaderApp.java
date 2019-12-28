@@ -26,10 +26,16 @@ https://www.youtube.com/watch?v=nyr3EJH0lTY
 
 /** @Weryfikacje-tlumaczen
 
+https://www.wordreference.com/enpl/make - rozmieszac
+sciagac kilka innych 3k spanish wordlists
+sciagnac first 3k dla polskiego
+synonimy - polski, spanish
+
 zmergowac and check, cross-check translations and example sentences - ustawic alerty gdzie sa problemy
 zrobic test moich 34 slowek z polskim
 
  @meanings:
+ - remove synonyms
  - has to be in SpanishCombined2954.txt (it is Spanish1kNeri i Spanish3kAndki2134488481)
  - search for () and other weird characters, search for spaces (two or more words)
  - cannot be more than 3 meanings - it is the first 1000 words - don't make it too complicated
@@ -116,7 +122,7 @@ public class EnEsTranslationLoaderApp {
     private static void createWordReferenceWordList(Dictionary dict, List<WordInfo> wordInfos, String outputXml) throws IOException {
         var xmlPublisher = new XmlTranslationPublisher(new File(RES_DIR + outputXml));
         var downloader = new WordReferenceDownloader(dict);
-        var parser = new WordReferenceParser(LangUtil::santizeSpanishMeaning);
+        var parser = new WordReferenceParser(dict, LangUtil::santizeSpanishMeaning);
         var loader = new TranslationLoader(downloader, parser, xmlPublisher, true);
 
         loader.load(wordInfos);

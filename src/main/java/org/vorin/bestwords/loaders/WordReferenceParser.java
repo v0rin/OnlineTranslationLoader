@@ -4,7 +4,7 @@ import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
-import org.vorin.bestwords.util.LangUtil;
+import org.vorin.bestwords.util.Dictionary;
 import org.vorin.bestwords.util.Logger;
 import org.vorin.bestwords.util.Util;
 
@@ -25,14 +25,16 @@ public class WordReferenceParser implements TranslationDataParser {
 
     private static final Logger LOG = Logger.get(WordReferenceParser.class);
     private static final Pattern MEANING_PATTERN = Pattern.compile("^<td class=\"ToWrd\">(.+?)<");
+    private final String rowIdPrefix;
     private final Function<String, String> meaningSanitizer;
 
     enum RowType {
         MEANING, EXAMPLE_FOREIGN_SENTENCE, EXAMPLE_TRANSLATED_SENTENCE;
     }
 
-    public WordReferenceParser(Function<String, String> meaningSanitizer) {
+    public WordReferenceParser(Dictionary dictionary, Function<String, String> meaningSanitizer) {
         this.meaningSanitizer = meaningSanitizer;
+        this.rowIdPrefix = dictionary.name().replace("_", "").toLowerCase() + ":";
     }
 
     @Override
@@ -51,12 +53,12 @@ public class WordReferenceParser implements TranslationDataParser {
         while (iter.hasNext()) {
             var row = iter.next();
 
-            if (row.id().contains("enes:") || !row.select("td.wrtopsection").isEmpty()) {
+            if (row.id().contains(rowIdPrefix) || !row.select("td.wrtopsection").isEmpty()) {
                 // sort out sentences - except the first one
                 if (foreignSentence != null) {
                     for (int i = 0; i < Math.min(meanings.size(), translatedSentences.size()); i++) {
                         var meaning = meanings.get(i);
-                        if (!translationPublisher.exampleSentenceExists(wordInfo.getForeignWord(), meaning)) {
+                        if (!meaning.isBlank() && !translationPublisher.exampleSentenceExists(wordInfo.getForeignWord(), meaning)) {
                             String sentence = Util.createExampleSentence(foreignSentence, translatedSentences.get(i));
                             translationPublisher.addExampleSentence(wordInfo.getForeignWord(), meaning, sentence, WORD_REFERENCE_SOURCE);
                         }
@@ -75,15 +77,24 @@ public class WordReferenceParser implements TranslationDataParser {
             }
 
             if (rowType == RowType.MEANING) {
+                boolean isMeaningToDiscard = false;
+                if (row.select("span.dsense").first() != null) {
+                    isMeaningToDiscard = true;
+                }
                 String[] meaningsArr = value.split(",");
                 for (String meaning : meaningsArr) {
                     meaning = meaningSanitizer.apply(meaning.trim());
                     if (!isNullOrEmpty(meaning)) {
-                        if (!addedMeaninigs.contains(meaning)) {
+                        if (!addedMeaninigs.contains(meaning) && !isMeaningToDiscard) {
                             translationPublisher.addMeaning(wordInfo.getForeignWord(), meaning, WORD_REFERENCE_SOURCE);
                             addedMeaninigs.add(meaning);
                         }
-                        meanings.add(meaning);
+                        if (!isMeaningToDiscard) {
+                            meanings.add(meaning);
+                        }
+                        else {
+                            meanings.add("");
+                        }
                     }
                 }
             }
