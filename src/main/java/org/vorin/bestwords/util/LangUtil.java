@@ -4,6 +4,11 @@ import static com.google.common.base.Strings.isNullOrEmpty;
 
 public class LangUtil {
 
+    public static String reverseExampleSentence(String sentence) {
+        String[] split = sentence.split(" - ");
+        return split[1] + " - " + split[0];
+    }
+
     public static String getParsedForeignWord(String word) {
         int equalCharIdx = word.indexOf("=");
         int slashIdx = word.indexOf("/");

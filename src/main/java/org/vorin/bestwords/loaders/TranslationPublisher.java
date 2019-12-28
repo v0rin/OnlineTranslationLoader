@@ -6,14 +6,11 @@ import java.io.IOException;
 
 public interface TranslationPublisher {
 
-    void addMeaning(String foreignWord,
-                    String meaning,
-                    String source);
+    void addMeaning(String foreignWord, String meaning, String source);
 
-    void addExampleSentence(String foreignWord,
-                            String wordMeaning,
-                            String exampleSentence,
-                            String source);
+    void addMeaning(String foreignWord, String meaning, String source, String comment);
+
+    void addExampleSentence(String foreignWord, String wordMeaning, String exampleSentence, String source);
 
     boolean exampleSentenceExists(String foreignWord, String wordMeaning);
 

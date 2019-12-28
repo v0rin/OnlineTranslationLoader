@@ -16,6 +16,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import static java.lang.String.format;
+import static org.vorin.bestwords.util.Sources.*;
 
 public class WordListProcessor {
 
@@ -59,13 +60,61 @@ public class WordListProcessor {
     public boolean processTranslation(Translation t) {
         boolean problemsExist = false;
         var meanings = t.getMeanings();
+        var iter = meanings.iterator();
+        while (iter.hasNext()) {
+            var m = iter.next();
+
+            Matcher matcher = WEIRD_CHARACTERS_PATTERN.matcher(m.getWordMeaning());
+            if (matcher.find()) {
+                addMeaningComment(t.getForeignWord(), m, " meaning has weird characters, removing...");
+//                iter.remove();
+                problemsExist = true;
+//                continue;
+            }
+
+            setExampleSentence(t.getForeignWord(), m);
+
+            int spanish3kWords = 0;
+            if (LangUtil.wordCount(m.getWordMeaning()) == 1 && !SPANISH_3K_WORDS.contains(m.getWordMeaning())) {
+                addMeaningComment(t.getForeignWord(), m, "not in spanish3kWords");
+                spanish3kWords = 1;
+            }
+            int googleReverseWordList = 0;
+            if (!existsInReverseWordlist(GOOGLE_REVERSE_WORDLIST, t.getForeignWord(), m.getWordMeaning(), "GOOGLE_REVERSE_WORDLIST")) {
+                addMeaningComment(t.getForeignWord(), m, "not in GOOGLE_REVERSE_WORDLIST");
+                googleReverseWordList = 1;
+            }
+            int wordReferenceWordList = 0;
+            if (!existsInWordlist(WORD_REFERENCE_WORDLIST, LangUtil.getParsedForeignWord(t.getForeignWord()), m.getWordMeaning(), "WORD_REFERENCE_WORDLIST")) {
+                addMeaningComment(t.getForeignWord(), m, "not in WORD_REFERENCE_WORDLIST");
+                wordReferenceWordList = 1;
+            }
+            int lingueeWordList = 0;
+            if (!existsInWordlist(LINGUEE_WORDLIST, LangUtil.getParsedForeignWord(t.getForeignWord()), m.getWordMeaning(), "LINGUEE_WORDLIST")) {
+                addMeaningComment(t.getForeignWord(), m, "not in LINGUEE_WORDLIST");
+                lingueeWordList = 1;
+            }
+            boolean multipleWords = false;
+            if (LangUtil.wordCount(m.getWordMeaning()) > 1) {
+                addMeaningComment(t.getForeignWord(), m, "meaning has multiple words");
+                multipleWords = true;
+            }
+
+//            if ((spanish3kWords + googleReverseWordList + wordReferenceWordList + lingueeWordList) > 2) {
+//                addMeaningComment(t.getForeignWord(), m, "too many problems, removing...");
+//                iter.remove();
+//            }
+
+            problemsExist = problemsExist || multipleWords || (spanish3kWords + googleReverseWordList + wordReferenceWordList + lingueeWordList) > 0;
+        }
+
         if (meanings.isEmpty()) {
             addTranslationComment(t, "no meanings");
             problemsExist = true;
         }
 
         if (Arrays.asList("zero", "two", "three", "four", "five", "six", "seven",
-                          "eight", "nine", "ten", "twenty", "hundred", "thousand", "million")
+                "eight", "nine", "ten", "twenty", "hundred", "thousand", "million")
                 .contains(t.getForeignWord()) && meanings.size() > 1) {
             addTranslationComment(t, "numbers should have only 1 meaning");
             problemsExist = true;
@@ -76,35 +125,28 @@ public class WordListProcessor {
             problemsExist = true;
         }
 
-        for (var m : meanings) {
-            Matcher matcher = WEIRD_CHARACTERS_PATTERN.matcher(m.getWordMeaning());
-            if (matcher.find()) {
-                addMeaningComment(t.getForeignWord(), m, "means has weird characters");
-                problemsExist = true;
-            }
-            if (LangUtil.wordCount(m.getWordMeaning()) == 1 && !SPANISH_3K_WORDS.contains(m.getWordMeaning())) {
-                addMeaningComment(t.getForeignWord(), m, "not in spanish3kWords");
-                problemsExist = true;
-            }
-            if (!existsInReverseWordlist(GOOGLE_REVERSE_WORDLIST, t.getForeignWord(), m.getWordMeaning(), "GOOGLE_REVERSE_WORDLIST")) {
-                addMeaningComment(t.getForeignWord(), m, "does not exist in GOOGLE_REVERSE_WORDLIST");
-                problemsExist = true;
-            }
-            if (!existsInWordlist(WORD_REFERENCE_WORDLIST, LangUtil.getParsedForeignWord(t.getForeignWord()), m.getWordMeaning(), "WORD_REFERENCE_WORDLIST")) {
-                addMeaningComment(t.getForeignWord(), m, "does not exist in WORD_REFERENCE_WORDLIST");
-                problemsExist = true;
-            }
-            if (!existsInWordlist(LINGUEE_WORDLIST, LangUtil.getParsedForeignWord(t.getForeignWord()), m.getWordMeaning(), "LINGUEE_WORDLIST")) {
-                addMeaningComment(t.getForeignWord(), m, "does not exist in LINGUEE_WORDLIST");
-                problemsExist = true;
-            }
-            if (LangUtil.wordCount(m.getWordMeaning()) > 1) {
-                addMeaningComment(t.getForeignWord(), m, "meaning has multiple words");
-                problemsExist = true;
-            }
-        }
-
         return !problemsExist;
+    }
+
+    private void setExampleSentence(String foreignWord, Meaning meaning) {
+        var collinsMeaning = COLLINS_REVERSE_WORDLIST.findMeaning(meaning.getWordMeaning(), foreignWord);
+        var lingueeMeaning = LINGUEE_WORDLIST.findMeaning(foreignWord, meaning.getWordMeaning());
+        var wrMeaning = WORD_REFERENCE_WORDLIST.findMeaning(foreignWord, meaning.getWordMeaning());
+        if (collinsMeaning != null && !collinsMeaning.getExampleSentence().isEmpty()) {
+            meaning.setExampleSentence(LangUtil.reverseExampleSentence(collinsMeaning.getExampleSentence()));
+            meaning.setExampleSentenceSource(COLLINS_SOURCE);
+        }
+        else if (lingueeMeaning != null && !lingueeMeaning.getExampleSentence().isEmpty()) {
+            meaning.setExampleSentence(lingueeMeaning.getExampleSentence());
+            meaning.setExampleSentenceSource(LINGUEE_SOURCE);
+        }
+        else if (wrMeaning != null && !wrMeaning.getExampleSentence().isEmpty()) {
+            meaning.setExampleSentence(wrMeaning.getExampleSentence());
+            meaning.setExampleSentenceSource(WORD_REFERENCE_SOURCE);
+        }
+        else {
+            addMeaningComment(foreignWord, meaning, "no example sentence");
+        }
     }
 
     private boolean existsInWordlist(WordList wordList, String foreignWord, String wordMeaning, String wordListName) {

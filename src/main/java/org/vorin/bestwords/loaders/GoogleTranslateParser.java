@@ -65,7 +65,10 @@ public class GoogleTranslateParser implements TranslationDataParser {
         for (var ms : meaningsWithScores) {
             String meaning = ms.getRight();
             if (!addedMeanings.contains(meaning)) { // don't add duplicate meanings
-                translationPublisher.addMeaning(wordInfo.getForeignWord(), meaning, GOOGLE_TRANSLATE_SOURCE);
+                translationPublisher.addMeaning(wordInfo.getForeignWord(),
+                                                meaning,
+                                                GOOGLE_TRANSLATE_SOURCE,
+                                                format("Google score=[%s]", ms.getLeft()));
                 addedMeanings.add(meaning);
                 if (addedMeanings.size() >= maxMeaningCount) break;
             }

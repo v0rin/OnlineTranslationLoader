@@ -58,7 +58,7 @@ public class WordList {
     }
 
 
-    public void addMeaning(String foreignWord, String wordMeaning, String source) {
+    public Meaning addMeaning(String foreignWord, String wordMeaning, String source) {
         checkArgument(!isNullOrEmpty(foreignWord) &&
                 !isNullOrEmpty(wordMeaning) &&
                 !isNullOrEmpty(source));
@@ -78,6 +78,7 @@ public class WordList {
         }
 
         translation.getMeanings().add(new Meaning(wordMeaning, null, null, source, null));
+        return translation.getMeanings().get(translation.getMeanings().size() - 1);
     }
 
 

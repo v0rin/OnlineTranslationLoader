@@ -13,51 +13,9 @@ import java.util.List;
 import static org.vorin.bestwords.AppConfig.*;
 
 
-/** @Tool-do-redagowania-wordlisty
+public class EnEsTranslationLoaderApp {
 
-nie zrobic z tego zbyt skomplikowanego zadania - zrob pierwsza czesc do tego pierwszego jezyka, z kolejnymi jezykami bedziesz dodawal kolejne elementy
-na razie moze po prostu wyswietlanie tych slowek na stronce zebym mogl udostepnic + checkbox "checked" i comment dla tlumacza
-- najlepsze podejscie to Google Sheets
-https://support.google.com/docs/answer/3093342?hl=en
-https://www.youtube.com/watch?v=nyr3EJH0lTY
-*/
-
-/** @Weryfikacje-tlumaczen
-
-zmergowac and check, cross-check translations and example sentences - ustawic alerty gdzie sa problemy
-zrobic test moich 34 slowek z polskim
-
-@meanings:
-- has to be in SpanishCombined2954.txt (it is Spanish1kNeri i Spanish3kAndki2134488481)
-- search for () and other weird characters, search for spaces (two or more words)
-- cannot be more than 3 meanings - it is the first 1000 words - don't make it too complicated
-- often should be just one - I would assume at least 2/3
-- check if google reverse gives the original meaning as the main one
-- cross check if it appears in 2 other dictionaries - possibly also reverse check, we'll see how it works
-- liczby - powinny miec tylko jedno znaczenie - poza one?
-- nie ma znaczen
-
-@example sentences:
-- oznacz jako podejrzane jezeli za dlugie sprawdz, jakie sa najdluzsze w polskim - ew. jakie sie miesza najlepiej na ekranie
-- nie moze tez byc za krotkie
-- sprawdz czy zawiera angielskie slow, z ew. formami przeszlymi albo w liczbie mnogiej (nie powinno byc ich az tak duzo, moge manualnie je wpisac do kazdego slowa) - jak nie to alert
-- znalezc 2-3 zrodla (nie tylko wordreference) i jak jest alert to miec wybor
-- the example sentences need to be checked by me, if they really contain the wordMeaning
-    choc moge zrobic automatyczny mechanizm, ze jezeli zawiera pierwsze 3 litery z czasownika, albo w sumie regule na regularne to automatycznie jest okroic
-         a sprawdze tylko te co nie przejda tej reguly pewnie z max 200
-    ale to na samym koncu - jak juz bede mial decolowa liste to wtedy bedzie jakas seria checkow, z tymi alertami
-- search for () and other weird characters
- - nie ma przykladowego zdania
-*/
-
-/**
- * TODO @af
- * move the app to bestwords
- */
-
-public class TranslationLoaderApp {
-
-    private static final Logger LOG = Logger.get(TranslationLoaderApp.class);
+    private static final Logger LOG = Logger.get(EnEsTranslationLoaderApp.class);
 
     public static void main(String... argvs) throws IOException {
 //        createWordLists();
@@ -77,6 +35,8 @@ public class TranslationLoaderApp {
 
         LOG.info("wordsWithProblemsCount=" + wordsWithProblemsCount);
         wordListProcessor.verifyWordList(w);
+
+        w.writeToXml(new File(RES_DIR + "processedWordList.xml"));
     }
 
     private static void createWordLists() throws IOException {
