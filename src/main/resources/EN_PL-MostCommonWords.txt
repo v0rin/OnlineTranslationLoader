@@ -65,7 +65,6 @@ tylko
 dzień
 dziecko
 dom
-np.
 ty
 przed
 rzeka
@@ -140,7 +139,6 @@ owoc
 liczba
 gdy
 młody
-nie-
 ziemia
 należeć
 wiek
@@ -152,7 +150,6 @@ znajdować się
 ojciec
 aby
 ci
-itp.
 kilka
 litera
 dobrze
@@ -287,7 +284,6 @@ flaga
 tworzyć
 niektóry
 film
-1000
 wykonać
 wczoraj
 region
@@ -337,7 +333,6 @@ drzwi
 nawet
 jechać
 twarz
-1
 wyraz
 zielony
 składać się
@@ -348,7 +343,6 @@ miłość
 kształt
 jeśli
 zmiana
-(…)
 niski
 córka
 alfabet
@@ -398,16 +392,13 @@ też
 kościół
 brzeg
 gwiazda
-?
 trzeci
-–
 znaczenie
 pójść
 badanie
 układ okresowy
 arabski
 prawdziwy
-!
 niewielki
 ciężki
 samolot
@@ -486,13 +477,11 @@ wynik
 piec
 ściana
 funkcja
-2
 kraina
 zdanie
 numer
 zwłaszcza
 typ
-5
 układ
 jednak
 program
@@ -586,7 +575,6 @@ błąd
 plan
 słodki
 powstać
-3
 produkt
 składać
 morski
@@ -612,7 +600,6 @@ butelka
 aż
 zdjęcie
 spotkanie
-4
 jajko
 energia
 duch
@@ -675,7 +662,6 @@ nazywać
 republika
 połowa
 bogaty
-30
 długość
 poprzez
 ciemny
@@ -727,7 +713,6 @@ Azja
 wyjść
 poziom
 wyglądać
-900
 fala
 słownik
 czterdzieści
@@ -751,7 +736,6 @@ połączenie
 wśród
 rosyjski
 środowisko
-100
 strach
 potrzeba
 święto
@@ -782,7 +766,6 @@ wykorzystywać
 otwarty
 stosunek
 patrzeć
-6
 odpowiadać
 zamek
 wejść
@@ -835,11 +818,9 @@ przedstawiać
 wewnętrzny
 ładny
 założyć
-8
 komórka
 nagle
 miara
-9
 walczyć
 wobec
 zimny
@@ -851,9 +832,7 @@ fizyczny
 telefon
 skała
 rynek
-20
 otrzymać
-10
 umowa
 metal
 owca
@@ -925,7 +904,6 @@ przyczyna
 artykuł
 rada
 należy
-7
 bieg
 osiemdziesiąt
 bić
@@ -965,7 +943,6 @@ ogół
 wolność
 czyli
 dialekt
-40
 kąt
 uczyć się
 marzec
@@ -977,7 +954,6 @@ zatoka
 wiosna
 siedziba
 naukowy
-50
 wrogi
 podawać
 uderzenie
@@ -1274,7 +1250,6 @@ Indie
 opowiadać
 dolina
 przedstawienie
--
 handel
 doświadczenie
 mięsień
@@ -1326,20 +1301,17 @@ czasownik
 opisać
 biblioteka
 powoli
-naj-
 tańczyć
 brązowy
 złożony
 znajdować
 przejaw
-80
 spodnie
 zdarzenie
 koszt
 kontakt
 skończyć
 rana
-r.
 tyle
 oglądać
 przestać
@@ -1363,7 +1335,6 @@ niedźwiedź
 grób
 powstawać
 mózg
-60
 dodawać
 dawno
 wyjście
@@ -1385,7 +1356,6 @@ dziwny
 zegar
 stacja
 radio
-m.in.
 czerwiec
 budzić
 świeca
@@ -1422,7 +1392,6 @@ coraz
 obrona
 Chrystus
 figura
-90
 ksiądz
 ojczyzna
 tajemnica
@@ -1653,7 +1622,6 @@ Węgry
 odcinek
 procent
 osobisty
-70
 znaczyć
 smutek
 pytać
@@ -1826,7 +1794,6 @@ deska
 filozofia
 minister
 okręt
-w.
 chęć
 dokonać
 podnosić
@@ -1870,7 +1837,6 @@ paliwo
 opuścić
 poeta
 robak
-—
 uśmiech
 czekolada
 ulegać
@@ -1889,7 +1855,6 @@ wątpliwość
 hasło
 ślepy
 kłaść
-św.
 graniczyć
 rolnik
 islam
@@ -1898,7 +1863,6 @@ narkotyk
 następować
 trwały
 pojawiać się
-0
 zgadzać się
 istnienie
 techniczny
@@ -2354,3 +2318,4 @@ szum
 wasz
 winien
 świeżo
+dzwonić
