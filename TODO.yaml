@@ -16,6 +16,7 @@ Weryfikacje-tlumaczen:
     DataDownloader, CacheDownloaderDecorator, DataDownloader, DataLoader takes DataProcessor and CacheDownloader,
     publisher is passed to DataProcessor directly
     this can be theoretically used for any data downloading and processing
+    probably add ProxyDownloaderDecorator
 
   zmergowac and check, cross-check translations and example sentences - ustawic alerty gdzie sa problemy
   zrobic test moich 34 slowek z polskim
