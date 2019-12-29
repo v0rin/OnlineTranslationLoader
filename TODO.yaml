@@ -1,14 +1,16 @@
 Weryfikacje-tlumaczen:
+
   try to use synonyms to possibly reduce number of meanings in polish
+
   what about using my polish as a reference point, after all processing checking if all the meanings are covered by using spanish to polish
-  synonimy - polski, spanish
-    https://synonim.net/synonim/ledwie
 
   slowo jest co najmniej w dwoch slownikach + znaczenia z mojej polskiej listy
   alert jezeli nie ma w MostCommonWords, ale nie usuwac
   remove synonyms
 
   moze wordreference jako zrodlo wyjsciowe?
+
+  synonimy - spanish
 
 
   refactor WordListProcessor so it is more modular and configurable if it makes sense
@@ -17,6 +19,7 @@ Weryfikacje-tlumaczen:
     publisher is passed to DataProcessor directly
     this can be theoretically used for any data downloading and processing
     probably add ProxyDownloaderDecorator
+
 
   zmergowac and check, cross-check translations and example sentences - ustawic alerty gdzie sa problemy
   zrobic test moich 34 slowek z polskim
