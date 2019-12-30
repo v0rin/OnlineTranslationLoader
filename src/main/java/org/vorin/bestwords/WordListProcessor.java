@@ -1,5 +1,6 @@
 package org.vorin.bestwords;
 
+import org.vorin.bestwords.loaders.SynonymStore;
 import org.vorin.bestwords.model.Meaning;
 import org.vorin.bestwords.model.Translation;
 import org.vorin.bestwords.model.WordList;
@@ -40,6 +41,7 @@ public class WordListProcessor {
     private static final String LOG_TRANSLATION_COMMENT_FORMAT = "foreignWord=[%s] - %s";
     private static final String LOG_MEANING_COMMENT_FORMAT = "foreignWord=[%s], meaning=[%s] - %s";
 
+    private final SynonymStore SYNONYMS;
     private final Set<String> MOST_COMMON_WORDS;
     private final WordList GOOGLE_REVERSE_WORDLIST;
     private final WordList LINGUEE_WORDLIST;
@@ -51,6 +53,7 @@ public class WordListProcessor {
     public WordListProcessor(Dictionary dictionary) {
         this.dictionary = dictionary;
         try {
+            this.SYNONYMS = new SynonymStore();
             this.MOST_COMMON_WORDS = Util.loadWordsFromTxtFile( getWordListFile("MostCommonWords.txt"));
             this.GOOGLE_REVERSE_WORDLIST = WordList.loadFromXml( getWordListFile("GoogleTranslateReverseWordList.xml"));
             this.LINGUEE_WORDLIST = WordList.loadFromXml( getWordListFile("LingueeWordList.xml"));

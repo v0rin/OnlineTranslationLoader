@@ -1,25 +1,68 @@
 package org.vorin.bestwords.loaders;
 
 import org.vorin.bestwords.model.WordList;
+import org.vorin.bestwords.util.Logger;
 
+import java.io.FileInputStream;
 import java.io.IOException;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
+import java.util.function.Predicate;
+
+import static java.util.function.Predicate.not;
+import static java.util.stream.Collectors.toList;
+import static org.vorin.bestwords.AppConfig.CACHES_DIR;
+import static org.vorin.bestwords.util.Dictionary.EN_PL;
+import static org.vorin.bestwords.util.Sources.SYNONIM_NET_SOURCE;
 
 public class SynonymStore implements TranslationPublisher {
 
-    private final Map<String, Set<String>> synonyms = new HashMap<>();
+    private static final Logger LOG = Logger.get(SynonymStore.class);
+
+    private final Map<String, Set<String>> synonymMap = new HashMap<>();
+    private final SynonimNetParser parser = new SynonimNetParser();
 
     public Set<String> getSynonyms(String word) {
-        return synonyms.get(word);
+        var synonyms = synonymMap.get(word);
+        if (synonyms != null) {
+            return synonyms;
+        }
+        else {
+            try {
+                parser.parseAndPublish(new WordInfo(word, null),
+                                       new FileInputStream(CACHES_DIR + SYNONIM_NET_SOURCE + "-cache-" + EN_PL + "/" + word),
+                                       this);
+                return synonymMap.get(word);
+            }
+            catch (IOException e) {
+                throw new RuntimeException(e);
+            }
+        }
     }
 
+    public List<String> removeSynonyms(List<String> words) {
+        var discardedSynonyms = new HashSet<String>();
+        for (String word : words) { // word that can have synonyms
+            for (String word2 : words) { // word that can be a synonym
+                if (word.equals(word2)) {
+                    continue;
+                }
+
+                var synonyms = getSynonyms(word);
+                if (synonyms.contains(word2)) {
+                    discardedSynonyms.add(word2);
+                    continue;
+                }
+            }
+        }
+
+        var newList = words.stream().filter(not(discardedSynonyms::contains)).collect(toList());
+
+        return newList;
+    }
 
     @Override
     public void addMeaning(String foreignWord, String meaning, String source) {
-        synonyms.compute(foreignWord, (k, v) -> {
+        synonymMap.compute(foreignWord, (k, v) -> {
            if (v == null) {
                v = new HashSet<>();
            }

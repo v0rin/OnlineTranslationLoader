@@ -11,6 +11,7 @@ import java.io.File;
 import java.io.IOException;
 import java.util.List;
 
+import static java.util.stream.Collectors.toList;
 import static org.vorin.bestwords.AppConfig.*;
 
 
@@ -20,7 +21,8 @@ public class EnPlTranslationLoaderApp {
 
     public static void main(String... argvs) throws IOException {
 //        createWordLists();
-        processWordList();
+        loadSynonyms();
+//        processWordList();
     }
 
     private static void processWordList() throws IOException {
@@ -38,6 +40,17 @@ public class EnPlTranslationLoaderApp {
         wordListProcessor.verifyWordList(w);
 
         w.writeToXml(new File(RES_DIR + "EN_PL-ProcessedWordList.xml"));
+    }
+
+    private static void loadSynonyms() throws IOException {
+        var wordInfos = Util.getReverseForeignWordsWithMeaningsFromXml(RES_DIR + "EnglishWordList34.xml");
+        var synonymStore = new SynonymStore();
+
+        var downloader = new SynonimNetDownloader();
+        var parser = new SynonimNetParser();
+        var loader = new TranslationLoader(downloader, parser, synonymStore, true, 5000);
+
+        loader.load(wordInfos);
     }
 
     private static void createWordLists() throws IOException {

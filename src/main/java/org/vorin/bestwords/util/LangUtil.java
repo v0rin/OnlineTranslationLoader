@@ -1,6 +1,7 @@
 package org.vorin.bestwords.util;
 
 import java.nio.charset.StandardCharsets;
+import java.util.stream.Stream;
 
 import static com.google.common.base.Strings.isNullOrEmpty;
 
@@ -14,11 +15,14 @@ public class LangUtil {
     public static String getParsedForeignWord(String word) {
         int equalCharIdx = word.indexOf("=");
         int slashIdx = word.indexOf("/");
-        if (equalCharIdx > 0) {
-            return word.substring(0, equalCharIdx).trim();
-        }
-        else if (slashIdx > 0) {
-            return word.substring(0, slashIdx).trim();
+        int bracketIdx = word.indexOf("(");
+
+        int minIdx = Stream.of(word.indexOf("="),
+                               word.indexOf("/"),
+                               word.indexOf("(")).filter(i -> i > -1).min(Integer::compareTo).orElse(-1);
+
+        if (minIdx > 0) {
+            return word.substring(0, minIdx).trim();
         }
         else {
             return word;

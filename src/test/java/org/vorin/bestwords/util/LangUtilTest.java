@@ -12,6 +12,7 @@ public class LangUtilTest {
         assertThat(LangUtil.getParsedForeignWord("a / an"), is("a"));
         assertThat(LangUtil.getParsedForeignWord("okay / OK"), is("okay"));
         assertThat(LangUtil.getParsedForeignWord("almost = nearly"), is("almost"));
+        assertThat(LangUtil.getParsedForeignWord("almost (nearly)"), is("almost"));
         assertThat(LangUtil.getParsedForeignWord("bitch"), is("bitch"));
     }
 

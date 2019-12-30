@@ -2,14 +2,12 @@ package org.vorin.bestwords.util;
 
 import static java.lang.String.format;
 
-import java.io.OutputStreamWriter;
-import java.io.PrintWriter;
-import java.io.UnsupportedEncodingException;
+import java.io.PrintStream;
+import java.nio.charset.StandardCharsets;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
-import java.util.logging.Level;
 
 /**
  * I created the class coz there were some issues with log4j when working on che.openshift.io
@@ -19,16 +17,13 @@ public class Logger {
 
     private static final DateTimeFormatter DATE_TIME_FORMATTER = DateTimeFormatter.ofPattern("HH:mm:ss.SSS");
     private static final Map<String, Logger> loggers = new ConcurrentHashMap<>();
-    private static final PrintWriter CONSOLE_OUT;
+    private static final PrintStream CONSOLE_OUT;
 
     private static int LOG_TAG_PADDING = 16;
 
     static {
-        try {
-            CONSOLE_OUT = new PrintWriter(new OutputStreamWriter(System.out, "UTF-8"));
-        } catch (UnsupportedEncodingException e) {
-            throw new RuntimeException(e);
-        }
+//        CONSOLE_OUT = System.out;
+        CONSOLE_OUT = new PrintStream(System.out, true, StandardCharsets.UTF_8);
     }
 
     private final String tag;
