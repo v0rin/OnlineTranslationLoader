@@ -20,13 +20,14 @@ public class EnPlTranslationLoaderApp {
     private static final Logger LOG = Logger.get(EnEsTranslationLoaderApp.class);
 
     public static void main(String... argvs) throws IOException {
-//        createWordLists();
-        loadSynonyms();
-//        processWordList();
+    //    createWordLists();
+        // loadSynonyms();
+       processWordList();
     }
 
     private static void processWordList() throws IOException {
-        var w = WordList.loadFromXml(new File(RES_DIR + "EN_PL-GoogleTranslateWordList.xml"));
+        // var w = WordList.loadFromXml(new File(RES_DIR + "EN_PL-GoogleTranslateWordList.xml"));
+        var w = WordList.loadFromXml(new File(RES_DIR + "EnglishWordList34.xml"));
 
         var wordListProcessor = new WordListProcessor(Dictionary.EN_PL);
         int wordsWithProblemsCount = 0;
@@ -56,7 +57,7 @@ public class EnPlTranslationLoaderApp {
     private static void createWordLists() throws IOException {
         var wordInfos = Util.getForeignWordsFromXml(RES_DIR + "EnglishWordList34.xml");
 
-//        createGoogleWordList(Dictionary.EN_PL, wordInfos,"EN_PL-GoogleTranslateWordList.xml");
+        createGoogleWordList(Dictionary.EN_PL, wordInfos,"EN_PL-GoogleTranslateWordList.xml");
 
         // reverse wordlist
         createGoogleWordList(Dictionary.PL_EN,

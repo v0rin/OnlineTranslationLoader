@@ -16,6 +16,7 @@ import java.util.HashMap;
 import java.util.Set;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+import java.util.stream.Collectors;
 
 import static java.lang.String.format;
 import static org.vorin.bestwords.util.Sources.*;
@@ -69,12 +70,21 @@ public class WordListProcessor {
         boolean problemsExist = false;
         var meanings = t.getMeanings();
         var iter = meanings.iterator();
+
+        var wordMeanings = t.getMeanings().stream().map(Meaning::getWordMeaning).collect(Collectors.toList());
+        wordMeanings = SYNONYMS.removeSynonyms(wordMeanings);
+
         while (iter.hasNext()) {
             var m = iter.next();
 
+            if (!wordMeanings.contains(m.getWordMeaning())) {
+                iter.remove();
+                continue;
+            }
+
             Matcher matcher = WEIRD_CHARACTERS_PATTERN.matcher(m.getWordMeaning());
             if (matcher.find()) {
-                addMeaningComment(t.getForeignWord(), m, " meaning has weird characters, removing...");
+                addMeaningComment(t.getForeignWord(), m, "meaning has weird characters, removing...");
 //                iter.remove();
                 problemsExist = true;
 //                continue;
