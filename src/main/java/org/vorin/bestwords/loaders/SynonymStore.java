@@ -34,7 +34,7 @@ public class SynonymStore implements TranslationPublisher {
                 return synonymMap.get(word) == null ? new HashSet<String>() : synonymMap.get(word);
             }
             catch (IOException e) {
-                return new HashSet<String>();
+                return new HashSet<>();
                 // throw new RuntimeException(e);
             }
         }
@@ -42,41 +42,20 @@ public class SynonymStore implements TranslationPublisher {
 
     public List<String> removeSynonyms(List<String> words) {
         var discardedSynonyms = new HashSet<String>();
-        for (int i = 0; i < words.size() - 1; i++) { // word that can have synonyms
-            String word = words.get(i);
-            for (int j = i + 1; j < words.size(); j++) { // word that can be a synonym
-                String word2 = words.get(j);
-                var synonyms = getSynonyms(word);
-                if (synonyms.contains(word2)) {
-                    if (!discardedSynonyms.contains(word2)) {
-                        LOG.info(String.format("remove %s as a synonym of %s", word2, word));
-                    }
-                    discardedSynonyms.add(word2);
-                    continue;
-                }
-            }
-        }
-
-        var newList = words.stream().filter(not(discardedSynonyms::contains)).collect(toList());
-
-        return newList;
-    }
-
-    public List<String> removeSynonyms2(List<String> words) {
-        var discardedSynonyms = new HashSet<String>();
+        var wordsWithFoundSynonyms = new HashSet<String>();
         for (String word : words) { // word that can have synonyms
+            var synonyms = getSynonyms(word);
             for (String word2 : words) { // word that can be a synonym
                 if (word.equals(word2)) {
                     continue;
                 }
 
-                var synonyms = getSynonyms(word);
-                if (synonyms.contains(word2)) {
+                if (synonyms.contains(word2) && !wordsWithFoundSynonyms.contains(word2)) {
                     if (!discardedSynonyms.contains(word2)) {
                         LOG.info(String.format("remove %s as a synonym of %s", word2, word));
                     }
                     discardedSynonyms.add(word2);
-                    continue;
+                    wordsWithFoundSynonyms.add(word);
                 }
             }
         }

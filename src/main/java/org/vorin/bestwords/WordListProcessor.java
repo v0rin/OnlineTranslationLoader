@@ -13,29 +13,15 @@ import java.io.File;
 import java.io.IOException;
 import java.util.Arrays;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Set;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 
 import static java.lang.String.format;
-import static org.vorin.bestwords.util.Sources.*;
 
 public class WordListProcessor {
-
-/**
- * @meanings:
- * - nie ma znaczen
- * - cannot be more than 3 meanings - it is the first 1000 words - don't make it too complicated
- * - two or more words
- * - search for () and other weird characters
- * - has to be in SpanishCombined2954.txt (it is Spanish1kNeri i Spanish3kAndki2134488481)
- * - liczby - powinny miec tylko jedno znaczenie - poza one
- * - check if google reverse gives the original meaning as the main one
- * - cross check if it appears in 2 other dictionaries - possibly also reverse check, we'll see how it works
- *
- * - often should be just one meaning - I would assume at least 2/3
- */
 
     private static final Logger LOG = Logger.get(WordListProcessor.class);
     private static final Pattern WEIRD_CHARACTERS_PATTERN = Pattern.compile("[\\(\\)\\;\\:\\,\\.\\@\\#\\$\\%\\^\\&\\*\\|\\{\\}\\\"\\'\\/\\<\\>\\~`]+");
@@ -44,6 +30,7 @@ public class WordListProcessor {
 
     private final SynonymStore SYNONYMS;
     private final Set<String> MOST_COMMON_WORDS;
+    private final WordList GOOGLE_WORDLIST;
     private final WordList GOOGLE_REVERSE_WORDLIST;
     private final WordList LINGUEE_WORDLIST;
     private final WordList WORD_REFERENCE_WORDLIST;
@@ -56,6 +43,7 @@ public class WordListProcessor {
         try {
             this.SYNONYMS = new SynonymStore();
             this.MOST_COMMON_WORDS = Util.loadWordsFromTxtFile( getWordListFile("MostCommonWords.txt"));
+            this.GOOGLE_WORDLIST = WordList.loadFromXml( getWordListFile("GoogleTranslateWordList.xml"));
             this.GOOGLE_REVERSE_WORDLIST = WordList.loadFromXml( getWordListFile("GoogleTranslateReverseWordList.xml"));
             this.LINGUEE_WORDLIST = WordList.loadFromXml( getWordListFile("LingueeWordList.xml"));
             this.WORD_REFERENCE_WORDLIST = WordList.loadFromXml( getWordListFile("WordReferenceWordList.xml"));
@@ -66,65 +54,112 @@ public class WordListProcessor {
 
     }
 
+    public void combineMeanings(Translation targetTranslation) {
+        var alreadyAddedMeanings = new HashSet<String>();
+        addMeaningsFromWordList(targetTranslation, GOOGLE_WORDLIST, alreadyAddedMeanings);
+        addMeaningsFromWordList(targetTranslation, WORD_REFERENCE_WORDLIST, alreadyAddedMeanings);
+        addMeaningsFromWordList(targetTranslation, LINGUEE_WORDLIST, alreadyAddedMeanings);
+    }
+
+    private void addMeaningsFromWordList(Translation targetTranslation, WordList w, Set<String> alreadyAddedMeanings) {
+        var t = w.findTranslationForWord(targetTranslation.getForeignWord());
+        if (t != null) {
+            for (var meaning : t.getMeanings()) {
+                if (!alreadyAddedMeanings.contains(meaning.getWordMeaning())) {
+                    targetTranslation.getMeanings().add(meaning);
+                    alreadyAddedMeanings.add(meaning.getWordMeaning());
+                }
+            }
+        }
+    }
+
     public boolean processTranslation(Translation t) {
         boolean problemsExist = false;
         var meanings = t.getMeanings();
-        var iter = meanings.iterator();
 
-        var wordMeanings = t.getMeanings().stream().map(Meaning::getWordMeaning).collect(Collectors.toList());
-        wordMeanings = SYNONYMS.removeSynonyms(wordMeanings);
-
-        while (iter.hasNext()) {
+        String sanitizedForeignWord = LangUtil.sanitizeWord(t.getForeignWord());
+        for (var iter = meanings.iterator(); iter.hasNext();) {
             var m = iter.next();
 
-            if (!wordMeanings.contains(m.getWordMeaning())) {
+            String sanitizedMeaning = LangUtil.sanitizeWord(m.getWordMeaning());
+
+            if (LangUtil.wordCount(sanitizedMeaning) > 1) {
+                addMeaningComment(t.getForeignWord(), m, "meaning has multiple words");
+                problemsExist = true;
                 iter.remove();
                 continue;
             }
 
-            Matcher matcher = WEIRD_CHARACTERS_PATTERN.matcher(m.getWordMeaning());
-            if (matcher.find()) {
-                addMeaningComment(t.getForeignWord(), m, "meaning has weird characters, removing...");
-//                iter.remove();
-                problemsExist = true;
-//                continue;
-            }
+//            setExampleSentence(t.getForeignWord(), m);
 
-            setExampleSentence(t.getForeignWord(), m);
-
-            int mostCommonWords = 0;
-            if (LangUtil.wordCount(m.getWordMeaning()) == 1 && !MOST_COMMON_WORDS.contains(m.getWordMeaning())) {
+            int sourcesCount = 1;
+            int mostCommonWords = 1;
+            if (LangUtil.wordCount(sanitizedMeaning) == 1 && !MOST_COMMON_WORDS.contains(sanitizedMeaning)) {
                 addMeaningComment(t.getForeignWord(), m, "not in MOST_COMMON_WORDS");
-                mostCommonWords = 1;
+                mostCommonWords = 0;
             }
-            int googleReverseWordList = 0;
-            if (!existsInReverseWordlist(GOOGLE_REVERSE_WORDLIST, t.getForeignWord(), m.getWordMeaning(), "GOOGLE_REVERSE_WORDLIST")) {
+            sourcesCount++;
+            int googleWordList = 1;
+            if (!existsInWordlist(GOOGLE_WORDLIST, sanitizedForeignWord, sanitizedMeaning, "GOOGLE_WORDLIST")) {
+                addMeaningComment(t.getForeignWord(), m, "not in GOOGLE_WORDLIST");
+                googleWordList = 0;
+            }
+            sourcesCount++;
+            int googleReverseWordList = 1;
+            if (!existsInReverseWordlist(GOOGLE_REVERSE_WORDLIST, sanitizedForeignWord, sanitizedMeaning, "GOOGLE_REVERSE_WORDLIST")) {
                 addMeaningComment(t.getForeignWord(), m, "not in GOOGLE_REVERSE_WORDLIST");
-                googleReverseWordList = 1;
+                googleReverseWordList = 0;
             }
-            int wordReferenceWordList = 0;
-            if (!existsInWordlist(WORD_REFERENCE_WORDLIST, LangUtil.getParsedForeignWord(t.getForeignWord()), m.getWordMeaning(), "WORD_REFERENCE_WORDLIST")) {
+            sourcesCount++;
+            int wordReferenceWordList = 1;
+            if (!existsInWordlist(WORD_REFERENCE_WORDLIST, sanitizedForeignWord, sanitizedMeaning, "WORD_REFERENCE_WORDLIST")) {
                 addMeaningComment(t.getForeignWord(), m, "not in WORD_REFERENCE_WORDLIST");
-                wordReferenceWordList = 1;
+                wordReferenceWordList = 0;
             }
-            int lingueeWordList = 0;
-            if (!existsInWordlist(LINGUEE_WORDLIST, LangUtil.getParsedForeignWord(t.getForeignWord()), m.getWordMeaning(), "LINGUEE_WORDLIST")) {
+            sourcesCount++;
+            int lingueeWordList = 1;
+            if (!existsInWordlist(LINGUEE_WORDLIST, sanitizedForeignWord, sanitizedMeaning, "LINGUEE_WORDLIST")) {
                 addMeaningComment(t.getForeignWord(), m, "not in LINGUEE_WORDLIST");
-                lingueeWordList = 1;
-            }
-            boolean multipleWords = false;
-            if (LangUtil.wordCount(m.getWordMeaning()) > 1) {
-                addMeaningComment(t.getForeignWord(), m, "meaning has multiple words");
-                multipleWords = true;
+                lingueeWordList = 0;
             }
 
-//            if ((mostCommonWords + googleReverseWordList + wordReferenceWordList + lingueeWordList) > 2) {
-//                addMeaningComment(t.getForeignWord(), m, "too many problems, removing...");
-//                iter.remove();
+            int inCount = mostCommonWords + googleWordList + googleReverseWordList + wordReferenceWordList + lingueeWordList;
+            problemsExist = problemsExist || inCount < sourcesCount;
+
+            // google and common
+            // !google and common and at least 2 other sources
+            // !common and google and at least 2 other sources
+            if (mostCommonWords == 1 && googleWordList == 1) {
+            }
+            else if (googleWordList == 0 && mostCommonWords == 1 && inCount >= 2) {
+            }
+            else if (googleWordList == 1 && mostCommonWords == 0 && inCount >= 2) {
+            }
+            else {
+                iter.remove();
+                continue;
+            }
+//            int mustBeInAtLeastNSources = 3;
+//            if (inCount < mustBeInAtLeastNSources) {
+//                addMeaningComment(t.getForeignWord(), m, format("not in at least %s sources [%s]", mustBeInAtLeastNSources, inCount));
 //            }
 
-//            problemsExist = problemsExist || multipleWords || (mostCommonWords + googleReverseWordList + wordReferenceWordList + lingueeWordList) > 0;
-            problemsExist = problemsExist || multipleWords || (googleReverseWordList + wordReferenceWordList + lingueeWordList) > 0;
+            Matcher matcher = WEIRD_CHARACTERS_PATTERN.matcher(sanitizedMeaning);
+            if (matcher.find()) {
+                addMeaningComment(t.getForeignWord(), m, "meaning has weird characters");
+                problemsExist = true;
+            }
+
+        }
+
+        var wordMeanings = t.getMeanings().stream().map(Meaning::getWordMeaning).collect(Collectors.toList());
+        wordMeanings = SYNONYMS.removeSynonyms(wordMeanings);
+        for (var iter = meanings.iterator(); iter.hasNext();) {
+            var m = iter.next();
+            String sanitizedMeaning = LangUtil.sanitizeWord(m.getWordMeaning());
+            if (!wordMeanings.contains(sanitizedMeaning)) {
+                addMeaningComment(t.getForeignWord(), m, "is a synonym");
+            }
         }
 
         if (meanings.isEmpty()) {

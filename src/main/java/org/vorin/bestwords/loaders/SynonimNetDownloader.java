@@ -4,14 +4,19 @@ import org.jsoup.HttpStatusException;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.select.Elements;
+import org.vorin.bestwords.WordListProcessor;
 import org.vorin.bestwords.util.Dictionary;
+import org.vorin.bestwords.util.Logger;
 
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.nio.charset.StandardCharsets;
 
+import static java.lang.String.format;
+
 public class SynonimNetDownloader implements TranslationDataDownloader {
+    private static final Logger LOG = Logger.get(SynonimNetDownloader.class);
 
     private static final String URL = "https://synonim.net/synonim/";
 
@@ -28,7 +33,14 @@ public class SynonimNetDownloader implements TranslationDataDownloader {
                     .header("scheme", "https")
                     .userAgent("Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/78.0.3904.108 Safari/537.36")
                     .get();
+            boolean noSynonyms = doc.outerHtml().contains("Nie znaleziono synonim");
             Elements rows = doc.select("div#mall > span > ul");
+            if (noSynonyms) {
+                LOG.info(format("no synonyms for [%s]", word));
+            }
+            else if (rows.outerHtml().isBlank()) {
+                throw new RuntimeException("response empty - probably some issues with too many requests");
+            }
             String output = "<html><body><table>\n" + rows.outerHtml() + "\n</table></body></html>";
             return new ByteArrayInputStream(output.getBytes(StandardCharsets.UTF_8));
         }

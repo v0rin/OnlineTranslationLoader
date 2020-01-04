@@ -26,7 +26,7 @@ public class WordReferenceTest {
     public void parseAndPublish() throws IOException {
         // given
         var publisher = new XmlTranslationPublisher(null);
-        var parser = new WordReferenceParser(EN_ES, LangUtil::santizeSpanishMeaning);
+        var parser = new WordReferenceParser(EN_ES, LangUtil::sanitizeSpanishMeaning);
 
         var expectedWordList = new WordList();
         expectedWordList.addMeaning(TEST_WORD_INFO.getForeignWord(), "poder", WORD_REFERENCE_SOURCE);
@@ -57,7 +57,7 @@ public class WordReferenceTest {
     public void parseAndPublish2() throws IOException {
         // given
         var publisher = new XmlTranslationPublisher(null);
-        var parser = new WordReferenceParser(EN_PL, LangUtil::santizeSpanishMeaning);
+        var parser = new WordReferenceParser(EN_PL, LangUtil::sanitizeSpanishMeaning);
 
         var expectedWordList = WordList.loadFromXml(new File(AppConfig.TEST_RES_DIR + "loaders/WordReference/EN_PL-make-wordlist.xml"));
 

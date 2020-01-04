@@ -15,10 +15,11 @@ public class SynonymStoreTest {
         var synonymStore = new SynonymStore();
         synonymStore.addMeaning("duren", "idiota", "");
         synonymStore.addMeaning("dryndac", "telefonowac", "");
+        synonymStore.addMeaning("dryndac", "dzwonic", "");
 
         synonymStore.addMeaning("auto", "", "");
         synonymStore.addMeaning("idiota", "", "");
-        synonymStore.addMeaning("telefonowac", "", "");
+        synonymStore.addMeaning("dzwonic", "dryndac", "");
 
         // when & then
         assertThat(synonymStore.removeSynonyms(Arrays.asList("auto", "idiota", "dryndac", "telefonowac")),
@@ -27,6 +28,8 @@ public class SynonymStoreTest {
                    is(Arrays.asList("duren", "auto", "dryndac")));
         assertThat(synonymStore.removeSynonyms(Arrays.asList("auto", "idiota", "telefonowac", "duren", "dryndac")),
                 is(Arrays.asList("auto", "duren", "dryndac")));
+        assertThat(synonymStore.removeSynonyms(Arrays.asList("auto", "idiota", "dzwonic", "duren", "dryndac")),
+                is(Arrays.asList("auto", "dzwonic", "duren")));
     }
 
     @Test
@@ -35,10 +38,11 @@ public class SynonymStoreTest {
         var synonymStore = new SynonymStore();
         synonymStore.addMeaning("duren", "idiota", "");
         synonymStore.addMeaning("dryndac", "telefonowac", "");
+        synonymStore.addMeaning("dryndac", "dzwonic", "");
 
-        synonymStore.addMeaning("auto", "", "samochod");
-        synonymStore.addMeaning("idiota", "", "duren");
-        synonymStore.addMeaning("telefonowac", "", "dryndac");
+        synonymStore.addMeaning("auto", "samochod", "");
+        synonymStore.addMeaning("idiota", "duren", "");
+        synonymStore.addMeaning("telefonowac", "dryndac", "");
 
         // when & then
         assertThat(synonymStore.removeSynonyms(Arrays.asList("auto", "idiota", "dryndac", "telefonowac")),
@@ -46,7 +50,7 @@ public class SynonymStoreTest {
         assertThat(synonymStore.removeSynonyms(Arrays.asList("duren", "idiota", "auto", "dryndac")),
                 is(Arrays.asList("duren", "auto", "dryndac")));
         assertThat(synonymStore.removeSynonyms(Arrays.asList("auto", "idiota", "telefonowac", "duren", "dryndac")),
-                is(Arrays.asList("auto", "duren", "dryndac")));
+                is(Arrays.asList("auto", "idiota", "telefonowac")));
     }
 
 }

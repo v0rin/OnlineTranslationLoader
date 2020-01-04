@@ -73,7 +73,7 @@ public class EnEsTranslationLoaderApp {
     private static void createWordReferenceWordList(Dictionary dict, List<WordInfo> wordInfos, String outputXml) throws IOException {
         var xmlPublisher = new XmlTranslationPublisher(new File(RES_DIR + outputXml));
         var downloader = new WordReferenceDownloader(dict);
-        var parser = new WordReferenceParser(dict, LangUtil::santizeSpanishMeaning);
+        var parser = new WordReferenceParser(dict, LangUtil::sanitizeSpanishMeaning);
         var loader = new TranslationLoader(downloader, parser, xmlPublisher, true);
 
         loader.load(wordInfos);
@@ -84,7 +84,7 @@ public class EnEsTranslationLoaderApp {
     private static void createLingueeWordList(Dictionary dict, List<WordInfo> wordInfos, String outputXml) throws IOException {
         var xmlPublisher = new XmlTranslationPublisher(new File(RES_DIR + outputXml));
         var downloader = new LingueeDownloader(dict);
-        var parser = new LingueeParser();
+        var parser = new LingueeParser(LangUtil::sanitizeSpanishMeaning);
         var loader = new TranslationLoader(downloader, parser, xmlPublisher, true);
 
         loader.load(wordInfos);
