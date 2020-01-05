@@ -1,7 +1,9 @@
 package org.vorin.bestwords.loaders;
 
 import org.vorin.bestwords.model.WordList;
+import org.vorin.bestwords.util.CacheFileNameProvider;
 import org.vorin.bestwords.util.Logger;
+import org.vorin.bestwords.util.Dictionary;
 
 import java.io.FileInputStream;
 import java.io.IOException;
@@ -10,16 +12,19 @@ import java.util.*;
 import static java.util.function.Predicate.not;
 import static java.util.stream.Collectors.toList;
 import static org.vorin.bestwords.AppConfig.CACHES_DIR;
-import static org.vorin.bestwords.util.Dictionary.EN_PL;
 
 public class SynonymStore implements TranslationPublisher {
 
     private static final Logger LOG = Logger.get(SynonymStore.class);
 
     private final Map<String, Set<String>> synonymMap = new HashMap<>();
+    private final Dictionary dictionary;
     private final TranslationDataParser parser;
 
-    public SynonymStore(TranslationDataParser parser) {
+    private final CacheFileNameProvider cacheFileNameProvider = new CacheFileNameProvider();
+
+    public SynonymStore(Dictionary dictionary, TranslationDataParser parser) {
+        this.dictionary = dictionary;
         this.parser = parser;
     }
 
@@ -31,7 +36,8 @@ public class SynonymStore implements TranslationPublisher {
         else {
             try {
                 parser.parseAndPublish(new WordInfo(word, null),
-                                       new FileInputStream(CACHES_DIR + parser.getSource() + "-cache-" + EN_PL + "/" + word),
+                                       new FileInputStream(CACHES_DIR + parser.getSource() + "-cache-" +
+                                                           dictionary + "/" + cacheFileNameProvider.getFileName(word)),
                                        this);
                 return synonymMap.get(word) == null ? new HashSet<String>() : synonymMap.get(word);
             }

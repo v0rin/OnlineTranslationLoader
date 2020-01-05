@@ -2,12 +2,12 @@ package org.vorin.bestwords.loaders;
 
 import com.google.common.base.Stopwatch;
 import org.apache.commons.io.IOUtils;
+import org.vorin.bestwords.util.CacheFileNameProvider;
 import org.vorin.bestwords.util.Logger;
 
 import java.io.*;
 import java.util.HashSet;
 import java.util.List;
-import java.util.Map;
 
 import static java.lang.String.format;
 import static org.vorin.bestwords.AppConfig.CACHES_DIR;
@@ -24,6 +24,7 @@ public class TranslationLoader {
     private final TranslationPublisher translationPublisher;
     private final boolean useCache;
     private final long waitBetweenRequestsMs;
+    private final CacheFileNameProvider cacheFileNameProvider = new CacheFileNameProvider();
 
     private Stopwatch requestStopwatch;
 
@@ -99,12 +100,12 @@ public class TranslationLoader {
         return cacheFile;
     }
 
-    private static final Map<String, String> restrictedFileNameConversionMap = Map.of("con", "con_mapped");
-
-
     private File getCacheFileForWord(String word) {
-        var mappedWord = restrictedFileNameConversionMap.get(word);
-        return new File(CACHES_DIR + translationDataParser.getSource() + "-cache-" + translationDataDownloader.getDictionary() + "/" + (mappedWord == null ? word : mappedWord));
+        return new File(CACHES_DIR +
+                translationDataParser.getSource() +
+                "-cache-" +
+                translationDataDownloader.getDictionary() + "/" +
+                cacheFileNameProvider.getFileName(word));
     }
 
 }

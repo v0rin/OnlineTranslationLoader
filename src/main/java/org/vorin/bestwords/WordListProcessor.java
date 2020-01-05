@@ -2,9 +2,7 @@ package org.vorin.bestwords;
 
 import org.apache.commons.lang3.tuple.ImmutablePair;
 import org.apache.commons.lang3.tuple.Pair;
-import org.checkerframework.common.value.qual.IntRange;
 import org.vorin.bestwords.loaders.SynonymStore;
-import org.vorin.bestwords.loaders.TranslationDataParser;
 import org.vorin.bestwords.model.Meaning;
 import org.vorin.bestwords.model.Translation;
 import org.vorin.bestwords.model.WordList;
@@ -17,7 +15,6 @@ import java.util.*;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import java.util.stream.IntStream;
-import java.util.stream.Stream;
 
 import static java.lang.String.format;
 import static java.util.stream.Collectors.joining;
@@ -31,29 +28,29 @@ public class WordListProcessor {
     private static final String LOG_TRANSLATION_COMMENT_FORMAT = "foreignWord=[%s] - %s";
     private static final String LOG_MEANING_COMMENT_FORMAT = "foreignWord=[%s], meaning=[%s] - %s";
 
-    private final SynonymStore SYNONYMS;
-    private final Set<String> MOST_COMMON_WORDS;
-    private final WordList GOOGLE_WORDLIST;
-    private final WordList GOOGLE_REVERSE_WORDLIST;
-    private final WordList LINGUEE_WORDLIST;
-    private final WordList WORD_REFERENCE_WORDLIST;
+    private final SynonymStore synonyms;
+    private final Set<String> mostCommonWords;
+    private final WordList googleWordList;
+    private final WordList googleReverseWordList;
+    private final WordList lingueeWordList;
+    private final WordList wordReferenceWordList;
 
-    private WordList COLLINS_REVERSE_WORDLIST;
+    private WordList collinsReverseWordList;
 
     private final Dictionary dictionary;
 
 
-    public WordListProcessor(Dictionary dictionary, TranslationDataParser synonymParser) {
+    public WordListProcessor(Dictionary dictionary, SynonymStore synonymStore) {
         this.dictionary = dictionary;
         try {
-            this.SYNONYMS = new SynonymStore(synonymParser);
-            this.MOST_COMMON_WORDS = Util.loadWordsFromTxtFile( getWordListFile("MostCommonWords.txt"));
-            this.GOOGLE_WORDLIST = WordList.loadFromXml( getWordListFile("GoogleTranslateWordList.xml"));
-            this.GOOGLE_REVERSE_WORDLIST = WordList.loadFromXml( getWordListFile("GoogleTranslateReverseWordList.xml"));
-            this.LINGUEE_WORDLIST = WordList.loadFromXml( getWordListFile("LingueeWordList.xml"));
-            this.WORD_REFERENCE_WORDLIST = WordList.loadFromXml( getWordListFile("WordReferenceWordList.xml"));
+            this.synonyms = synonymStore;
+            this.mostCommonWords = Util.loadWordsFromTxtFile( getWordListFile("MostCommonWords.txt"));
+            this.googleWordList = WordList.loadFromXml( getWordListFile("GoogleTranslateWordList.xml"));
+            this.googleReverseWordList = WordList.loadFromXml( getWordListFile("GoogleTranslateReverseWordList.xml"));
+            this.lingueeWordList = WordList.loadFromXml( getWordListFile("LingueeWordList.xml"));
+            this.wordReferenceWordList = WordList.loadFromXml( getWordListFile("WordReferenceWordList.xml"));
             if (dictionary == Dictionary.EN_ES) {
-                this.COLLINS_REVERSE_WORDLIST = WordList.loadFromXml( getWordListFile("CollinsReverseWordList.xml"));
+                this.collinsReverseWordList = WordList.loadFromXml( getWordListFile("CollinsReverseWordList.xml"));
             }
         } catch (IOException e) {
             throw new RuntimeException(e);
@@ -65,9 +62,9 @@ public class WordListProcessor {
     public void combineMeanings(Translation targetTranslation) {
         // collect all meanings
         var wordMeaningMap = new HashMap<String, List<Pair<String, String>>>();
-        var googleMeanings = getWordMeaningsFromWordList(targetTranslation, GOOGLE_WORDLIST);
-        var wrMeanings = getWordMeaningsFromWordList(targetTranslation, WORD_REFERENCE_WORDLIST);
-        var lingueeMeanings = getWordMeaningsFromWordList(targetTranslation, LINGUEE_WORDLIST);
+        var googleMeanings = getWordMeaningsFromWordList(targetTranslation, googleWordList);
+        var wrMeanings = getWordMeaningsFromWordList(targetTranslation, wordReferenceWordList);
+        var lingueeMeanings = getWordMeaningsFromWordList(targetTranslation, lingueeWordList);
 
         List<String> allWordMeanings = new ArrayList<>();
         allWordMeanings.addAll(googleMeanings);
@@ -78,17 +75,17 @@ public class WordListProcessor {
         // add in how many source a wordMeaning exists
         for (var wordMeaning : allWordMeanings) {
             if (googleMeanings.contains(wordMeaning)) {
-                var m = GOOGLE_WORDLIST.findMeaning(targetTranslation.getForeignWord(), wordMeaning);
+                var m = googleWordList.findMeaning(targetTranslation.getForeignWord(), wordMeaning);
                 addSource(wordMeaningMap, wordMeaning, m.getExampleSentence(), Sources.GOOGLE_TRANSLATE_SOURCE);
             }
 
             if (wrMeanings.contains(wordMeaning)) {
-                var m = WORD_REFERENCE_WORDLIST.findMeaning(targetTranslation.getForeignWord(), wordMeaning);
+                var m = wordReferenceWordList.findMeaning(targetTranslation.getForeignWord(), wordMeaning);
                 addSource(wordMeaningMap, wordMeaning, m.getExampleSentence(), Sources.WORD_REFERENCE_SOURCE);
             }
 
             if (lingueeMeanings.contains(wordMeaning)) {
-                var m = LINGUEE_WORDLIST.findMeaning(targetTranslation.getForeignWord(), wordMeaning);
+                var m = lingueeWordList.findMeaning(targetTranslation.getForeignWord(), wordMeaning);
                 addSource(wordMeaningMap, wordMeaning, m.getExampleSentence(), Sources.LINGUEE_SOURCE);
             }
         }
@@ -155,13 +152,13 @@ public class WordListProcessor {
 
             int sourcesCount = 1;
             int mostCommonWords = 1;
-            if (LangUtil.wordCount(sanitizedMeaning) == 1 && !MOST_COMMON_WORDS.contains(sanitizedMeaning)) {
+            if (LangUtil.wordCount(sanitizedMeaning) == 1 && !this.mostCommonWords.contains(sanitizedMeaning)) {
                 addMeaningComment(t.getForeignWord(), m, "not in MOST_COMMON_WORDS");
                 mostCommonWords = 0;
             }
             sourcesCount++;
             int googleWordList = 1;
-            if (!existsInWordlist(GOOGLE_WORDLIST, sanitizedForeignWord, sanitizedMeaning, "GOOGLE_WORDLIST")) {
+            if (!existsInWordlist(this.googleWordList, sanitizedForeignWord, sanitizedMeaning, "GOOGLE_WORDLIST")) {
                 addMeaningComment(t.getForeignWord(), m, "not in GOOGLE_WORDLIST");
                 googleWordList = 0;
             }
@@ -173,13 +170,13 @@ public class WordListProcessor {
 //            }
             sourcesCount++;
             int wordReferenceWordList = 1;
-            if (!existsInWordlist(WORD_REFERENCE_WORDLIST, sanitizedForeignWord, sanitizedMeaning, "WORD_REFERENCE_WORDLIST")) {
+            if (!existsInWordlist(this.wordReferenceWordList, sanitizedForeignWord, sanitizedMeaning, "WORD_REFERENCE_WORDLIST")) {
                 addMeaningComment(t.getForeignWord(), m, "not in WORD_REFERENCE_WORDLIST");
                 wordReferenceWordList = 0;
             }
             sourcesCount++;
             int lingueeWordList = 1;
-            if (!existsInWordlist(LINGUEE_WORDLIST, sanitizedForeignWord, sanitizedMeaning, "LINGUEE_WORDLIST")) {
+            if (!existsInWordlist(this.lingueeWordList, sanitizedForeignWord, sanitizedMeaning, "LINGUEE_WORDLIST")) {
                 addMeaningComment(t.getForeignWord(), m, "not in LINGUEE_WORDLIST");
                 lingueeWordList = 0;
             }
@@ -202,7 +199,7 @@ public class WordListProcessor {
         }
 
         var wordMeanings = t.getMeanings().stream().map(Meaning::getWordMeaning).collect(toList());
-        List<List<String>> synonymGroups = SYNONYMS.groupBySynonyms(wordMeanings);
+        List<List<String>> synonymGroups = synonyms.groupBySynonyms(wordMeanings);
         var meaningsToRemove = new ArrayList<Meaning>();
         var wordMeaningsToKeep = new HashSet<String>();
         Map<Meaning, List<String>> synonymsForMeanings = new HashMap<>();
@@ -266,8 +263,8 @@ public class WordListProcessor {
         for (var m : targetTranslation.getMeanings()) {
             List<Pair<String, String>> exampleSentences = parseExampleSentences(m);
 
-            if (COLLINS_REVERSE_WORDLIST != null) {
-                var collinsMeaning = COLLINS_REVERSE_WORDLIST.findMeaning(m.getWordMeaning(), targetTranslation.getForeignWord());
+            if (collinsReverseWordList != null) {
+                var collinsMeaning = collinsReverseWordList.findMeaning(m.getWordMeaning(), targetTranslation.getForeignWord());
                 if (collinsMeaning != null && !collinsMeaning.getExampleSentence().isBlank()) {
                     exampleSentences.add(ImmutablePair.of(collinsMeaning.getExampleSentence(), COLLINS_SOURCE));
                 }

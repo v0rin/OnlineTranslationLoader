@@ -33,14 +33,14 @@ public class TranslationLoaderApp {
     private static final TranslationDataDownloader SYNONYM_DOWNLOADER = new GoogleTranslateDownloader(REVERSE_DICT);
     // ##########################
 
-    private static final SynonymStore SYNONYM_STORE = new SynonymStore(SYNONYM_PARSER);
-    private static final WordListProcessor WORD_LIST_PROCESSOR = new WordListProcessor(DICT, SYNONYM_PARSER);
+    private static final SynonymStore SYNONYM_STORE = new SynonymStore(REVERSE_DICT, SYNONYM_PARSER);
+    private static final WordListProcessor WORD_LIST_PROCESSOR = new WordListProcessor(DICT, SYNONYM_STORE);
 
     public static void main(String... argvs) throws IOException {
-        createWordLists();
-        createCombinedWordList();
-        loadSynonyms();
-//        processWordList();
+//        createWordLists();
+//        createCombinedWordList();
+//        loadSynonyms();
+        processWordList();
     }
 
     private static void createCombinedWordList() throws IOException {

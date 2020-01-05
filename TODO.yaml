@@ -13,12 +13,15 @@ Weryfikacje-tlumaczen:
   luzne uwagi:
     lepiej wyjsc z wiekszej ilosci tlumaczen i potem pozwolic translatorowi usunac synonimy i malo uzywane znaczenia?
 
-  dodac example sentences z https://tatoeba.org/eng/sentences_lists/index
+  hiszpanskie meanings - wyglada ze lingua i wr maja bardzo duzo meanings, trzeba by to jakos ograniczyc dodatkowymi warunkami
 
+  select example sentences
+  dodac example sentences z https://tatoeba.org/eng/sentences_lists/index
   zrobic alerty (postprocessing) ale nie usuwac, zostawic to translatorowi
     szczegolne slowo
     not in MOST_COMMON_WORDS
     only one source
+    problem z example sentence
 
   popraw polska liste
   przepusc polski przez synonimy (te przesadne), potem manualnie przejdz przez sugestie
