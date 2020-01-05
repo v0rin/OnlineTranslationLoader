@@ -47,7 +47,7 @@ public class Util {
 
 
     public static String firstLetterOfSentenceToLowerCase(String s) {
-        if (s.substring(0, 2).equals("I ")) {
+        if (s.substring(0, 2).equals("I ") || s.substring(0, 2).equals("I'")) {
             return s;
         }
         return s.substring(0, 1).toLowerCase() + s.substring(1);

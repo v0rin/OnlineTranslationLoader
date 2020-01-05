@@ -82,6 +82,15 @@ public class Meaning {
         this.wordMeaningSource = wordMeaningSource;
     }
 
+    public void addWordMeaningSource(String wordMeaningSource) {
+        if (isNullOrEmpty(this.wordMeaningSource)) {
+            this.wordMeaningSource = wordMeaningSource;
+        }
+        else {
+            this.wordMeaningSource += "; " + wordMeaningSource;
+        }
+    }
+
     public String getComment() {
         return emptyIfNull(comment);
     }

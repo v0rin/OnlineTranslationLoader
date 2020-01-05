@@ -22,8 +22,8 @@ public class SynonimNetTest {
     @Test
     public void parseAndPublish() throws IOException {
         // given
-        var publisher = new SynonymStore();
         var parser = new SynonimNetParser();
+        var publisher = new SynonymStore(parser);
         Set<String> expectedSynonyms = Util.loadWordsFromTxtFile(new File(AppConfig.TEST_RES_DIR + "loaders/SynonimNet/domagac-sie-synonyms.txt"));
 
         // when

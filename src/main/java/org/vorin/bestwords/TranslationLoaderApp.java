@@ -15,79 +15,90 @@ import java.util.List;
 import static org.vorin.bestwords.AppConfig.*;
 
 
-public class EnPlTranslationLoaderApp {
+public class TranslationLoaderApp {
 
-    private static final Logger LOG = Logger.get(EnEsTranslationLoaderApp.class);
+    private static final Logger LOG = Logger.get(TranslationLoaderApp.class);
+
+    // ### PL CONFIG ###############
+//    private static final Dictionary DICT = Dictionary.EN_PL;
+//    private static final Dictionary REVERSE_DICT = Dictionary.PL_EN;
+//    private static final TranslationDataParser SYNONYM_PARSER = new SynonimNetParser();
+//    private static final TranslationDataDownloader SYNONYM_DOWNLOADER = new SynonimNetDownloader();
+    // ##########################
+
+    // ### ES CONFIG ###############
+    private static final Dictionary DICT = Dictionary.EN_ES;
+    private static final Dictionary REVERSE_DICT = Dictionary.ES_EN;
+    private static final TranslationDataParser SYNONYM_PARSER = new GoogleTranslateSynonymParser();
+    private static final TranslationDataDownloader SYNONYM_DOWNLOADER = new GoogleTranslateDownloader(REVERSE_DICT);
+    // ##########################
+
+    private static final SynonymStore SYNONYM_STORE = new SynonymStore(SYNONYM_PARSER);
+    private static final WordListProcessor WORD_LIST_PROCESSOR = new WordListProcessor(DICT, SYNONYM_PARSER);
 
     public static void main(String... argvs) throws IOException {
-//        createWordLists();
-//         loadSynonyms();
-//        createCombinedWordList();
-        processWordList();
+        createWordLists();
+        createCombinedWordList();
+        loadSynonyms();
+//        processWordList();
     }
 
     private static void createCombinedWordList() throws IOException {
         var w = WordList.loadFromXml(new File(RES_DIR + "EnglishWordList35.xml"));
 
-        var wordListProcessor = new WordListProcessor(Dictionary.EN_PL);
         for (var t : w.getTranslations()) {
             t.setMeanings(new ArrayList<>());
-            wordListProcessor.combineMeanings(t);
+            WORD_LIST_PROCESSOR.combineMeanings(t);
         }
 
-        w.writeToXml(new File(RES_DIR + "EN_PL-CombinedWordList.xml"));
+        w.writeToXml(new File(RES_DIR + DICT.name() + "-CombinedWordList.xml"));
     }
 
     private static void processWordList() throws IOException {
-        // var w = WordList.loadFromXml(new File(RES_DIR + "EN_PL-GoogleTranslateWordList.xml"));
+        // var w = WordList.loadFromXml(new File(RES_DIR + DICT.name() + "-GoogleTranslateWordList.xml"));
 //        var w = WordList.loadFromXml(new File(RES_DIR + "EnglishWordList35.xml"));
-        var w = WordList.loadFromXml(new File(RES_DIR + "EN_PL-CombinedWordList.xml"));
+        var w = WordList.loadFromXml(new File(RES_DIR + DICT.name() + "-CombinedWordList.xml"));
 
-        var wordListProcessor = new WordListProcessor(Dictionary.EN_PL);
         int wordsWithProblemsCount = 0;
         for (var t : w.getTranslations()) {
-            if(!wordListProcessor.processTranslation(t)) {
+            if(!WORD_LIST_PROCESSOR.processMeaningsForTranslation(t)) {
                 wordsWithProblemsCount++;
             }
+            WORD_LIST_PROCESSOR.processExampleSentencesForTranslation(t);
         }
 
         LOG.info("wordsWithProblemsCount=" + wordsWithProblemsCount);
-        wordListProcessor.verifyWordList(w);
+        WORD_LIST_PROCESSOR.verifyWordList(w);
 
-        w.writeToXml(new File(RES_DIR + "EN_PL-ProcessedWordList.xml"));
+        w.writeToXml(new File(RES_DIR + DICT.name() + "-ProcessedWordList.xml"));
     }
 
     private static void loadSynonyms() throws IOException {
-        var wordInfos = Util.getReverseForeignWordsWithMeaningsFromXml(RES_DIR + "EN_PL-CombinedWordList.xml");
-        var synonymStore = new SynonymStore();
-
-        var downloader = new SynonimNetDownloader();
-        var parser = new SynonimNetParser();
-        var loader = new TranslationLoader(downloader, parser, synonymStore, true, 500);
-
+        var wordInfos = Util.getReverseForeignWordsWithMeaningsFromXml(RES_DIR + DICT.name() + "-CombinedWordList.xml");
+        var loader = new TranslationLoader(SYNONYM_DOWNLOADER, SYNONYM_PARSER, SYNONYM_STORE, true, 500);
         loader.load(wordInfos);
     }
 
     private static void createWordLists() throws IOException {
         var wordInfos = Util.getForeignWordsFromXml(RES_DIR + "EnglishWordList35.xml");
 
-        createGoogleWordList(Dictionary.EN_PL, wordInfos,"EN_PL-GoogleTranslateWordList.xml");
+        createGoogleWordList(DICT, wordInfos, DICT.name() + "-GoogleTranslateWordList.xml");
 
         // reverse wordlist
-        createGoogleWordList(Dictionary.PL_EN,
-                Util.getReverseForeignWordsFromXml(RES_DIR + "EN_PL-GoogleTranslateWordList.xml"),
-                "EN_PL-GoogleTranslateReverseWordList.xml");
+        createGoogleWordList(REVERSE_DICT,
+                Util.getReverseForeignWordsFromXml(RES_DIR + DICT.name() + "-GoogleTranslateWordList.xml"),
+                DICT.name() + "-GoogleTranslateReverseWordList.xml");
 
-        createWordReferenceWordList(Dictionary.EN_PL, wordInfos, "EN_PL-WordReferenceWordList.xml");
+        createWordReferenceWordList(DICT, wordInfos,  DICT.name() + "-WordReferenceWordList.xml");
 //
-        createLingueeWordList(Dictionary.EN_PL, wordInfos, "EN_PL-LingueeWordList.xml");
+        createLingueeWordList(DICT, wordInfos,  DICT.name() + "-LingueeWordList.xml");
     }
 
     private static void createGoogleWordList(Dictionary dict, List<WordInfo> wordInfos, String outputXml) throws IOException {
         var xmlPublisher = new XmlTranslationPublisher(new File(RES_DIR + outputXml));
         var downloader = new GoogleTranslateDownloader(dict);
         var parser = new GoogleTranslateParser(0.01, 5);
-        var loader = new TranslationLoader(downloader, parser, xmlPublisher, true, 5000);
+        var loader = new TranslationLoader(downloader, parser, xmlPublisher, true, 1000);
 
         loader.load(wordInfos);
         xmlPublisher.writeToTarget();

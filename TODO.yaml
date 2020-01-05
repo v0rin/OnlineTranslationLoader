@@ -1,34 +1,28 @@
-https://sourceforge.net/projects/synonimy/files/synonimy/1.5/OOo2-Thesaurus-1.5.zip/download
+miec liste problematycznych slowek, na ktore trzeba zwrocic szczegolna uwage - mysle, ze moze ich byc mniej niz np. 50:
+  potencjalnie to uprosci tworzenie listy
+  wulgarne, dick, fuck, cunt, cock, bitch
+  ze slashem
+    a / an
+    okay / OK
+  te z duza ilosci meanings dziwnych
+    get, go, like, right
+  may, you, himself, one
+
 
 Weryfikacje-tlumaczen:
-  zrobic test moich 34 slowek z polskim
+  luzne uwagi:
+    lepiej wyjsc z wiekszej ilosci tlumaczen i potem pozwolic translatorowi usunac synonimy i malo uzywane znaczenia?
+
+  dodac example sentences z https://tatoeba.org/eng/sentences_lists/index
+
+  zrobic alerty (postprocessing) ale nie usuwac, zostawic to translatorowi
+    szczegolne slowo
+    not in MOST_COMMON_WORDS
+    only one source
 
   popraw polska liste
   przepusc polski przez synonimy (te przesadne), potem manualnie przejdz przez sugestie
-
-  ile byloby znaczen jezel slowo jest co najmniej w 2 slownikach + moje polskie tlumaczenia
-
-  lepiej wyjsc z wiekszej ilosci tlumaczen i potem pozwolic translatorowi usunac synonimy i malo uzywane znaczenia?
-
-  moze wordreference jako zrodlo wyjsciowe?
-
-  uzyc ta polska liste do weryfikacji brakujacych meanings w innych jezykach
-
-  hiszpanska liste przepuscic przez synonimy i potem manualnie zweryfikowac sugestie (albo raczej translator to zrobi)
-
-  synonimy z google dla hiszpanskiego
-
-  zrobic alerty ale nie usuwac, zostawic to translatorowi
-
-
-  possibly refactor so the data is pulled as it is needed and I don't need to prepare the wordlists, synonyms etc.
-  refactor WordListProcessor so it is more modular and configurable if it makes sense
-  refactor TranslationLoader, TranslationDataParser and downloader into:
-    DataDownloader, CacheDownloaderDecorator, DataDownloader, DataLoader takes DataProcessor and CacheDownloader,
-    publisher is passed to DataProcessor directly
-    this can be theoretically used for any data downloading and processing
-    probably add ProxyDownloaderDecorator
-
+    uzyc ta polska liste do weryfikacji brakujacych meanings w innych jezykach
 
 
 meanings:
@@ -57,8 +51,16 @@ ale to na samym koncu - jak juz bede mial decolowa liste to wtedy bedzie jakas s
 
 
 TODO:
-  move the app to bestwords
+  REFACTORING: (na pozniej)
+    possibly refactor so the data is pulled as it is needed and I don't need to prepare the wordlists, synonyms etc.
+    refactor WordListProcessor so it is more modular and configurable if it makes sense
+    refactor TranslationLoader, TranslationDataParser and downloader into:
+      DataDownloader, CacheDownloaderDecorator, DataDownloader, DataLoader takes DataProcessor and CacheDownloader,
+      publisher is passed to DataProcessor directly
+      this can be theoretically used for any data downloading and processing
+      probably add ProxyDownloaderDecorator
 
+  move the app to bestwords
 
 Tool-do-redagowania-wordlisty:
   nie zrobic z tego zbyt skomplikowanego zadania - zrob pierwsza czesc do tego pierwszego jezyka, z kolejnymi jezykami bedziesz dodawal kolejne elementy

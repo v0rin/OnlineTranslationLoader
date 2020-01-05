@@ -7,6 +7,7 @@ import org.vorin.bestwords.util.Logger;
 import java.io.*;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Map;
 
 import static java.lang.String.format;
 import static org.vorin.bestwords.AppConfig.CACHES_DIR;
@@ -98,8 +99,12 @@ public class TranslationLoader {
         return cacheFile;
     }
 
+    private static final Map<String, String> restrictedFileNameConversionMap = Map.of("con", "con_mapped");
+
+
     private File getCacheFileForWord(String word) {
-        return new File(CACHES_DIR + translationDataParser.getSource() + "-cache-" + translationDataDownloader.getDictionary() + "/" + word);
+        var mappedWord = restrictedFileNameConversionMap.get(word);
+        return new File(CACHES_DIR + translationDataParser.getSource() + "-cache-" + translationDataDownloader.getDictionary() + "/" + (mappedWord == null ? word : mappedWord));
     }
 
 }

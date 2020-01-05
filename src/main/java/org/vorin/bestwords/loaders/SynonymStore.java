@@ -6,20 +6,22 @@ import org.vorin.bestwords.util.Logger;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.util.*;
-import java.util.function.Predicate;
 
 import static java.util.function.Predicate.not;
 import static java.util.stream.Collectors.toList;
 import static org.vorin.bestwords.AppConfig.CACHES_DIR;
 import static org.vorin.bestwords.util.Dictionary.EN_PL;
-import static org.vorin.bestwords.util.Sources.SYNONIM_NET_SOURCE;
 
 public class SynonymStore implements TranslationPublisher {
 
     private static final Logger LOG = Logger.get(SynonymStore.class);
 
     private final Map<String, Set<String>> synonymMap = new HashMap<>();
-    private final SynonimNetParser parser = new SynonimNetParser();
+    private final TranslationDataParser parser;
+
+    public SynonymStore(TranslationDataParser parser) {
+        this.parser = parser;
+    }
 
     public Set<String> getSynonyms(String word) {
         var synonyms = synonymMap.get(word);
@@ -29,7 +31,7 @@ public class SynonymStore implements TranslationPublisher {
         else {
             try {
                 parser.parseAndPublish(new WordInfo(word, null),
-                                       new FileInputStream(CACHES_DIR + SYNONIM_NET_SOURCE + "-cache-" + EN_PL + "/" + word),
+                                       new FileInputStream(CACHES_DIR + parser.getSource() + "-cache-" + EN_PL + "/" + word),
                                        this);
                 return synonymMap.get(word) == null ? new HashSet<String>() : synonymMap.get(word);
             }
@@ -40,7 +42,36 @@ public class SynonymStore implements TranslationPublisher {
         }
     }
 
-    public List<String> removeSynonyms(List<String> words) {
+    public List<List<String>> groupBySynonyms(List<String> words) {
+        Set<Set<String>> groupSet = new HashSet<>();
+        List<List<String>> groups = new ArrayList<>();
+        for (var word : words) {
+            var group = findSynonymsInList(word, words);
+            if (groupSet.add(new HashSet<>(group))) {
+                groups.add(group);
+            }
+        }
+        return groups;
+    }
+
+    public List<String> findSynonymsInList(String word, List<String> words) {
+        Set<String> synonymSet = new HashSet<>();
+        List<String> synonyms = new ArrayList<>();
+        synonymSet.add(word);
+        synonyms.add(word);
+        var synonymsForWord = getSynonyms(word);
+        for (String w : words) {
+            var synonymsForWord2 = getSynonyms(w);
+            if (synonymsForWord.contains(w) || synonymsForWord2.contains(word)) {
+                if (synonymSet.add(w)) {
+                    synonyms.add(w);
+                }
+            }
+        }
+        return synonyms;
+    }
+
+    public List<String> removeSynonymsFromList(List<String> words) {
         var discardedSynonyms = new HashSet<String>();
         var wordsWithFoundSynonyms = new HashSet<String>();
         for (String word : words) { // word that can have synonyms
