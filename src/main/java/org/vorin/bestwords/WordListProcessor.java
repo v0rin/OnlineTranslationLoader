@@ -182,12 +182,29 @@ public class WordListProcessor {
             }
 
 //            int inCount = mostCommonWords + googleWordList + googleReverseWordList + wordReferenceWordList + lingueeWordList;
-            int inCount = mostCommonWords + googleWordList + wordReferenceWordList + lingueeWordList;
+            int inCount = googleWordList + wordReferenceWordList + lingueeWordList;
             problemsExist = problemsExist || inCount < sourcesCount;
 
-            if (mostCommonWords == 0 && inCount == 1) {
-                iter.remove();
-                continue;
+            if (dictionary == Dictionary.EN_PL) {
+                if (mostCommonWords == 0 && inCount == 1) {
+                    iter.remove();
+                    continue;
+                }
+            }
+
+            if (dictionary == Dictionary.EN_ES) {
+                if (wordReferenceWordList == 1 && inCount == 1) {
+                    iter.remove();
+                    continue;
+                }
+                if (lingueeWordList == 1 && inCount == 1) {
+                    iter.remove();
+                    continue;
+                }
+                if (mostCommonWords == 0 && inCount == 1) {
+                    iter.remove();
+                    continue;
+                }
             }
 
             Matcher matcher = WEIRD_CHARACTERS_PATTERN.matcher(sanitizedMeaning);

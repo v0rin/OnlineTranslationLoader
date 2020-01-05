@@ -13,7 +13,11 @@ Weryfikacje-tlumaczen:
   luzne uwagi:
     lepiej wyjsc z wiekszej ilosci tlumaczen i potem pozwolic translatorowi usunac synonimy i malo uzywane znaczenia?
 
-  hiszpanskie meanings - wyglada ze lingua i wr maja bardzo duzo meanings, trzeba by to jakos ograniczyc dodatkowymi warunkami
+  bugs:
+    jest jakis blad dla mezquino - zly source
+    derecho/a - tylko word-reference source i bez komentarzy ze nie ma w innych??
+
+  hiszpanskie meanings - wyglada ze linguee i wr maja bardzo duzo meanings, trzeba by to jakos ograniczyc dodatkowymi warunkami (w stosunku do pl)
 
   select example sentences
   dodac example sentences z https://tatoeba.org/eng/sentences_lists/index
