@@ -1,0 +1,721 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<wordList>
+    <translation>
+        <foreignWord>take</foreignWord>
+        <pronunciation>/teɪk/</pronunciation>
+        <audioName>take</audioName>
+        <meanings>
+            <meaning wordMeaningSource="google-translate" exampleSentenceSource="" comment="Google score=[0.057304565]">
+                <wordMeaning>wziąć</wordMeaning>
+                <exampleSentence></exampleSentence>
+                <imgName></imgName>
+            </meaning>
+            <meaning wordMeaningSource="google-translate" exampleSentenceSource="" comment="Google score=[0.015666196]">
+                <wordMeaning>brać</wordMeaning>
+                <exampleSentence></exampleSentence>
+                <imgName></imgName>
+            </meaning>
+            <meaning wordMeaningSource="google-translate" exampleSentenceSource="" comment="Google score=[0.011825466]">
+                <wordMeaning>przyjąć</wordMeaning>
+                <exampleSentence></exampleSentence>
+                <imgName></imgName>
+            </meaning>
+        </meanings>
+    </translation>
+    <translation>
+        <foreignWord>mean</foreignWord>
+        <pronunciation>/miːn/</pronunciation>
+        <audioName>mean</audioName>
+        <meanings>
+            <meaning wordMeaningSource="google-translate" exampleSentenceSource="" comment="Google score=[0.095967084]">
+                <wordMeaning>średni</wordMeaning>
+                <exampleSentence></exampleSentence>
+                <imgName></imgName>
+            </meaning>
+            <meaning wordMeaningSource="google-translate" exampleSentenceSource="" comment="Google score=[0.05641614]">
+                <wordMeaning>oznaczać</wordMeaning>
+                <exampleSentence></exampleSentence>
+                <imgName></imgName>
+            </meaning>
+        </meanings>
+    </translation>
+    <translation>
+        <foreignWord>call</foreignWord>
+        <pronunciation>/kɔːl/</pronunciation>
+        <audioName>call</audioName>
+        <meanings>
+            <meaning wordMeaningSource="google-translate" exampleSentenceSource="" comment="Google score=[0.04901519]">
+                <wordMeaning>wezwanie</wordMeaning>
+                <exampleSentence></exampleSentence>
+                <imgName></imgName>
+            </meaning>
+            <meaning wordMeaningSource="google-translate" exampleSentenceSource="" comment="Google score=[0.027928013]">
+                <wordMeaning>nazwać</wordMeaning>
+                <exampleSentence></exampleSentence>
+                <imgName></imgName>
+            </meaning>
+            <meaning wordMeaningSource="google-translate" exampleSentenceSource="" comment="Google score=[0.012786376]">
+                <wordMeaning>wezwać</wordMeaning>
+                <exampleSentence></exampleSentence>
+                <imgName></imgName>
+            </meaning>
+        </meanings>
+    </translation>
+    <translation>
+        <foreignWord>make</foreignWord>
+        <pronunciation>/meɪk/</pronunciation>
+        <audioName>make</audioName>
+        <meanings>
+            <meaning wordMeaningSource="google-translate" exampleSentenceSource="" comment="Google score=[0.042585135]">
+                <wordMeaning>marka</wordMeaning>
+                <exampleSentence></exampleSentence>
+                <imgName></imgName>
+            </meaning>
+            <meaning wordMeaningSource="google-translate" exampleSentenceSource="" comment="Google score=[0.03530432]">
+                <wordMeaning>zrobić</wordMeaning>
+                <exampleSentence></exampleSentence>
+                <imgName></imgName>
+            </meaning>
+            <meaning wordMeaningSource="google-translate" exampleSentenceSource="" comment="Google score=[0.034218118]">
+                <wordMeaning>uczynić</wordMeaning>
+                <exampleSentence></exampleSentence>
+                <imgName></imgName>
+            </meaning>
+        </meanings>
+    </translation>
+    <translation>
+        <foreignWord>love</foreignWord>
+        <pronunciation>/lʌv/</pronunciation>
+        <audioName>love</audioName>
+        <meanings>
+            <meaning wordMeaningSource="google-translate" exampleSentenceSource="" comment="Google score=[0.38553435]">
+                <wordMeaning>miłość</wordMeaning>
+                <exampleSentence></exampleSentence>
+                <imgName></imgName>
+            </meaning>
+            <meaning wordMeaningSource="google-translate" exampleSentenceSource="" comment="Google score=[0.08337765]">
+                <wordMeaning>kochać</wordMeaning>
+                <exampleSentence></exampleSentence>
+                <imgName></imgName>
+            </meaning>
+            <meaning wordMeaningSource="google-translate" exampleSentenceSource="" comment="Google score=[0.03758125]">
+                <wordMeaning>miłosny</wordMeaning>
+                <exampleSentence></exampleSentence>
+                <imgName></imgName>
+            </meaning>
+        </meanings>
+    </translation>
+    <translation>
+        <foreignWord>you</foreignWord>
+        <pronunciation>/juː/</pronunciation>
+        <audioName>you</audioName>
+        <meanings>
+            <meaning wordMeaningSource="google-translate" exampleSentenceSource="" comment="Google score=[0.11219689]">
+                <wordMeaning>ciebie</wordMeaning>
+                <exampleSentence></exampleSentence>
+                <imgName></imgName>
+            </meaning>
+            <meaning wordMeaningSource="google-translate" exampleSentenceSource="" comment="Google score=[0.107059024]">
+                <wordMeaning>wy</wordMeaning>
+                <exampleSentence></exampleSentence>
+                <imgName></imgName>
+            </meaning>
+            <meaning wordMeaningSource="google-translate" exampleSentenceSource="" comment="Google score=[0.04462884]">
+                <wordMeaning>ty</wordMeaning>
+                <exampleSentence></exampleSentence>
+                <imgName></imgName>
+            </meaning>
+            <meaning wordMeaningSource="google-translate" exampleSentenceSource="" comment="Google score=[0.011283938]">
+                <wordMeaning>pan</wordMeaning>
+                <exampleSentence></exampleSentence>
+                <imgName></imgName>
+            </meaning>
+        </meanings>
+    </translation>
+    <translation>
+        <foreignWord>can</foreignWord>
+        <pronunciation>/kan/</pronunciation>
+        <audioName>can</audioName>
+        <meanings>
+            <meaning wordMeaningSource="google-translate" exampleSentenceSource="" comment="Google score=[0.08469065]">
+                <wordMeaning>puszka</wordMeaning>
+                <exampleSentence></exampleSentence>
+                <imgName></imgName>
+            </meaning>
+            <meaning wordMeaningSource="google-translate" exampleSentenceSource="" comment="Google score=[0.011461634]">
+                <wordMeaning>kanister</wordMeaning>
+                <exampleSentence></exampleSentence>
+                <imgName></imgName>
+            </meaning>
+        </meanings>
+    </translation>
+    <translation>
+        <foreignWord>get</foreignWord>
+        <pronunciation>/gɛt/</pronunciation>
+        <audioName>get</audioName>
+        <meanings>
+            <meaning wordMeaningSource="google-translate" exampleSentenceSource="" comment="Google score=[0.10215643]">
+                <wordMeaning>dostać</wordMeaning>
+                <exampleSentence></exampleSentence>
+                <imgName></imgName>
+            </meaning>
+            <meaning wordMeaningSource="google-translate" exampleSentenceSource="" comment="Google score=[0.043255754]">
+                <wordMeaning>zdobyć</wordMeaning>
+                <exampleSentence></exampleSentence>
+                <imgName></imgName>
+            </meaning>
+            <meaning wordMeaningSource="google-translate" exampleSentenceSource="" comment="Google score=[0.03214495]">
+                <wordMeaning>otrzymać</wordMeaning>
+                <exampleSentence></exampleSentence>
+                <imgName></imgName>
+            </meaning>
+        </meanings>
+    </translation>
+    <translation>
+        <foreignWord>like</foreignWord>
+        <pronunciation>/lʌɪk/</pronunciation>
+        <audioName>like</audioName>
+        <meanings>
+            <meaning wordMeaningSource="google-translate" exampleSentenceSource="" comment="Google score=[0.3196192]">
+                <wordMeaning>jak</wordMeaning>
+                <exampleSentence></exampleSentence>
+                <imgName></imgName>
+            </meaning>
+            <meaning wordMeaningSource="google-translate" exampleSentenceSource="" comment="Google score=[0.016163494]">
+                <wordMeaning>niczym</wordMeaning>
+                <exampleSentence></exampleSentence>
+                <imgName></imgName>
+            </meaning>
+            <meaning wordMeaningSource="google-translate" exampleSentenceSource="" comment="Google score=[0.014948789]">
+                <wordMeaning>tak jak</wordMeaning>
+                <exampleSentence></exampleSentence>
+                <imgName></imgName>
+            </meaning>
+            <meaning wordMeaningSource="google-translate" exampleSentenceSource="" comment="Google score=[0.01382537]">
+                <wordMeaning>podobny</wordMeaning>
+                <exampleSentence></exampleSentence>
+                <imgName></imgName>
+            </meaning>
+        </meanings>
+    </translation>
+    <translation>
+        <foreignWord>right</foreignWord>
+        <pronunciation>/rʌɪt/</pronunciation>
+        <audioName>right</audioName>
+        <meanings>
+            <meaning wordMeaningSource="google-translate" exampleSentenceSource="" comment="Google score=[0.56094915]">
+                <wordMeaning>prawo</wordMeaning>
+                <exampleSentence></exampleSentence>
+                <imgName></imgName>
+            </meaning>
+            <meaning wordMeaningSource="google-translate" exampleSentenceSource="" comment="Google score=[0.11396374]">
+                <wordMeaning>prawy</wordMeaning>
+                <exampleSentence></exampleSentence>
+                <imgName></imgName>
+            </meaning>
+            <meaning wordMeaningSource="google-translate" exampleSentenceSource="" comment="Google score=[0.046045512]">
+                <wordMeaning>odpowiedni</wordMeaning>
+                <exampleSentence></exampleSentence>
+                <imgName></imgName>
+            </meaning>
+            <meaning wordMeaningSource="google-translate" exampleSentenceSource="" comment="Google score=[0.026235942]">
+                <wordMeaning>właściwy</wordMeaning>
+                <exampleSentence></exampleSentence>
+                <imgName></imgName>
+            </meaning>
+            <meaning wordMeaningSource="google-translate" exampleSentenceSource="" comment="Google score=[0.023888096]">
+                <wordMeaning>wyprostować</wordMeaning>
+                <exampleSentence></exampleSentence>
+                <imgName></imgName>
+            </meaning>
+        </meanings>
+    </translation>
+    <translation>
+        <foreignWord>man</foreignWord>
+        <pronunciation>/man/</pronunciation>
+        <audioName>man</audioName>
+        <meanings>
+            <meaning wordMeaningSource="google-translate" exampleSentenceSource="" comment="Google score=[0.21626517]">
+                <wordMeaning>człowiek</wordMeaning>
+                <exampleSentence></exampleSentence>
+                <imgName></imgName>
+            </meaning>
+            <meaning wordMeaningSource="google-translate" exampleSentenceSource="" comment="Google score=[0.16842748]">
+                <wordMeaning>mężczyzna</wordMeaning>
+                <exampleSentence></exampleSentence>
+                <imgName></imgName>
+            </meaning>
+        </meanings>
+    </translation>
+    <translation>
+        <foreignWord>help</foreignWord>
+        <pronunciation>/hɛlp/</pronunciation>
+        <audioName>help</audioName>
+        <meanings>
+            <meaning wordMeaningSource="google-translate" exampleSentenceSource="" comment="Google score=[0.4950359]">
+                <wordMeaning>pomoc</wordMeaning>
+                <exampleSentence></exampleSentence>
+                <imgName></imgName>
+            </meaning>
+            <meaning wordMeaningSource="google-translate" exampleSentenceSource="" comment="Google score=[0.015912903]">
+                <wordMeaning>pomagać</wordMeaning>
+                <exampleSentence></exampleSentence>
+                <imgName></imgName>
+            </meaning>
+        </meanings>
+    </translation>
+    <translation>
+        <foreignWord>fancy</foreignWord>
+        <pronunciation>/ˈfansi/</pronunciation>
+        <audioName>fancy</audioName>
+        <meanings>
+            <meaning wordMeaningSource="google-translate" exampleSentenceSource="" comment="Google score=[0.0521764]">
+                <wordMeaning>fantazyjny</wordMeaning>
+                <exampleSentence></exampleSentence>
+                <imgName></imgName>
+            </meaning>
+            <meaning wordMeaningSource="google-translate" exampleSentenceSource="" comment="Google score=[0.029729217]">
+                <wordMeaning>wyobraźnia</wordMeaning>
+                <exampleSentence></exampleSentence>
+                <imgName></imgName>
+            </meaning>
+            <meaning wordMeaningSource="google-translate" exampleSentenceSource="" comment="Google score=[0.011825466]">
+                <wordMeaning>luksusowy</wordMeaning>
+                <exampleSentence></exampleSentence>
+                <imgName></imgName>
+            </meaning>
+        </meanings>
+    </translation>
+    <translation>
+        <foreignWord>fool</foreignWord>
+        <pronunciation>/fuːl/</pronunciation>
+        <audioName>fool</audioName>
+        <meanings>
+            <meaning wordMeaningSource="google-translate" exampleSentenceSource="" comment="Google score=[0.45783335]">
+                <wordMeaning>oszukać</wordMeaning>
+                <exampleSentence></exampleSentence>
+                <imgName></imgName>
+            </meaning>
+            <meaning wordMeaningSource="google-translate" exampleSentenceSource="" comment="Google score=[0.20001258]">
+                <wordMeaning>głupiec</wordMeaning>
+                <exampleSentence></exampleSentence>
+                <imgName></imgName>
+            </meaning>
+            <meaning wordMeaningSource="google-translate" exampleSentenceSource="" comment="Google score=[0.13323711]">
+                <wordMeaning>głupi</wordMeaning>
+                <exampleSentence></exampleSentence>
+                <imgName></imgName>
+            </meaning>
+            <meaning wordMeaningSource="google-translate" exampleSentenceSource="" comment="Google score=[0.038774207]">
+                <wordMeaning>dureń</wordMeaning>
+                <exampleSentence></exampleSentence>
+                <imgName></imgName>
+            </meaning>
+            <meaning wordMeaningSource="google-translate" exampleSentenceSource="" comment="Google score=[0.017476905]">
+                <wordMeaning>idiota</wordMeaning>
+                <exampleSentence></exampleSentence>
+                <imgName></imgName>
+            </meaning>
+        </meanings>
+    </translation>
+    <translation>
+        <foreignWord>block</foreignWord>
+        <pronunciation>/blɒk/</pronunciation>
+        <audioName>block</audioName>
+        <meanings>
+            <meaning wordMeaningSource="google-translate" exampleSentenceSource="" comment="Google score=[0.21626517]">
+                <wordMeaning>blok</wordMeaning>
+                <exampleSentence></exampleSentence>
+                <imgName></imgName>
+            </meaning>
+            <meaning wordMeaningSource="google-translate" exampleSentenceSource="" comment="Google score=[0.15576996]">
+                <wordMeaning>zablokować</wordMeaning>
+                <exampleSentence></exampleSentence>
+                <imgName></imgName>
+            </meaning>
+            <meaning wordMeaningSource="google-translate" exampleSentenceSource="" comment="Google score=[0.11943297]">
+                <wordMeaning>blokować</wordMeaning>
+                <exampleSentence></exampleSentence>
+                <imgName></imgName>
+            </meaning>
+            <meaning wordMeaningSource="google-translate" exampleSentenceSource="" comment="Google score=[0.03758125]">
+                <wordMeaning>zablokowanie</wordMeaning>
+                <exampleSentence></exampleSentence>
+                <imgName></imgName>
+            </meaning>
+        </meanings>
+    </translation>
+    <translation>
+        <foreignWord>often</foreignWord>
+        <pronunciation>/ˈɒf(ə)n/</pronunciation>
+        <audioName>often</audioName>
+        <meanings>
+            <meaning wordMeaningSource="google-translate" exampleSentenceSource="" comment="Google score=[0.56978285]">
+                <wordMeaning>często</wordMeaning>
+                <exampleSentence></exampleSentence>
+                <imgName></imgName>
+            </meaning>
+        </meanings>
+    </translation>
+    <translation>
+        <foreignWord>shape</foreignWord>
+        <pronunciation>/ʃeɪp/</pronunciation>
+        <audioName>shape</audioName>
+        <meanings>
+            <meaning wordMeaningSource="google-translate" exampleSentenceSource="" comment="Google score=[0.4650432]">
+                <wordMeaning>kształt</wordMeaning>
+                <exampleSentence></exampleSentence>
+                <imgName></imgName>
+            </meaning>
+            <meaning wordMeaningSource="google-translate" exampleSentenceSource="" comment="Google score=[0.11943297]">
+                <wordMeaning>kształtować</wordMeaning>
+                <exampleSentence></exampleSentence>
+                <imgName></imgName>
+            </meaning>
+            <meaning wordMeaningSource="google-translate" exampleSentenceSource="" comment="Google score=[0.02749503]">
+                <wordMeaning>ukształtować</wordMeaning>
+                <exampleSentence></exampleSentence>
+                <imgName></imgName>
+            </meaning>
+            <meaning wordMeaningSource="google-translate" exampleSentenceSource="" comment="Google score=[0.012200845]">
+                <wordMeaning>postać</wordMeaning>
+                <exampleSentence></exampleSentence>
+                <imgName></imgName>
+            </meaning>
+            <meaning wordMeaningSource="google-translate" exampleSentenceSource="" comment="Google score=[0.010936768]">
+                <wordMeaning>forma</wordMeaning>
+                <exampleSentence></exampleSentence>
+                <imgName></imgName>
+            </meaning>
+        </meanings>
+    </translation>
+    <translation>
+        <foreignWord>honey</foreignWord>
+        <pronunciation>/ˈhʌni/</pronunciation>
+        <audioName>honey</audioName>
+        <meanings>
+            <meaning wordMeaningSource="google-translate" exampleSentenceSource="" comment="Google score=[0.38553435]">
+                <wordMeaning>miód</wordMeaning>
+                <exampleSentence></exampleSentence>
+                <imgName></imgName>
+            </meaning>
+            <meaning wordMeaningSource="google-translate" exampleSentenceSource="" comment="Google score=[0.08337765]">
+                <wordMeaning>kochanie</wordMeaning>
+                <exampleSentence></exampleSentence>
+                <imgName></imgName>
+            </meaning>
+        </meanings>
+    </translation>
+    <translation>
+        <foreignWord>load</foreignWord>
+        <pronunciation>/ləʊd/</pronunciation>
+        <audioName>load</audioName>
+        <meanings>
+            <meaning wordMeaningSource="google-translate" exampleSentenceSource="" comment="Google score=[0.22664395]">
+                <wordMeaning>załadować</wordMeaning>
+                <exampleSentence></exampleSentence>
+                <imgName></imgName>
+            </meaning>
+            <meaning wordMeaningSource="google-translate" exampleSentenceSource="" comment="Google score=[0.20961139]">
+                <wordMeaning>obciążenie</wordMeaning>
+                <exampleSentence></exampleSentence>
+                <imgName></imgName>
+            </meaning>
+            <meaning wordMeaningSource="google-translate" exampleSentenceSource="" comment="Google score=[0.093014486]">
+                <wordMeaning>ładować</wordMeaning>
+                <exampleSentence></exampleSentence>
+                <imgName></imgName>
+            </meaning>
+            <meaning wordMeaningSource="google-translate" exampleSentenceSource="" comment="Google score=[0.0691225]">
+                <wordMeaning>ładunek</wordMeaning>
+                <exampleSentence></exampleSentence>
+                <imgName></imgName>
+            </meaning>
+            <meaning wordMeaningSource="google-translate" exampleSentenceSource="" comment="Google score=[0.011461634]">
+                <wordMeaning>ciężar</wordMeaning>
+                <exampleSentence></exampleSentence>
+                <imgName></imgName>
+            </meaning>
+        </meanings>
+    </translation>
+    <translation>
+        <foreignWord>hardly</foreignWord>
+        <pronunciation>/ˈhɑːdli/</pronunciation>
+        <audioName>hardly</audioName>
+        <meanings>
+            <meaning wordMeaningSource="google-translate" exampleSentenceSource="" comment="Google score=[0.05299806]">
+                <wordMeaning>ledwie</wordMeaning>
+                <exampleSentence></exampleSentence>
+                <imgName></imgName>
+            </meaning>
+            <meaning wordMeaningSource="google-translate" exampleSentenceSource="" comment="Google score=[0.033165336]">
+                <wordMeaning>prawie nie</wordMeaning>
+                <exampleSentence></exampleSentence>
+                <imgName></imgName>
+            </meaning>
+            <meaning wordMeaningSource="google-translate" exampleSentenceSource="" comment="Google score=[0.020754337]">
+                <wordMeaning>ledwo</wordMeaning>
+                <exampleSentence></exampleSentence>
+                <imgName></imgName>
+            </meaning>
+        </meanings>
+    </translation>
+    <translation>
+        <foreignWord>a / an</foreignWord>
+        <pronunciation>/ə, eɪ/ , /an, ən/</pronunciation>
+        <audioName>a-an</audioName>
+        <meanings>
+            <meaning wordMeaningSource="google-translate" exampleSentenceSource="" comment="Google score=[0.009209681]">
+                <wordMeaning>za</wordMeaning>
+                <exampleSentence></exampleSentence>
+                <imgName></imgName>
+            </meaning>
+        </meanings>
+    </translation>
+    <translation>
+        <foreignWord>which</foreignWord>
+        <pronunciation>/wɪtʃ/</pronunciation>
+        <audioName>which</audioName>
+        <meanings>
+            <meaning wordMeaningSource="google-translate" exampleSentenceSource="" comment="Google score=[0.095967084]">
+                <wordMeaning>który</wordMeaning>
+                <exampleSentence></exampleSentence>
+                <imgName></imgName>
+            </meaning>
+            <meaning wordMeaningSource="google-translate" exampleSentenceSource="" comment="Google score=[0.047507152]">
+                <wordMeaning>co</wordMeaning>
+                <exampleSentence></exampleSentence>
+                <imgName></imgName>
+            </meaning>
+        </meanings>
+    </translation>
+    <translation>
+        <foreignWord>whose</foreignWord>
+        <pronunciation>/huːz/</pronunciation>
+        <audioName>whose</audioName>
+        <meanings>
+            <meaning wordMeaningSource="google-translate" exampleSentenceSource="" comment="Google score=[0.30025443]">
+                <wordMeaning>którego</wordMeaning>
+                <exampleSentence></exampleSentence>
+                <imgName></imgName>
+            </meaning>
+            <meaning wordMeaningSource="google-translate" exampleSentenceSource="" comment="Google score=[0.012987733]">
+                <wordMeaning>czyj</wordMeaning>
+                <exampleSentence></exampleSentence>
+                <imgName></imgName>
+            </meaning>
+        </meanings>
+    </translation>
+    <translation>
+        <foreignWord>one</foreignWord>
+        <pronunciation>/wʌn/</pronunciation>
+        <audioName>one</audioName>
+        <meanings>
+            <meaning wordMeaningSource="google-translate" exampleSentenceSource="" comment="Google score=[0.35656098]">
+                <wordMeaning>jeden</wordMeaning>
+                <exampleSentence></exampleSentence>
+                <imgName></imgName>
+            </meaning>
+        </meanings>
+    </translation>
+    <translation>
+        <foreignWord>thousand</foreignWord>
+        <pronunciation>/ˈθaʊz(ə)nd/</pronunciation>
+        <audioName>thousand</audioName>
+        <meanings>
+            <meaning wordMeaningSource="google-translate" exampleSentenceSource="" comment="Google score=[0.35656098]">
+                <wordMeaning>tysiąc</wordMeaning>
+                <exampleSentence></exampleSentence>
+                <imgName></imgName>
+            </meaning>
+        </meanings>
+    </translation>
+    <translation>
+        <foreignWord>at</foreignWord>
+        <pronunciation>/at, ət/</pronunciation>
+        <audioName>at</audioName>
+        <meanings>
+            <meaning wordMeaningSource="google-translate" exampleSentenceSource="" comment="Google score=[0.42342663]">
+                <wordMeaning>w</wordMeaning>
+                <exampleSentence></exampleSentence>
+                <imgName></imgName>
+            </meaning>
+            <meaning wordMeaningSource="google-translate" exampleSentenceSource="" comment="Google score=[0.2649736]">
+                <wordMeaning>z</wordMeaning>
+                <exampleSentence></exampleSentence>
+                <imgName></imgName>
+            </meaning>
+            <meaning wordMeaningSource="google-translate" exampleSentenceSource="" comment="Google score=[0.24891968]">
+                <wordMeaning>na</wordMeaning>
+                <exampleSentence></exampleSentence>
+                <imgName></imgName>
+            </meaning>
+            <meaning wordMeaningSource="google-translate" exampleSentenceSource="" comment="Google score=[0.054680396]">
+                <wordMeaning>przy</wordMeaning>
+                <exampleSentence></exampleSentence>
+                <imgName></imgName>
+            </meaning>
+            <meaning wordMeaningSource="google-translate" exampleSentenceSource="" comment="Google score=[0.012987733]">
+                <wordMeaning>o</wordMeaning>
+                <exampleSentence></exampleSentence>
+                <imgName></imgName>
+            </meaning>
+        </meanings>
+    </translation>
+    <translation>
+        <foreignWord>yourself</foreignWord>
+        <pronunciation>/jɔːˈsɛlf/</pronunciation>
+        <audioName>yourself</audioName>
+        <meanings>
+            <meaning wordMeaningSource="google-translate" exampleSentenceSource="" comment="Google score=[0.2865048]">
+                <wordMeaning>siebie</wordMeaning>
+                <exampleSentence></exampleSentence>
+                <imgName></imgName>
+            </meaning>
+            <meaning wordMeaningSource="google-translate" exampleSentenceSource="" comment="Google score=[0.28206295]">
+                <wordMeaning>sobie</wordMeaning>
+                <exampleSentence></exampleSentence>
+                <imgName></imgName>
+            </meaning>
+            <meaning wordMeaningSource="google-translate" exampleSentenceSource="" comment="Google score=[0.16071463]">
+                <wordMeaning>się</wordMeaning>
+                <exampleSentence></exampleSentence>
+                <imgName></imgName>
+            </meaning>
+            <meaning wordMeaningSource="google-translate" exampleSentenceSource="" comment="Google score=[0.100572646]">
+                <wordMeaning>sam</wordMeaning>
+                <exampleSentence></exampleSentence>
+                <imgName></imgName>
+            </meaning>
+        </meanings>
+    </translation>
+    <translation>
+        <foreignWord>may</foreignWord>
+        <pronunciation>/meɪ/</pronunciation>
+        <audioName>may</audioName>
+        <meanings>
+            <meaning wordMeaningSource="google-translate" exampleSentenceSource="" comment="Google score=[0.0012859597]">
+                <wordMeaning>móc</wordMeaning>
+                <exampleSentence></exampleSentence>
+                <imgName></imgName>
+            </meaning>
+        </meanings>
+    </translation>
+    <translation>
+        <foreignWord>okay / OK</foreignWord>
+        <pronunciation>/əʊˈkeɪ/</pronunciation>
+        <audioName>okay-OK</audioName>
+        <meanings>
+            <meaning wordMeaningSource="google-translate" exampleSentenceSource="" comment="Google score=[0.15822297]">
+                <wordMeaning>w porządku</wordMeaning>
+                <exampleSentence></exampleSentence>
+                <imgName></imgName>
+            </meaning>
+            <meaning wordMeaningSource="google-translate" exampleSentenceSource="" comment="Google score=[0.075916216]">
+                <wordMeaning>dobrze</wordMeaning>
+                <exampleSentence></exampleSentence>
+                <imgName></imgName>
+            </meaning>
+        </meanings>
+    </translation>
+    <translation>
+        <foreignWord>bitch</foreignWord>
+        <pronunciation>/bɪtʃ/</pronunciation>
+        <audioName>bitch</audioName>
+        <meanings>
+            <meaning wordMeaningSource="google-translate" exampleSentenceSource="" comment="Google score=[0.23021308]">
+                <wordMeaning>suka</wordMeaning>
+                <exampleSentence></exampleSentence>
+                <imgName></imgName>
+            </meaning>
+            <meaning wordMeaningSource="google-translate" exampleSentenceSource="" comment="Google score=[0.036425]">
+                <wordMeaning>suczka</wordMeaning>
+                <exampleSentence></exampleSentence>
+                <imgName></imgName>
+            </meaning>
+        </meanings>
+    </translation>
+    <translation>
+        <foreignWord>cock</foreignWord>
+        <pronunciation>/kɒk/</pronunciation>
+        <audioName>cock</audioName>
+        <meanings>
+            <meaning wordMeaningSource="google-translate" exampleSentenceSource="" comment="Google score=[0.30978554]">
+                <wordMeaning>kogut</wordMeaning>
+                <exampleSentence></exampleSentence>
+                <imgName></imgName>
+            </meaning>
+            <meaning wordMeaningSource="google-translate" exampleSentenceSource="" comment="Google score=[0.30025443]">
+                <wordMeaning>kurek</wordMeaning>
+                <exampleSentence></exampleSentence>
+                <imgName></imgName>
+            </meaning>
+            <meaning wordMeaningSource="google-translate" exampleSentenceSource="" comment="Google score=[0.016163494]">
+                <wordMeaning>kutas</wordMeaning>
+                <exampleSentence></exampleSentence>
+                <imgName></imgName>
+            </meaning>
+        </meanings>
+    </translation>
+    <translation>
+        <foreignWord>dick</foreignWord>
+        <pronunciation>/dɪk/</pronunciation>
+        <audioName>dick</audioName>
+        <meanings>
+            <meaning wordMeaningSource="google-translate" exampleSentenceSource="" comment="Google score=[0.10215643]">
+                <wordMeaning>kutas</wordMeaning>
+                <exampleSentence></exampleSentence>
+                <imgName></imgName>
+            </meaning>
+            <meaning wordMeaningSource="google-translate" exampleSentenceSource="" comment="Google score=[0.021413151]">
+                <wordMeaning>chuj</wordMeaning>
+                <exampleSentence></exampleSentence>
+                <imgName></imgName>
+            </meaning>
+        </meanings>
+    </translation>
+    <translation>
+        <foreignWord>fuck</foreignWord>
+        <pronunciation>/fʌk/</pronunciation>
+        <audioName>fuck</audioName>
+        <meanings>
+            <meaning wordMeaningSource="google-translate" exampleSentenceSource="" comment="Google score=[0.11396374]">
+                <wordMeaning>pierdolić</wordMeaning>
+                <exampleSentence></exampleSentence>
+                <imgName></imgName>
+            </meaning>
+            <meaning wordMeaningSource="google-translate" exampleSentenceSource="" comment="Google score=[0.110457435]">
+                <wordMeaning>pieprzyć</wordMeaning>
+                <exampleSentence></exampleSentence>
+                <imgName></imgName>
+            </meaning>
+        </meanings>
+    </translation>
+    <translation>
+        <foreignWord>himself</foreignWord>
+        <pronunciation>/hɪmˈsɛlf/</pronunciation>
+        <audioName>himself</audioName>
+        <meanings>
+            <meaning wordMeaningSource="google-translate" exampleSentenceSource="" comment="Google score=[0.43009463]">
+                <wordMeaning>się</wordMeaning>
+                <exampleSentence></exampleSentence>
+                <imgName></imgName>
+            </meaning>
+            <meaning wordMeaningSource="google-translate" exampleSentenceSource="" comment="Google score=[0.30978554]">
+                <wordMeaning>sam</wordMeaning>
+                <exampleSentence></exampleSentence>
+                <imgName></imgName>
+            </meaning>
+            <meaning wordMeaningSource="google-translate" exampleSentenceSource="" comment="Google score=[0.29559943]">
+                <wordMeaning>sobie</wordMeaning>
+                <exampleSentence></exampleSentence>
+                <imgName></imgName>
+            </meaning>
+            <meaning wordMeaningSource="google-translate" exampleSentenceSource="" comment="Google score=[0.2649736]">
+                <wordMeaning>siebie</wordMeaning>
+                <exampleSentence></exampleSentence>
+                <imgName></imgName>
+            </meaning>
+        </meanings>
+    </translation>
+</wordList>

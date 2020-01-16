@@ -128,7 +128,7 @@ public class WordList {
     }
 
 
-    public Meaning findMeaning(Translation translation, String wordMeaning) {
+    public static Meaning findMeaning(Translation translation, String wordMeaning) {
         var meanings = translation.getMeanings().stream().filter(m -> m.getWordMeaning().equals(wordMeaning)).collect(toList());
         if (meanings.isEmpty()) {
             return null;

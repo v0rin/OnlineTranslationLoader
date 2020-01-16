@@ -229,48 +229,45 @@ public class IntToStr
 
 https://sourceforge.net/projects/synonimy/files/synonimy/1.5/OOo2-Thesaurus-1.5.zip/download
 
-potencjalnie przepuscic polski przez synonimy (moze nawet te przesadne), potem manualnie przejsc przez sugestie
+miec liste problematycznych slowek, na ktore trzeba zwrocic szczegolna uwage - mysle, ze moze ich byc mniej niz np. 50:
+  potencjalnie to uprosci tworzenie listy
+  wulgarne, dick, fuck, cunt, cock, bitch
+  ze slashem
+    a / an
+    okay / OK
+  te z duza ilosci meanings dziwnych
+    get, go, like, right
+  may, you, himself, one
 
-synonimy z google dla hiszpanskiego
 
-moze lepiej wyjsc z duzej ilosci tlumaczen i potem pozwolic translatorowi usunac synonimy i malo uzywane znaczenia?
-    jaki bylby rezultat jezel slowo jest co najmniej w 2 slownikach + moje polskie tlumaczenia
-    ciekawe ile byloby tlumaczen
-
-potem uzyc ta polska liste do tworzenia hiszpanskiej
-z hiszpanska zrobic to samo, przepuscic przez synonimy i potem manualnie zweryfikowac sugestie
-    moglbym tez zrobic tak, ze przeslac liste sugestii do translatora zeby on juz ocenil czy maja sens
 
 Weryfikacje-tlumaczen:
+  luzne uwagi:
+    lepiej wyjsc z wiekszej ilosci tlumaczen i potem pozwolic translatorowi usunac synonimy i malo uzywane znaczenia?
 
-  try to use synonyms to possibly reduce number of meanings in polish
+  bugs:
+    jest jakis blad dla mezquino - zly source
+    derecho/a - tylko word-reference source i bez komentarzy ze nie ma w innych??
 
-  what about using my polish as a reference point, after all processing checking if all the meanings are covered by using spanish to polish
+  hiszpanskie meanings - wyglada ze linguee i wr maja bardzo duzo meanings, trzeba by to jakos ograniczyc dodatkowymi warunkami (w stosunku do pl)
 
-  slowo jest co najmniej w dwoch slownikach + znaczenia z mojej polskiej listy
-  alert jezeli nie ma w MostCommonWords, ale nie usuwac
-  remove synonyms
+  select example sentences
+  dodac example sentences z https://tatoeba.org/eng/sentences_lists/index
+  zrobic alerty (postprocessing) ale nie usuwac, zostawic to translatorowi
+    szczegolne slowo
+    not in MOST_COMMON_WORDS
+    only one source
+    problem z example sentence
 
-  moze wordreference jako zrodlo wyjsciowe?
+  popraw polska liste
+  przepusc polski przez synonimy (te przesadne), potem manualnie przejdz przez sugestie
+    uzyc ta polska liste do weryfikacji brakujacych meanings w innych jezykach
 
-  synonimy - spanish
-
-
-  possibly refactor so the data is pulled as it is needed and I don't need to prepare the wordlists, synonyms etc.
-  refactor WordListProcessor so it is more modular and configurable if it makes sense
-  refactor TranslationLoader, TranslationDataParser and downloader into:
-    DataDownloader, CacheDownloaderDecorator, DataDownloader, DataLoader takes DataProcessor and CacheDownloader,
-    publisher is passed to DataProcessor directly
-    this can be theoretically used for any data downloading and processing
-    probably add ProxyDownloaderDecorator
-
-
-  zmergowac and check, cross-check translations and example sentences - ustawic alerty gdzie sa problemy
-  zrobic test moich 34 slowek z polskim
 
 meanings:
    - remove synonyms
-   - has to be in SpanishCombined2954.txt (it is Spanish1kNeri i Spanish3kAndki2134488481)
+   - - two or more words
+   - has to be in MostCommonWords
    - search for () and other weird characters, search for spaces (two or more words)
    - cannot be more than 3 meanings - it is the first 1000 words - don't make it too complicated
    - often should be just one - I would assume at least 2/3
@@ -293,8 +290,16 @@ ale to na samym koncu - jak juz bede mial decolowa liste to wtedy bedzie jakas s
 
 
 TODO:
-  move the app to bestwords
+  REFACTORING: (na pozniej)
+    possibly refactor so the data is pulled as it is needed and I don't need to prepare the wordlists, synonyms etc.
+    refactor WordListProcessor so it is more modular and configurable if it makes sense
+    refactor TranslationLoader, TranslationDataParser and downloader into:
+      DataDownloader, CacheDownloaderDecorator, DataDownloader, DataLoader takes DataProcessor and CacheDownloader,
+      publisher is passed to DataProcessor directly
+      this can be theoretically used for any data downloading and processing
+      probably add ProxyDownloaderDecorator
 
+  move the app to bestwords
 
 Tool-do-redagowania-wordlisty:
   nie zrobic z tego zbyt skomplikowanego zadania - zrob pierwsza czesc do tego pierwszego jezyka, z kolejnymi jezykami bedziesz dodawal kolejne elementy

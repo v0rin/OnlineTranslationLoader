@@ -11,6 +11,7 @@ import java.io.InputStream;
 import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.function.Function;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -26,20 +27,31 @@ public class LingueeParser implements TranslationDataParser {
 
     private static final Logger LOG = Logger.get(LingueeParser.class);
 
+    private final Function<String, String> meaningSanitizer;
+
+    public LingueeParser(Function<String, String> meaningSanitizer) {
+        this.meaningSanitizer = meaningSanitizer;
+    }
+
     @Override
     public void parseAndPublish(WordInfo wordInfo,
                                 InputStream translationData,
                                 TranslationPublisher translationPublisher) throws IOException {
         Document doc = Jsoup.parse(translationData, StandardCharsets.UTF_8.name(), "");
 
-        Elements rows = doc.select("div.translation_lines > div.translation");
+        Elements rows = doc.select("div.translation_lines > div.translation, div.translation_lines > div.translation_group > div.translation_group_line");
+        for (var iter = rows.iterator(); iter.hasNext();) {
+            if (!iter.next().select("span.notascommon").isEmpty()) {
+                iter.remove();
+            }
+        }
+        rows = rows.select("div.translation");
 
         var addedMeaninigs = new HashSet<String>();
         var sentences = new ArrayList<String>();
-        var iter = rows.iterator();
-        while (iter.hasNext()) {
+        for (var iter = rows.iterator(); iter.hasNext();) {
             var row = iter.next();
-            var meaningElem = row.select("h3.translation_desc > span.tag_trans > a.dictLink[id~=dictEntry]");
+            var meaningElem = row.select(".translation_desc > span.tag_trans > a.dictLink[id~=dictEntry]");
             Matcher matcher = MEANING_PATTERN.matcher(meaningElem.toString());
             String meaning;
             if (matcher.find()) {
@@ -59,6 +71,7 @@ public class LingueeParser implements TranslationDataParser {
                 sentences.add(Util.createExampleSentence(foreignSentenceRows.get(i).text(), translatedSentenceRows.get(i).text()));
             }
 
+            meaning = meaningSanitizer.apply(meaning);
             if (!addedMeaninigs.contains(meaning)) {
                 translationPublisher.addMeaning(wordInfo.getForeignWord(), meaning, LINGUEE_SOURCE);
                 addedMeaninigs.add(meaning);

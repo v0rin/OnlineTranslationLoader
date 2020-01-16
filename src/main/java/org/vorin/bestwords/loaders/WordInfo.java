@@ -19,7 +19,7 @@ public class WordInfo {
     }
 
     public String getParsedForeignWord() {
-        return LangUtil.getParsedForeignWord(foreignWord);
+        return LangUtil.sanitizeWord(foreignWord);
     }
 
     public String getWordMeaning() {

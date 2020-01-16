@@ -8,42 +8,42 @@ import static org.junit.Assert.*;
 public class LangUtilTest {
 
     @Test
-    public void getParsedForeignWord() {
-        assertThat(LangUtil.getParsedForeignWord("a / an"), is("a"));
-        assertThat(LangUtil.getParsedForeignWord("okay / OK"), is("okay"));
-        assertThat(LangUtil.getParsedForeignWord("almost = nearly"), is("almost"));
-        assertThat(LangUtil.getParsedForeignWord("almost (nearly)"), is("almost"));
-        assertThat(LangUtil.getParsedForeignWord("bitch"), is("bitch"));
+    public void sanitizeWord() {
+        assertThat(LangUtil.sanitizeWord("a / an"), is("a"));
+        assertThat(LangUtil.sanitizeWord("okay / OK"), is("okay"));
+        assertThat(LangUtil.sanitizeWord("almost = nearly"), is("almost"));
+        assertThat(LangUtil.sanitizeWord("almost (nearly)"), is("almost"));
+        assertThat(LangUtil.sanitizeWord("bitch"), is("bitch"));
     }
 
     @Test
     public void santizeSpanishMeaning() {
-        assertThat(LangUtil.santizeSpanishMeaning("tener la intención"), is("tener la intención"));
-        assertThat(LangUtil.santizeSpanishMeaning("llevar algo a"), is("llevar"));
-        assertThat(LangUtil.santizeSpanishMeaning("querer decir"), is("querer decir"));
-        assertThat(LangUtil.santizeSpanishMeaning("hacer algo a propósito"), is("hacer"));
-        assertThat(LangUtil.santizeSpanishMeaning("significar que"), is("significar"));
-        assertThat(LangUtil.santizeSpanishMeaning("querer decir que"), is(""));
-        assertThat(LangUtil.santizeSpanishMeaning("referirse a"), is("referirse"));
-        assertThat(LangUtil.santizeSpanishMeaning("mezquino/a"), is("mezquino/a"));
-        assertThat(LangUtil.santizeSpanishMeaning("hacer venir a"), is(""));
-        assertThat(LangUtil.santizeSpanishMeaning("hacerle a alguien hacer algo"), is("hacerle"));
-        assertThat(LangUtil.santizeSpanishMeaning("amar hacer algo"), is(""));
-        assertThat(LangUtil.santizeSpanishMeaning("-"), is(""));
-        assertThat(LangUtil.santizeSpanishMeaning("tener la ocasión de"), is(""));
-        assertThat(LangUtil.santizeSpanishMeaning("de la misma manera"), is(""));
-        assertThat(LangUtil.santizeSpanishMeaning("a la derecha"), is("a la derecha"));
-        assertThat(LangUtil.santizeSpanishMeaning("lo bueno"), is("lo bueno"));
-        assertThat(LangUtil.santizeSpanishMeaning("la derecha"), is("la derecha"));
-        assertThat(LangUtil.santizeSpanishMeaning("encargarse de"), is("encargarse"));
-        assertThat(LangUtil.santizeSpanishMeaning("ayudar a alguien con"), is("ayudar"));
-        assertThat(LangUtil.santizeSpanishMeaning("ayudar con"), is("ayudar"));
-        assertThat(LangUtil.santizeSpanishMeaning("ayudar en"), is("ayudar"));
-        assertThat(LangUtil.santizeSpanishMeaning("loco de"), is("loco"));
-        assertThat(LangUtil.santizeSpanishMeaning("tomar el pelo"), is("tomar el pelo"));
-        assertThat(LangUtil.santizeSpanishMeaning("un montón"), is("un montón"));
-        assertThat(LangUtil.santizeSpanishMeaning("el cual"), is("el cual"));
-        assertThat(LangUtil.santizeSpanishMeaning("hijo de puta"), is("hijo de puta"));
+        assertThat(LangUtil.sanitizeSpanishMeaning("tener la intención"), is("tener la intención"));
+        assertThat(LangUtil.sanitizeSpanishMeaning("llevar algo a"), is("llevar"));
+        assertThat(LangUtil.sanitizeSpanishMeaning("querer decir"), is("querer decir"));
+        assertThat(LangUtil.sanitizeSpanishMeaning("hacer algo a propósito"), is("hacer"));
+        assertThat(LangUtil.sanitizeSpanishMeaning("significar que"), is("significar"));
+        assertThat(LangUtil.sanitizeSpanishMeaning("querer decir que"), is(""));
+        assertThat(LangUtil.sanitizeSpanishMeaning("referirse a"), is("referirse"));
+        assertThat(LangUtil.sanitizeSpanishMeaning("mezquino/a"), is("mezquino/a"));
+        assertThat(LangUtil.sanitizeSpanishMeaning("hacer venir a"), is(""));
+        assertThat(LangUtil.sanitizeSpanishMeaning("hacerle a alguien hacer algo"), is("hacerle"));
+        assertThat(LangUtil.sanitizeSpanishMeaning("amar hacer algo"), is(""));
+        assertThat(LangUtil.sanitizeSpanishMeaning("-"), is(""));
+        assertThat(LangUtil.sanitizeSpanishMeaning("tener la ocasión de"), is(""));
+        assertThat(LangUtil.sanitizeSpanishMeaning("de la misma manera"), is(""));
+        assertThat(LangUtil.sanitizeSpanishMeaning("a la derecha"), is("a la derecha"));
+        assertThat(LangUtil.sanitizeSpanishMeaning("lo bueno"), is("lo bueno"));
+        assertThat(LangUtil.sanitizeSpanishMeaning("la derecha"), is("la derecha"));
+        assertThat(LangUtil.sanitizeSpanishMeaning("encargarse de"), is("encargarse"));
+        assertThat(LangUtil.sanitizeSpanishMeaning("ayudar a alguien con"), is("ayudar"));
+        assertThat(LangUtil.sanitizeSpanishMeaning("ayudar con"), is("ayudar"));
+        assertThat(LangUtil.sanitizeSpanishMeaning("ayudar en"), is("ayudar"));
+        assertThat(LangUtil.sanitizeSpanishMeaning("loco de"), is("loco"));
+        assertThat(LangUtil.sanitizeSpanishMeaning("tomar el pelo"), is("tomar el pelo"));
+        assertThat(LangUtil.sanitizeSpanishMeaning("un montón"), is("un montón"));
+        assertThat(LangUtil.sanitizeSpanishMeaning("el cual"), is("el cual"));
+        assertThat(LangUtil.sanitizeSpanishMeaning("hijo de puta"), is("hijo de puta"));
     }
 
     @Test

@@ -84,6 +84,9 @@ public class WordReferenceParser implements TranslationDataParser {
                 String[] meaningsArr = value.split(",");
                 for (String meaning : meaningsArr) {
                     meaning = meaningSanitizer.apply(meaning.trim());
+                    if (meaning.contains("translation unavailable")) {
+                        continue;
+                    }
                     if (!isNullOrEmpty(meaning)) {
                         if (!addedMeaninigs.contains(meaning) && !isMeaningToDiscard) {
                             translationPublisher.addMeaning(wordInfo.getForeignWord(), meaning, WORD_REFERENCE_SOURCE);

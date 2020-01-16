@@ -16,7 +16,7 @@ import static org.vorin.bestwords.AppConfig.RES_DIR;
 
 public class EnEsTranslationLoaderApp {
 
-    private static final Logger LOG = Logger.get(EnPlTranslationLoaderApp.class);
+    private static final Logger LOG = Logger.get(TranslationLoaderApp.class);
 
     public static void main(String... argvs) throws IOException {
 //        createWordLists();
@@ -26,10 +26,10 @@ public class EnEsTranslationLoaderApp {
     private static void processWordList() throws IOException {
         var w = WordList.loadFromXml(new File(RES_DIR + "EN_ES-GoogleTranslateWordList.xml"));
 
-        var wordListProcessor = new WordListProcessor(Dictionary.EN_ES);
+        var wordListProcessor = new WordListProcessor(Dictionary.EN_ES, null);
         int wordsWithProblemsCount = 0;
         for (var t : w.getTranslations()) {
-            if(!wordListProcessor.processTranslation(t)) {
+            if(!wordListProcessor.processMeaningsForTranslation(t)) {
                 wordsWithProblemsCount++;
             }
         }
@@ -73,7 +73,7 @@ public class EnEsTranslationLoaderApp {
     private static void createWordReferenceWordList(Dictionary dict, List<WordInfo> wordInfos, String outputXml) throws IOException {
         var xmlPublisher = new XmlTranslationPublisher(new File(RES_DIR + outputXml));
         var downloader = new WordReferenceDownloader(dict);
-        var parser = new WordReferenceParser(dict, LangUtil::santizeSpanishMeaning);
+        var parser = new WordReferenceParser(dict, LangUtil::sanitizeSpanishMeaning);
         var loader = new TranslationLoader(downloader, parser, xmlPublisher, true);
 
         loader.load(wordInfos);
@@ -84,7 +84,7 @@ public class EnEsTranslationLoaderApp {
     private static void createLingueeWordList(Dictionary dict, List<WordInfo> wordInfos, String outputXml) throws IOException {
         var xmlPublisher = new XmlTranslationPublisher(new File(RES_DIR + outputXml));
         var downloader = new LingueeDownloader(dict);
-        var parser = new LingueeParser();
+        var parser = new LingueeParser(LangUtil::sanitizeSpanishMeaning);
         var loader = new TranslationLoader(downloader, parser, xmlPublisher, true);
 
         loader.load(wordInfos);

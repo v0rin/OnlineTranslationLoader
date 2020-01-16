@@ -6,6 +6,7 @@ import org.junit.Test;
 import org.vorin.bestwords.AppConfig;
 import org.vorin.bestwords.model.WordList;
 import org.vorin.bestwords.util.Dictionary;
+import org.vorin.bestwords.util.LangUtil;
 
 import java.io.*;
 import java.nio.charset.StandardCharsets;
@@ -23,7 +24,7 @@ public class LingueeTest {
     public void parseAndPublish() throws IOException {
         // given
         var publisher = new XmlTranslationPublisher(null);
-        var parser = new LingueeParser();
+        var parser = new LingueeParser(LangUtil::sanitizeSpanishMeaning);
 
         var expectedWordList = new WordList();
         expectedWordList.addMeaning(TEST_WORD_INFO.getForeignWord(), "poder", LINGUEE_SOURCE);

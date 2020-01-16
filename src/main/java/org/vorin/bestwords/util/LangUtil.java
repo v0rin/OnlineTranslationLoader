@@ -12,11 +12,7 @@ public class LangUtil {
         return split[1] + " - " + split[0];
     }
 
-    public static String getParsedForeignWord(String word) {
-        int equalCharIdx = word.indexOf("=");
-        int slashIdx = word.indexOf("/");
-        int bracketIdx = word.indexOf("(");
-
+    public static String sanitizeWord(String word) {
         int minIdx = Stream.of(word.indexOf("="),
                                word.indexOf("/"),
                                word.indexOf("(")).filter(i -> i > -1).min(Integer::compareTo).orElse(-1);
@@ -28,6 +24,14 @@ public class LangUtil {
             return word;
         }
     }
+
+
+    public static String sanitizePolishMeaning(String meaning) {
+        String cos = LangUtil.hexStringToUtf8String("63 6f c5 9b"); // coś - https://onlineutf8tools.com/convert-utf8-to-bytes
+        meaning = meaning.trim().replace(cos, "").trim();
+        return meaning;
+    }
+
 
     /**
      * 1. if matches the below remove
@@ -54,7 +58,7 @@ public class LangUtil {
      * word el word
      *
      */
-    public static String santizeSpanishMeaning(String meaning) {
+    public static String sanitizeSpanishMeaning(String meaning) {
         meaning = meaning.trim();
 
         // 1.

@@ -2,6 +2,7 @@ package org.vorin.bestwords.loaders;
 
 import com.google.common.base.Stopwatch;
 import org.apache.commons.io.IOUtils;
+import org.vorin.bestwords.util.CacheFileNameProvider;
 import org.vorin.bestwords.util.Logger;
 
 import java.io.*;
@@ -23,6 +24,7 @@ public class TranslationLoader {
     private final TranslationPublisher translationPublisher;
     private final boolean useCache;
     private final long waitBetweenRequestsMs;
+    private final CacheFileNameProvider cacheFileNameProvider = new CacheFileNameProvider();
 
     private Stopwatch requestStopwatch;
 
@@ -99,7 +101,11 @@ public class TranslationLoader {
     }
 
     private File getCacheFileForWord(String word) {
-        return new File(CACHES_DIR + translationDataParser.getSource() + "-cache-" + translationDataDownloader.getDictionary() + "/" + word);
+        return new File(CACHES_DIR +
+                translationDataParser.getSource() +
+                "-cache-" +
+                translationDataDownloader.getDictionary() + "/" +
+                cacheFileNameProvider.getFileName(word));
     }
 
 }
