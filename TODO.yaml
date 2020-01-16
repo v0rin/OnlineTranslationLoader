@@ -1,3 +1,232 @@
+/**
+ * User: Adam Fokczynski (c52182)
+ * Date: 16/01/2020
+ */
+public class Anagram
+{
+    public static void main(String[] args)
+    {
+        findAnagrams("test", new String[]{""});
+        findAnagrams("test", new String[]{"test", "etst", "adam"});
+    }
+
+    public static void findAnagrams(String word, String[] words) {
+        if (word.isEmpty()) return;
+        for (String w : words) {
+            if (isAnagram(word, w)) {
+                System.out.println(w);
+            }
+        }
+    }
+
+    public static boolean isAnagram(String w1, String w2) {
+        if (w1.length() != w2.length()) {
+            return false;
+        }
+
+        for (char c : w1.toCharArray()) {
+            if (w2.indexOf(c) < 0) {
+                return false;
+            }
+        }
+        for (char c : w2.toCharArray()) {
+            if (w1.indexOf(c) < 0) {
+                return false;
+            }
+        }
+        return true;
+    }
+}
+
+
+/**
+ * User: Adam Fokczynski (c52182)
+ * Date: 16/01/2020
+ */
+public class ArraySplit
+{
+    //  [5, 5, 2, 3, 5, 1, 6] and x being "5", the function should return "4"
+    public static void main(String[] args)
+    {
+        // array empty
+        // number doesn't exist
+        // all the same numbers (looked for)
+        System.out.println(split(new int[]{5, 5, 2, 3, 5, 1, 6}, 5) + " -> 3");
+        System.out.println(split(new int[]{5, 5, 2, 3, 4, 5, 5, 1, 6}, 5) + " -> 4");
+        System.out.println(split(new int[]{}, 5) + " -> -1");
+        System.out.println(split(new int[]{5, 5, 5}, 5) + " -> -1");
+        System.out.println(split(new int[]{5, 5, 2, 3, 5, 1, 6}, 8) + " -> 6");
+
+        System.out.println(split(new int[]{5, 5, 1, 7, 2, 3, 5}, 5) + " -> 4");
+        System.out.println(split(new int[]{1, 15, 5, 51, 4, 7, 9, 1, 3, 4, 5, 8, 9, 6, 3, 5, 4, 7, 6, 5, 5}, 5) + " -> 4");
+        System.out.println(split(new int[]{1, 1, 1, 1, 1, 1}, 5) + " -> -1");
+        System.out.println(split(new int[]{5, 5, 5, 5, 5, 5, 5}, 5) + " -> -1");
+    }
+    private static int split(int[] arr, int k) {
+        int totalKCount = 0;
+        for (int i = 0; i < arr.length; i++)
+        {
+            if (arr[i] == k) totalKCount++;
+        }
+        int kCount = 0;
+        for (int i = 0; i < arr.length; i++)
+        {
+            int curr = arr[i];
+            if (arr[i] == k) kCount++;
+            int notKCount = (arr.length - i - 1) - (totalKCount - kCount);
+
+            if (kCount == notKCount) return i;
+        }
+
+        return -1;
+    }
+}
+
+
+
+/**
+ * User: Adam Fokczynski (c52182)
+ * Date: 16/01/2020
+ */
+public class IntToNegabinary
+{
+    public static void main(String[] args)
+    {
+        System.out.println(negativeBase(11, -2));
+        System.out.println(int2NegativeBase(11, -2));
+        System.out.println(negativeBase(18, -2));
+        System.out.println(int2NegativeBase(18, -2));
+        System.out.println(negativeBase(-11, -2));
+        System.out.println(int2NegativeBase(-11, -2));
+        System.out.println(negativeBase(-18, -2));
+        System.out.println(int2NegativeBase(-18, -2));
+    }
+
+    private static String int2NegativeBase(int i, int base) {
+        StringBuilder sb = new StringBuilder();
+        int reminder = 0;
+        while (i != 0) {
+            reminder = i % base;
+            if (i > 0) {
+                i = (i - reminder) / base;
+                sb.append(reminder);
+            }
+            else {
+                i = (i + reminder) / base;
+                sb.append(-1*reminder);
+            }
+        }
+
+        return sb.reverse().toString();
+    }
+
+    private static String negativeBase(int integer, int base) {
+        String result = "";
+        int number = integer;
+        while (number != 0) {
+            int i = number % base;
+            number /= base;
+            if (i < 0) {
+                i += Math.abs(base);
+                number++;
+            }
+
+            result = i + result;
+        }
+
+        return result;
+    }
+}
+
+
+import java.util.StringJoiner;
+
+/**
+ * User: Adam Fokczynski (c52182)
+ * Date: 16/01/2020
+ */
+public class IntToStr
+{
+    public static void main(String[] args)
+    {
+        System.out.println(intToStr(4334));
+        System.out.println(intToStr(-4334));
+        System.out.println(intToStr(0));
+
+        System.out.println(intToStr2(4334));
+        System.out.println(intToStr2(-4334));
+        System.out.println(intToStr2(0));
+
+        System.out.println(intToStr3(4334));
+        System.out.println(intToStr3(-4334));
+        System.out.println(intToStr3(0));
+    }
+
+    private static String intToStr(int i) {
+        String.valueOf(i);
+        StringJoiner joiner = new StringJoiner(", ");
+        if (i < 0) {
+            joiner.add("-");
+            i *= -1;
+        }
+        int digits = 0;
+        while (Math.pow(10, ++digits + 1) < i) {}
+        int dividor = (int)Math.pow(10, digits);
+        while (digits-- >= 0) {
+            int digit = i/dividor;
+            i = i%dividor;
+            joiner.add(Integer.toString(digit));
+            dividor /= 10;
+        }
+        return joiner.toString();
+    }
+
+    private static String intToStr2(int i) {
+        String.valueOf(i);
+        StringJoiner joiner = new StringJoiner(", ");
+        if (i < 0) {
+            joiner.add("-");
+            i *= -1;
+        }
+        int digits = 0;
+        while (Math.pow(10, ++digits) < i) {}
+
+        int[] digitsArr = new int[digits];
+
+        int j = 0;
+        while (i > 0) {
+            digitsArr[j++] = i%10;
+            i /= 10;
+        }
+
+        for (int k : digitsArr) {
+            joiner.add(Integer.toString(k));
+        }
+        return joiner.toString();
+    }
+
+    private static String intToStr3(int i) {
+        String.valueOf(i);
+        StringBuilder sb = new StringBuilder("");
+        String negative = "";
+        if (i < 0) {
+            negative = "-, ";
+            i *= -1;
+        }
+        while (i > 0) {
+            sb.append(i%10);
+            i /= 10;
+            if (i > 0) {
+                sb.append(", ");
+            }
+        }
+
+        return negative + sb.reverse().toString();
+    }
+}
+
+
+
 https://sourceforge.net/projects/synonimy/files/synonimy/1.5/OOo2-Thesaurus-1.5.zip/download
 
 potencjalnie przepuscic polski przez synonimy (moze nawet te przesadne), potem manualnie przejsc przez sugestie
