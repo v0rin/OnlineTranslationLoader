@@ -1,3 +1,100 @@
+import java.util.Arrays;
+
+import static java.lang.String.format;
+
+/**
+problem I needed to solve was to find the number of circular primes with in a range N.
+If N = 100, there are 13 circular primes. (97 and 79 are primes so both would count as circular prime)
+I used sieve to find prime numbers
+ */
+public class CircularPrimes
+{
+    public static void main(String[] args)
+    {
+        CircularPrimes primes = new CircularPrimes();
+
+        long start = System.nanoTime();
+        boolean isCircular = primes.isPrimeCircular(113, primes.getPrimes(999));
+        long elapsed = System.nanoTime() - start;
+        System.out.println(format("elapsed=%s, isCircular=%s", elapsed, isCircular));
+
+//        primes.findCircularPrimeCount(1597);
+    }
+
+    private int findCircularPrimeCount(int n) {
+        // create list of primes in 1-n
+        int maxN = (int)Math.pow(10, Integer.toString(n).length()) - 1;
+        boolean[] primes = getPrimes(maxN);
+        // for each prime check all the permutations of digits if they are in the list (binary search)
+        int circularPrimeCount = 0;
+        for (int i = 0; i <= n; i++)
+        {
+            if (isPrimeCircular(i, primes)) {
+                circularPrimeCount++;
+                System.out.print(i + " ");
+            }
+
+        }
+        return circularPrimeCount;
+    }
+
+    private boolean isPrimeCircular(int prime, boolean[] primes)
+    {
+        int digitCount = 0;
+        int tmpPrime = prime;
+        while (tmpPrime > 0) {
+            digitCount++;
+            tmpPrime /= 10;
+        }
+
+        int num = prime;
+        for (int i = 0; i < digitCount; i++)
+        {
+            num = getNextCircularNum(num, digitCount); // 1597, 7159, 9715, 5971
+            if (!primes[num]) {
+                return false;
+            }
+        }
+
+        return true;
+    }
+
+    private int getNextCircularNum(int num, int digitCount) {
+        int lastDigit = num % 10;
+        num /= 10;
+        int firstPart = 0;
+        int digitNo = 0;
+        while (num > 0) {
+            firstPart += num%10 * Math.pow(10, digitNo++);
+            num /= 10;
+        }
+        return (int)(lastDigit * Math.pow(10, digitCount-1) + firstPart);
+    }
+
+    private boolean[] getPrimes(int n) {
+        // sieve of erathosthenes
+        boolean[] primes = new boolean[n + 1];
+        Arrays.fill(primes, Boolean.TRUE);
+        primes[0] = false;
+        primes[2] = true;
+
+        for (int i = 2; i <= n; i++)
+        {
+            int primeCountInThisPass = 0;
+            for (int j = 2; i*j <= n; j++)
+            {
+                primes[i*j] = false;
+                primeCountInThisPass++;
+            }
+            if (primeCountInThisPass == 0) {
+                break;
+            }
+        }
+        return primes;
+    }
+
+}
+
 /**
  * User: Adam Fokczynski (c52182)
  * Date: 16/01/2020
