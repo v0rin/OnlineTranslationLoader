@@ -1,0 +1,666 @@
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Comparator;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
+import java.util.concurrent.ThreadLocalRandom;
+
+/**
+ * User: Adam Fokczynski (c52182)
+ * Date: 24/01/2020
+ */
+public class IntersectingDiscs {
+
+    public static void main(String[] args)
+    {
+        System.out.println(solution(new int[]{10}) + " - expected is 0");
+        System.out.println(solution(new int[]{}) + " - expected is 0");
+        System.out.println(solution(new int[]{1, 5, 2, 1, 4, 0}) + " - expected is 11");
+        System.out.println(solution(new int[]{1, 1, 1}) + " - expected is 3");
+        System.out.println(solution(new int[]{1, 2147483647, 0}) + " - expected is 2");
+        System.out.println(solution(randomIntArr(100_000)) + " - expected is 2");
+    }
+
+    public static int[] randomIntArr(int size) {
+        int[] arr = new int[size];
+        for (int i = 0; i < arr.length; i++)
+        {
+            arr[i] = ThreadLocalRandom.current().nextInt(0, Integer.MAX_VALUE);
+        }
+        return arr;
+    }
+
+    public static int solution(int[] A) {
+        Set<Long> openCircles = new HashSet<>();
+
+        int[][] lowerRanges = new int[A.length][2];
+        long[][] upperRanges = new long[A.length][2];
+        for (int i = 0; i < A.length; i++)
+        {
+            int lowerRange = i - A[i];
+            long upperRange = (long)i + A[i];
+
+            lowerRanges[i][0] = lowerRange;
+            lowerRanges[i][1] = i;
+            upperRanges[i][0] = upperRange;
+            upperRanges[i][1] = i;
+        }
+
+        Arrays.sort(lowerRanges, new Comparator<int[]>() {
+            public int compare(int[] a, int[] b) {
+                return Integer.compare(a[0], b[0]);
+            }
+        });
+        Arrays.sort(upperRanges, new Comparator<long[]>() {
+            public int compare(long[] a, long[] b) {
+                return Long.compare(a[0], b[0]);
+            }
+        });
+
+        long i;
+        int j = 0;
+        int k = 0;
+        int count = 0;
+        while (true) {
+            if (j < lowerRanges.length) {
+                i = Math.min(lowerRanges[j][0], upperRanges[k][0]);
+            }
+            else if (k < lowerRanges.length){
+                i = upperRanges[k][0];
+            }
+            else {
+                break;
+            }
+            while (j < lowerRanges.length && i == lowerRanges[j][0]) {
+                count += openCircles.size();
+                if (count > 10_000_000) {
+                    return -1;
+                }
+                openCircles.add((long)lowerRanges[j][1]);
+                j++;
+            }
+            while (i == upperRanges[k][0]) {
+                openCircles.remove(upperRanges[k][1]);
+                k++;
+                if (k >= upperRanges.length) {
+                    break;
+                }
+            }
+        }
+
+        return count;
+    }
+
+    public static int solution4(int[] A) {
+        List<Set<Long>> pairs = new ArrayList<>();
+        Set<Long> openCircles = new HashSet<>();
+
+        long[][] lowerRanges = new long[A.length][2];
+        long[][] upperRanges = new long[A.length][2];
+        for (int i = 0; i < A.length; i++)
+        {
+            long lowerRange = (long)i - A[i];
+            long upperRange = (long)i + A[i];
+
+            lowerRanges[i][0] = lowerRange;
+            lowerRanges[i][1] = i;
+            upperRanges[i][0] = upperRange;
+            upperRanges[i][1] = i;
+        }
+
+        Comparator<long[]> comparator = new Comparator<long[]>() {
+            public int compare(long[] a, long[] b) {
+                return Long.compare(a[0], b[0]);
+            }
+        };
+
+        Arrays.sort(lowerRanges, comparator);
+        Arrays.sort(upperRanges, comparator);
+
+        long i;
+        int j = 0;
+        int k = 0;
+        while (true) {
+            if (j < lowerRanges.length) {
+                i = Math.min(lowerRanges[j][0], upperRanges[k][0]);
+            }
+            else {
+                i = upperRanges[k][0];
+            }
+            while (j < lowerRanges.length && i == lowerRanges[j][0]) {
+                for (Long circle : openCircles) {
+                    Set<Long> set = new HashSet<>();
+                    set.add(lowerRanges[j][1]);
+                    set.add(circle);
+                    pairs.add(set);
+                }
+                openCircles.add(lowerRanges[j][1]);
+                j++;
+            }
+            while (i == upperRanges[k][0]) {
+                if (!openCircles.remove(upperRanges[k][1])) {
+                    throw new RuntimeException("Should not happen");
+                }
+                k++;
+                if (k >= upperRanges.length) {
+                    break;
+                }
+            }
+            if (k >= upperRanges.length) {
+                break;
+            }
+        }
+
+        return pairs.size();
+    }
+
+    public static int solution3(int[] A) {
+        int maxDist = A.length;
+        Set<Set<Integer>> set = new HashSet<>();
+        for (int i = 0; i < A.length - 1; i++)
+        {
+            int affected = Math.min(A[i], maxDist - i);
+            for (int j = i + 1; j <= i + affected; j++)
+            {
+                Set set2 = new HashSet<>();
+                set2.add(i);
+                set2.add(j);
+                set.add(set2);
+            }
+        }
+        for (int i = A.length - 1; i >= 1; i--)
+        {
+            int affected = Math.min(A[i], i);
+            for (int j = i - 1; j >= i - 1 - affected ; j--)
+            {
+                Set set2 = new HashSet<>();
+                set2.add(i);
+                set2.add(j);
+                set.add(set2);
+            }
+        }
+
+        return set.size();
+    }
+
+    public static int solution2(int[] A) {
+        long[][] ranges = new long[A.length][2];
+        for (int i = 0; i < A.length; i++)
+        {
+            ranges[i][0] = (long)i - A[i];
+            ranges[i][1] = (long)i + A[i];
+        }
+
+        int intersectCount = 0;
+        for (int i = 0; i < A.length - 1; i++)
+        {
+            for (int j = i + 1; j < A.length; j++)
+            {
+                if (isIntersection(ranges[i][0], ranges[i][1], ranges[j][0], ranges[j][1])) {
+                    intersectCount++;
+                }
+            }
+        }
+
+        return intersectCount;
+    }
+
+    private static boolean isIntersection(long a1, long a2, long b1, long b2) {
+        if (a2 < b1 || b2 < a1) {
+            return false;
+        }
+        return true;
+    }
+}
+
+import org.junit.Test;
+
+import java.util.Arrays;
+
+import static org.hamcrest.core.Is.is;
+import static org.junit.Assert.assertThat;
+
+/**
+ * User: Adam Fokczynski (c52182)
+ * Date: 04/02/2020
+ */
+public class MinAbsSumOfTwo
+{
+    @Test
+    public void test() {
+        int[] sortedBig = Util.randomIntArr(100_000, -1_000_000_000, 1_000_000_000);
+        Arrays.sort(sortedBig);
+        int[] sortedBig2 = new int[100_000];
+        for (int i = 0; i < 100_000; i++)
+        {
+            sortedBig2[i] = 50_000 - 2*i;
+        }
+        long start = System.currentTimeMillis();
+//        assertThat(solution(new int[]{-8, 4, 5, -10, 3}), is(3));
+//        assertThat(solution(new int[]{1, 4, -3}), is(1));
+//        assertThat(solution(new int[]{-1, -1, -1}), is(2));
+//        assertThat(solution(new int[]{-1, -1, -1, -1, -1, -1}), is(2));
+//        assertThat(solution(new int[]{1, 1, 1, 1, 1, 1}), is(2));
+//        assertThat(solution(new int[]{1, 1, -2, -1}), is(0));
+//        assertThat(solution(new int[]{3, 4, -1, -6}), is(2));
+//        assertThat(solution(new int[]{-3, -2, -1, -6}), is(2));
+//        assertThat(solution(new int[]{1_000_000_000}), is(2_000_000_000));
+//        assertThat(solution(new int[]{1_000_000_000, 1_000_000_000}), is(2_000_000_000));
+//        assertThat(solution(new int[]{1_000_000_000, 1_000_000_000, -1_000_000_000}), is(0));
+//        assertThat(solution(Util.randomIntArr(100_000, -1_000_000_000, 1_000_000_000)), is(0));
+//        solution(sortedBig);
+        solution(sortedBig2);
+        System.out.println("elapsed = " + (System.currentTimeMillis() - start));
+    }
+
+    public int solution(int[] A) {
+        // sort
+        if (A.length == 1) {
+            return Math.abs(A[0]) * 2;
+        }
+        Arrays.sort(A);
+
+        // choose the smallest ABS
+        int currMin = Integer.MAX_VALUE;
+        int startIdx = 0;
+        for (startIdx = 0; startIdx < A.length; startIdx++) {
+            int abs = Math.abs(A[startIdx]);
+            if (abs < currMin) {
+                currMin = abs;
+            }
+            else {
+                startIdx--;
+                break;
+            }
+        }
+        if (startIdx == A.length) {
+            startIdx--;
+        }
+        if (A[startIdx] == 0) {
+            return 0;
+        }
+
+        int minSum = Integer.MAX_VALUE;
+        int left = startIdx;
+        int right = startIdx;
+        boolean goRight = true;
+        while (left > 0 || right < A.length - 1) {
+            // go right
+            int right2 = right;
+            int minRightSum = Integer.MAX_VALUE;
+            while (right2 <= A.length - 1) {
+                int newSum = Math.abs(A[left] + A[right2]);
+                if (newSum < minRightSum) {
+                    minRightSum = newSum;
+                    right2++;
+                }
+                else {
+                    break;
+                }
+            }
+
+            // go left
+            int minLeftSum = Integer.MAX_VALUE;
+            int left2 = left;
+            while (left2 >= 0) {
+                int newSum = Math.abs(A[left2] + A[right]);
+                if (newSum < minLeftSum) {
+                    minLeftSum = newSum;
+                    left2--;
+                }
+                else {
+                    break;
+                }
+            }
+
+            if (minSum > Math.min(minRightSum, minLeftSum)) {
+                minSum = Math.min(minRightSum, minLeftSum);
+                if (minSum == 0) {
+                    return 0;
+                }
+            }
+            // check end condition
+            if (goRight && right < A.length - 1) {
+                right++;
+            }
+            else if (left > 0){
+                left--;
+            }
+            goRight = !goRight;
+        }
+        return minSum;
+    }
+
+    public int solution3(int[] A) {
+        if (A.length == 1) {
+            return Math.abs(A[0]) * 2;
+        }
+
+        Arrays.sort(A);
+
+        int currMin = Integer.MAX_VALUE;
+        int startIdx = 0;
+        for (startIdx = 0; startIdx < A.length; startIdx++) {
+            int abs = Math.abs(A[startIdx]);
+            if (abs < currMin) {
+                currMin = abs;
+            }
+            else {
+                startIdx--;
+                break;
+            }
+        }
+        if (startIdx == A.length) {
+            startIdx--;
+        }
+
+        int minSum = Math.abs(A[startIdx])*2;
+        if (minSum == 0) {
+            return 0;
+        }
+        int left = startIdx;
+        int right = startIdx;
+
+        boolean lastMoveRight;
+        if (A[startIdx] >= 0) {
+            if (left > 0) {
+                left--;
+                lastMoveRight = false;
+            }
+            else {
+                return Math.abs(A[startIdx])*2;
+            }
+        }
+        else {
+            if (right < A.length - 1) {
+                right++;
+                lastMoveRight = true;
+            }
+            else {
+                return Math.abs(A[startIdx])*2;
+            }
+        }
+
+        int prevSum = minSum;
+        while (left > 0 || right < A.length - 1) {
+            int newSum = Math.abs(A[left] + A[right]);
+            if (newSum < minSum) {
+                minSum = newSum;
+            }
+            if (minSum == 0) {
+                break;
+            }
+            if (newSum >= prevSum) {
+                if (lastMoveRight) {
+                    if (left > 0) {
+                        left--;
+                        lastMoveRight = false;
+                    }
+                    else {
+                        return minSum;
+                    }
+                }
+                else {
+                    if (right < A.length - 1) {
+                        right++;
+                        lastMoveRight = true;
+                    }
+                    else {
+                        return minSum;
+                    }
+                }
+            }
+            if (newSum <= prevSum) {
+                if (lastMoveRight) {
+                    if (right < A.length - 1) {
+                        right++;
+                        lastMoveRight = true;
+                    }
+                    else {
+                        return minSum;
+                    }
+                }
+                else {
+                    if (left > 0) {
+                        left--;
+                        lastMoveRight = false;
+                    }
+                    else {
+                        return minSum;
+                    }
+                }
+            }
+            prevSum = newSum;
+        }
+
+        return minSum;
+    }
+
+    public int solution2(int[] A) {
+
+        if (A.length == 1) {
+            return Math.abs(A[0]) *2;
+        }
+
+        Arrays.sort(A);
+
+        int currMin = Integer.MAX_VALUE;
+        int startIdx = 0;
+        for (startIdx = 0; startIdx < A.length; startIdx++)
+        {
+            int abs = Math.abs(A[startIdx]);
+            if (abs < currMin) {
+                currMin = abs;
+            }
+            else {
+                startIdx--;
+                break;
+            }
+        }
+        if (startIdx == A.length) {
+            startIdx--;
+        }
+
+        int left = startIdx;
+        int right = startIdx;
+        int minSum = Math.abs(A[startIdx])*2;
+
+        if (minSum == 0) {
+            return 0;
+        }
+
+        boolean lastMoveRight;
+        if (A[startIdx] >= 0) {
+            if (left > 0)
+            {
+                left--;
+                lastMoveRight = false;
+            }
+            else {
+                right++;
+                lastMoveRight = true;
+            }
+        }
+        else {
+            if (right < A.length - 1) {
+                right++;
+                lastMoveRight = true;
+            }
+            else {
+                left--;
+                lastMoveRight = false;
+            }
+        }
+
+        int prevSum = minSum;
+        while (left > 0 || right < A.length - 1) { // possibly &&
+            int newSum = Math.abs(A[left] + A[right]);
+            if (newSum < minSum) {
+                minSum = newSum;
+            }
+            if (minSum == 0) {
+                break;
+            }
+            if (newSum > prevSum) {
+                if (lastMoveRight)
+                {
+                    if (left > 0)
+                    {
+                        left--;
+                        lastMoveRight = false;
+                    }
+                    else if (right < A.length - 1)
+                    {
+                        right++;
+                        lastMoveRight = true;
+                    }
+                    else {
+                        break;
+                    }
+                }
+                else {
+                    if (right < A.length - 1)
+                    {
+                        right++;
+                        lastMoveRight = true;
+                    }
+                    else if (left > 0)
+                    {
+                        left--;
+                        lastMoveRight = false;
+                    }
+                    else {
+                        break;
+                    }
+                }
+            }
+            else {
+                if (lastMoveRight)
+                {
+                    if (right < A.length - 1)
+                    {
+                        right++;
+                        lastMoveRight = true;
+                    }
+                    else if (left > 0)
+                    {
+                        left--;
+                        lastMoveRight = false;
+                    }
+                    else {
+                        break;
+                    }
+                }
+                else {
+                    if (left > 0)
+                    {
+                        left--;
+                        lastMoveRight = false;
+                    }
+                    else if (right < A.length - 1)
+                    {
+                        right++;
+                        lastMoveRight = true;
+                    }
+                    else {
+                        break;
+                    }
+                }
+            }
+            prevSum = newSum;
+        }
+
+        return minSum;
+    }
+}
+
+import java.util.Arrays;
+
+/**
+ * User: Adam Fokczynski (c52182)
+ * Date: 23/01/2020
+ */
+public class GenomicRangeQuery {
+
+    public static int[] solution(String S, int[] P, int[] Q) {
+        int[][] dna = new int[5][S.length() + 1];
+
+        char[] dnaChars = S.toCharArray();
+        for (int i = 1; i <= dnaChars.length; i++) {
+            dna[1][i] = dna[1][i - 1];
+            dna[2][i] = dna[2][i - 1];
+            dna[3][i] = dna[3][i - 1];
+            dna[4][i] = dna[4][i - 1];
+            if (dnaChars[i - 1] == 'A') {
+                dna[0][i] = 1;
+                dna[1][i]++;
+            }
+            else if (dnaChars[i - 1] == 'C') {
+                dna[0][i] = 2;
+                dna[2][i]++;
+            }
+            else if (dnaChars[i - 1] == 'G') {
+                dna[0][i] = 3;
+                dna[3][i]++;
+            }
+            else if (dnaChars[i - 1] == 'T') {
+                dna[0][i] = 4;
+                dna[4][i]++;
+            }
+        }
+
+        int[] results = new int[P.length];
+        for (int i = 0; i < P.length; i++) {
+            if (dna[1][Q[i]+1] > dna[1][P[i]]) results[i] = 1;
+            else if (dna[2][Q[i]+1] > dna[2][P[i]]) results[i] = 2;
+            else if (dna[3][Q[i]+1] > dna[3][P[i]]) results[i] = 3;
+            else if (dna[4][Q[i]+1] > dna[4][P[i]]) results[i] = 4;
+            else {
+                results[i] = dna[0][Q[i]];
+            }
+        }
+
+        return results;
+    }
+
+    public static int[] solution2(String S, int[] P, int[] Q) {
+        int[] dna = new int[S.length()];
+
+        char[] dnaChars = S.toCharArray();
+        for (int i = 0; i < dnaChars.length; i++) {
+            if (dnaChars[i] == 'A') dna[i] = 1;
+            else if (dnaChars[i] == 'C') dna[i] = 2;
+            else if (dnaChars[i] == 'G') dna[i] = 3;
+            else if (dnaChars[i] == 'T') dna[i] = 4;
+        }
+
+        int[] results = new int[P.length];
+        for (int i = 0; i < P.length; i++) {
+            int min = 4;
+            for (int j = P[i]; j <= Q[i]; j++) {
+                if (dna[j] < min) {
+                    min = dna[j];
+                    if (min == 1) {
+                        break;
+                    }
+                }
+            }
+            results[i] = min;
+        }
+
+        return results;
+    }
+
+    public static void main(String[] args) {
+        System.out.println(Arrays.toString(solution("CAGCCTA", new int[]{2, 5, 0}, new int[]{4, 5, 6})) + " - expected [2, 4, 1]");
+        System.out.println(Arrays.toString(solution("AC", new int[]{0, 0, 1}, new int[]{0, 1, 1})) + " - expected [1, 1, 2]");
+    }
+
+}
+
+MinMax
+
+IntToNegbinary
+CiruclarPrimes
+ArraySplit
