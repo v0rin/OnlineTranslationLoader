@@ -659,6 +659,88 @@ public class GenomicRangeQuery {
 
 }
 
+
+import org.junit.Test;
+
+import java.util.Arrays;
+
+import static org.hamcrest.core.Is.is;
+import static org.junit.Assert.assertThat;
+
+/**
+ * https://app.codility.com/programmers/lessons/17-dynamic_programming/number_solitaire/
+ * User: Adam Fokczynski (c52182)
+ * Date: 05/02/2020
+ */
+public class NumberSolitaire
+{
+    @Test
+    public void test()
+    {
+        assertThat(solution(new int[]{-2, 9, 1}), is(8));
+        assertThat(solution(new int[]{0, -4, -5, -2, -7, -9, -3, -10}), is(-12));
+        assertThat(solution(new int[]{1, -2, 0, 9, -1, -2}), is(8));
+        assertThat(solution(new int[]{-1, -2, -9, -1, -2}), is(-3));
+        assertThat(solution(new int[]{0, 0, 0, 0, 0}), is(0));
+        assertThat(solution(new int[]{-1, -1, -1, -1, -1, -1}), is(-2));
+        assertThat(solution(new int[]{-1, -1, -1, -1, -1, -1, -1}), is(-2));
+        assertThat(solution(new int[]{1, 1, 1}), is(3));
+        assertThat(solution(new int[]{1, 1, 1, 1, 1, 1}), is(6));
+        assertThat(solution(new int[]{1, 1, 1, 1, 1, 1, 1}), is(7));
+        assertThat(solution(new int[]{1, -1, 1, -1, 1, -1}), is(2));
+//        assertThat(solution(Util.randomIntArr(1_000, -10_000, 10_000)), is(0));
+    }
+
+    public int solution(int[] A) {
+        int[] lookup = new int[A.length];
+        Arrays.fill(lookup, Integer.MIN_VALUE);
+//        return biggestSum(lookup, A, A.length - 1);
+        return biggestSum(A);
+    }
+
+    private int biggestSum(int[] A) {
+        int[] lookup = new int[A.length];
+        Arrays.fill(lookup, Integer.MIN_VALUE);
+        lookup[0] = A[0];
+        for (int i = 1; i < A.length; i++)
+        {
+            int max = Integer.MIN_VALUE;
+            for (int j = i - 1; j >= 0 && j >= i - 6; j--)
+            {
+                if (lookup[j] > max) {
+                    max = lookup[j];
+                }
+            }
+            lookup[i] = A[i] + max;
+        }
+
+        return lookup[A.length - 1];
+    }
+
+    private int biggestSum(int[] lookup, int[] A, int endIdx) {
+        if (endIdx == 0) {
+            return A[endIdx];
+        }
+        int maxSum = Integer.MIN_VALUE;
+        for (int i = endIdx - 1; i >= 0 && i >= endIdx - 6; i--) {
+            int sum;
+            if (lookup[i] != Integer.MIN_VALUE) {
+                sum = lookup[i];
+            }
+            else {
+                sum = biggestSum(lookup, A, i);
+            }
+
+            lookup[i] = sum;
+            if (sum > maxSum) {
+                maxSum = sum;
+            }
+        }
+
+        return A[endIdx] + maxSum;
+    }
+}
+
 MinMax
 
 IntToNegbinary
