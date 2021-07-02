@@ -22,18 +22,21 @@ public class XmlTranslationPublisher implements TranslationPublisher {
 	}
 
 	@Override
-	public void addMeaning(String foreignWord, String wordMeaning, String source) {
-		wordlist.addMeaning(foreignWord, wordMeaning, source);
-		LOG.info(format("added meaning from [%s]: foreignWord=%s, meaning=%s, total words=%s",
-						source, foreignWord, wordMeaning, wordlist.size()));
+	public void addMeaning(String foreignWord, String meaning, String source) {
+		addMeaning(foreignWord, meaning, null, source, null);
 	}
 
 	@Override
-	public void addMeaning(String foreignWord, String wordMeaning, String source, String comment) {
-		var meaning = wordlist.addMeaning(foreignWord, wordMeaning, source);
+	public void addMeaning(String foreignWord, String meaning, String wordType, String source) {
+		addMeaning(foreignWord, meaning, wordType, source, null);
+	}
+
+	@Override
+	public void addMeaning(String foreignWord, String wordMeaning, String wordType, String source, String comment) {
+		var meaning = wordlist.addMeaning(foreignWord, wordMeaning, wordType, source);
 		meaning.addComment(comment);
-		LOG.info(format("added meaning from [%s]: foreignWord=%s, meaning=%s, comment=%s, total words=%s",
-						source, foreignWord, wordMeaning, comment, wordlist.size()));
+		LOG.info(format("added meaning from [%s]: foreignWord=%s, meaning=%s, wordType=%s, comment=%s, total words=%s",
+				source, foreignWord, wordMeaning, wordType, comment, wordlist.size()));
 	}
 
 	@Override

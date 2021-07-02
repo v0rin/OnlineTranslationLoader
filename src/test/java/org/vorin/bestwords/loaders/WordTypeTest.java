@@ -1,6 +1,7 @@
 package org.vorin.bestwords.loaders;
 
 import org.apache.commons.io.IOUtils;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.vorin.bestwords.AppConfig;
 import org.vorin.bestwords.model.WordList;
@@ -20,6 +21,7 @@ import static org.vorin.bestwords.util.Sources.GOOGLE_TRANSLATE_SOURCE;
 
 public class WordTypeTest {
 
+    @Ignore
     @Test
     public void google() throws IOException {
         var downloader = new GoogleTranslateDownloader(Dictionary.ES_EN);
@@ -33,6 +35,7 @@ public class WordTypeTest {
 
     }
 
+    @Ignore
     @Test
     public void linguee() throws IOException {
         var downloader = new LingueeDownloader(Dictionary.ES_EN);

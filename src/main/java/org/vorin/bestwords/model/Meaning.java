@@ -11,7 +11,7 @@ import javax.xml.bind.annotation.XmlType;
 import static com.google.common.base.Preconditions.checkNotNull;
 import static com.google.common.base.Strings.isNullOrEmpty;
 
-@XmlType(propOrder={"wordMeaning","exampleSentence","imgName", "wordMeaningSource", "exampleSentenceSource", "comment"})
+@XmlType(propOrder={"wordMeaning","wordType", "exampleSentence","imgName", "wordMeaningSource", "exampleSentenceSource", "comment"})
 public class Meaning {
 
     private String wordMeaning;
@@ -19,22 +19,26 @@ public class Meaning {
     private String imgName;
     private String exampleSentenceSource;
     private String wordMeaningSource;
-    private String comment = "";
+    private String wordType;
+    private String comment;
 
 
     public Meaning() {} // needed for JAXB unmarshalling
 
     public Meaning(String wordMeaning,
+                   String wordType,
                    String exampleSentence,
                    String imgName,
                    String wordMeaningSource,
                    String exampleSentenceSource) {
         checkNotNull(wordMeaning);
         this.wordMeaning = wordMeaning;
+        this.wordType = emptyIfNull(wordType);
         this.exampleSentence = emptyIfNull(exampleSentence);
         this.imgName = emptyIfNull(imgName);
         this.wordMeaningSource = emptyIfNull(wordMeaningSource);
         this.exampleSentenceSource = emptyIfNull(exampleSentenceSource);
+        this.comment = emptyIfNull(comment);
     }
 
     public String getWordMeaning() {
@@ -44,6 +48,15 @@ public class Meaning {
     @XmlElement
     public void setWordMeaning(String wordMeaning) {
         this.wordMeaning = wordMeaning;
+    }
+
+    public String getWordType() {
+        return emptyIfNull(wordType);
+    }
+
+    @XmlElement
+    public void setWordType(String wordType) {
+        this.wordType = emptyIfNull(wordType);
     }
 
     public String getExampleSentence() {
@@ -102,7 +115,7 @@ public class Meaning {
 
     public void addComment(String comment) {
         if (isNullOrEmpty(this.comment)) {
-            this.comment = comment;
+            this.comment = emptyIfNull(comment);
         }
         else {
             this.comment += "; " + comment;
@@ -119,6 +132,7 @@ public class Meaning {
 
         return new EqualsBuilder()
                 .append(wordMeaning, meaning.wordMeaning)
+                .append(wordType, meaning.wordType)
                 .append(exampleSentence, meaning.exampleSentence)
                 .append(imgName, meaning.imgName)
                 .append(wordMeaningSource, meaning.wordMeaningSource)
@@ -131,6 +145,7 @@ public class Meaning {
     public int hashCode() {
         return new HashCodeBuilder(17, 37)
                 .append(wordMeaning)
+                .append(wordType)
                 .append(exampleSentence)
                 .append(imgName)
                 .append(wordMeaningSource)
@@ -143,6 +158,7 @@ public class Meaning {
     public String toString() {
         return new ToStringBuilder(this)
                 .append("wordMeaning", wordMeaning)
+                .append("wordType", wordType)
                 .append("wordMeaningSource", wordMeaningSource)
                 .append("exampleSentence", exampleSentence)
                 .append("exampleSentenceSource", exampleSentenceSource)

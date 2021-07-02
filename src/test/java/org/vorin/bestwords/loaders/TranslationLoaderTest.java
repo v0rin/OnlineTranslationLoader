@@ -96,9 +96,9 @@ public class TranslationLoaderTest {
 
     private WordList getExpectedWordList() {
         var expectedWordList = new WordList();
-        expectedWordList.addMeaning(TEST_WORD_INFO.getForeignWord(), TEST_MEANING1, TEST_SOURCE);
-        expectedWordList.addMeaning(TEST_WORD_INFO.getForeignWord(), TEST_MEANING2, TEST_SOURCE);
-        expectedWordList.addMeaning(TEST_WORD_INFO.getForeignWord(), TEST_WORD_INFO.getWordMeaning(), TEST_SOURCE);
+        expectedWordList.addMeaning(TEST_WORD_INFO.getForeignWord(), TEST_MEANING1, null, TEST_SOURCE);
+        expectedWordList.addMeaning(TEST_WORD_INFO.getForeignWord(), TEST_MEANING2, null, TEST_SOURCE);
+        expectedWordList.addMeaning(TEST_WORD_INFO.getForeignWord(), TEST_WORD_INFO.getWordMeaning(), null, TEST_SOURCE);
         expectedWordList.addExampleSentence(TEST_WORD_INFO.getForeignWord(), TEST_WORD_INFO.getWordMeaning(), TEST_EXAMPLE_SENTENCE, TEST_SOURCE);
         return expectedWordList;
     }

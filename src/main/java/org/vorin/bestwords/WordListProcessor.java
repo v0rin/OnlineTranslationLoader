@@ -106,7 +106,8 @@ public class WordListProcessor {
                                                                            .filter(p -> !p.getLeft().isBlank())
                                                                            .map(Pair::getRight)
                                                                            .collect(joining(", "));
-            targetTranslation.getMeanings().add(new Meaning(wordMeaning, exampleSentences, "", wordMeaningSources, exampleSentenceSources));
+            // TODO possibly to do the wordType
+            targetTranslation.getMeanings().add(new Meaning(wordMeaning, null, exampleSentences, "", wordMeaningSources, exampleSentenceSources));
         }
     }
 

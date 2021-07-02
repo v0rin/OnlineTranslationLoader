@@ -29,19 +29,19 @@ public class WordReferenceTest {
         var parser = new WordReferenceParser(EN_ES, LangUtil::sanitizeSpanishMeaning);
 
         var expectedWordList = new WordList();
-        expectedWordList.addMeaning(TEST_WORD_INFO.getForeignWord(), "poder", WORD_REFERENCE_SOURCE);
+        expectedWordList.addMeaning(TEST_WORD_INFO.getForeignWord(), "poder", "", WORD_REFERENCE_SOURCE);
         expectedWordList.addExampleSentence(TEST_WORD_INFO.getForeignWord(), "poder", "I can carry those suitcases for you - puedo llevarte esas maletas", WORD_REFERENCE_SOURCE);
 
-        expectedWordList.addMeaning(TEST_WORD_INFO.getForeignWord(), "saber", WORD_REFERENCE_SOURCE);
+        expectedWordList.addMeaning(TEST_WORD_INFO.getForeignWord(), "saber", "", WORD_REFERENCE_SOURCE);
         expectedWordList.addExampleSentence(TEST_WORD_INFO.getForeignWord(), "saber", "she can play the piano - ella sabe tocar el piano", WORD_REFERENCE_SOURCE);
 
-        expectedWordList.addMeaning(TEST_WORD_INFO.getForeignWord(), "ser posible", WORD_REFERENCE_SOURCE);
+        expectedWordList.addMeaning(TEST_WORD_INFO.getForeignWord(), "ser posible", "", WORD_REFERENCE_SOURCE);
         expectedWordList.addExampleSentence(TEST_WORD_INFO.getForeignWord(), "ser posible", "such things can happen if you're not careful - es posible que pasen cosas asi si no llevas cuidado", WORD_REFERENCE_SOURCE);
 
-        expectedWordList.addMeaning(TEST_WORD_INFO.getForeignWord(), "bote", WORD_REFERENCE_SOURCE);
+        expectedWordList.addMeaning(TEST_WORD_INFO.getForeignWord(), "bote", "", WORD_REFERENCE_SOURCE);
         expectedWordList.addExampleSentence(TEST_WORD_INFO.getForeignWord(), "bote", "we need three more cans of paint - necesitamos tres botes mas de pintura", WORD_REFERENCE_SOURCE);
 
-        expectedWordList.addMeaning(TEST_WORD_INFO.getForeignWord(), "lata", WORD_REFERENCE_SOURCE);
+        expectedWordList.addMeaning(TEST_WORD_INFO.getForeignWord(), "lata", "", WORD_REFERENCE_SOURCE);
         expectedWordList.addExampleSentence(TEST_WORD_INFO.getForeignWord(), "lata", "pass me that can of peas - pasame esa lata de guisantes", WORD_REFERENCE_SOURCE);
 
         // when

@@ -25,7 +25,7 @@ public class CollinsTest {
         var parser = new CollinsSentencesParser(30);
 
         var expectedWordList = new WordList();
-        expectedWordList.addMeaning(TEST_WORD_INFO.getForeignWord(), "take", COLLINS_SOURCE);
+        expectedWordList.addMeaning(TEST_WORD_INFO.getForeignWord(), "take", null, COLLINS_SOURCE);
         expectedWordList.addExampleSentence(TEST_WORD_INFO.getForeignWord(), "take", "lo toma o lo deja - take it or leave it", COLLINS_SOURCE);
 
         // when

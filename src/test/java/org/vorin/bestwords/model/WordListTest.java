@@ -22,10 +22,10 @@ public class WordListTest {
 
     @Before
     public void setUp() {
-        trabajarMeaning = new Meaning("trabajar", "trabajar sentence", null, "test meaning src", "test sentence src");
-        funcionarMeaning = new Meaning("funcionar", "funcionar sentence", null, "test meaning src", "test sentence src");
+        trabajarMeaning = new Meaning("trabajar", "verb", "trabajar sentence", null, "test meaning src", "test sentence src");
+        funcionarMeaning = new Meaning("funcionar", "verb", "funcionar sentence", null, "test meaning src", "test sentence src");
 
-        tomarMeaning = new Meaning("tomar", "tomar sentence", null, "test meaning src", "test sentence src");
+        tomarMeaning = new Meaning("tomar", "verb", "tomar sentence", null, "test meaning src", "test sentence src");
     }
 
     @Test
@@ -34,9 +34,9 @@ public class WordListTest {
         WordList wl = new WordList();
 
         // when
-        wl.addMeaning("work", "trabajar", "test meaning src");
-        wl.addMeaning("work", "funcionar", "test meaning src");
-        wl.addMeaning("take", "tomar", "test meaning src");
+        wl.addMeaning("work", "trabajar", "verb", "test meaning src");
+        wl.addMeaning("work", "funcionar","verb",  "test meaning src");
+        wl.addMeaning("take", "tomar","verb",  "test meaning src");
 
         wl.addExampleSentence("work", "trabajar", "trabajar sentence", "test sentence src");
         wl.addExampleSentence("work", "funcionar", "funcionar sentence", "test sentence src");
@@ -66,9 +66,9 @@ public class WordListTest {
         var expectedTakeTranslation = new Translation("take", "/teik/", "take", Arrays.asList(tomarMeaning));
 
         // when
-        wl.addMeaning("work", "trabajar", "test meaning src");
-        wl.addMeaning("work", "funcionar", "test meaning src");
-        wl.addMeaning("take", "tomar", "test meaning src");
+        wl.addMeaning("work", "trabajar","verb",  "test meaning src");
+        wl.addMeaning("work", "funcionar","verb",  "test meaning src");
+        wl.addMeaning("take", "tomar","verb",  "test meaning src");
 
         // then
         assertThat(wl.findTranslationForWord("take").getForeignWord(), is("take"));
@@ -80,9 +80,9 @@ public class WordListTest {
         WordList wl = new WordList();
 
         // when
-        wl.addMeaning("work", "trabajar", "test meaning src");
-        wl.addMeaning("work", "funcionar", "test meaning src");
-        wl.addMeaning("take", "tomar", "test meaning src");
+        wl.addMeaning("work", "trabajar","verb",  "test meaning src");
+        wl.addMeaning("work", "funcionar","verb",  "test meaning src");
+        wl.addMeaning("take", "tomar","verb",  "test meaning src");
 
         var workTranslation = wl.findTranslationForWord("work");
 

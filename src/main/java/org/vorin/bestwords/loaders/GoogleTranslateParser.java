@@ -3,8 +3,11 @@ package org.vorin.bestwords.loaders;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.apache.commons.lang3.tuple.ImmutablePair;
+import org.apache.commons.lang3.tuple.ImmutableTriple;
 import org.apache.commons.lang3.tuple.Pair;
+import org.apache.commons.lang3.tuple.Triple;
 import org.vorin.bestwords.util.Logger;
+import org.vorin.bestwords.util.Util;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -41,10 +44,10 @@ public class GoogleTranslateParser implements TranslationDataParser {
         JsonNode node = OBJECT_MAPPER.readTree(translationData);
         translationData.close();
 
-        List<Pair<Double, String>> meaningsWithScores = new ArrayList<>();
+        List<Triple<Double, String, String>> meaningsWithScores = new ArrayList<>();
         var wordTypes = new StringJoiner(", ");
         for (int i = 0; i < node.get(1).size(); i++) {
-            String wordType = node.get(1).get(i).get(0).toString();
+            String wordType = Util.stripSurroundingQuotes(node.get(1).get(i).get(0).toString());
             wordTypes.add(wordType);
             for (int j = 0; j < node.get(1).get(i).get(2).size(); j++)
             {
@@ -52,7 +55,7 @@ public class GoogleTranslateParser implements TranslationDataParser {
                 var scoreObj = node.get(1).get(i).get(2).get(j).get(3);
                 if (scoreObj == null) continue;
                 double score = Double.parseDouble(scoreObj.toString());
-                meaningsWithScores.add(new ImmutablePair<>(score, meaning));
+                meaningsWithScores.add(new ImmutableTriple<>(score, meaning, wordType));
             }
         }
 
@@ -61,8 +64,9 @@ public class GoogleTranslateParser implements TranslationDataParser {
 
         var addedMeanings = new HashSet<String>();
         for (var ms : meaningsWithScores) {
-            String meaning = ms.getRight();
+            String meaning = ms.getMiddle();
             double score = ms.getLeft();
+            String wordType = ms.getRight();
             if (!addedMeanings.contains(meaning)) { // don't add duplicate meanings
                 // there are 3 situations
                 // 1. all meanings have scores < minScore -> add the first one and break
@@ -73,6 +77,7 @@ public class GoogleTranslateParser implements TranslationDataParser {
                         (score >= minScore && addedMeanings.size() < maxMeaningCount)) {
                     translationPublisher.addMeaning(wordInfo.getForeignWord(),
                             meaning,
+                            wordType,
                             GOOGLE_TRANSLATE_SOURCE,
                             format("Google score=[%s]", score));
                     addedMeanings.add(meaning);

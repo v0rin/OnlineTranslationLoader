@@ -27,19 +27,19 @@ public class LingueeTest {
         var parser = new LingueeParser(LangUtil::sanitizeSpanishMeaning);
 
         var expectedWordList = new WordList();
-        expectedWordList.addMeaning(TEST_WORD_INFO.getForeignWord(), "poder", LINGUEE_SOURCE);
+        expectedWordList.addMeaning(TEST_WORD_INFO.getForeignWord(), "poder", null, LINGUEE_SOURCE);
         expectedWordList.addExampleSentence(TEST_WORD_INFO.getForeignWord(), "poder", "cheetahs can run very fast - los guepardos pueden correr muy rapido", LINGUEE_SOURCE);
 
-        expectedWordList.addMeaning(TEST_WORD_INFO.getForeignWord(), "saber", LINGUEE_SOURCE);
+        expectedWordList.addMeaning(TEST_WORD_INFO.getForeignWord(), "saber", null, LINGUEE_SOURCE);
         expectedWordList.addExampleSentence(TEST_WORD_INFO.getForeignWord(), "saber", "my sister can speak four languages - mi hermana sabe hablar cuatro idiomas", LINGUEE_SOURCE);
 
-        expectedWordList.addMeaning(TEST_WORD_INFO.getForeignWord(), "enlatar", LINGUEE_SOURCE);
+        expectedWordList.addMeaning(TEST_WORD_INFO.getForeignWord(), "enlatar", null, LINGUEE_SOURCE);
         expectedWordList.addExampleSentence(TEST_WORD_INFO.getForeignWord(), "enlatar", "the workers can tuna with olive oil - los operarios enlatan el atun con aceite de oliva", LINGUEE_SOURCE);
 
-        expectedWordList.addMeaning(TEST_WORD_INFO.getForeignWord(), "lata", LINGUEE_SOURCE);
+        expectedWordList.addMeaning(TEST_WORD_INFO.getForeignWord(), "lata", null, LINGUEE_SOURCE);
         expectedWordList.addExampleSentence(TEST_WORD_INFO.getForeignWord(), "lata", "many drinks are sold in plastic bottles or cans - muchas bebidas se venden en botellas de plastico o en latas", LINGUEE_SOURCE);
 
-        expectedWordList.addMeaning(TEST_WORD_INFO.getForeignWord(), "bote", LINGUEE_SOURCE);
+        expectedWordList.addMeaning(TEST_WORD_INFO.getForeignWord(), "bote", null, LINGUEE_SOURCE);
         expectedWordList.addExampleSentence(TEST_WORD_INFO.getForeignWord(), "bote", "I have a can of beer and a bottle of water - tengo un bote de cerveza y una botella de agua", LINGUEE_SOURCE);
 
         // when

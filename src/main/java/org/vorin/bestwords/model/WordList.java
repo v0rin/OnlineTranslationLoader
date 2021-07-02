@@ -58,10 +58,10 @@ public class WordList {
     }
 
 
-    public Meaning addMeaning(String foreignWord, String wordMeaning, String source) {
+    public Meaning addMeaning(String foreignWord, String wordMeaning, String wordType, String wordMeaningSource) {
         checkArgument(!isNullOrEmpty(foreignWord) &&
                 !isNullOrEmpty(wordMeaning) &&
-                !isNullOrEmpty(source));
+                !isNullOrEmpty(wordMeaningSource));
 
         var translation = findTranslationForWord(foreignWord);
         if (translation == null) {
@@ -77,7 +77,7 @@ public class WordList {
                                               foreignWord, wordMeaning));
         }
 
-        translation.getMeanings().add(new Meaning(wordMeaning, null, null, source, null));
+        translation.getMeanings().add(new Meaning(wordMeaning, wordType, null, null, wordMeaningSource, null));
         return translation.getMeanings().get(translation.getMeanings().size() - 1);
     }
 
@@ -85,11 +85,11 @@ public class WordList {
     public void addExampleSentence(String foreignWord,
                                    String wordMeaning,
                                    String exampleSentence,
-                                   String source) {
+                                   String exampleSentenceSource) {
         checkArgument(!isNullOrEmpty(foreignWord) &&
                 !isNullOrEmpty(wordMeaning) &&
                 !isNullOrEmpty(exampleSentence) &&
-                !isNullOrEmpty(source));
+                !isNullOrEmpty(exampleSentenceSource));
 
         var translation = findTranslationForWord(foreignWord);
         if (translation == null) {
@@ -102,7 +102,7 @@ public class WordList {
         }
 
         meaning.setExampleSentence(exampleSentence);
-        meaning.setExampleSentenceSource(source);
+        meaning.setExampleSentenceSource(exampleSentenceSource);
     }
 
 

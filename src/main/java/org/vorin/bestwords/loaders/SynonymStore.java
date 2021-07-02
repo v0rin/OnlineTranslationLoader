@@ -119,6 +119,11 @@ public class SynonymStore implements TranslationPublisher {
     }
 
     @Override
+    public void addMeaning(String foreignWord, String meaning, String wordType, String source, String comment) {
+        throw new UnsupportedOperationException("");
+    }
+
+    @Override
     public void addExampleSentence(String foreignWord, String wordMeaning, String exampleSentence, String source) {
         throw new UnsupportedOperationException("");
     }
