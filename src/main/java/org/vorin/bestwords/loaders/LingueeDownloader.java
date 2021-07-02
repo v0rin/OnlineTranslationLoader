@@ -16,9 +16,9 @@ import java.nio.charset.StandardCharsets;
 public class LingueeDownloader implements TranslationDataDownloader {
 
     private static final String URL_EN_ES = "https://www.linguee.com/english-spanish/search?source=english&query=";
-    private static final String URL_ES_EN = "https://www.linguee.com/english-spanish/search?source=spanish&query=";
+    private static final String URL_ES_EN = "https://www.linguee.com/spanish-english/search?source=spanish&query=";
     private static final String URL_EN_PL = "https://www.linguee.com/english-polish/search?source=english&query=";
-    private static final String URL_PL_EN = "https://www.linguee.com/english-polish/search?source=polish&query=";
+    private static final String URL_PL_EN = "https://www.linguee.com/polish-english/search?source=polish&query=";
 
     private String url;
     private Dictionary dictionary;
@@ -36,7 +36,7 @@ public class LingueeDownloader implements TranslationDataDownloader {
 
     @Override
     public InputStream download(String word) throws IOException {
-        String fullUrl = this.url + URLEncoder.encode(word, StandardCharsets.UTF_8);
+        String fullUrl = this.url + URLEncoder.encode(word, StandardCharsets.ISO_8859_1);
         Document doc = Jsoup.connect(fullUrl).get();
 //        Document doc;
 //        try {
@@ -47,7 +47,7 @@ public class LingueeDownloader implements TranslationDataDownloader {
 //            setProxy(ProxyProvider.getNextWorkingProxyForUrl(fullUrl, response -> response.contains(word)));
 //            doc = Jsoup.connect(fullUrl).get();
 //        }
-        Elements rows = doc.select("div.isMainTerm > div.exact");
+        Elements rows = doc.select("div.isForeignTerm > div.exact");
         String output = "<html><body><table>\n" + rows.outerHtml() + "\n</table></body></html>";
         return new ByteArrayInputStream(output.getBytes(StandardCharsets.UTF_8));
     }

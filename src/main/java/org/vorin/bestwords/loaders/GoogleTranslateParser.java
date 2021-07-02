@@ -11,6 +11,7 @@ import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
+import java.util.StringJoiner;
 
 import static java.lang.String.format;
 import static java.util.stream.Collectors.toList;
@@ -41,8 +42,10 @@ public class GoogleTranslateParser implements TranslationDataParser {
         translationData.close();
 
         List<Pair<Double, String>> meaningsWithScores = new ArrayList<>();
+        var wordTypes = new StringJoiner(", ");
         for (int i = 0; i < node.get(1).size(); i++) {
             String wordType = node.get(1).get(i).get(0).toString();
+            wordTypes.add(wordType);
             for (int j = 0; j < node.get(1).get(i).get(2).size(); j++)
             {
                 String meaning = stripSurroundingQuotes(node.get(1).get(i).get(2).get(j).get(0).toString());
@@ -54,7 +57,7 @@ public class GoogleTranslateParser implements TranslationDataParser {
         }
 
         meaningsWithScores = meaningsWithScores.stream().sorted((m1, m2) -> m2.getLeft().compareTo(m1.getLeft())).collect(toList());
-        LOG.info(format("meanings for [%s] - %s", wordInfo.getForeignWord(), meaningsWithScores.toString()));
+//        LOG.info(format("meanings for [%s] - %s - %s", wordInfo.getForeignWord(), meaningsWithScores.toString(), wordTypes));
 
         var addedMeanings = new HashSet<String>();
         for (var ms : meaningsWithScores) {

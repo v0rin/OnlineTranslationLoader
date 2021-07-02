@@ -1,6 +1,7 @@
 package org.vorin.bestwords.loaders;
 
 import org.junit.Test;
+import org.vorin.bestwords.util.Dictionary;
 
 import java.util.List;
 
@@ -9,7 +10,7 @@ import static org.hamcrest.CoreMatchers.is;
 
 public class SynonymStoreTest {
 
-    private final SynonymStore synonymStore = new SynonymStore(new SynonimNetParser());
+    private final SynonymStore synonymStore = new SynonymStore(Dictionary.EN_PL, new SynonimNetParser());
 
     @Test
     public void groupBySynonyms() {

@@ -4,6 +4,7 @@ import org.apache.commons.io.IOUtils;
 import org.junit.Ignore;
 import org.junit.Test;
 import org.vorin.bestwords.AppConfig;
+import org.vorin.bestwords.util.Dictionary;
 import org.vorin.bestwords.util.LangUtil;
 import org.vorin.bestwords.util.Util;
 
@@ -23,7 +24,7 @@ public class SynonimNetTest {
     public void parseAndPublish() throws IOException {
         // given
         var parser = new SynonimNetParser();
-        var publisher = new SynonymStore(parser);
+        var publisher = new SynonymStore(Dictionary.EN_PL, parser);
         Set<String> expectedSynonyms = Util.loadWordsFromTxtFile(new File(AppConfig.TEST_RES_DIR + "loaders/SynonimNet/domagac-sie-synonyms.txt"));
 
         // when

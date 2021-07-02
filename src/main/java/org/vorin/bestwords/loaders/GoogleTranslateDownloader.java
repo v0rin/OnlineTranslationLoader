@@ -37,7 +37,7 @@ public class GoogleTranslateDownloader implements TranslationDataDownloader {
 
     @Override
     public InputStream download(String word) throws IOException {
-        HttpRequest request = Unirest.get(url + URLEncoder.encode(word, StandardCharsets.UTF_8));
+        HttpRequest request = Unirest.get(url + URLEncoder.encode(word, StandardCharsets.ISO_8859_1));
         try {
             HttpResponse<String> response = request.asString();
             return response.getRawBody();

@@ -14,6 +14,7 @@ import java.util.HashSet;
 import java.util.function.Function;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+import java.util.stream.Collectors;
 
 import static java.lang.String.format;
 import static org.vorin.bestwords.util.Sources.LINGUEE_SOURCE;
@@ -52,6 +53,11 @@ public class LingueeParser implements TranslationDataParser {
         for (var iter = rows.iterator(); iter.hasNext();) {
             var row = iter.next();
             var meaningElem = row.select(".translation_desc > span.tag_trans > a.dictLink[id~=dictEntry]");
+            var wordTypeElem = row.select(".translation_desc > span.tag_trans > span.tag_type");
+            var wordTypes = "-";
+            if (wordTypeElem.size() > 0) {
+                wordTypes = wordTypeElem.stream().map(e -> e.attributes().get("title")).collect(Collectors.joining(", "));
+            }
             Matcher matcher = MEANING_PATTERN.matcher(meaningElem.toString());
             String meaning;
             if (matcher.find()) {
@@ -73,6 +79,7 @@ public class LingueeParser implements TranslationDataParser {
 
             meaning = meaningSanitizer.apply(meaning);
             if (!addedMeaninigs.contains(meaning)) {
+//                LOG.info(format("meanings for [%s] - %s - %s", wordInfo.getForeignWord(), meaning, wordTypes));
                 translationPublisher.addMeaning(wordInfo.getForeignWord(), meaning, LINGUEE_SOURCE);
                 addedMeaninigs.add(meaning);
                 if (!sentences.isEmpty()) {

@@ -22,7 +22,7 @@ public class GoogleTranslateSynonymTest {
     public void parseAndPublish() throws IOException {
         // given
         var parser = new GoogleTranslateSynonymParser();
-        var publisher = new SynonymStore(parser);
+        var publisher = new SynonymStore(Dictionary.EN_ES, parser);
         Set<String> expectedSynonyms = Util.loadWordsFromTxtFile(new File(AppConfig.TEST_RES_DIR + "loaders/GoogleTranslate/llamada-expected-synonyms.txt"));
 
         // when
