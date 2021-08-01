@@ -163,32 +163,32 @@ public class WordlistProcessor {
                 mostCommonWords = 0;
             }
             sourcesCount++;
-            int googleWordList = 1;
+            int googleWordlist = 1;
             if (!existsInWordlist(this.googleWordlist, sanitizedForeignWord, sanitizedMeaning, "GOOGLE_WORDLIST")) {
                 addMeaningComment(t.getForeignWord(), m, "not in GOOGLE_WORDLIST");
-                googleWordList = 0;
+                googleWordlist = 0;
             }
 //            sourcesCount++;
-//            int googleReverseWordList = 1;
+//            int googleReverseWordlist = 1;
 //            if (!existsInReverseWordlist(GOOGLE_REVERSE_WORDLIST, sanitizedForeignWord, sanitizedMeaning, "GOOGLE_REVERSE_WORDLIST")) {
 //                addMeaningComment(t.getForeignWord(), m, "not in GOOGLE_REVERSE_WORDLIST");
-//                googleReverseWordList = 0;
+//                googleReverseWordlist = 0;
 //            }
             sourcesCount++;
-            int wordReferenceWordList = 1;
+            int wordReferenceWordlist = 1;
             if (!existsInWordlist(this.wordReferenceWordlist, sanitizedForeignWord, sanitizedMeaning, "WORD_REFERENCE_WORDLIST")) {
                 addMeaningComment(t.getForeignWord(), m, "not in WORD_REFERENCE_WORDLIST");
-                wordReferenceWordList = 0;
+                wordReferenceWordlist = 0;
             }
             sourcesCount++;
-            int lingueeWordList = 1;
+            int lingueeWordlist = 1;
             if (!existsInWordlist(this.lingueeWordlist, sanitizedForeignWord, sanitizedMeaning, "LINGUEE_WORDLIST")) {
                 addMeaningComment(t.getForeignWord(), m, "not in LINGUEE_WORDLIST");
-                lingueeWordList = 0;
+                lingueeWordlist = 0;
             }
 
-//            int inCount = mostCommonWords + googleWordList + googleReverseWordList + wordReferenceWordList + lingueeWordList;
-            int inCount = googleWordList + wordReferenceWordList + lingueeWordList;
+//            int inCount = mostCommonWords + googleWordlist + googleReverseWordlist + wordReferenceWordlist + lingueeWordlist;
+            int inCount = googleWordlist + wordReferenceWordlist + lingueeWordlist;
             problemsExist = problemsExist || inCount < sourcesCount;
 
             if (dictionary == Dictionary.EN_PL) {
@@ -199,11 +199,11 @@ public class WordlistProcessor {
             }
 
             if (dictionary == Dictionary.EN_ES) {
-                if (wordReferenceWordList == 1 && inCount == 1) {
+                if (wordReferenceWordlist == 1 && inCount == 1) {
                     iter.remove();
                     continue;
                 }
-                if (lingueeWordList == 1 && inCount == 1) {
+                if (lingueeWordlist == 1 && inCount == 1) {
                     iter.remove();
                     continue;
                 }
@@ -315,14 +315,14 @@ public class WordlistProcessor {
     }
 
 
-    private boolean existsInWordlist(Wordlist wordList, String foreignWord, String wordMeaning, String wordListName) {
-        var t = wordList.findTranslationForWord(foreignWord);
+    private boolean existsInWordlist(Wordlist wordlist, String foreignWord, String wordMeaning, String wordlistName) {
+        var t = wordlist.findTranslationForWord(foreignWord);
         if (t == null) {
-            LOG.error(format("could not find translation for word [%s] in %s", wordMeaning, wordListName));
+            LOG.error(format("could not find translation for word [%s] in %s", wordMeaning, wordlistName));
             return false;
         }
 
-        if (wordList.findMeaning(foreignWord, wordMeaning) != null) {
+        if (wordlist.findMeaning(foreignWord, wordMeaning) != null) {
             return true;
         }
         else {
@@ -331,14 +331,14 @@ public class WordlistProcessor {
     }
 
 
-    private boolean existsInReverseWordlist(Wordlist wordList, String foreignWord, String wordMeaning, String wordListName) {
-        var t = wordList.findTranslationForWord(wordMeaning);
+    private boolean existsInReverseWordlist(Wordlist wordlist, String foreignWord, String wordMeaning, String wordlistName) {
+        var t = wordlist.findTranslationForWord(wordMeaning);
         if (t == null) {
-            LOG.error(format("could not find translation for word [%s] in %s", wordMeaning, wordListName));
+            LOG.error(format("could not find translation for word [%s] in %s", wordMeaning, wordlistName));
             return false;
         }
 
-        if (wordList.findMeaning(wordMeaning, foreignWord) != null) {
+        if (wordlist.findMeaning(wordMeaning, foreignWord) != null) {
             return true;
         }
         else {
@@ -369,8 +369,8 @@ public class WordlistProcessor {
     }
 
 
-    private File getWordlistFile(String wordListName) {
-        return new File(AppConfig.RES_DIR + dictionary.name() + "-" + wordListName);
+    private File getWordlistFile(String wordlistName) {
+        return new File(AppConfig.RES_DIR + dictionary.name() + "-" + wordlistName);
     }
 
 }

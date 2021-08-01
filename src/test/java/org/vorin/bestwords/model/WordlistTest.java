@@ -92,20 +92,20 @@ public class WordlistTest {
     @Test
     public void xmlLoadAndWrite() throws IOException {
         // given
-        File originalWordlistXmlFile = new File(AppConfig.TEST_RES_DIR + "model/WordList/testEnglishWordlist25.xml");
-        File tmpWordListXmlFile = new File(AppConfig.TEST_RES_DIR + "model/WordList/tmpTestEnglishWordlist25.xml");
+        File originalWordlistXmlFile = new File(AppConfig.TEST_RES_DIR + "model/Wordlist/testEnglishWordlist25.xml");
+        File tmpWordlistXmlFile = new File(AppConfig.TEST_RES_DIR + "model/Wordlist/tmpTestEnglishWordlist25.xml");
 
         // when
         var wordlist = Wordlist.loadFromXml(originalWordlistXmlFile);
-        wordlist.writeToXml(tmpWordListXmlFile);
+        wordlist.writeToXml(tmpWordlistXmlFile);
 
         // then
         assertThat(wordlist.size(), is(25));
         var t = wordlist.getTranslations().get(8);
         assertThat(t.getForeignWord(), is("can"));
         assertThat(t.getMeanings().get(1).getWordMeaning(), is("puszka"));
-        assertTrue(FileUtils.contentEquals(originalWordlistXmlFile, tmpWordListXmlFile));
+        assertTrue(FileUtils.contentEquals(originalWordlistXmlFile, tmpWordlistXmlFile));
 
-        tmpWordListXmlFile.delete();
+        tmpWordlistXmlFile.delete();
     }
 }

@@ -95,12 +95,12 @@ public class TranslationLoaderTest {
 
 
     private Wordlist getExpectedWordlist() {
-        var expectedWordList = new Wordlist();
-        expectedWordList.addMeaning(TEST_WORD_INFO.getForeignWord(), TEST_MEANING1, null, TEST_SOURCE);
-        expectedWordList.addMeaning(TEST_WORD_INFO.getForeignWord(), TEST_MEANING2, null, TEST_SOURCE);
-        expectedWordList.addMeaning(TEST_WORD_INFO.getForeignWord(), TEST_WORD_INFO.getWordMeaning(), null, TEST_SOURCE);
-        expectedWordList.addExampleSentence(TEST_WORD_INFO.getForeignWord(), TEST_WORD_INFO.getWordMeaning(), TEST_EXAMPLE_SENTENCE, TEST_SOURCE);
-        return expectedWordList;
+        var expectedWordlist = new Wordlist();
+        expectedWordlist.addMeaning(TEST_WORD_INFO.getForeignWord(), TEST_MEANING1, null, TEST_SOURCE);
+        expectedWordlist.addMeaning(TEST_WORD_INFO.getForeignWord(), TEST_MEANING2, null, TEST_SOURCE);
+        expectedWordlist.addMeaning(TEST_WORD_INFO.getForeignWord(), TEST_WORD_INFO.getWordMeaning(), null, TEST_SOURCE);
+        expectedWordlist.addExampleSentence(TEST_WORD_INFO.getForeignWord(), TEST_WORD_INFO.getWordMeaning(), TEST_EXAMPLE_SENTENCE, TEST_SOURCE);
+        return expectedWordlist;
     }
 
     static class TestTranslationDownloader implements TranslationDataDownloader {

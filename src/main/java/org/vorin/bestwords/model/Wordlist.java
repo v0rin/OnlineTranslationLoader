@@ -163,10 +163,10 @@ public class Wordlist {
 
         if (o == null || getClass() != o.getClass()) return false;
 
-        Wordlist wordList = (Wordlist) o;
+        Wordlist wordlist = (Wordlist) o;
 
         return new EqualsBuilder()
-                .append(translations, wordList.translations)
+                .append(translations, wordlist.translations)
                 .isEquals();
     }
 

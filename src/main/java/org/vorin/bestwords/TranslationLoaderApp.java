@@ -43,8 +43,6 @@ import static org.vorin.bestwords.AppConfig.*;
  */
 public class TranslationLoaderApp {
 
-    // TODO rename WordList to wordlist everywhere
-
     private static final Logger LOG = Logger.get(TranslationLoaderApp.class);
 
     // ### PL CONFIG ###############
@@ -91,8 +89,8 @@ public class TranslationLoaderApp {
 
 
     private static void processWordlist() throws IOException {
-        // var w = WordList.loadFromXml(new File(RES_DIR + DICT.name() + "-GoogleTranslateWordlist.xml"));
-//        var w = WordList.loadFromXml(new File(RES_DIR + "EnglishWordlist35.xml"));
+        // var w = Wordlist.loadFromXml(new File(RES_DIR + DICT.name() + "-GoogleTranslateWordlist.xml"));
+//        var w = Wordlist.loadFromXml(new File(RES_DIR + "EnglishWordlist35.xml"));
         var w = Wordlist.loadFromXml(new File(RES_DIR + DICT.name() + "-CombinedWordlist.xml"));
 
         int wordsWithProblemsCount = 0;
