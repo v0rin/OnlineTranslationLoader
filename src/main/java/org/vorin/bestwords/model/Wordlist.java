@@ -19,7 +19,7 @@ import static java.lang.String.format;
 import static java.util.stream.Collectors.toList;
 import static org.vorin.bestwords.AppConfig.RES_DIR;
 
-@XmlRootElement(name = "wordlist")
+@XmlRootElement(name = "wordList")
 public class Wordlist {
 
     private static final Map<String, Translation> originalWordlist = new HashMap<>();
