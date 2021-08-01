@@ -37,7 +37,7 @@ Weryfikacje-tlumaczen:
 
 meanings:
    - remove synonyms
-   - - two or more words
+   - two or more words
    - has to be in MostCommonWords
    - search for () and other weird characters, search for spaces (two or more words)
    - cannot be more than 3 meanings - it is the first 1000 words - don't make it too complicated

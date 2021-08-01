@@ -21,6 +21,9 @@ import static java.util.stream.Collectors.joining;
 import static java.util.stream.Collectors.toList;
 import static org.vorin.bestwords.util.Sources.COLLINS_SOURCE;
 
+/**
+ * to jest taka troche smieciowa klasa, w ktorej jest iles elementow robionych recznie
+ */
 public class WordListProcessor {
 
     private static final Logger LOG = Logger.get(WordListProcessor.class);
@@ -40,11 +43,15 @@ public class WordListProcessor {
     private final Dictionary dictionary;
 
 
+    /**
+    * Once I generated translations from diff sources (google, linguee, ..) I try to combine the results
+    * But the lists mostCommonWords, googleWordList, ... need to already exist
+    */
     public WordListProcessor(Dictionary dictionary, SynonymStore synonymStore) {
         this.dictionary = dictionary;
         try {
             this.synonyms = synonymStore;
-            this.mostCommonWords = Util.loadWordsFromTxtFile( getWordListFile("MostCommonWords.txt"));
+            this.mostCommonWords = Util.loadWordsFromTxtFile( getWordListFile("MostCommonWords.txt")); // to verify if the meaning exists in the most common words
             this.googleWordList = WordList.loadFromXml( getWordListFile("GoogleTranslateWordList.xml"));
             this.googleReverseWordList = WordList.loadFromXml( getWordListFile("GoogleTranslateReverseWordList.xml"));
             this.lingueeWordList = WordList.loadFromXml( getWordListFile("LingueeWordList.xml"));
@@ -59,34 +66,27 @@ public class WordListProcessor {
     }
 
 
-    public void combineMeanings(Translation targetTranslation) {
+    public static void combineMeanings(Translation targetTranslation, Map<String, WordList> wordlists) {
         // collect all meanings
-        var wordMeaningMap = new HashMap<String, List<Pair<String, String>>>();
-        var googleMeanings = getWordMeaningsFromWordList(targetTranslation, googleWordList);
-        var wrMeanings = getWordMeaningsFromWordList(targetTranslation, wordReferenceWordList);
-        var lingueeMeanings = getWordMeaningsFromWordList(targetTranslation, lingueeWordList);
-
         List<String> allWordMeanings = new ArrayList<>();
-        allWordMeanings.addAll(googleMeanings);
-        allWordMeanings.addAll(wrMeanings);
-        allWordMeanings.addAll(lingueeMeanings);
+        Map<String, List<String>> meaningLists = new HashMap<>();
+        for (var entry : wordlists.entrySet()) {
+            var source = entry.getKey();
+            var wordlist = entry.getValue();
+            var meaningList = getWordMeaningsFromWordList(targetTranslation, wordlist);
+            meaningLists.put(source, meaningList);
+            allWordMeanings.addAll(meaningList);
+        }
         allWordMeanings = allWordMeanings.stream().distinct().collect(toList());
 
-        // add in how many source a wordMeaning exists
-        for (var wordMeaning : allWordMeanings) {
-            if (googleMeanings.contains(wordMeaning)) {
-                var m = googleWordList.findMeaning(targetTranslation.getForeignWord(), wordMeaning);
-                addSource(wordMeaningMap, wordMeaning, m.getExampleSentence(), Sources.GOOGLE_TRANSLATE_SOURCE);
-            }
-
-            if (wrMeanings.contains(wordMeaning)) {
-                var m = wordReferenceWordList.findMeaning(targetTranslation.getForeignWord(), wordMeaning);
-                addSource(wordMeaningMap, wordMeaning, m.getExampleSentence(), Sources.WORD_REFERENCE_SOURCE);
-            }
-
-            if (lingueeMeanings.contains(wordMeaning)) {
-                var m = lingueeWordList.findMeaning(targetTranslation.getForeignWord(), wordMeaning);
-                addSource(wordMeaningMap, wordMeaning, m.getExampleSentence(), Sources.LINGUEE_SOURCE);
+        var wordMeaningMap = new HashMap<String, List<Pair<String, String>>>();
+        // add in which sources the wordMeaning exists
+        for (String wordMeaning : allWordMeanings) {
+            for (String source : wordlists.keySet()) {
+                if (meaningLists.get(source).contains(wordMeaning)) {
+                    var m = wordlists.get(source).findMeaning(targetTranslation.getForeignWord(), wordMeaning);
+                    addSource(wordMeaningMap, wordMeaning, m.getExampleSentence(), source);
+                }
             }
         }
 
@@ -99,20 +99,20 @@ public class WordListProcessor {
         for (var wordMeaning : sortedWordMeanings) {
             String wordMeaningSources = wordMeaningMap.get(wordMeaning).stream().map(Pair::getRight).collect(joining(", "));
             String exampleSentences = wordMeaningMap.get(wordMeaning).stream()
-                                                                     .filter(p -> !p.getLeft().isBlank())
-                                                                     .map(Pair::getLeft)
-                                                                     .collect(joining(" || "));
+                    .filter(p -> !p.getLeft().isBlank())
+                    .map(Pair::getLeft)
+                    .collect(joining(" || "));
             String exampleSentenceSources = wordMeaningMap.get(wordMeaning).stream()
-                                                                           .filter(p -> !p.getLeft().isBlank())
-                                                                           .map(Pair::getRight)
-                                                                           .collect(joining(", "));
+                    .filter(p -> !p.getLeft().isBlank())
+                    .map(Pair::getRight)
+                    .collect(joining(", "));
             // TODO possibly to do the wordType
             targetTranslation.getMeanings().add(new Meaning(wordMeaning, null, exampleSentences, "", wordMeaningSources, exampleSentenceSources));
         }
     }
 
 
-    private void addSource(Map<String, List<Pair<String, String>>> map, String wordMeaning, String exampleSentence, String source) {
+    private static void addSource(Map<String, List<Pair<String, String>>> map, String wordMeaning, String exampleSentence, String source) {
         map.compute(wordMeaning, (m, sources) -> {
             if (sources == null) {
                 sources = new ArrayList<>();
@@ -123,7 +123,7 @@ public class WordListProcessor {
     }
 
 
-    private List<String> getWordMeaningsFromWordList(Translation translation, WordList w) {
+    private static List<String> getWordMeaningsFromWordList(Translation translation, WordList w) {
         var t = w.findTranslationForWord(translation.getForeignWord());
         if (t != null) {
             return t.getMeanings().stream().map(Meaning::getWordMeaning).collect(toList());
@@ -134,6 +134,11 @@ public class WordListProcessor {
     }
 
 
+    /**
+    * - Processes all the meanings for the translation looking at a set of rules to determine if there are problems with the meanings<br>
+    * - Also if there are some problems it just removes the meaning, e.g. if the meaning is only in one of the less important sources<br>
+    * - Also groups meanings that are synonyms and take the most important one (I don't remember how? maybe in how many sources exists?) and add the rest in the comment<br>
+    */
     public boolean processMeaningsForTranslation(Translation t) {
         boolean problemsExist = false;
         var meanings = t.getMeanings();

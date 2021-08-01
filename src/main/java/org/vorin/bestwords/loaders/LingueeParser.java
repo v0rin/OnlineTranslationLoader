@@ -80,7 +80,7 @@ public class LingueeParser implements TranslationDataParser {
             meaning = meaningSanitizer.apply(meaning);
             if (!addedMeaninigs.contains(meaning)) {
 //                LOG.info(format("meanings for [%s] - %s - %s", wordInfo.getForeignWord(), meaning, wordTypes));
-                translationPublisher.addMeaning(wordInfo.getForeignWord(), meaning, LINGUEE_SOURCE);
+                translationPublisher.addMeaning(wordInfo.getForeignWord(), meaning, wordTypes, LINGUEE_SOURCE);
                 addedMeaninigs.add(meaning);
                 if (!sentences.isEmpty()) {
                     translationPublisher.addExampleSentence(wordInfo.getForeignWord(), meaning, Util.chooseShortestString(sentences), LINGUEE_SOURCE);

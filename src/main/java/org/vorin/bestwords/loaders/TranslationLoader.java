@@ -13,6 +13,10 @@ import static java.lang.String.format;
 import static org.vorin.bestwords.AppConfig.CACHES_DIR;
 import static org.vorin.bestwords.util.Util.sleep;
 
+
+/**
+ * Combines downloader, parser and publisher for a given dictionary site
+ */
 public class TranslationLoader {
 
     private static final Logger LOG = Logger.get(TranslationLoader.class);
