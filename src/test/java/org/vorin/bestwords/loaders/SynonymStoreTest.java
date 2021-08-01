@@ -1,7 +1,7 @@
 package org.vorin.bestwords.loaders;
 
 import org.junit.Test;
-import org.vorin.bestwords.util.Dictionary;
+import org.vorin.bestwords.model.Dictionary;
 
 import java.util.List;
 

@@ -3,7 +3,7 @@ package org.vorin.bestwords.loaders;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.select.Elements;
-import org.vorin.bestwords.util.Dictionary;
+import org.vorin.bestwords.model.Dictionary;
 
 import java.io.ByteArrayInputStream;
 import java.io.IOException;

@@ -1,7 +1,7 @@
 package org.vorin.bestwords;
 
 import org.vorin.bestwords.model.Wordlist;
-import org.vorin.bestwords.util.Dictionary;
+import org.vorin.bestwords.model.Dictionary;
 import org.vorin.bestwords.util.Logger;
 import org.vorin.bestwords.util.Sources;
 import org.vorin.bestwords.util.Util;

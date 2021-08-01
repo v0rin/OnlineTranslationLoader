@@ -3,7 +3,7 @@ package org.vorin.bestwords.loaders;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.select.Elements;
-import org.vorin.bestwords.util.Dictionary;
+import org.vorin.bestwords.model.Dictionary;
 
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
@@ -11,7 +11,7 @@ import java.io.InputStream;
 import java.net.URLEncoder;
 import java.nio.charset.StandardCharsets;
 
-import static org.vorin.bestwords.util.Dictionary.EN_ES;
+import static org.vorin.bestwords.model.Dictionary.EN_ES;
 
 public class CollinsDownloader implements TranslationDataDownloader {
 

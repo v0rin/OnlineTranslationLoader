@@ -4,7 +4,7 @@ import org.apache.commons.io.IOUtils;
 import org.junit.Ignore;
 import org.junit.Test;
 import org.vorin.bestwords.AppConfig;
-import org.vorin.bestwords.util.Dictionary;
+import org.vorin.bestwords.model.Dictionary;
 import org.vorin.bestwords.util.LangUtil;
 import org.vorin.bestwords.util.Util;
 

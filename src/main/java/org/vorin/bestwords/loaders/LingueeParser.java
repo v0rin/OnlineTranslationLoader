@@ -56,7 +56,7 @@ public class LingueeParser implements TranslationDataParser {
             var wordTypeElem = row.select(".translation_desc > span.tag_trans > span.tag_type");
             var wordTypes = "-";
             if (wordTypeElem.size() > 0) {
-                wordTypes = wordTypeElem.stream().map(e -> e.attributes().get("title")).collect(Collectors.joining(", "));
+                wordTypes = wordTypeElem.stream().map(e -> e.attributes().get("title").replaceAll(",\\p{Z}(feminine|masculine)", "")).collect(Collectors.joining(", "));
             }
             Matcher matcher = MEANING_PATTERN.matcher(meaningElem.toString());
             String meaning;

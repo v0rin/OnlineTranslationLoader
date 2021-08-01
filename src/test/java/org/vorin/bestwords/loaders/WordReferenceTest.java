@@ -11,8 +11,8 @@ import java.io.*;
 
 import static org.hamcrest.core.Is.is;
 import static org.junit.Assert.assertThat;
-import static org.vorin.bestwords.util.Dictionary.EN_ES;
-import static org.vorin.bestwords.util.Dictionary.EN_PL;
+import static org.vorin.bestwords.model.Dictionary.EN_ES;
+import static org.vorin.bestwords.model.Dictionary.EN_PL;
 import static org.vorin.bestwords.util.Sources.WORD_REFERENCE_SOURCE;
 
 public class WordReferenceTest {

@@ -7,7 +7,7 @@ import org.vorin.bestwords.model.Meaning;
 import org.vorin.bestwords.model.Translation;
 import org.vorin.bestwords.model.Wordlist;
 import org.vorin.bestwords.util.*;
-import org.vorin.bestwords.util.Dictionary;
+import org.vorin.bestwords.model.Dictionary;
 
 import java.io.File;
 import java.io.IOException;

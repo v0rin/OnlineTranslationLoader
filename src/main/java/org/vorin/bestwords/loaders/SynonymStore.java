@@ -3,7 +3,7 @@ package org.vorin.bestwords.loaders;
 import org.vorin.bestwords.model.Wordlist;
 import org.vorin.bestwords.util.CacheFileNameProvider;
 import org.vorin.bestwords.util.Logger;
-import org.vorin.bestwords.util.Dictionary;
+import org.vorin.bestwords.model.Dictionary;
 
 import java.io.FileInputStream;
 import java.io.IOException;

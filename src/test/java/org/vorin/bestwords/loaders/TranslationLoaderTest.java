@@ -6,7 +6,7 @@ import org.junit.Before;
 import org.junit.Test;
 import org.vorin.bestwords.AppConfig;
 import org.vorin.bestwords.model.Wordlist;
-import org.vorin.bestwords.util.Dictionary;
+import org.vorin.bestwords.model.Dictionary;
 
 import java.io.*;
 import java.nio.charset.StandardCharsets;
