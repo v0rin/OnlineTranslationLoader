@@ -1,6 +1,6 @@
 package org.vorin.bestwords.loaders;
 
-import org.vorin.bestwords.model.WordList;
+import org.vorin.bestwords.model.Wordlist;
 
 import java.io.IOException;
 
@@ -16,7 +16,7 @@ public interface TranslationPublisher {
 
     boolean exampleSentenceExists(String foreignWord, String wordMeaning);
 
-    WordList getWordList();
+    Wordlist getWordlist();
 
     void writeToTarget() throws IOException;
 

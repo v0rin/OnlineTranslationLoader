@@ -1,7 +1,7 @@
 package org.vorin.bestwords;
 
 import org.vorin.bestwords.loaders.*;
-import org.vorin.bestwords.model.WordList;
+import org.vorin.bestwords.model.Wordlist;
 import org.vorin.bestwords.util.Dictionary;
 import org.vorin.bestwords.util.LangUtil;
 import org.vorin.bestwords.util.Logger;
@@ -29,13 +29,13 @@ import static org.vorin.bestwords.AppConfig.*;
  * The general idea is to have a list of words and then go to multiple dictionary sites
  * and download meanings with word types and example sentences
  * and then being able to select the most important meanings and filter out shitty ones
- * trying to use synonyms e.g. look here {@link WordListProcessor#processMeaningsForTranslation}
+ * trying to use synonyms e.g. look here {@link WordlistProcessor#processMeaningsForTranslation}
  *
  * there is cache mechanism when using a {@link TranslationLoader} class
  *
  * Important Classes and methods:
- * {@link WordListProcessor} - a bit of a bucket for diff stuff
- * {@link WordListProcessor#processMeaningsForTranslation}
+ * {@link WordlistProcessor} - a bit of a bucket for diff stuff
+ * {@link WordlistProcessor#processMeaningsForTranslation}
  * {@link TranslationLoader}
  *
  * Also read TODO.yaml in the main dir
@@ -62,38 +62,38 @@ public class TranslationLoaderApp {
     // ##########################
 
     private static final SynonymStore SYNONYM_STORE = new SynonymStore(REVERSE_DICT, SYNONYM_PARSER);
-    private static final WordListProcessor WORD_LIST_PROCESSOR = new WordListProcessor(DICT, SYNONYM_STORE);
+    private static final WordlistProcessor WORD_LIST_PROCESSOR = new WordlistProcessor(DICT, SYNONYM_STORE);
 
 
     public static void main(String... argvs) throws IOException {
-//        createWordLists();
-//        createCombinedWordList();
+//        createWordlists();
+//        createCombinedWordlist();
 //        loadSynonyms();
-        processWordList();
+        processWordlist();
     }
 
 
-    private static void createCombinedWordList() throws IOException {
-        var w = WordList.loadFromXml(new File(RES_DIR + "EnglishWordList35.xml"));
+    private static void createCombinedWordlist() throws IOException {
+        var w = Wordlist.loadFromXml(new File(RES_DIR + "EnglishWordlist35.xml"));
 
         var wordlists = Map.of(
-                Sources.GOOGLE_TRANSLATE_SOURCE, WordList.loadFromXml( new File(RES_DIR + DICT.name() + "-GoogleTranslateWordList.xml")),
-                Sources.LINGUEE_SOURCE, WordList.loadFromXml( new File( RES_DIR + DICT.name() + "-LingueeWordList.xml")),
-                Sources.WORD_REFERENCE_SOURCE, WordList.loadFromXml( new File(RES_DIR + DICT.name() + "-WordReferenceWordList.xml")));
+                Sources.GOOGLE_TRANSLATE_SOURCE, Wordlist.loadFromXml( new File(RES_DIR + DICT.name() + "-GoogleTranslateWordlist.xml")),
+                Sources.LINGUEE_SOURCE, Wordlist.loadFromXml( new File( RES_DIR + DICT.name() + "-LingueeWordlist.xml")),
+                Sources.WORD_REFERENCE_SOURCE, Wordlist.loadFromXml( new File(RES_DIR + DICT.name() + "-WordReferenceWordlist.xml")));
 
         for (var t : w.getTranslations()) {
             t.setMeanings(new ArrayList<>());
             WORD_LIST_PROCESSOR.combineMeanings(t, wordlists);
         }
 
-        w.writeToXml(new File(RES_DIR + DICT.name() + "-CombinedWordList.xml"));
+        w.writeToXml(new File(RES_DIR + DICT.name() + "-CombinedWordlist.xml"));
     }
 
 
-    private static void processWordList() throws IOException {
-        // var w = WordList.loadFromXml(new File(RES_DIR + DICT.name() + "-GoogleTranslateWordList.xml"));
-//        var w = WordList.loadFromXml(new File(RES_DIR + "EnglishWordList35.xml"));
-        var w = WordList.loadFromXml(new File(RES_DIR + DICT.name() + "-CombinedWordList.xml"));
+    private static void processWordlist() throws IOException {
+        // var w = WordList.loadFromXml(new File(RES_DIR + DICT.name() + "-GoogleTranslateWordlist.xml"));
+//        var w = WordList.loadFromXml(new File(RES_DIR + "EnglishWordlist35.xml"));
+        var w = Wordlist.loadFromXml(new File(RES_DIR + DICT.name() + "-CombinedWordlist.xml"));
 
         int wordsWithProblemsCount = 0;
         for (var t : w.getTranslations()) {
@@ -104,36 +104,36 @@ public class TranslationLoaderApp {
         }
 
         LOG.info("wordsWithProblemsCount=" + wordsWithProblemsCount);
-        WORD_LIST_PROCESSOR.verifyWordList(w);
+        WORD_LIST_PROCESSOR.verifyWordlist(w);
 
-        w.writeToXml(new File(RES_DIR + DICT.name() + "-ProcessedWordList.xml"));
+        w.writeToXml(new File(RES_DIR + DICT.name() + "-ProcessedWordlist.xml"));
     }
 
 
     private static void loadSynonyms() throws IOException {
-        var wordInfos = Util.getReverseForeignWordsWithMeaningsFromXml(RES_DIR + DICT.name() + "-CombinedWordList.xml");
+        var wordInfos = Util.getReverseForeignWordsWithMeaningsFromXml(RES_DIR + DICT.name() + "-CombinedWordlist.xml");
         var loader = new TranslationLoader(SYNONYM_DOWNLOADER, SYNONYM_PARSER, SYNONYM_STORE, true, 500);
         loader.load(wordInfos);
     }
 
 
-    private static void createWordLists() throws IOException {
-        var wordInfos = Util.getForeignWordsFromXml(RES_DIR + "EnglishWordList35.xml");
+    private static void createWordlists() throws IOException {
+        var wordInfos = Util.getForeignWordsFromXml(RES_DIR + "EnglishWordlist35.xml");
 
-        createGoogleWordList(DICT, wordInfos, DICT.name() + "-GoogleTranslateWordList.xml");
+        createGoogleWordlist(DICT, wordInfos, DICT.name() + "-GoogleTranslateWordlist.xml");
 
         // reverse wordlist
-        createGoogleWordList(REVERSE_DICT,
-                Util.getReverseForeignWordsFromXml(RES_DIR + DICT.name() + "-GoogleTranslateWordList.xml"),
-                DICT.name() + "-GoogleTranslateReverseWordList.xml");
+        createGoogleWordlist(REVERSE_DICT,
+                Util.getReverseForeignWordsFromXml(RES_DIR + DICT.name() + "-GoogleTranslateWordlist.xml"),
+                DICT.name() + "-GoogleTranslateReverseWordlist.xml");
 
-        createWordReferenceWordList(DICT, wordInfos,  DICT.name() + "-WordReferenceWordList.xml");
+        createWordReferenceWordlist(DICT, wordInfos,  DICT.name() + "-WordReferenceWordlist.xml");
 //
-        createLingueeWordList(DICT, wordInfos,  DICT.name() + "-LingueeWordList.xml");
+        createLingueeWordlist(DICT, wordInfos,  DICT.name() + "-LingueeWordlist.xml");
     }
 
 
-    static void createGoogleWordList(Dictionary dict, List<WordInfo> wordInfos, String outputXml) throws IOException {
+    static void createGoogleWordlist(Dictionary dict, List<WordInfo> wordInfos, String outputXml) throws IOException {
         var xmlPublisher = new XmlTranslationPublisher(new File(RES_DIR + outputXml));
         var downloader = new GoogleTranslateDownloader(dict);
         var parser = new GoogleTranslateParser(0.01, 5);
@@ -144,7 +144,7 @@ public class TranslationLoaderApp {
     }
 
 
-    static void createWordReferenceWordList(Dictionary dict, List<WordInfo> wordInfos, String outputXml) throws IOException {
+    static void createWordReferenceWordlist(Dictionary dict, List<WordInfo> wordInfos, String outputXml) throws IOException {
         var xmlPublisher = new XmlTranslationPublisher(new File(RES_DIR + outputXml));
         var downloader = new WordReferenceDownloader(dict);
         var parser = new WordReferenceParser(dict, getMeaningSanitizer(dict));
@@ -155,7 +155,7 @@ public class TranslationLoaderApp {
     }
 
 
-    static void createLingueeWordList(Dictionary dict, List<WordInfo> wordInfos, String outputXml) throws IOException {
+    static void createLingueeWordlist(Dictionary dict, List<WordInfo> wordInfos, String outputXml) throws IOException {
         var xmlPublisher = new XmlTranslationPublisher(new File(RES_DIR + outputXml));
         var downloader = new LingueeDownloader(dict);
         var parser = new LingueeParser(getMeaningSanitizer(dict));
@@ -166,7 +166,7 @@ public class TranslationLoaderApp {
     }
 
 
-    static void createCollinsWordList(Dictionary dict, List<WordInfo> wordInfos, String outputXml) throws IOException {
+    static void createCollinsWordlist(Dictionary dict, List<WordInfo> wordInfos, String outputXml) throws IOException {
         var xmlPublisher = new XmlTranslationPublisher(new File(RES_DIR + outputXml));
         var downloader = new CollinsDownloader(dict);
         var parser = new CollinsSentencesParser(36);

@@ -1,6 +1,6 @@
 package org.vorin.bestwords.loaders;
 
-import org.vorin.bestwords.model.WordList;
+import org.vorin.bestwords.model.Wordlist;
 import org.vorin.bestwords.util.CacheFileNameProvider;
 import org.vorin.bestwords.util.Logger;
 import org.vorin.bestwords.util.Dictionary;
@@ -134,7 +134,7 @@ public class SynonymStore implements TranslationPublisher {
     }
 
     @Override
-    public WordList getWordList() {
+    public Wordlist getWordlist() {
         throw new UnsupportedOperationException("");
     }
 

@@ -19,16 +19,16 @@ import static java.lang.String.format;
 import static java.util.stream.Collectors.toList;
 import static org.vorin.bestwords.AppConfig.RES_DIR;
 
-@XmlRootElement(name = "wordList")
-public class WordList {
+@XmlRootElement(name = "wordlist")
+public class Wordlist {
 
-    private static final Map<String, Translation> originalWordList = new HashMap<>();
+    private static final Map<String, Translation> originalWordlist = new HashMap<>();
 
     static {
         try {
-            var wl = loadFromXml(new File(RES_DIR + "EnglishWordList1k.xml"));
+            var wl = loadFromXml(new File(RES_DIR + "EnglishWordlist1k.xml"));
             wl.getTranslations().stream().forEach(t -> {
-               originalWordList.put(t.foreignWord, t);
+               originalWordlist.put(t.foreignWord, t);
             });
         } catch (IOException e) {
             throw new RuntimeException(e);
@@ -39,14 +39,14 @@ public class WordList {
     private List<Translation> translations;
 
 
-    public WordList() {
+    public Wordlist() {
         this.translations = new ArrayList<>();
     }
 
 
-    public static WordList loadFromXml(File xmlFile) throws IOException {
+    public static Wordlist loadFromXml(File xmlFile) throws IOException {
         try (var xmlFileIS = new FileInputStream(xmlFile)) {
-            return JAXB.unmarshal(xmlFileIS, WordList.class);
+            return JAXB.unmarshal(xmlFileIS, Wordlist.class);
         }
     }
 
@@ -163,7 +163,7 @@ public class WordList {
 
         if (o == null || getClass() != o.getClass()) return false;
 
-        WordList wordList = (WordList) o;
+        Wordlist wordList = (Wordlist) o;
 
         return new EqualsBuilder()
                 .append(translations, wordList.translations)
@@ -188,20 +188,20 @@ public class WordList {
 
 
     private String getAudioName(String foreignWord) {
-        var t = originalWordList.get(foreignWord);
+        var t = originalWordlist.get(foreignWord);
         if (t == null) {
             return "";
         }
-        return originalWordList.get(foreignWord).getAudioName();
+        return originalWordlist.get(foreignWord).getAudioName();
     }
 
 
     private String getPronunciation(String foreignWord) {
-        var t = originalWordList.get(foreignWord);
+        var t = originalWordlist.get(foreignWord);
         if (t == null) {
             return "";
         }
-        return originalWordList.get(foreignWord).getPronunciation();
+        return originalWordlist.get(foreignWord).getPronunciation();
     }
 
 }

@@ -4,7 +4,7 @@ import org.apache.commons.io.IOUtils;
 import org.junit.Ignore;
 import org.junit.Test;
 import org.vorin.bestwords.AppConfig;
-import org.vorin.bestwords.model.WordList;
+import org.vorin.bestwords.model.Wordlist;
 import org.vorin.bestwords.util.Dictionary;
 import org.vorin.bestwords.util.LangUtil;
 
@@ -26,21 +26,21 @@ public class LingueeTest {
         var publisher = new XmlTranslationPublisher(null);
         var parser = new LingueeParser(LangUtil::sanitizeSpanishMeaning);
 
-        var expectedWordList = new WordList();
-        expectedWordList.addMeaning(TEST_WORD_INFO.getForeignWord(), "poder", null, LINGUEE_SOURCE);
-        expectedWordList.addExampleSentence(TEST_WORD_INFO.getForeignWord(), "poder", "cheetahs can run very fast - los guepardos pueden correr muy rapido", LINGUEE_SOURCE);
+        var expectedWordlist = new Wordlist();
+        expectedWordlist.addMeaning(TEST_WORD_INFO.getForeignWord(), "poder", null, LINGUEE_SOURCE);
+        expectedWordlist.addExampleSentence(TEST_WORD_INFO.getForeignWord(), "poder", "cheetahs can run very fast - los guepardos pueden correr muy rapido", LINGUEE_SOURCE);
 
-        expectedWordList.addMeaning(TEST_WORD_INFO.getForeignWord(), "saber", null, LINGUEE_SOURCE);
-        expectedWordList.addExampleSentence(TEST_WORD_INFO.getForeignWord(), "saber", "my sister can speak four languages - mi hermana sabe hablar cuatro idiomas", LINGUEE_SOURCE);
+        expectedWordlist.addMeaning(TEST_WORD_INFO.getForeignWord(), "saber", null, LINGUEE_SOURCE);
+        expectedWordlist.addExampleSentence(TEST_WORD_INFO.getForeignWord(), "saber", "my sister can speak four languages - mi hermana sabe hablar cuatro idiomas", LINGUEE_SOURCE);
 
-        expectedWordList.addMeaning(TEST_WORD_INFO.getForeignWord(), "enlatar", null, LINGUEE_SOURCE);
-        expectedWordList.addExampleSentence(TEST_WORD_INFO.getForeignWord(), "enlatar", "the workers can tuna with olive oil - los operarios enlatan el atun con aceite de oliva", LINGUEE_SOURCE);
+        expectedWordlist.addMeaning(TEST_WORD_INFO.getForeignWord(), "enlatar", null, LINGUEE_SOURCE);
+        expectedWordlist.addExampleSentence(TEST_WORD_INFO.getForeignWord(), "enlatar", "the workers can tuna with olive oil - los operarios enlatan el atun con aceite de oliva", LINGUEE_SOURCE);
 
-        expectedWordList.addMeaning(TEST_WORD_INFO.getForeignWord(), "lata", null, LINGUEE_SOURCE);
-        expectedWordList.addExampleSentence(TEST_WORD_INFO.getForeignWord(), "lata", "many drinks are sold in plastic bottles or cans - muchas bebidas se venden en botellas de plastico o en latas", LINGUEE_SOURCE);
+        expectedWordlist.addMeaning(TEST_WORD_INFO.getForeignWord(), "lata", null, LINGUEE_SOURCE);
+        expectedWordlist.addExampleSentence(TEST_WORD_INFO.getForeignWord(), "lata", "many drinks are sold in plastic bottles or cans - muchas bebidas se venden en botellas de plastico o en latas", LINGUEE_SOURCE);
 
-        expectedWordList.addMeaning(TEST_WORD_INFO.getForeignWord(), "bote", null, LINGUEE_SOURCE);
-        expectedWordList.addExampleSentence(TEST_WORD_INFO.getForeignWord(), "bote", "I have a can of beer and a bottle of water - tengo un bote de cerveza y una botella de agua", LINGUEE_SOURCE);
+        expectedWordlist.addMeaning(TEST_WORD_INFO.getForeignWord(), "bote", null, LINGUEE_SOURCE);
+        expectedWordlist.addExampleSentence(TEST_WORD_INFO.getForeignWord(), "bote", "I have a can of beer and a bottle of water - tengo un bote de cerveza y una botella de agua", LINGUEE_SOURCE);
 
         // when
         try (var canCacheFileIS = new FileInputStream(new File(TEST_CACHE_FILE_PATH))) {
@@ -48,7 +48,7 @@ public class LingueeTest {
         }
 
         // then
-        assertThat(publisher.getWordList(), is(expectedWordList));
+        assertThat(publisher.getWordlist(), is(expectedWordlist));
     }
 
     @Ignore

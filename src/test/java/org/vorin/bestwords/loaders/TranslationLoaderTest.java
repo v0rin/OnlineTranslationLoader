@@ -5,7 +5,7 @@ import org.apache.commons.io.IOUtils;
 import org.junit.Before;
 import org.junit.Test;
 import org.vorin.bestwords.AppConfig;
-import org.vorin.bestwords.model.WordList;
+import org.vorin.bestwords.model.Wordlist;
 import org.vorin.bestwords.util.Dictionary;
 
 import java.io.*;
@@ -48,13 +48,13 @@ public class TranslationLoaderTest {
         new File(testCacheDir).mkdirs();
         var loader = new TranslationLoader(translationDownloader, translationDataParser, publisher, true);
 
-        var expectedWordList = getExpectedWordList();
+        var expectedWordlist = getExpectedWordlist();
 
         // when
         loader.load(Arrays.asList(TEST_WORD_INFO));
 
         // then
-        assertThat(publisher.getWordList(), is(expectedWordList));
+        assertThat(publisher.getWordlist(), is(expectedWordlist));
         String cachedFilePath = testCacheDir + TEST_WORD_INFO.getForeignWord();
         assertTrue(String.format("File [%s] does not exist", cachedFilePath), new File(cachedFilePath).exists());
         try (var cachedFileIS = new FileInputStream(cachedFilePath)) {
@@ -69,13 +69,13 @@ public class TranslationLoaderTest {
         // given
         var loader = new TranslationLoader(translationDownloader, translationDataParser, publisher, false);
 
-        var expectedWordList = getExpectedWordList();
+        var expectedWordlist = getExpectedWordlist();
 
         // when
         loader.load(Arrays.asList(TEST_WORD_INFO));
 
         // then
-        assertThat(publisher.getWordList(), is(expectedWordList));
+        assertThat(publisher.getWordlist(), is(expectedWordlist));
     }
 
 
@@ -84,18 +84,18 @@ public class TranslationLoaderTest {
         // given
         var loader = new TranslationLoader(translationDownloader, translationCachedDataParser, publisher, true);
 
-        var expectedWordList = getExpectedWordList();
+        var expectedWordlist = getExpectedWordlist();
 
         // when
         loader.load(Arrays.asList(TEST_WORD_INFO));
 
         // then
-        assertThat(publisher.getWordList(), is(expectedWordList));
+        assertThat(publisher.getWordlist(), is(expectedWordlist));
     }
 
 
-    private WordList getExpectedWordList() {
-        var expectedWordList = new WordList();
+    private Wordlist getExpectedWordlist() {
+        var expectedWordList = new Wordlist();
         expectedWordList.addMeaning(TEST_WORD_INFO.getForeignWord(), TEST_MEANING1, null, TEST_SOURCE);
         expectedWordList.addMeaning(TEST_WORD_INFO.getForeignWord(), TEST_MEANING2, null, TEST_SOURCE);
         expectedWordList.addMeaning(TEST_WORD_INFO.getForeignWord(), TEST_WORD_INFO.getWordMeaning(), null, TEST_SOURCE);

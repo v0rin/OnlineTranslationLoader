@@ -4,7 +4,7 @@ import org.apache.commons.io.IOUtils;
 import org.junit.Ignore;
 import org.junit.Test;
 import org.vorin.bestwords.AppConfig;
-import org.vorin.bestwords.model.WordList;
+import org.vorin.bestwords.model.Wordlist;
 import org.vorin.bestwords.util.LangUtil;
 
 import java.io.*;
@@ -28,21 +28,21 @@ public class WordReferenceTest {
         var publisher = new XmlTranslationPublisher(null);
         var parser = new WordReferenceParser(EN_ES, LangUtil::sanitizeSpanishMeaning);
 
-        var expectedWordList = new WordList();
-        expectedWordList.addMeaning(TEST_WORD_INFO.getForeignWord(), "poder", "", WORD_REFERENCE_SOURCE);
-        expectedWordList.addExampleSentence(TEST_WORD_INFO.getForeignWord(), "poder", "I can carry those suitcases for you - puedo llevarte esas maletas", WORD_REFERENCE_SOURCE);
+        var expectedWordlist = new Wordlist();
+        expectedWordlist.addMeaning(TEST_WORD_INFO.getForeignWord(), "poder", "", WORD_REFERENCE_SOURCE);
+        expectedWordlist.addExampleSentence(TEST_WORD_INFO.getForeignWord(), "poder", "I can carry those suitcases for you - puedo llevarte esas maletas", WORD_REFERENCE_SOURCE);
 
-        expectedWordList.addMeaning(TEST_WORD_INFO.getForeignWord(), "saber", "", WORD_REFERENCE_SOURCE);
-        expectedWordList.addExampleSentence(TEST_WORD_INFO.getForeignWord(), "saber", "she can play the piano - ella sabe tocar el piano", WORD_REFERENCE_SOURCE);
+        expectedWordlist.addMeaning(TEST_WORD_INFO.getForeignWord(), "saber", "", WORD_REFERENCE_SOURCE);
+        expectedWordlist.addExampleSentence(TEST_WORD_INFO.getForeignWord(), "saber", "she can play the piano - ella sabe tocar el piano", WORD_REFERENCE_SOURCE);
 
-        expectedWordList.addMeaning(TEST_WORD_INFO.getForeignWord(), "ser posible", "", WORD_REFERENCE_SOURCE);
-        expectedWordList.addExampleSentence(TEST_WORD_INFO.getForeignWord(), "ser posible", "such things can happen if you're not careful - es posible que pasen cosas asi si no llevas cuidado", WORD_REFERENCE_SOURCE);
+        expectedWordlist.addMeaning(TEST_WORD_INFO.getForeignWord(), "ser posible", "", WORD_REFERENCE_SOURCE);
+        expectedWordlist.addExampleSentence(TEST_WORD_INFO.getForeignWord(), "ser posible", "such things can happen if you're not careful - es posible que pasen cosas asi si no llevas cuidado", WORD_REFERENCE_SOURCE);
 
-        expectedWordList.addMeaning(TEST_WORD_INFO.getForeignWord(), "bote", "", WORD_REFERENCE_SOURCE);
-        expectedWordList.addExampleSentence(TEST_WORD_INFO.getForeignWord(), "bote", "we need three more cans of paint - necesitamos tres botes mas de pintura", WORD_REFERENCE_SOURCE);
+        expectedWordlist.addMeaning(TEST_WORD_INFO.getForeignWord(), "bote", "", WORD_REFERENCE_SOURCE);
+        expectedWordlist.addExampleSentence(TEST_WORD_INFO.getForeignWord(), "bote", "we need three more cans of paint - necesitamos tres botes mas de pintura", WORD_REFERENCE_SOURCE);
 
-        expectedWordList.addMeaning(TEST_WORD_INFO.getForeignWord(), "lata", "", WORD_REFERENCE_SOURCE);
-        expectedWordList.addExampleSentence(TEST_WORD_INFO.getForeignWord(), "lata", "pass me that can of peas - pasame esa lata de guisantes", WORD_REFERENCE_SOURCE);
+        expectedWordlist.addMeaning(TEST_WORD_INFO.getForeignWord(), "lata", "", WORD_REFERENCE_SOURCE);
+        expectedWordlist.addExampleSentence(TEST_WORD_INFO.getForeignWord(), "lata", "pass me that can of peas - pasame esa lata de guisantes", WORD_REFERENCE_SOURCE);
 
         // when
         try (var canCacheFileIS = new FileInputStream(new File(TEST_CACHE_FILE_PATH))) {
@@ -50,7 +50,7 @@ public class WordReferenceTest {
         }
 
         // then
-        assertThat(publisher.getWordList(), is(expectedWordList));
+        assertThat(publisher.getWordlist(), is(expectedWordlist));
     }
 
     @Test
@@ -59,7 +59,7 @@ public class WordReferenceTest {
         var publisher = new XmlTranslationPublisher(null);
         var parser = new WordReferenceParser(EN_PL, LangUtil::sanitizeSpanishMeaning);
 
-        var expectedWordList = WordList.loadFromXml(new File(AppConfig.TEST_RES_DIR + "loaders/WordReference/EN_PL-make-wordlist.xml"));
+        var expectedWordlist = Wordlist.loadFromXml(new File(AppConfig.TEST_RES_DIR + "loaders/WordReference/EN_PL-make-wordlist.xml"));
 
         // when
         try (var canCacheFileIS = new FileInputStream(new File(TEST_CACHE_FILE_PATH_2))) {
@@ -67,7 +67,7 @@ public class WordReferenceTest {
         }
 
         // then
-        assertThat(publisher.getWordList(), is(expectedWordList));
+        assertThat(publisher.getWordlist(), is(expectedWordlist));
     }
 
     @Ignore

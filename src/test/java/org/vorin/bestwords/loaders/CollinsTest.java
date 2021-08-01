@@ -4,7 +4,7 @@ import org.apache.commons.io.IOUtils;
 import org.junit.Ignore;
 import org.junit.Test;
 import org.vorin.bestwords.AppConfig;
-import org.vorin.bestwords.model.WordList;
+import org.vorin.bestwords.model.Wordlist;
 import org.vorin.bestwords.util.Dictionary;
 
 import java.io.*;
@@ -24,9 +24,9 @@ public class CollinsTest {
         var publisher = new XmlTranslationPublisher(null);
         var parser = new CollinsSentencesParser(30);
 
-        var expectedWordList = new WordList();
-        expectedWordList.addMeaning(TEST_WORD_INFO.getForeignWord(), "take", null, COLLINS_SOURCE);
-        expectedWordList.addExampleSentence(TEST_WORD_INFO.getForeignWord(), "take", "lo toma o lo deja - take it or leave it", COLLINS_SOURCE);
+        var expectedWordlist = new Wordlist();
+        expectedWordlist.addMeaning(TEST_WORD_INFO.getForeignWord(), "take", null, COLLINS_SOURCE);
+        expectedWordlist.addExampleSentence(TEST_WORD_INFO.getForeignWord(), "take", "lo toma o lo deja - take it or leave it", COLLINS_SOURCE);
 
         // when
         try (var canCacheFileIS = new FileInputStream(new File(TEST_CACHE_FILE_PATH))) {
@@ -34,7 +34,7 @@ public class CollinsTest {
         }
 
         // then
-        assertThat(publisher.getWordList(), is(expectedWordList));
+        assertThat(publisher.getWordlist(), is(expectedWordlist));
     }
 
     @Ignore

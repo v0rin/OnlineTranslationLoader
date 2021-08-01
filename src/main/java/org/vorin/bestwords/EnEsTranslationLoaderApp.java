@@ -1,6 +1,6 @@
 package org.vorin.bestwords;
 
-import org.vorin.bestwords.model.WordList;
+import org.vorin.bestwords.model.Wordlist;
 import org.vorin.bestwords.util.Dictionary;
 import org.vorin.bestwords.util.Logger;
 import org.vorin.bestwords.util.Sources;
@@ -23,66 +23,66 @@ public class EnEsTranslationLoaderApp {
     // ##########################
 
     public static void main(String... args) throws IOException {
-//        createWordLists();
+//        createWordlists();
         createCombinedWordlist();
-//        processWordList();
+//        processWordlist();
     }
 
 
     private static void createCombinedWordlist() throws IOException {
-        var w = WordList.loadFromXml(new File(RES_DIR + "EnglishWordList35.xml"));
+        var w = Wordlist.loadFromXml(new File(RES_DIR + "EnglishWordlist35.xml"));
 
         var wordlists = Map.of(
-//                Sources.WORD_REFERENCE_SOURCE, WordList.loadFromXml( new File(RES_DIR + DICT.name() + "-WordReferenceWordList.xml")),
-                Sources.GOOGLE_TRANSLATE_SOURCE, WordList.loadFromXml( new File(RES_DIR + DICT.name() + "-GoogleTranslateWordList.xml")),
-                Sources.LINGUEE_SOURCE, WordList.loadFromXml( new File( RES_DIR + DICT.name() + "-LingueeWordList.xml")));
+//                Sources.WORD_REFERENCE_SOURCE, Wordlist.loadFromXml( new File(RES_DIR + DICT.name() + "-WordReferenceWordlist.xml")),
+                Sources.GOOGLE_TRANSLATE_SOURCE, Wordlist.loadFromXml( new File(RES_DIR + DICT.name() + "-GoogleTranslateWordlist.xml")),
+                Sources.LINGUEE_SOURCE, Wordlist.loadFromXml( new File( RES_DIR + DICT.name() + "-LingueeWordlist.xml")));
 
         int countLimit = 5;
         for (var t : w.getTranslations()) {
             t.setMeanings(new ArrayList<>());
-            WordListProcessor.combineMeanings(t, wordlists);
+            WordlistProcessor.combineMeanings(t, wordlists);
             if (countLimit-- == 0) break;
         }
 
-        w.writeToXml(new File(RES_DIR + DICT.name() + "-CombinedWordList.xml"));
+        w.writeToXml(new File(RES_DIR + DICT.name() + "-CombinedWordlist.xml"));
     }
 
 
-    private static void processWordList() throws IOException {
-        var w = WordList.loadFromXml(new File(RES_DIR + "EN_ES-GoogleTranslateWordList.xml"));
+    private static void processWordlist() throws IOException {
+        var w = Wordlist.loadFromXml(new File(RES_DIR + "EN_ES-GoogleTranslateWordlist.xml"));
 
-        var wordListProcessor = new WordListProcessor(Dictionary.EN_ES, null);
+        var wordlistProcessor = new WordlistProcessor(Dictionary.EN_ES, null);
         int wordsWithProblemsCount = 0;
         for (var t : w.getTranslations()) {
-            if(!wordListProcessor.processMeaningsForTranslation(t)) {
+            if(!wordlistProcessor.processMeaningsForTranslation(t)) {
                 wordsWithProblemsCount++;
             }
         }
 
         LOG.info("wordsWithProblemsCount=" + wordsWithProblemsCount);
-        wordListProcessor.verifyWordList(w);
+        wordlistProcessor.verifyWordlist(w);
 
-        w.writeToXml(new File(RES_DIR + "EN_ES-ProcessedWordList.xml"));
+        w.writeToXml(new File(RES_DIR + "EN_ES-ProcessedWordlist.xml"));
     }
 
 
-    private static void createWordLists() throws IOException {
-        var wordInfos = Util.getForeignWordsFromXml(RES_DIR + "EnglishWordList35.xml");
+    private static void createWordlists() throws IOException {
+        var wordInfos = Util.getForeignWordsFromXml(RES_DIR + "EnglishWordlist35.xml");
 
-        TranslationLoaderApp.createGoogleWordList(Dictionary.EN_ES, wordInfos,"EN_ES-GoogleTranslateWordList.xml");
+        TranslationLoaderApp.createGoogleWordlist(Dictionary.EN_ES, wordInfos,"EN_ES-GoogleTranslateWordlist.xml");
 
         // reverse wordlist
-        TranslationLoaderApp.createGoogleWordList(Dictionary.ES_EN,
-                Util.getReverseForeignWordsFromXml(RES_DIR + "EN_ES-GoogleTranslateWordList.xml"),
-                "EN_ES-GoogleTranslateReverseWordList.xml");
+        TranslationLoaderApp.createGoogleWordlist(Dictionary.ES_EN,
+                Util.getReverseForeignWordsFromXml(RES_DIR + "EN_ES-GoogleTranslateWordlist.xml"),
+                "EN_ES-GoogleTranslateReverseWordlist.xml");
 
-        TranslationLoaderApp.createWordReferenceWordList(Dictionary.EN_ES, wordInfos, "EN_ES-WordReferenceWordList.xml");
+        TranslationLoaderApp.createWordReferenceWordlist(Dictionary.EN_ES, wordInfos, "EN_ES-WordReferenceWordlist.xml");
 
-        TranslationLoaderApp.createLingueeWordList(Dictionary.EN_ES, wordInfos, "EN_ES-LingueeWordList.xml");
+        TranslationLoaderApp.createLingueeWordlist(Dictionary.EN_ES, wordInfos, "EN_ES-LingueeWordlist.xml");
 
-        TranslationLoaderApp.createCollinsWordList(Dictionary.ES_EN,
-                Util.getReverseForeignWordsWithMeaningsFromXml(RES_DIR + "EN_ES-GoogleTranslateWordList.xml"),
-                "EN_ES-CollinsReverseWordList.xml");
+        TranslationLoaderApp.createCollinsWordlist(Dictionary.ES_EN,
+                Util.getReverseForeignWordsWithMeaningsFromXml(RES_DIR + "EN_ES-GoogleTranslateWordlist.xml"),
+                "EN_ES-CollinsReverseWordlist.xml");
     }
 
 }

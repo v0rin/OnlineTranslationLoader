@@ -63,7 +63,7 @@ ale to na samym koncu - jak juz bede mial decolowa liste to wtedy bedzie jakas s
 TODO:
   REFACTORING: (na pozniej)
     possibly refactor so the data is pulled as it is needed and I don't need to prepare the wordlists, synonyms etc.
-    refactor WordListProcessor so it is more modular and configurable if it makes sense
+    refactor WordlistProcessor so it is more modular and configurable if it makes sense
     refactor TranslationLoader, TranslationDataParser and downloader into:
       DataDownloader, CacheDownloaderDecorator, DataDownloader, DataLoader takes DataProcessor and CacheDownloader,
       publisher is passed to DataProcessor directly

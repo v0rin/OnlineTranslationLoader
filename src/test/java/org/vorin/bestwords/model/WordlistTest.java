@@ -7,14 +7,13 @@ import org.vorin.bestwords.AppConfig;
 
 import java.io.File;
 import java.io.IOException;
-import java.nio.charset.StandardCharsets;
 import java.util.Arrays;
 
 import static org.hamcrest.CoreMatchers.containsString;
 import static org.hamcrest.core.Is.is;
 import static org.junit.Assert.*;
 
-public class WordListTest {
+public class WordlistTest {
 
     private Meaning trabajarMeaning;
     private Meaning funcionarMeaning;
@@ -31,7 +30,7 @@ public class WordListTest {
     @Test
     public void addMeaningsAndExampleSentences() {
         // given
-        WordList wl = new WordList();
+        Wordlist wl = new Wordlist();
 
         // when
         wl.addMeaning("work", "trabajar", "verb", "test meaning src");
@@ -62,7 +61,7 @@ public class WordListTest {
     @Test
     public void findTranslationForWord() {
         // given
-        WordList wl = new WordList();
+        Wordlist wl = new Wordlist();
         var expectedTakeTranslation = new Translation("take", "/teik/", "take", Arrays.asList(tomarMeaning));
 
         // when
@@ -77,7 +76,7 @@ public class WordListTest {
     @Test
     public void findMeaning() {
         // given
-        WordList wl = new WordList();
+        Wordlist wl = new Wordlist();
 
         // when
         wl.addMeaning("work", "trabajar","verb",  "test meaning src");
@@ -93,11 +92,11 @@ public class WordListTest {
     @Test
     public void xmlLoadAndWrite() throws IOException {
         // given
-        File originalWordListXmlFile = new File(AppConfig.TEST_RES_DIR + "model/WordList/testEnglishWordList25.xml");
-        File tmpWordListXmlFile = new File(AppConfig.TEST_RES_DIR + "model/WordList/tmpTestEnglishWordList25.xml");
+        File originalWordlistXmlFile = new File(AppConfig.TEST_RES_DIR + "model/WordList/testEnglishWordlist25.xml");
+        File tmpWordListXmlFile = new File(AppConfig.TEST_RES_DIR + "model/WordList/tmpTestEnglishWordlist25.xml");
 
         // when
-        var wordlist = WordList.loadFromXml(originalWordListXmlFile);
+        var wordlist = Wordlist.loadFromXml(originalWordlistXmlFile);
         wordlist.writeToXml(tmpWordListXmlFile);
 
         // then
@@ -105,7 +104,7 @@ public class WordListTest {
         var t = wordlist.getTranslations().get(8);
         assertThat(t.getForeignWord(), is("can"));
         assertThat(t.getMeanings().get(1).getWordMeaning(), is("puszka"));
-        assertTrue(FileUtils.contentEquals(originalWordListXmlFile, tmpWordListXmlFile));
+        assertTrue(FileUtils.contentEquals(originalWordlistXmlFile, tmpWordListXmlFile));
 
         tmpWordListXmlFile.delete();
     }

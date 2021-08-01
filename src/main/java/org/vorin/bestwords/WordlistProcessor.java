@@ -5,7 +5,7 @@ import org.apache.commons.lang3.tuple.Pair;
 import org.vorin.bestwords.loaders.SynonymStore;
 import org.vorin.bestwords.model.Meaning;
 import org.vorin.bestwords.model.Translation;
-import org.vorin.bestwords.model.WordList;
+import org.vorin.bestwords.model.Wordlist;
 import org.vorin.bestwords.util.*;
 import org.vorin.bestwords.util.Dictionary;
 
@@ -24,40 +24,40 @@ import static org.vorin.bestwords.util.Sources.COLLINS_SOURCE;
 /**
  * to jest taka troche smieciowa klasa, w ktorej jest iles elementow robionych recznie
  */
-public class WordListProcessor {
+public class WordlistProcessor {
 
-    private static final Logger LOG = Logger.get(WordListProcessor.class);
+    private static final Logger LOG = Logger.get(WordlistProcessor.class);
     private static final Pattern WEIRD_CHARACTERS_PATTERN = Pattern.compile("[\\(\\)\\;\\:\\,\\.\\@\\#\\$\\%\\^\\&\\*\\|\\{\\}\\\"\\'\\/\\<\\>\\~`]+");
     private static final String LOG_TRANSLATION_COMMENT_FORMAT = "foreignWord=[%s] - %s";
     private static final String LOG_MEANING_COMMENT_FORMAT = "foreignWord=[%s], meaning=[%s] - %s";
 
     private final SynonymStore synonyms;
     private final Set<String> mostCommonWords;
-    private final WordList googleWordList;
-    private final WordList googleReverseWordList;
-    private final WordList lingueeWordList;
-    private final WordList wordReferenceWordList;
+    private final Wordlist googleWordlist;
+    private final Wordlist googleReverseWordlist;
+    private final Wordlist lingueeWordlist;
+    private final Wordlist wordReferenceWordlist;
 
-    private WordList collinsReverseWordList;
+    private Wordlist collinsReverseWordlist;
 
     private final Dictionary dictionary;
 
 
     /**
     * Once I generated translations from diff sources (google, linguee, ..) I try to combine the results
-    * But the lists mostCommonWords, googleWordList, ... need to already exist
+    * But the lists mostCommonWords, googleWordlist, ... need to already exist
     */
-    public WordListProcessor(Dictionary dictionary, SynonymStore synonymStore) {
+    public WordlistProcessor(Dictionary dictionary, SynonymStore synonymStore) {
         this.dictionary = dictionary;
         try {
             this.synonyms = synonymStore;
-            this.mostCommonWords = Util.loadWordsFromTxtFile( getWordListFile("MostCommonWords.txt")); // to verify if the meaning exists in the most common words
-            this.googleWordList = WordList.loadFromXml( getWordListFile("GoogleTranslateWordList.xml"));
-            this.googleReverseWordList = WordList.loadFromXml( getWordListFile("GoogleTranslateReverseWordList.xml"));
-            this.lingueeWordList = WordList.loadFromXml( getWordListFile("LingueeWordList.xml"));
-            this.wordReferenceWordList = WordList.loadFromXml( getWordListFile("WordReferenceWordList.xml"));
+            this.mostCommonWords = Util.loadWordsFromTxtFile( getWordlistFile("MostCommonWords.txt")); // to verify if the meaning exists in the most common words
+            this.googleWordlist = Wordlist.loadFromXml( getWordlistFile("GoogleTranslateWordlist.xml"));
+            this.googleReverseWordlist = Wordlist.loadFromXml( getWordlistFile("GoogleTranslateReverseWordlist.xml"));
+            this.lingueeWordlist = Wordlist.loadFromXml( getWordlistFile("LingueeWordlist.xml"));
+            this.wordReferenceWordlist = Wordlist.loadFromXml( getWordlistFile("WordReferenceWordlist.xml"));
             if (dictionary == Dictionary.EN_ES) {
-                this.collinsReverseWordList = WordList.loadFromXml( getWordListFile("CollinsReverseWordList.xml"));
+                this.collinsReverseWordlist = Wordlist.loadFromXml( getWordlistFile("CollinsReverseWordlist.xml"));
             }
         } catch (IOException e) {
             throw new RuntimeException(e);
@@ -66,14 +66,14 @@ public class WordListProcessor {
     }
 
 
-    public static void combineMeanings(Translation targetTranslation, Map<String, WordList> wordlists) {
+    public static void combineMeanings(Translation targetTranslation, Map<String, Wordlist> wordlists) {
         // collect all meanings
         List<String> allWordMeanings = new ArrayList<>();
         Map<String, List<String>> meaningLists = new HashMap<>();
         for (var entry : wordlists.entrySet()) {
             var source = entry.getKey();
             var wordlist = entry.getValue();
-            var meaningList = getWordMeaningsFromWordList(targetTranslation, wordlist);
+            var meaningList = getWordMeaningsFromWordlist(targetTranslation, wordlist);
             meaningLists.put(source, meaningList);
             allWordMeanings.addAll(meaningList);
         }
@@ -123,7 +123,7 @@ public class WordListProcessor {
     }
 
 
-    private static List<String> getWordMeaningsFromWordList(Translation translation, WordList w) {
+    private static List<String> getWordMeaningsFromWordlist(Translation translation, Wordlist w) {
         var t = w.findTranslationForWord(translation.getForeignWord());
         if (t != null) {
             return t.getMeanings().stream().map(Meaning::getWordMeaning).collect(toList());
@@ -164,7 +164,7 @@ public class WordListProcessor {
             }
             sourcesCount++;
             int googleWordList = 1;
-            if (!existsInWordlist(this.googleWordList, sanitizedForeignWord, sanitizedMeaning, "GOOGLE_WORDLIST")) {
+            if (!existsInWordlist(this.googleWordlist, sanitizedForeignWord, sanitizedMeaning, "GOOGLE_WORDLIST")) {
                 addMeaningComment(t.getForeignWord(), m, "not in GOOGLE_WORDLIST");
                 googleWordList = 0;
             }
@@ -176,13 +176,13 @@ public class WordListProcessor {
 //            }
             sourcesCount++;
             int wordReferenceWordList = 1;
-            if (!existsInWordlist(this.wordReferenceWordList, sanitizedForeignWord, sanitizedMeaning, "WORD_REFERENCE_WORDLIST")) {
+            if (!existsInWordlist(this.wordReferenceWordlist, sanitizedForeignWord, sanitizedMeaning, "WORD_REFERENCE_WORDLIST")) {
                 addMeaningComment(t.getForeignWord(), m, "not in WORD_REFERENCE_WORDLIST");
                 wordReferenceWordList = 0;
             }
             sourcesCount++;
             int lingueeWordList = 1;
-            if (!existsInWordlist(this.lingueeWordList, sanitizedForeignWord, sanitizedMeaning, "LINGUEE_WORDLIST")) {
+            if (!existsInWordlist(this.lingueeWordlist, sanitizedForeignWord, sanitizedMeaning, "LINGUEE_WORDLIST")) {
                 addMeaningComment(t.getForeignWord(), m, "not in LINGUEE_WORDLIST");
                 lingueeWordList = 0;
             }
@@ -230,7 +230,7 @@ public class WordListProcessor {
             // get the most important meaning - the order of meanings should be according to importance
             var wordMeaning = group.get(0);
             // find it in the meanings and schedule to add the comment with synonyms
-            var meaning = WordList.findMeaning(t, wordMeaning);
+            var meaning = Wordlist.findMeaning(t, wordMeaning);
             group.remove(wordMeaning);
             wordMeaningsToKeep.add(wordMeaning);
             if (!group.isEmpty()) {
@@ -248,7 +248,7 @@ public class WordListProcessor {
                 if (wordMeaningsToKeep.contains(wordMeaningToRemove)) {
                     continue;
                 }
-                var meaningToRemove = WordList.findMeaning(t, wordMeaningToRemove);
+                var meaningToRemove = Wordlist.findMeaning(t, wordMeaningToRemove);
                 if (meaningToRemove != null) {
                     meaningsToRemove.add(meaningToRemove);
                 }
@@ -286,8 +286,8 @@ public class WordListProcessor {
         for (var m : targetTranslation.getMeanings()) {
             List<Pair<String, String>> exampleSentences = parseExampleSentences(m);
 
-            if (collinsReverseWordList != null) {
-                var collinsMeaning = collinsReverseWordList.findMeaning(m.getWordMeaning(), targetTranslation.getForeignWord());
+            if (collinsReverseWordlist != null) {
+                var collinsMeaning = collinsReverseWordlist.findMeaning(m.getWordMeaning(), targetTranslation.getForeignWord());
                 if (collinsMeaning != null && !collinsMeaning.getExampleSentence().isBlank()) {
                     exampleSentences.add(ImmutablePair.of(collinsMeaning.getExampleSentence(), COLLINS_SOURCE));
                 }
@@ -315,7 +315,7 @@ public class WordListProcessor {
     }
 
 
-    private boolean existsInWordlist(WordList wordList, String foreignWord, String wordMeaning, String wordListName) {
+    private boolean existsInWordlist(Wordlist wordList, String foreignWord, String wordMeaning, String wordListName) {
         var t = wordList.findTranslationForWord(foreignWord);
         if (t == null) {
             LOG.error(format("could not find translation for word [%s] in %s", wordMeaning, wordListName));
@@ -331,7 +331,7 @@ public class WordListProcessor {
     }
 
 
-    private boolean existsInReverseWordlist(WordList wordList, String foreignWord, String wordMeaning, String wordListName) {
+    private boolean existsInReverseWordlist(Wordlist wordList, String foreignWord, String wordMeaning, String wordListName) {
         var t = wordList.findTranslationForWord(wordMeaning);
         if (t == null) {
             LOG.error(format("could not find translation for word [%s] in %s", wordMeaning, wordListName));
@@ -347,7 +347,7 @@ public class WordListProcessor {
     }
 
 
-    public void verifyWordList(WordList w) {
+    public void verifyWordlist(Wordlist w) {
         // check meaning distribution
         var meaningCountDistribution = new HashMap<Integer, Integer>();
         for (var t : w.getTranslations()) {
@@ -369,7 +369,7 @@ public class WordListProcessor {
     }
 
 
-    private File getWordListFile(String wordListName) {
+    private File getWordlistFile(String wordListName) {
         return new File(AppConfig.RES_DIR + dictionary.name() + "-" + wordListName);
     }
 

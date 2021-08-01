@@ -1,7 +1,7 @@
 package org.vorin.bestwords.util;
 
 import org.vorin.bestwords.loaders.WordInfo;
-import org.vorin.bestwords.model.WordList;
+import org.vorin.bestwords.model.Wordlist;
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -55,19 +55,19 @@ public class Util {
 
 
     public static List<WordInfo> getForeignWordsFromXml(String xmlPath) throws IOException {
-        var wl = WordList.loadFromXml(new File(xmlPath));
+        var wl = Wordlist.loadFromXml(new File(xmlPath));
         return wl.getTranslations().stream().map(t -> new WordInfo(t.getForeignWord(), null)).distinct().collect(toList());
     }
 
 
     public static List<WordInfo> getReverseForeignWordsFromXml(String xmlPath) throws IOException {
-        var wl = WordList.loadFromXml(new File(xmlPath));
+        var wl = Wordlist.loadFromXml(new File(xmlPath));
         return wl.getTranslations().stream().flatMap(t -> t.getMeanings().stream().map(m -> new WordInfo(m.getWordMeaning(),  null))).distinct().collect(toList());
     }
 
 
     public static List<WordInfo> getForeignWordsWithMeaningsFromXml(String xmlPath) throws IOException {
-        var wl = WordList.loadFromXml(new File(xmlPath));
+        var wl = Wordlist.loadFromXml(new File(xmlPath));
         return wl.getTranslations()
                 .stream()
                 .flatMap(t -> t.getMeanings().stream()
@@ -77,7 +77,7 @@ public class Util {
 
 
     public static List<WordInfo> getReverseForeignWordsWithMeaningsFromXml(String xmlPath) throws IOException {
-        var wl = WordList.loadFromXml(new File(xmlPath));
+        var wl = Wordlist.loadFromXml(new File(xmlPath));
         return wl.getTranslations()
                 .stream()
                 .flatMap(t -> t.getMeanings().stream()

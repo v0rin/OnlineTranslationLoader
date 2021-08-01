@@ -4,7 +4,6 @@ import org.jsoup.HttpStatusException;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.select.Elements;
-import org.vorin.bestwords.WordListProcessor;
 import org.vorin.bestwords.util.Dictionary;
 import org.vorin.bestwords.util.Logger;
 

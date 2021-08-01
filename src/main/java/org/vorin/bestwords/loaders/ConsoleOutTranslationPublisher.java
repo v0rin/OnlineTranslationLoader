@@ -1,10 +1,7 @@
 package org.vorin.bestwords.loaders;
 
-import org.vorin.bestwords.model.WordList;
+import org.vorin.bestwords.model.Wordlist;
 import org.vorin.bestwords.util.Logger;
-
-import java.io.File;
-import java.io.IOException;
 
 import static com.google.common.base.Strings.isNullOrEmpty;
 import static java.lang.String.format;
@@ -13,10 +10,10 @@ public class ConsoleOutTranslationPublisher implements TranslationPublisher {
 
 	private static final Logger LOG = Logger.get(ConsoleOutTranslationPublisher.class);
 
-	private final WordList wordlist;
+	private final Wordlist wordlist;
 
 	public ConsoleOutTranslationPublisher() {
-		this.wordlist = new WordList();
+		this.wordlist = new Wordlist();
 	}
 
 	@Override
@@ -58,7 +55,7 @@ public class ConsoleOutTranslationPublisher implements TranslationPublisher {
 	}
 
 	@Override
-	public WordList getWordList() {
+	public Wordlist getWordlist() {
 		return wordlist;
 	}
 

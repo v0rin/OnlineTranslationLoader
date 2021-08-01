@@ -1,6 +1,6 @@
 package org.vorin.bestwords.loaders;
 
-import org.vorin.bestwords.model.WordList;
+import org.vorin.bestwords.model.Wordlist;
 import org.vorin.bestwords.util.Logger;
 
 import static com.google.common.base.Strings.isNullOrEmpty;
@@ -14,11 +14,11 @@ public class XmlTranslationPublisher implements TranslationPublisher {
 	private static final Logger LOG = Logger.get(XmlTranslationPublisher.class);
 
 	private final File xmlFile;
-	private final WordList wordlist;
+	private final Wordlist wordlist;
 
 	public XmlTranslationPublisher(File xmlFile) {
 		this.xmlFile = xmlFile;
-		this.wordlist = new WordList();
+		this.wordlist = new Wordlist();
 	}
 
 	@Override
@@ -60,7 +60,7 @@ public class XmlTranslationPublisher implements TranslationPublisher {
 	}
 
 	@Override
-	public WordList getWordList() {
+	public Wordlist getWordlist() {
 		return wordlist;
 	}
 
