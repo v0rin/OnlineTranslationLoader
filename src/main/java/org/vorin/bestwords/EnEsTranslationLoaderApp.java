@@ -1,5 +1,6 @@
 package org.vorin.bestwords;
 
+import org.vorin.bestwords.loaders.WordInfo;
 import org.vorin.bestwords.model.Wordlist;
 import org.vorin.bestwords.model.Dictionary;
 import org.vorin.bestwords.util.Logger;
@@ -9,6 +10,7 @@ import org.vorin.bestwords.util.Util;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 
 import static org.vorin.bestwords.AppConfig.RES_DIR;
@@ -23,8 +25,8 @@ public class EnEsTranslationLoaderApp {
     // ##########################
 
     public static void main(String... args) throws IOException {
-//        createWordlists();
-        createCombinedWordlist();
+        createWordlists();
+//        createCombinedWordlist();
 //        processWordlist();
     }
 
@@ -33,15 +35,12 @@ public class EnEsTranslationLoaderApp {
         var w = Wordlist.loadFromXml(new File(RES_DIR + "EnglishWordlist35.xml"));
 
         var wordlists = Map.of(
-//                Sources.WORD_REFERENCE_SOURCE, Wordlist.loadFromXml( new File(RES_DIR + DICT.name() + "-WordReferenceWordlist.xml")),
                 Sources.GOOGLE_TRANSLATE_SOURCE, Wordlist.loadFromXml( new File(RES_DIR + DICT.name() + "-GoogleTranslateWordlist.xml")),
                 Sources.LINGUEE_SOURCE, Wordlist.loadFromXml( new File( RES_DIR + DICT.name() + "-LingueeWordlist.xml")));
 
-        int countLimit = 5;
         for (var t : w.getTranslations()) {
             t.setMeanings(new ArrayList<>());
             WordlistProcessor.combineMeanings(t, wordlists);
-            if (countLimit-- == 0) break;
         }
 
         w.writeToXml(new File(RES_DIR + DICT.name() + "-CombinedWordlist.xml"));
@@ -67,22 +66,12 @@ public class EnEsTranslationLoaderApp {
 
 
     private static void createWordlists() throws IOException {
-        var wordInfos = Util.getForeignWordsFromXml(RES_DIR + "EnglishWordlist35.xml");
+//        var wordInfos = Util.getForeignWordsFromXml(RES_DIR + "EnglishWordlist35.xml");
+        var wordInfos = List.of(new WordInfo("carpet", null));
 
-        TranslationLoaderApp.createGoogleWordlist(Dictionary.EN_ES, wordInfos,"EN_ES-GoogleTranslateWordlist.xml");
+        TranslationLoaderApp.createGoogleWordlist(DICT, wordInfos,DICT.name() + "-GoogleTranslateWordlistTmp.xml");
 
-        // reverse wordlist
-        TranslationLoaderApp.createGoogleWordlist(Dictionary.ES_EN,
-                Util.getReverseForeignWordsFromXml(RES_DIR + "EN_ES-GoogleTranslateWordlist.xml"),
-                "EN_ES-GoogleTranslateReverseWordlist.xml");
-
-        TranslationLoaderApp.createWordReferenceWordlist(Dictionary.EN_ES, wordInfos, "EN_ES-WordReferenceWordlist.xml");
-
-        TranslationLoaderApp.createLingueeWordlist(Dictionary.EN_ES, wordInfos, "EN_ES-LingueeWordlist.xml");
-
-        TranslationLoaderApp.createCollinsWordlist(Dictionary.ES_EN,
-                Util.getReverseForeignWordsWithMeaningsFromXml(RES_DIR + "EN_ES-GoogleTranslateWordlist.xml"),
-                "EN_ES-CollinsReverseWordlist.xml");
+        TranslationLoaderApp.createLingueeWordlist(DICT, wordInfos, DICT.name() + "-LingueeWordlistTmp.xml");
     }
 
 }

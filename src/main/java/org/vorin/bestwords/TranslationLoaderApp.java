@@ -60,18 +60,17 @@ public class TranslationLoaderApp {
     // ##########################
 
     private static final SynonymStore SYNONYM_STORE = new SynonymStore(REVERSE_DICT, SYNONYM_PARSER);
-    private static final WordlistProcessor WORD_LIST_PROCESSOR = new WordlistProcessor(DICT, SYNONYM_STORE);
-
 
     public static void main(String... argvs) throws IOException {
-//        createWordlists();
+        createWordlists();
 //        createCombinedWordlist();
 //        loadSynonyms();
-        processWordlist();
+//        processWordlist();
     }
 
 
     private static void createCombinedWordlist() throws IOException {
+        WordlistProcessor wordlistProcessor = new WordlistProcessor(DICT, SYNONYM_STORE);
         var w = Wordlist.loadFromXml(new File(RES_DIR + "EnglishWordlist35.xml"));
 
         var wordlists = Map.of(
@@ -81,7 +80,7 @@ public class TranslationLoaderApp {
 
         for (var t : w.getTranslations()) {
             t.setMeanings(new ArrayList<>());
-            WORD_LIST_PROCESSOR.combineMeanings(t, wordlists);
+            wordlistProcessor.combineMeanings(t, wordlists);
         }
 
         w.writeToXml(new File(RES_DIR + DICT.name() + "-CombinedWordlist.xml"));
@@ -89,20 +88,21 @@ public class TranslationLoaderApp {
 
 
     private static void processWordlist() throws IOException {
+        WordlistProcessor wordlistProcessor = new WordlistProcessor(DICT, SYNONYM_STORE);
         // var w = Wordlist.loadFromXml(new File(RES_DIR + DICT.name() + "-GoogleTranslateWordlist.xml"));
 //        var w = Wordlist.loadFromXml(new File(RES_DIR + "EnglishWordlist35.xml"));
         var w = Wordlist.loadFromXml(new File(RES_DIR + DICT.name() + "-CombinedWordlist.xml"));
 
         int wordsWithProblemsCount = 0;
         for (var t : w.getTranslations()) {
-            if(!WORD_LIST_PROCESSOR.processMeaningsForTranslation(t)) {
+            if(!wordlistProcessor.processMeaningsForTranslation(t)) {
                 wordsWithProblemsCount++;
             }
-            WORD_LIST_PROCESSOR.processExampleSentencesForTranslation(t);
+            wordlistProcessor.processExampleSentencesForTranslation(t);
         }
 
         LOG.info("wordsWithProblemsCount=" + wordsWithProblemsCount);
-        WORD_LIST_PROCESSOR.verifyWordlist(w);
+        wordlistProcessor.verifyWordlist(w);
 
         w.writeToXml(new File(RES_DIR + DICT.name() + "-ProcessedWordlist.xml"));
     }
@@ -128,6 +128,8 @@ public class TranslationLoaderApp {
         createWordReferenceWordlist(DICT, wordInfos,  DICT.name() + "-WordReferenceWordlist.xml");
 //
         createLingueeWordlist(DICT, wordInfos,  DICT.name() + "-LingueeWordlist.xml");
+
+        createCollinsWordlist(DICT, wordInfos,  DICT.name() + "-CollinsWordlist.xml");
     }
 
 
