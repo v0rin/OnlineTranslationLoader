@@ -46,7 +46,7 @@ public class LingueeDownloader implements TranslationDataDownloader {
 //            setProxy(ProxyProvider.getNextWorkingProxyForUrl(fullUrl, response -> response.contains(word)));
 //            doc = Jsoup.connect(fullUrl).get();
 //        }
-        Elements rows = doc.select("div.isForeignTerm > div.exact");
+        Elements rows = doc.select("div.isMainTerm > div.exact");
         String output = "<html><body><table>\n" + rows.outerHtml() + "\n</table></body></html>";
         return new ByteArrayInputStream(output.getBytes(StandardCharsets.UTF_8));
     }
