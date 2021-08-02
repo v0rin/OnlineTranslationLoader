@@ -78,7 +78,7 @@ public class GoogleTranslateParser implements TranslationDataParser {
             else {
                 break;
             }
-    }
+        }
     }
 
     @Override

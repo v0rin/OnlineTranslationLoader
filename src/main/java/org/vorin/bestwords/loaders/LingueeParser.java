@@ -87,7 +87,7 @@ public class LingueeParser implements TranslationDataParser {
                 translationPublisher.addExampleSentence(wordInfo.getForeignWord(), meaning, Util.chooseShortestString(sentences), LINGUEE_SOURCE);
             }
             sentences.clear();
-            if (addedMeaningsCount++ >= maxMeaningCount) {
+            if (++addedMeaningsCount >= maxMeaningCount) {
                 break;
             }
         }
