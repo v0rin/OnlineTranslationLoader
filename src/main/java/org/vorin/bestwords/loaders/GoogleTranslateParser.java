@@ -71,7 +71,7 @@ public class GoogleTranslateParser implements TranslationDataParser {
                 translationPublisher.addMeaning(wordInfo.getForeignWord(),
                         meaning,
                         wordType,
-                        GOOGLE_TRANSLATE_SOURCE,
+                        GOOGLE_TRANSLATE_SOURCE + "#" + (addedMeaningsCount+1),
                         format("Google score=[%s]", score));
                 addedMeaningsCount++;
             }

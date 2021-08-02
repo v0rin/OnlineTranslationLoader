@@ -27,13 +27,13 @@ public class EnEsTranslationLoaderApp {
 
     public static void main(String... args) throws IOException {
         createWordlists();
-//        createCombinedWordlist();
+        createCombinedWordlist();
 //        processWordlist();
     }
 
 
     private static void createCombinedWordlist() throws IOException {
-        var w = Wordlist.loadFromXml(new File(RES_DIR + "EnglishWordlist35.xml"));
+        var w = Wordlist.loadFromXml(new File(RES_DIR + DICT.name() + "-input-wordlist.xml"));
 
         var wordlists = Map.of(
                 Sources.GOOGLE_TRANSLATE_SOURCE, Wordlist.loadFromXml( new File(RES_DIR + DICT.name() + "-GoogleTranslateWordlist.xml")),
@@ -49,9 +49,9 @@ public class EnEsTranslationLoaderApp {
 
 
     private static void processWordlist() throws IOException {
-        var w = Wordlist.loadFromXml(new File(RES_DIR + "EN_ES-GoogleTranslateWordlist.xml"));
+        var w = Wordlist.loadFromXml(new File(RES_DIR + DICT.name() + "-GoogleTranslateWordlist.xml"));
 
-        var wordlistProcessor = new WordlistProcessor(Dictionary.EN_ES, null);
+        var wordlistProcessor = new WordlistProcessor(DICT, null);
         int wordsWithProblemsCount = 0;
         for (var t : w.getTranslations()) {
             if(!wordlistProcessor.processMeaningsForTranslation(t)) {
@@ -62,17 +62,16 @@ public class EnEsTranslationLoaderApp {
         LOG.info("wordsWithProblemsCount=" + wordsWithProblemsCount);
         wordlistProcessor.verifyWordlist(w);
 
-        w.writeToXml(new File(RES_DIR + "EN_ES-ProcessedWordlist.xml"));
+        w.writeToXml(new File(RES_DIR + DICT.name() + "-ProcessedWordlist.xml"));
     }
 
 
     private static void createWordlists() throws IOException {
-//        var wordInfos = Util.getForeignWordsFromXml(RES_DIR + "EnglishWordlist35.xml");
-        var wordInfos = List.of(new WordInfo("carpet", null));
+        var wordInfos = Util.getForeignWordsFromXml(RES_DIR + DICT.name() + "-input-wordlist.xml");
 
-        TranslationLoaderApp.createGoogleWordlist(DICT, wordInfos,DICT.name() + "-GoogleTranslateWordlistTmp.xml", MAX_MEANING_COUNT_FROM_SRC);
+        TranslationLoaderApp.createGoogleWordlist(DICT, wordInfos,DICT.name() + "-GoogleTranslateWordlist.xml", MAX_MEANING_COUNT_FROM_SRC);
 
-        TranslationLoaderApp.createLingueeWordlist(DICT, wordInfos, DICT.name() + "-LingueeWordlistTmp.xml", MAX_MEANING_COUNT_FROM_SRC);
+        TranslationLoaderApp.createLingueeWordlist(DICT, wordInfos, DICT.name() + "-LingueeWordlist.xml", MAX_MEANING_COUNT_FROM_SRC);
     }
 
 }

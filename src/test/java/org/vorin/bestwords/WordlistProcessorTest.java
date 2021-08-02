@@ -40,6 +40,8 @@ public class WordlistProcessorTest {
 
         // then
         assertThat(wordlist, is(expectedWordlist));
+
+        wordlist.writeToXml(new File("tmp.xml"));
     }
 
 }
