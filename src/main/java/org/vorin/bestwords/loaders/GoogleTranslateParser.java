@@ -2,9 +2,7 @@ package org.vorin.bestwords.loaders;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import org.apache.commons.lang3.tuple.ImmutablePair;
 import org.apache.commons.lang3.tuple.ImmutableTriple;
-import org.apache.commons.lang3.tuple.Pair;
 import org.apache.commons.lang3.tuple.Triple;
 import org.vorin.bestwords.util.Logger;
 import org.vorin.bestwords.util.Util;
@@ -12,9 +10,7 @@ import org.vorin.bestwords.util.Util;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
-import java.util.StringJoiner;
 
 import static java.lang.String.format;
 import static java.util.stream.Collectors.toList;
@@ -45,10 +41,8 @@ public class GoogleTranslateParser implements TranslationDataParser {
         translationData.close();
 
         List<Triple<Double, String, String>> meaningsWithScores = new ArrayList<>();
-        var wordTypes = new StringJoiner(", ");
         for (int i = 0; i < node.get(1).size(); i++) {
             String wordType = Util.stripSurroundingQuotes(node.get(1).get(i).get(0).toString());
-            wordTypes.add(wordType);
             for (int j = 0; j < node.get(1).get(i).get(2).size(); j++)
             {
                 String meaning = stripSurroundingQuotes(node.get(1).get(i).get(2).get(j).get(0).toString());
@@ -62,32 +56,29 @@ public class GoogleTranslateParser implements TranslationDataParser {
         meaningsWithScores = meaningsWithScores.stream().sorted((m1, m2) -> m2.getLeft().compareTo(m1.getLeft())).collect(toList());
 //        LOG.info(format("meanings for [%s] - %s - %s", wordInfo.getForeignWord(), meaningsWithScores.toString(), wordTypes));
 
-        var addedMeanings = new HashSet<String>();
+        int addedMeaningsCount = 0;
         for (var ms : meaningsWithScores) {
             String meaning = ms.getMiddle();
             double score = ms.getLeft();
             String wordType = ms.getRight();
-            if (!addedMeanings.contains(meaning)) { // don't add duplicate meanings
-                // there are 3 situations
-                // 1. all meanings have scores < minScore -> add the first one and break
-                // 2. some of the meanings have scores >= minScore -> add those and break
-                // 3. maxMeaningCount or more have score >= minScore -> add only maxMeaningCount and break
+            // there are 3 situations
+            // 1. all meanings have scores < minScore -> add the first one and break
+            // 2. some of the meanings have scores >= minScore -> add those and break
+            // 3. maxMeaningCount or more have score >= minScore -> add only maxMeaningCount and break
 
-                if ((score < minScore && addedMeanings.isEmpty()) ||
-                        (score >= minScore && addedMeanings.size() < maxMeaningCount)) {
-                    translationPublisher.addMeaning(wordInfo.getForeignWord(),
-                            meaning,
-                            wordType,
-                            GOOGLE_TRANSLATE_SOURCE,
-                            format("Google score=[%s]", score));
-                    addedMeanings.add(meaning);
-                }
-                else {
-                    break;
-                }
+            if ((score < minScore && addedMeaningsCount == 0) ||
+                    (score >= minScore && addedMeaningsCount < maxMeaningCount)) {
+                translationPublisher.addMeaning(wordInfo.getForeignWord(),
+                        meaning,
+                        wordType,
+                        GOOGLE_TRANSLATE_SOURCE,
+                        format("Google score=[%s]", score));
+                addedMeaningsCount++;
             }
-        }
-
+            else {
+                break;
+            }
+    }
     }
 
     @Override

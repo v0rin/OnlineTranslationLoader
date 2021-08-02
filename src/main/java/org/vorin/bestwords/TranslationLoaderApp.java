@@ -45,6 +45,8 @@ public class TranslationLoaderApp {
 
     private static final Logger LOG = Logger.get(TranslationLoaderApp.class);
 
+    private static final int MAX_MEANING_COUNT_FROM_SRC = 5;
+
     // ### PL CONFIG ###############
 //    private static final Dictionary DICT = Dictionary.EN_PL;
 //    private static final Dictionary REVERSE_DICT = Dictionary.PL_EN;
@@ -118,25 +120,25 @@ public class TranslationLoaderApp {
     private static void createWordlists() throws IOException {
         var wordInfos = Util.getForeignWordsFromXml(RES_DIR + "EnglishWordlist35.xml");
 
-        createGoogleWordlist(DICT, wordInfos, DICT.name() + "-GoogleTranslateWordlist.xml");
+        createGoogleWordlist(DICT, wordInfos, DICT.name() + "-GoogleTranslateWordlist.xml", MAX_MEANING_COUNT_FROM_SRC);
 
         // reverse wordlist
         createGoogleWordlist(REVERSE_DICT,
                 Util.getReverseForeignWordsFromXml(RES_DIR + DICT.name() + "-GoogleTranslateWordlist.xml"),
-                DICT.name() + "-GoogleTranslateReverseWordlist.xml");
+                DICT.name() + "-GoogleTranslateReverseWordlist.xml", MAX_MEANING_COUNT_FROM_SRC);
 
         createWordReferenceWordlist(DICT, wordInfos,  DICT.name() + "-WordReferenceWordlist.xml");
 //
-        createLingueeWordlist(DICT, wordInfos,  DICT.name() + "-LingueeWordlist.xml");
+        createLingueeWordlist(DICT, wordInfos,  DICT.name() + "-LingueeWordlist.xml", MAX_MEANING_COUNT_FROM_SRC);
 
         createCollinsWordlist(DICT, wordInfos,  DICT.name() + "-CollinsWordlist.xml");
     }
 
 
-    static void createGoogleWordlist(Dictionary dict, List<WordInfo> wordInfos, String outputXml) throws IOException {
+    static void createGoogleWordlist(Dictionary dict, List<WordInfo> wordInfos, String outputXml, int maxMeaningCount) throws IOException {
         var xmlPublisher = new XmlTranslationPublisher(new File(RES_DIR + outputXml));
         var downloader = new GoogleTranslateDownloader(dict);
-        var parser = new GoogleTranslateParser(0.01, 5);
+        var parser = new GoogleTranslateParser(0.01, maxMeaningCount);
         var loader = new TranslationLoader(downloader, parser, xmlPublisher, true, 1000);
 
         loader.load(wordInfos);
@@ -155,10 +157,10 @@ public class TranslationLoaderApp {
     }
 
 
-    static void createLingueeWordlist(Dictionary dict, List<WordInfo> wordInfos, String outputXml) throws IOException {
+    static void createLingueeWordlist(Dictionary dict, List<WordInfo> wordInfos, String outputXml, int maxMeaningCount) throws IOException {
         var xmlPublisher = new XmlTranslationPublisher(new File(RES_DIR + outputXml));
         var downloader = new LingueeDownloader(dict);
-        var parser = new LingueeParser(getMeaningSanitizer(dict));
+        var parser = new LingueeParser(getMeaningSanitizer(dict), maxMeaningCount);
         var loader = new TranslationLoader(downloader, parser, xmlPublisher, true);
 
         loader.load(wordInfos);

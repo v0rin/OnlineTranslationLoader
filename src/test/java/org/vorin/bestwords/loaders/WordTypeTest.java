@@ -11,7 +11,6 @@ import static java.util.stream.Collectors.toList;
 
 public class WordTypeTest {
 
-//    @Ignore
     @Test
     public void google() throws IOException {
         var downloader = new GoogleTranslateDownloader(Dictionary.ES_EN);
@@ -24,15 +23,15 @@ public class WordTypeTest {
             parser.parseAndPublish(word, downloader.download(word.getForeignWord()), publisher);
         };
 
+        publisher.writeToTarget();
     }
 
-//    @Ignore
     @Test
     public void linguee() throws IOException {
         var downloader = new LingueeDownloader(Dictionary.ES_EN);
-        var parser = new LingueeParser(LangUtil::sanitizeSpanishMeaning);
-        var words = List.of("querían").stream().map(word -> new WordInfo(word, null)).collect(toList());
-//        var words = List.of("coche", "querían", "tenía").stream().map(word -> new WordInfo(word, null)).collect(toList());
+        var parser = new LingueeParser(LangUtil::sanitizeSpanishMeaning, 5);
+//        var words = List.of("querían").stream().map(word -> new WordInfo(word, null)).collect(toList());
+        var words = List.of("coche", "querían", "tenía").stream().map(word -> new WordInfo(word, null)).collect(toList());
 
         var publisher = new ConsoleOutTranslationPublisher();
         for (var word : words) {

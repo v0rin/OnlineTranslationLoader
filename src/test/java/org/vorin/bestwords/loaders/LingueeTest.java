@@ -24,7 +24,7 @@ public class LingueeTest {
     public void parseAndPublish() throws IOException {
         // given
         var publisher = new XmlTranslationPublisher(null);
-        var parser = new LingueeParser(LangUtil::sanitizeSpanishMeaning);
+        var parser = new LingueeParser(LangUtil::sanitizeSpanishMeaning, 10);
 
         var expectedWordlist = new Wordlist();
         expectedWordlist.addMeaning(TEST_WORD_INFO.getForeignWord(), "poder", "verb", LINGUEE_SOURCE);

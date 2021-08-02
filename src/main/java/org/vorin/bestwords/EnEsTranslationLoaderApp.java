@@ -22,6 +22,7 @@ public class EnEsTranslationLoaderApp {
 
     // ### ES CONFIG ###############
     private static final Dictionary DICT = Dictionary.EN_ES;
+    private static final int MAX_MEANING_COUNT_FROM_SRC = 2;
     // ##########################
 
     public static void main(String... args) throws IOException {
@@ -69,9 +70,9 @@ public class EnEsTranslationLoaderApp {
 //        var wordInfos = Util.getForeignWordsFromXml(RES_DIR + "EnglishWordlist35.xml");
         var wordInfos = List.of(new WordInfo("carpet", null));
 
-        TranslationLoaderApp.createGoogleWordlist(DICT, wordInfos,DICT.name() + "-GoogleTranslateWordlistTmp.xml");
+        TranslationLoaderApp.createGoogleWordlist(DICT, wordInfos,DICT.name() + "-GoogleTranslateWordlistTmp.xml", MAX_MEANING_COUNT_FROM_SRC);
 
-        TranslationLoaderApp.createLingueeWordlist(DICT, wordInfos, DICT.name() + "-LingueeWordlistTmp.xml");
+        TranslationLoaderApp.createLingueeWordlist(DICT, wordInfos, DICT.name() + "-LingueeWordlistTmp.xml", MAX_MEANING_COUNT_FROM_SRC);
     }
 
 }
