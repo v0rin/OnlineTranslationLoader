@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<wordList>
+    <translation>
+        <foreignWord>carpet</foreignWord>
+        <pronunciation></pronunciation>
+        <audioName></audioName>
+        <meanings>
+            <meaning wordMeaningSource="google-translate, linguee" exampleSentenceSource="linguee" comment="Google score=[0.4437473]">
+                <wordMeaning>alfombra</wordMeaning>
+                <wordType>noun</wordType>
+                <exampleSentence>the cat scratches the carpet - el gato rasca la alfombra</exampleSentence>
+                <imgName></imgName>
+            </meaning>
+            <meaning wordMeaningSource="google-translate, linguee" exampleSentenceSource="linguee" comment="Google score=[0.059123605]">
+                <wordMeaning>moqueta</wordMeaning>
+                <wordType>noun</wordType>
+                <exampleSentence>I stained the carpet with red wine - he manchado la moqueta de vino tinto</exampleSentence>
+                <imgName></imgName>
+            </meaning>
+            <meaning wordMeaningSource="linguee" exampleSentenceSource="" comment="">
+                <wordMeaning>alfombrar</wordMeaning>
+                <wordType>verb</wordType>
+                <exampleSentence></exampleSentence>
+                <imgName></imgName>
+            </meaning>
+        </meanings>
+    </translation>
+</wordList>

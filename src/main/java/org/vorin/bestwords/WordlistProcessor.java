@@ -17,6 +17,7 @@ import java.util.regex.Pattern;
 import java.util.stream.IntStream;
 
 import static java.lang.String.format;
+import static java.util.function.Predicate.not;
 import static java.util.stream.Collectors.joining;
 import static java.util.stream.Collectors.toList;
 import static org.vorin.bestwords.util.Sources.COLLINS_SOURCE;
@@ -66,71 +67,72 @@ public class WordlistProcessor {
     }
 
 
-    public static void combineMeanings(Translation targetTranslation, Map<String, Wordlist> wordlists) {
-        // collect all meanings
-        List<String> allWordMeanings = new ArrayList<>();
-        Map<String, List<String>> meaningLists = new HashMap<>();
-        for (var entry : wordlists.entrySet()) {
+    public static void combineMeanings(Translation targetTranslation, Map<String, Wordlist> wordlistsBySource) {
+        // the idea is to collect all unique meanings (identified by unique meaning and word type pair)
+        // then merge those by combining source and comment fields and sort desc by in how many sources they exist
+
+        // create a unique list of meanings and types
+        List<Meaning> allMeaningsAndTypes = new ArrayList<>();
+        Map<String, List<Meaning>> meaningAndTypeListsBySrc = new HashMap<>();
+        for (var entry : wordlistsBySource.entrySet()) {
             var source = entry.getKey();
             var wordlist = entry.getValue();
-            var meaningList = getWordMeaningsFromWordlist(targetTranslation, wordlist);
-            meaningLists.put(source, meaningList);
-            allWordMeanings.addAll(meaningList);
+            var meaningAndTypeList = getMeaningsAndTypesFromWordlist(targetTranslation, wordlist);
+            meaningAndTypeListsBySrc.put(source, meaningAndTypeList);
+            allMeaningsAndTypes.addAll(meaningAndTypeList);
         }
-        allWordMeanings = allWordMeanings.stream().distinct().collect(toList());
+        allMeaningsAndTypes = allMeaningsAndTypes.stream().distinct().collect(toList());
 
-        var wordMeaningMap = new HashMap<String, List<Pair<String, String>>>();
         // add in which sources the wordMeaning exists
-        for (String wordMeaning : allWordMeanings) {
-            for (String source : wordlists.keySet()) {
-                if (meaningLists.get(source).contains(wordMeaning)) {
-                    var m = wordlists.get(source).findMeaning(targetTranslation.getForeignWord(), wordMeaning);
-                    addSource(wordMeaningMap, wordMeaning, m.getExampleSentence(), source);
+        var meaningAndTypeToFullMeaningsMap = new HashMap<Meaning, List<Meaning>>();
+        for (var meaningAndType : allMeaningsAndTypes) {
+            for (String source : wordlistsBySource.keySet()) {
+                if (meaningAndTypeListsBySrc.get(source).contains(meaningAndType)) {
+                    var meaningFromSource = wordlistsBySource.get(source).findMeaning(targetTranslation.getForeignWord(),
+                                                                                                meaningAndType.getWordMeaning(),
+                                                                                                meaningAndType.getWordType());
+                    meaningAndTypeToFullMeaningsMap.compute(meaningAndType, (mt, fullMeanings) -> {
+                        if (fullMeanings == null) {
+                            fullMeanings = new ArrayList<>();
+                        }
+                        fullMeanings.add(meaningFromSource);
+                        return fullMeanings;
+                    });
                 }
             }
         }
 
-        // sort by in how many sources a wordMeaning exists
-        List<String> sortedWordMeanings = allWordMeanings
+        // sort by in how many sources the meaning and type exists
+        List<Meaning> sortedMeaningsAndTypes = allMeaningsAndTypes
                 .stream()
-                .sorted(Comparator.comparing(m -> wordMeaningMap.get(m).size()).reversed())
+                .sorted(Comparator.comparing(m -> meaningAndTypeToFullMeaningsMap.get(m).size()).reversed())
                 .collect(toList());
 
-        for (var wordMeaning : sortedWordMeanings) {
-            String wordMeaningSources = wordMeaningMap.get(wordMeaning).stream().map(Pair::getRight).collect(joining(", "));
-            String exampleSentences = wordMeaningMap.get(wordMeaning).stream()
-                    .filter(p -> !p.getLeft().isBlank())
-                    .map(Pair::getLeft)
-                    .collect(joining(" || "));
-            String exampleSentenceSources = wordMeaningMap.get(wordMeaning).stream()
-                    .filter(p -> !p.getLeft().isBlank())
-                    .map(Pair::getRight)
-                    .collect(joining(", "));
-            // TODO possibly to do the wordType
-            targetTranslation.getMeanings().add(new Meaning(wordMeaning, null, exampleSentences, "", wordMeaningSources, exampleSentenceSources));
+        // combine full meanings from diff sources in to the target meaning
+        for (var meaningAndType : sortedMeaningsAndTypes) {
+            String combinedMeaningSources = meaningAndTypeToFullMeaningsMap.get(meaningAndType).stream().map(Meaning::getWordMeaningSource).sorted().collect(joining(", "));
+            String combinedComments = meaningAndTypeToFullMeaningsMap.get(meaningAndType).stream().map(Meaning::getComment).filter(not(String::isBlank)).collect(joining(", "));
+            String combinedExampleSentences = meaningAndTypeToFullMeaningsMap.get(meaningAndType).stream().map(Meaning::getExampleSentence).filter(not(String::isBlank)).collect(joining(", "));
+            String combinedExampleSentenceSources = meaningAndTypeToFullMeaningsMap.get(meaningAndType).stream().map(Meaning::getExampleSentenceSource).filter(not(String::isBlank)).collect(joining(", "));
+            var meaning = new Meaning(meaningAndType.getWordMeaning(), meaningAndType.getWordType(), combinedExampleSentences, "", combinedMeaningSources, combinedExampleSentenceSources);
+            meaning.addComment(combinedComments);
+            targetTranslation.getMeanings().add(meaning);
         }
     }
 
 
-    private static void addSource(Map<String, List<Pair<String, String>>> map, String wordMeaning, String exampleSentence, String source) {
-        map.compute(wordMeaning, (m, sources) -> {
-            if (sources == null) {
-                sources = new ArrayList<>();
-            }
-            sources.add(ImmutablePair.of(exampleSentence, source));
-            return sources;
-        });
-    }
-
-
-    private static List<String> getWordMeaningsFromWordlist(Translation translation, Wordlist w) {
+    private static List<Meaning> getMeaningsAndTypesFromWordlist(Translation translation, Wordlist w) {
         var t = w.findTranslationForWord(translation.getForeignWord());
         if (t != null) {
-            return t.getMeanings().stream().map(Meaning::getWordMeaning).collect(toList());
+            return t.getMeanings().stream().map(WordlistProcessor::mapToNewMeaningObjWithJustWordMeaningAndType).collect(toList());
         }
         else {
             return new ArrayList<>();
         }
+    }
+
+    private static Meaning mapToNewMeaningObjWithJustWordMeaningAndType(Meaning m) {
+        return new Meaning(m.getWordMeaning(), m.getWordType(), null, null, null, null);
     }
 
 

@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<wordList>
+    <translation>
+        <foreignWord>carpet</foreignWord>
+        <pronunciation></pronunciation>
+        <audioName></audioName>
+        <meanings>
+            <meaning wordMeaningSource="google-translate" exampleSentenceSource="" comment="Google score=[0.4437473]">
+                <wordMeaning>alfombra</wordMeaning>
+                <wordType>noun</wordType>
+                <exampleSentence></exampleSentence>
+                <imgName></imgName>
+            </meaning>
+            <meaning wordMeaningSource="google-translate" exampleSentenceSource="" comment="Google score=[0.059123605]">
+                <wordMeaning>moqueta</wordMeaning>
+                <wordType>noun</wordType>
+                <exampleSentence></exampleSentence>
+                <imgName></imgName>
+            </meaning>
+        </meanings>
+    </translation>
+</wordList>

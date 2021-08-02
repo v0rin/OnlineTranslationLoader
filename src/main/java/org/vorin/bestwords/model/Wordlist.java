@@ -141,6 +141,30 @@ public class Wordlist {
     }
 
 
+    public Meaning findMeaning(String foreignWord, String wordMeaning, String wordType) {
+        var t = findTranslationForWord(foreignWord);
+        if (t == null) {
+            return null;
+        }
+        return findMeaning(t, wordMeaning, wordType);
+    }
+
+
+    public static Meaning findMeaning(Translation translation, String wordMeaning, String wordType) {
+        var meanings = translation.getMeanings().stream()
+                .filter(m -> m.getWordMeaning().equals(wordMeaning) && m.getWordType().equals(wordType))
+                .collect(toList());
+        if (meanings.isEmpty()) {
+            return null;
+        }
+        if (meanings.size() > 1) {
+            throw new RuntimeException(format("There is more than one wordMeaning [%s] for translation [%s]", wordMeaning, translation));
+        }
+
+        return meanings.get(0);
+    }
+
+
     public List<Translation> getTranslations() {
         return translations;
     }
