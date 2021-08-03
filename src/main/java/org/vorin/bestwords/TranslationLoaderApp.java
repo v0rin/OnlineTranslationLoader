@@ -120,23 +120,23 @@ public class TranslationLoaderApp {
     private static void createWordlists() throws IOException {
         var wordInfos = Util.getForeignWordsFromXml(RES_DIR + "EnglishWordlist35.xml");
 
-        createGoogleWordlist(DICT, wordInfos, DICT.name() + "-GoogleTranslateWordlist.xml", MAX_MEANING_COUNT_FROM_SRC);
+        createGoogleWordlist(DICT, wordInfos, RES_DIR + DICT.name() + "-GoogleTranslateWordlist.xml", MAX_MEANING_COUNT_FROM_SRC);
 
         // reverse wordlist
         createGoogleWordlist(REVERSE_DICT,
                 Util.getReverseForeignWordsFromXml(RES_DIR + DICT.name() + "-GoogleTranslateWordlist.xml"),
-                DICT.name() + "-GoogleTranslateReverseWordlist.xml", MAX_MEANING_COUNT_FROM_SRC);
+                RES_DIR + DICT.name() + "-GoogleTranslateReverseWordlist.xml", MAX_MEANING_COUNT_FROM_SRC);
 
-        createWordReferenceWordlist(DICT, wordInfos,  DICT.name() + "-WordReferenceWordlist.xml");
+        createWordReferenceWordlist(DICT, wordInfos,  RES_DIR + DICT.name() + "-WordReferenceWordlist.xml");
 //
-        createLingueeWordlist(DICT, wordInfos,  DICT.name() + "-LingueeWordlist.xml", MAX_MEANING_COUNT_FROM_SRC);
+        createLingueeWordlist(DICT, wordInfos,  RES_DIR + DICT.name() + "-LingueeWordlist.xml", MAX_MEANING_COUNT_FROM_SRC);
 
-        createCollinsWordlist(DICT, wordInfos,  DICT.name() + "-CollinsWordlist.xml");
+        createCollinsWordlist(DICT, wordInfos,  RES_DIR + DICT.name() + "-CollinsWordlist.xml");
     }
 
 
     static void createGoogleWordlist(Dictionary dict, List<WordInfo> wordInfos, String outputXml, int maxMeaningCount) throws IOException {
-        var xmlPublisher = new XmlTranslationPublisher(new File(RES_DIR + outputXml));
+        var xmlPublisher = new XmlTranslationPublisher(new File(outputXml));
         var downloader = new GoogleTranslateDownloader(dict);
         var parser = new GoogleTranslateParser(0.01, maxMeaningCount);
         var loader = new TranslationLoader(downloader, parser, xmlPublisher, true, 1000);
@@ -147,7 +147,7 @@ public class TranslationLoaderApp {
 
 
     static void createWordReferenceWordlist(Dictionary dict, List<WordInfo> wordInfos, String outputXml) throws IOException {
-        var xmlPublisher = new XmlTranslationPublisher(new File(RES_DIR + outputXml));
+        var xmlPublisher = new XmlTranslationPublisher(new File(outputXml));
         var downloader = new WordReferenceDownloader(dict);
         var parser = new WordReferenceParser(dict, getMeaningSanitizer(dict));
         var loader = new TranslationLoader(downloader, parser, xmlPublisher, true);
@@ -158,7 +158,7 @@ public class TranslationLoaderApp {
 
 
     static void createLingueeWordlist(Dictionary dict, List<WordInfo> wordInfos, String outputXml, int maxMeaningCount) throws IOException {
-        var xmlPublisher = new XmlTranslationPublisher(new File(RES_DIR + outputXml));
+        var xmlPublisher = new XmlTranslationPublisher(new File(outputXml));
         var downloader = new LingueeDownloader(dict);
         var parser = new LingueeParser(getMeaningSanitizer(dict), maxMeaningCount);
         var loader = new TranslationLoader(downloader, parser, xmlPublisher, true);
@@ -169,7 +169,7 @@ public class TranslationLoaderApp {
 
 
     static void createCollinsWordlist(Dictionary dict, List<WordInfo> wordInfos, String outputXml) throws IOException {
-        var xmlPublisher = new XmlTranslationPublisher(new File(RES_DIR + outputXml));
+        var xmlPublisher = new XmlTranslationPublisher(new File(outputXml));
         var downloader = new CollinsDownloader(dict);
         var parser = new CollinsSentencesParser(36);
         var loader = new TranslationLoader(downloader, parser, xmlPublisher, true);

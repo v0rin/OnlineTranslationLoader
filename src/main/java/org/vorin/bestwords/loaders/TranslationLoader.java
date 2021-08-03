@@ -8,6 +8,7 @@ import org.vorin.bestwords.util.Logger;
 import java.io.*;
 import java.util.HashSet;
 import java.util.List;
+import java.util.concurrent.ThreadLocalRandom;
 
 import static java.lang.String.format;
 import static org.vorin.bestwords.AppConfig.CACHES_DIR;
@@ -77,7 +78,8 @@ public class TranslationLoader {
             LOG.info(format("source [%s] - no cached file for word=%s - downloading content...", translationDataParser.getSource(), foreignWord));
         }
 
-        while (requestStopwatch.isRunning() && requestStopwatch.elapsed().toMillis() < waitBetweenRequestsMs) {
+        long waitMs = ThreadLocalRandom.current().nextLong(waitBetweenRequestsMs, (long)(1.25 * waitBetweenRequestsMs));
+        while (requestStopwatch.isRunning() && requestStopwatch.elapsed().toMillis() < waitMs) {
             sleep(waitBetweenRequestsMs / 50);
         }
 

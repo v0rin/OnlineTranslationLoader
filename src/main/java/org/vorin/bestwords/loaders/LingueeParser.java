@@ -58,7 +58,10 @@ public class LingueeParser implements TranslationDataParser {
             if (wordTypeElem.size() > 1) {
                 throw new RuntimeException("more than one word type in linguee: " + wordTypeElem);
             }
-            String wordType = wordTypeElem.stream().map(e -> e.attributes().get("title").replaceAll(",\\p{Z}(feminine|masculine)", "")).findFirst().orElse("");
+            String wordType = wordTypeElem.stream().map(e -> e.attributes().get("title")
+                    .replaceAll(",\\p{Z}(feminine|masculine)", "")
+                    .replaceAll(",\\p{Z}(plural)", ""))
+                    .findFirst().orElse("");
 
             Matcher matcher = MEANING_PATTERN.matcher(meaningElem.toString());
             String meaning;
@@ -80,6 +83,10 @@ public class LingueeParser implements TranslationDataParser {
             }
 
             meaning = meaningSanitizer.apply(meaning);
+
+            if (meaning.isBlank()) {
+                continue;
+            }
 
 //                LOG.info(format("meanings for [%s] - %s - %s", wordInfo.getForeignWord(), meaning, wordType));
             translationPublisher.addMeaning(wordInfo.getForeignWord(), meaning, wordType, LINGUEE_SOURCE + "#" + (addedMeaningsCount+1));

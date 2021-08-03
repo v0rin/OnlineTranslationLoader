@@ -8,6 +8,7 @@ import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
 import java.nio.charset.Charset;
+import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -119,6 +120,18 @@ public class Util {
 
     public static Set<String> loadWordsFromTxtFile(File file) throws IOException {
         var words = new HashSet<String>();
+        try (BufferedReader br = new BufferedReader(new FileReader(file, Charset.forName("UTF-8")))) {
+            String line;
+            while ((line = br.readLine()) != null) {
+                words.add(line);
+            }
+        }
+        return words;
+    }
+
+
+    public static List<String> loadWordsFromTxtFile2(File file) throws IOException {
+        var words = new ArrayList<String>();
         try (BufferedReader br = new BufferedReader(new FileReader(file, Charset.forName("UTF-8")))) {
             String line;
             while ((line = br.readLine()) != null) {

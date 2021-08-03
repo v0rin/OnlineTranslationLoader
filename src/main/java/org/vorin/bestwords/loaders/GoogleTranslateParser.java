@@ -2,6 +2,7 @@ package org.vorin.bestwords.loaders;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.node.JsonNodeType;
 import org.apache.commons.lang3.tuple.ImmutableTriple;
 import org.apache.commons.lang3.tuple.Triple;
 import org.vorin.bestwords.util.Logger;
@@ -24,13 +25,27 @@ public class GoogleTranslateParser implements TranslationDataParser {
 
     private final double minScore;
     private final int maxMeaningCount;
+    private final int nodeIdx;
+    private final boolean parsePhrase;
 
     public GoogleTranslateParser(double minScore,
                                  int maxMeaningCount) {
+        this(minScore, maxMeaningCount, false);
+    }
 
+    public GoogleTranslateParser(double minScore,
+                                 int maxMeaningCount,
+                                 boolean parsePhrase) {
         this.minScore = minScore;
         this.maxMeaningCount = maxMeaningCount;
+        this.parsePhrase = parsePhrase;
+        if (parsePhrase) {
+            this.nodeIdx = 5;
+        } else {
+            this.nodeIdx = 1;
+        }
     }
+
 
     @Override
     public void parseAndPublish(WordInfo wordInfo,
@@ -41,13 +56,17 @@ public class GoogleTranslateParser implements TranslationDataParser {
         translationData.close();
 
         List<Triple<Double, String, String>> meaningsWithScores = new ArrayList<>();
-        for (int i = 0; i < node.get(1).size(); i++) {
-            String wordType = Util.stripSurroundingQuotes(node.get(1).get(i).get(0).toString());
-            for (int j = 0; j < node.get(1).get(i).get(2).size(); j++)
+        for (int i = 0; i < node.get(nodeIdx).size(); i++) {
+            String wordType = Util.stripSurroundingQuotes(node.get(nodeIdx).get(i).get(0).toString());
+            for (int j = 0; j < node.get(nodeIdx).get(i).get(2).size(); j++)
             {
-                String meaning = stripSurroundingQuotes(node.get(1).get(i).get(2).get(j).get(0).toString());
-                var scoreObj = node.get(1).get(i).get(2).get(j).get(3);
-                if (scoreObj == null) continue;
+                String meaning = stripSurroundingQuotes(node.get(nodeIdx).get(i).get(2).get(j).get(0).toString());
+                if (parsePhrase) {
+                    meaningsWithScores.add(new ImmutableTriple<>(1.0, meaning, "phrase"));
+                    break;
+                }
+                var scoreObj = node.get(nodeIdx).get(i).get(2).get(j).get(3);
+                if (scoreObj == null || scoreObj.getNodeType().equals(JsonNodeType.NULL)) continue;
                 double score = Double.parseDouble(scoreObj.toString());
                 meaningsWithScores.add(new ImmutableTriple<>(score, meaning, wordType));
             }
@@ -71,8 +90,8 @@ public class GoogleTranslateParser implements TranslationDataParser {
                 translationPublisher.addMeaning(wordInfo.getForeignWord(),
                         meaning,
                         wordType,
-                        GOOGLE_TRANSLATE_SOURCE + "#" + (addedMeaningsCount+1),
-                        format("Google score=[%s]", score));
+                        format("%s#%s(%.2f)", GOOGLE_TRANSLATE_SOURCE, (addedMeaningsCount+1), score),
+                        "");
                 addedMeaningsCount++;
             }
             else {

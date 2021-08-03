@@ -3,6 +3,7 @@ package org.vorin.bestwords.model;
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
 import org.apache.commons.lang3.builder.ToStringBuilder;
+import org.vorin.bestwords.util.Util;
 
 import javax.xml.bind.JAXB;
 import javax.xml.bind.annotation.XmlElement;
@@ -51,6 +52,16 @@ public class Wordlist {
     }
 
 
+    public static Wordlist loadFromTxtList(File file) throws IOException {
+        List<String> words = Util.loadWordsFromTxtFile2(file);
+
+        var translations = words.stream().map(word -> new Translation(word, "", "", new ArrayList<>())).collect(toList());
+        var wordlist = new Wordlist();
+        wordlist.setTranslations(translations);
+        return wordlist;
+    }
+
+
     public void writeToXml(File xmlFile) throws IOException {
         try (var xmlFileOS = new FileOutputStream(xmlFile)) {
             JAXB.marshal(this, xmlFileOS);
@@ -72,9 +83,9 @@ public class Wordlist {
             translations.add(translation);
         }
 
-        if (findMeaning(translation, wordMeaning) != null) {
-            throw new RuntimeException(format("The translation: foreignWord [%s] and wordMeaning [%s] already exists",
-                                              foreignWord, wordMeaning));
+        if (findMeaning(translation, wordMeaning, wordType) != null) {
+            throw new RuntimeException(format("The translation: foreignWord [%s] and wordMeaning [%s] and wordType [%s] already exists",
+                                              foreignWord, wordMeaning, wordType));
         }
 
         translation.getMeanings().add(new Meaning(wordMeaning, wordType, null, null, wordMeaningSource, null));
