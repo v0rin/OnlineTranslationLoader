@@ -1,13 +1,19 @@
 package org.vorin.bestwords.loaders;
 
+import lombok.AllArgsConstructor;
+import lombok.Data;
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.vorin.bestwords.util.LangUtil;
 
+@Data
+@AllArgsConstructor
 public class WordInfo {
     private final String foreignWord;
     private final String wordMeaning;
+    private String wordType;
+    private String comment;
 
     public WordInfo(String foreignWord, String wordMeaning) {
         this.foreignWord = foreignWord;

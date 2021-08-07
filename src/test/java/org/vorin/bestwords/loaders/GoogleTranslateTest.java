@@ -27,11 +27,11 @@ public class GoogleTranslateTest {
         var parser = new GoogleTranslateParser(0.01, 5);
 
         var expectedWordlist = new Wordlist();
-        var m1 = expectedWordlist.addMeaning(TEST_WORD_INFO.getForeignWord(), "lata", "noun", GOOGLE_TRANSLATE_SOURCE);
+        var m1 = expectedWordlist.addMeaning(TEST_WORD_INFO.getForeignWord(), "lata", "noun", GOOGLE_TRANSLATE_SOURCE + "#1");
         m1.addComment("Google score=[0.30978554]");
-        var m2 = expectedWordlist.addMeaning(TEST_WORD_INFO.getForeignWord(), "bote", "noun", GOOGLE_TRANSLATE_SOURCE);
+        var m2 = expectedWordlist.addMeaning(TEST_WORD_INFO.getForeignWord(), "bote", "noun", GOOGLE_TRANSLATE_SOURCE + "#2");
         m2.addComment("Google score=[0.054680396]");
-        var m3 = expectedWordlist.addMeaning(TEST_WORD_INFO.getForeignWord(), "poder", "verb", GOOGLE_TRANSLATE_SOURCE);
+        var m3 = expectedWordlist.addMeaning(TEST_WORD_INFO.getForeignWord(), "poder", "verb", GOOGLE_TRANSLATE_SOURCE + "#3");
         m3.addComment("Google score=[0.022794181]");
 
         // when

@@ -5,11 +5,13 @@ import org.vorin.bestwords.loaders.GoogleTranslateParser;
 import org.vorin.bestwords.loaders.TranslationLoader;
 import org.vorin.bestwords.loaders.WordInfo;
 import org.vorin.bestwords.loaders.XmlTranslationPublisher;
+import org.vorin.bestwords.model.Translation;
 import org.vorin.bestwords.model.Wordlist;
 import org.vorin.bestwords.model.Dictionary;
 import org.vorin.bestwords.util.FileUtil;
 import org.vorin.bestwords.util.Logger;
 import org.vorin.bestwords.util.Sources;
+import org.vorin.bestwords.util.Util;
 
 import java.io.File;
 import java.io.IOException;
@@ -40,6 +42,7 @@ public class EnEsTranslationLoaderApp {
 
     public static void main(String... args) throws IOException {
         var inputWordlistFilePath = RES_DIR + DICT.name() + "-InputEnglishWordlist.txt";
+        var wordType = "noun";
         var outputWordlistFilePath = RES_DIR + DICT.name() + "-CombinedWordlist.xml";
         var outputPrettyPrintFilePath = RES_DIR + DICT.name() + "-CombinedWordlistPrettyPrint.txt";
         var processedWordlistFilePath = RES_DIR + DICT.name() + "-ProcessedWordlist.xml";
@@ -54,7 +57,7 @@ public class EnEsTranslationLoaderApp {
 
 //        createWordlists(inputWordlist.getTranslations().stream().map(t -> new WordInfo(t.getForeignWord(), null)).collect(toList()),
 //                googleWordlistFilePath, lingueeWordlistFilePath);
-//
+
 //        combineWordlists(
 //                inputWordlist,
 //                Map.of(
@@ -65,9 +68,13 @@ public class EnEsTranslationLoaderApp {
 
 //        findTranslationsForContextPhrases(FileUtil.readFileToLines(new File(contextPhrasesToTranslateFilePath), Charset.forName("cp1252")), translatedContextPhrasesFilePath);
 
-        printoutWordlistAsEasyToCheckList(Wordlist.loadFromXml(new File(outputWordlistFilePath)), outputPrettyPrintFilePath,
+        List<WordInfo> wordInfos = Util.loadWordsFromTxtFile2(new File(inputWordlistFilePath)).stream().map(line -> {
+                String[] items = line.split(";");
+                return new WordInfo(items[0], null, items[1], items[2]);
+            }).collect(toList());
+        printoutWordlistAsEasyToCheckList(Wordlist.loadFromXml(new File(outputWordlistFilePath)), wordInfos, outputPrettyPrintFilePath,
                 contextPhrasesToTranslateFilePath, translatedContextPhrasesFilePath, booksWordlistContent,
-                subtitlesWordlistContent, "noun", 2);
+                subtitlesWordlistContent, wordType, 2);
 
 //        processWordlist(inputWordlist, processedWordlistFilePath);
     }
@@ -86,14 +93,16 @@ public class EnEsTranslationLoaderApp {
     }
 
 
-    private static void printoutWordlistAsEasyToCheckList(Wordlist wordlist, String outputPrettyPrintFilePath, String contextPhrasesToTranslateFilePath,
+    private static void printoutWordlistAsEasyToCheckList(Wordlist wordlist, List<WordInfo> wordInfos, String outputPrettyPrintFilePath, String contextPhrasesToTranslateFilePath,
                                                           String translatedContextPhrasesFilePath, String booksWordlistContent,
                                                           String subtitlesWordlistContent, String wordType, int maxMeaningCount) throws IOException {
         var content = new StringJoiner("\n");
         var contextsToTranslate = new StringJoiner("\n");
         var translatedContextPhrases = Wordlist.loadFromXml(new File(translatedContextPhrasesFilePath));
+        int i = 0;
         for(var t : wordlist.getTranslations()) {
-            content.add(t.getForeignWord());
+            var wordInfo = wordInfos.get(i++);
+            content.add(format("%s (%s - %s)", t.getForeignWord(), wordInfo.getWordType(), wordInfo.getComment()));
             int meaningCount = 0;
             for (var m : t.getMeanings()) {
                 if (!m.getWordType().equals(wordType)) {
