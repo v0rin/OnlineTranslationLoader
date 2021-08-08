@@ -103,7 +103,8 @@ public class SynonymStore implements TranslationPublisher {
     }
 
     @Override
-    public void addMeaning(String foreignWord, String meaning, String source) {
+    public void addMeaning(String foreignWord, String meaning, String wordType, String source) {
+        // TODO add wordType if needed
         synonymMap.compute(foreignWord, (k, v) -> {
            if (v == null) {
                v = new HashSet<>();
@@ -114,22 +115,17 @@ public class SynonymStore implements TranslationPublisher {
     }
 
     @Override
-    public void addMeaning(String foreignWord, String meaning, String source, String comment) {
-        throw new UnsupportedOperationException("");
-    }
-
-    @Override
     public void addMeaning(String foreignWord, String meaning, String wordType, String source, String comment) {
         throw new UnsupportedOperationException("");
     }
 
     @Override
-    public void addExampleSentence(String foreignWord, String wordMeaning, String exampleSentence, String source) {
+    public void addExampleSentence(String foreignWord, String wordMeaning, String wordType, String exampleSentence, String source) {
         throw new UnsupportedOperationException("");
     }
 
     @Override
-    public boolean exampleSentenceExists(String foreignWord, String wordMeaning) {
+    public boolean exampleSentenceExists(String foreignWord, String wordMeaning, String wordType) {
         throw new UnsupportedOperationException("");
     }
 

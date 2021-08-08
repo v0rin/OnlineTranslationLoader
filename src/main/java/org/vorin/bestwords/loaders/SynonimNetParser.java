@@ -30,7 +30,8 @@ public class SynonimNetParser implements TranslationDataParser {
         int count = 0;
         while (iter.hasNext()) {
             var row = iter.next();
-            translationPublisher.addMeaning(wordInfo.getParsedForeignWord(), row.text(), SYNONIM_NET_SOURCE);
+            // todo wordType if needed
+            translationPublisher.addMeaning(wordInfo.getParsedForeignWord(), row.text(), "not-implemented", SYNONIM_NET_SOURCE);
             count++;
         }
         // LOG.info(format("added %s synonyms from [%s] for word [%s]", count, SYNONIM_NET_SOURCE, wordInfo.getParsedForeignWord()));

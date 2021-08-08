@@ -68,9 +68,11 @@ public class CollinsSentencesParser implements TranslationDataParser {
                 }
 
                 if (!sentences.isEmpty()) {
-                    translationPublisher.addMeaning(wordInfo.getForeignWord(), wordInfo.getWordMeaning(), COLLINS_SOURCE);
+                    // TODO wordType
+                    translationPublisher.addMeaning(wordInfo.getForeignWord(), wordInfo.getWordMeaning(), "not-implemented", COLLINS_SOURCE);
                     translationPublisher.addExampleSentence(wordInfo.getForeignWord(),
                                                             wordInfo.getWordMeaning(),
+                                                            "not-implemented",
                                                             Util.chooseShortestString(sentences, sentencePreferablyNotShorterThan),
                                                             COLLINS_SOURCE);
                 }

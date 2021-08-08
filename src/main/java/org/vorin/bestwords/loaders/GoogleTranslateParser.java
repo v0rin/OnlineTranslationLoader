@@ -1,5 +1,6 @@
 package org.vorin.bestwords.loaders;
 
+import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.JsonNodeType;
@@ -52,7 +53,15 @@ public class GoogleTranslateParser implements TranslationDataParser {
                                 InputStream translationData,
                                 TranslationPublisher translationPublisher) throws IOException {
 
-        JsonNode node = OBJECT_MAPPER.readTree(translationData);
+        JsonNode node;
+        try {
+            node = OBJECT_MAPPER.readTree(translationData);
+        } catch (JsonParseException e) {
+            if (e.getMessage().contains("Unexpected character ('<' (code 60))")) {
+                LOG.info("del src\\main\\resources\\caches\\google-translate-cache-EN_ES\\" + wordInfo.getForeignWord());
+            }
+            throw e;
+        }
         translationData.close();
 
         List<Triple<Double, String, String>> meaningsWithScores = new ArrayList<>();

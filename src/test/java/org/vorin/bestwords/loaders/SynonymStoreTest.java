@@ -15,15 +15,15 @@ public class SynonymStoreTest {
     @Test
     public void groupBySynonyms() {
         // given
-        synonymStore.addMeaning("duren", "idiota", "");
-        synonymStore.addMeaning("dryndac", "telefonowac", "");
-        synonymStore.addMeaning("dryndac", "dzwonic", "");
-        synonymStore.addMeaning("dzwonic", "dryndac", "");
-        synonymStore.addMeaning("dryndac", "wspolny synonim", "");
-        synonymStore.addMeaning("auto", "wspolny synonim", "");
+        synonymStore.addMeaning("duren", "idiota", "not-implemented", "");
+        synonymStore.addMeaning("dryndac", "telefonowac", "not-implemented", "");
+        synonymStore.addMeaning("dryndac", "dzwonic", "not-implemented", "");
+        synonymStore.addMeaning("dzwonic", "dryndac", "not-implemented", "");
+        synonymStore.addMeaning("dryndac", "wspolny synonim", "not-implemented", "");
+        synonymStore.addMeaning("auto", "wspolny synonim", "not-implemented", "");
 
-        synonymStore.addMeaning("auto", "", "");
-        synonymStore.addMeaning("idiota", "", "");
+        synonymStore.addMeaning("auto", "", "not-implemented", "");
+        synonymStore.addMeaning("idiota", "", "not-implemented", "");
 
         // when & then
         assertThat(synonymStore.groupBySynonyms(List.of("auto", "idiota", "dryndac", "telefonowac")),
@@ -45,15 +45,15 @@ public class SynonymStoreTest {
     @Test
     public void findSynonymsInList() {
         // given
-        synonymStore.addMeaning("duren", "idiota", "");
-        synonymStore.addMeaning("dryndac", "telefonowac", "");
-        synonymStore.addMeaning("dryndac", "dzwonic", "");
-        synonymStore.addMeaning("dzwonic", "dryndac", "");
-        synonymStore.addMeaning("dryndac", "wspolny synonim", "");
-        synonymStore.addMeaning("auto", "wspolny synonim", "");
+        synonymStore.addMeaning("duren", "idiota", "not-implemented", "");
+        synonymStore.addMeaning("dryndac", "telefonowac", "not-implemented", "");
+        synonymStore.addMeaning("dryndac", "dzwonic", "not-implemented", "");
+        synonymStore.addMeaning("dzwonic", "dryndac", "not-implemented", "");
+        synonymStore.addMeaning("dryndac", "wspolny synonim", "not-implemented", "");
+        synonymStore.addMeaning("auto", "wspolny synonim", "not-implemented", "");
 
-        synonymStore.addMeaning("auto", "", "");
-        synonymStore.addMeaning("idiota", "", "");
+        synonymStore.addMeaning("auto", "", "not-implemented", "");
+        synonymStore.addMeaning("idiota", "", "not-implemented", "");
 
         // when & then
         assertThat(synonymStore.findSynonymsInList("auto", List.of()),
@@ -71,13 +71,13 @@ public class SynonymStoreTest {
     @Test
     public void removeSynonyms() {
         // given
-        synonymStore.addMeaning("duren", "idiota", "");
-        synonymStore.addMeaning("dryndac", "telefonowac", "");
-        synonymStore.addMeaning("dryndac", "dzwonic", "");
+        synonymStore.addMeaning("duren", "idiota", "not-implemented", "");
+        synonymStore.addMeaning("dryndac", "telefonowac", "not-implemented", "");
+        synonymStore.addMeaning("dryndac", "dzwonic", "not-implemented", "");
 
-        synonymStore.addMeaning("auto", "", "");
-        synonymStore.addMeaning("idiota", "", "");
-        synonymStore.addMeaning("dzwonic", "dryndac", "");
+        synonymStore.addMeaning("auto", "", "not-implemented", "");
+        synonymStore.addMeaning("idiota", "", "not-implemented", "");
+        synonymStore.addMeaning("dzwonic", "dryndac", "not-implemented", "");
 
         // when & then
         assertThat(synonymStore.removeSynonymsFromList(List.of("auto", "idiota", "dryndac", "telefonowac")),
@@ -93,13 +93,13 @@ public class SynonymStoreTest {
     @Test
     public void removeSynonyms2() {
         // given
-        synonymStore.addMeaning("duren", "idiota", "");
-        synonymStore.addMeaning("dryndac", "telefonowac", "");
-        synonymStore.addMeaning("dryndac", "dzwonic", "");
+        synonymStore.addMeaning("duren", "idiota", "not-implemented", "");
+        synonymStore.addMeaning("dryndac", "telefonowac", "not-implemented", "");
+        synonymStore.addMeaning("dryndac", "dzwonic", "not-implemented", "");
 
-        synonymStore.addMeaning("auto", "samochod", "");
-        synonymStore.addMeaning("idiota", "duren", "");
-        synonymStore.addMeaning("telefonowac", "dryndac", "");
+        synonymStore.addMeaning("auto", "samochod", "not-implemented", "");
+        synonymStore.addMeaning("idiota", "duren", "not-implemented", "");
+        synonymStore.addMeaning("telefonowac", "dryndac", "not-implemented", "");
 
         // when & then
         assertThat(synonymStore.removeSynonymsFromList(List.of("auto", "idiota", "dryndac", "telefonowac")),

@@ -28,19 +28,19 @@ public class LingueeTest {
 
         var expectedWordlist = new Wordlist();
         expectedWordlist.addMeaning(TEST_WORD_INFO.getForeignWord(), "poder", "verb", LINGUEE_SOURCE + "#1");
-        expectedWordlist.addExampleSentence(TEST_WORD_INFO.getForeignWord(), "poder", "cheetahs can run very fast - los guepardos pueden correr muy rapido", LINGUEE_SOURCE);
+        expectedWordlist.addExampleSentence(TEST_WORD_INFO.getForeignWord(), "poder", "verb", "cheetahs can run very fast - los guepardos pueden correr muy rapido", LINGUEE_SOURCE);
 
         expectedWordlist.addMeaning(TEST_WORD_INFO.getForeignWord(), "saber", "verb", LINGUEE_SOURCE + "#2");
-        expectedWordlist.addExampleSentence(TEST_WORD_INFO.getForeignWord(), "saber", "my sister can speak four languages - mi hermana sabe hablar cuatro idiomas", LINGUEE_SOURCE);
+        expectedWordlist.addExampleSentence(TEST_WORD_INFO.getForeignWord(), "saber", "verb", "my sister can speak four languages - mi hermana sabe hablar cuatro idiomas", LINGUEE_SOURCE);
 
         expectedWordlist.addMeaning(TEST_WORD_INFO.getForeignWord(), "enlatar", "verb", LINGUEE_SOURCE + "#3");
-        expectedWordlist.addExampleSentence(TEST_WORD_INFO.getForeignWord(), "enlatar", "the workers can tuna with olive oil - los operarios enlatan el atun con aceite de oliva", LINGUEE_SOURCE);
+        expectedWordlist.addExampleSentence(TEST_WORD_INFO.getForeignWord(), "enlatar", "verb", "the workers can tuna with olive oil - los operarios enlatan el atun con aceite de oliva", LINGUEE_SOURCE);
 
         expectedWordlist.addMeaning(TEST_WORD_INFO.getForeignWord(), "lata", "noun", LINGUEE_SOURCE + "#4");
-        expectedWordlist.addExampleSentence(TEST_WORD_INFO.getForeignWord(), "lata", "many drinks are sold in plastic bottles or cans - muchas bebidas se venden en botellas de plastico o en latas", LINGUEE_SOURCE);
+        expectedWordlist.addExampleSentence(TEST_WORD_INFO.getForeignWord(), "lata", "noun", "many drinks are sold in plastic bottles or cans - muchas bebidas se venden en botellas de plastico o en latas", LINGUEE_SOURCE);
 
         expectedWordlist.addMeaning(TEST_WORD_INFO.getForeignWord(), "bote", "noun", LINGUEE_SOURCE + "#5");
-        expectedWordlist.addExampleSentence(TEST_WORD_INFO.getForeignWord(), "bote", "I have a can of beer and a bottle of water - tengo un bote de cerveza y una botella de agua", LINGUEE_SOURCE);
+        expectedWordlist.addExampleSentence(TEST_WORD_INFO.getForeignWord(), "bote", "noun", "I have a can of beer and a bottle of water - tengo un bote de cerveza y una botella de agua", LINGUEE_SOURCE);
 
         // when
         try (var canCacheFileIS = new FileInputStream(new File(TEST_CACHE_FILE_PATH))) {

@@ -3,6 +3,8 @@ package org.vorin.bestwords.model;
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
 import org.apache.commons.lang3.builder.ToStringBuilder;
+import org.apache.commons.logging.LogFactory;
+import org.vorin.bestwords.util.Logger;
 import org.vorin.bestwords.util.Util;
 
 import javax.xml.bind.JAXB;
@@ -22,6 +24,8 @@ import static org.vorin.bestwords.AppConfig.RES_DIR;
 
 @XmlRootElement(name = "wordList")
 public class Wordlist {
+
+    private static final Logger LOG = Logger.get(Wordlist.class);
 
     private static final Map<String, Translation> originalWordlist = new HashMap<>();
 
@@ -84,8 +88,11 @@ public class Wordlist {
         }
 
         if (findMeaning(translation, wordMeaning, wordType) != null) {
-            throw new RuntimeException(format("The translation: foreignWord [%s] and wordMeaning [%s] and wordType [%s] already exists",
-                                              foreignWord, wordMeaning, wordType));
+//            throw new RuntimeException(format("The translation: foreignWord [%s] and wordMeaning [%s] and wordType [%s] already exists",
+//                                              foreignWord, wordMeaning, wordType));
+            LOG.warn(format("The translation: foreignWord [%s] and wordMeaning [%s] and wordType [%s] already exists",
+                    foreignWord, wordMeaning, wordType));
+
         }
 
         translation.getMeanings().add(new Meaning(wordMeaning, wordType, null, null, wordMeaningSource, null));
@@ -95,10 +102,12 @@ public class Wordlist {
 
     public void addExampleSentence(String foreignWord,
                                    String wordMeaning,
+                                   String wordType,
                                    String exampleSentence,
                                    String exampleSentenceSource) {
         checkArgument(!isNullOrEmpty(foreignWord) &&
                 !isNullOrEmpty(wordMeaning) &&
+                !isNullOrEmpty(wordType) &&
                 !isNullOrEmpty(exampleSentence) &&
                 !isNullOrEmpty(exampleSentenceSource));
 
@@ -107,9 +116,9 @@ public class Wordlist {
             throw new RuntimeException(format("Translation for foreignWord=[%s] does not exist", foreignWord));
         }
 
-        var meaning = findMeaning(translation, wordMeaning);
+        var meaning = findMeaning(translation, wordMeaning, wordType);
         if (meaning == null) {
-            throw new RuntimeException(format("Meaning for foreignWord=[%s] and wordMeaning=[%s] does not exist", foreignWord, wordMeaning));
+            throw new RuntimeException(format("Meaning for foreignWord=[%s] and wordMeaning=[%s] and wordType=[%s] does not exist", foreignWord, wordMeaning, wordType));
         }
 
         meaning.setExampleSentence(exampleSentence);
@@ -130,28 +139,6 @@ public class Wordlist {
     }
 
 
-    public Meaning findMeaning(String foreignWord, String wordMeaning) {
-        var t = findTranslationForWord(foreignWord);
-        if (t == null) {
-            return null;
-        }
-        return findMeaning(t, wordMeaning);
-    }
-
-
-    public static Meaning findMeaning(Translation translation, String wordMeaning) {
-        var meanings = translation.getMeanings().stream().filter(m -> m.getWordMeaning().equals(wordMeaning)).collect(toList());
-        if (meanings.isEmpty()) {
-            return null;
-        }
-        if (meanings.size() > 1) {
-            throw new RuntimeException(format("There is more than one wordMeaning [%s] for translation [%s]", wordMeaning, translation));
-        }
-
-        return meanings.get(0);
-    }
-
-
     public Meaning findMeaning(String foreignWord, String wordMeaning, String wordType) {
         var t = findTranslationForWord(foreignWord);
         if (t == null) {
@@ -169,7 +156,8 @@ public class Wordlist {
             return null;
         }
         if (meanings.size() > 1) {
-            throw new RuntimeException(format("There is more than one wordMeaning [%s] for translation [%s]", wordMeaning, translation));
+//            throw new RuntimeException(format("There is more than one wordMeaning [%s] for translation [%s] and wordType[%s]", wordMeaning, translation, wordType));
+            LOG.warn(format("There is more than one wordMeaning [%s] and for translation [%s] and wordType[%s]", wordMeaning, translation, wordType));
         }
 
         return meanings.get(0);

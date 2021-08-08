@@ -37,9 +37,9 @@ public class WordlistTest {
         wl.addMeaning("work", "funcionar","verb",  "test meaning src");
         wl.addMeaning("take", "tomar","verb",  "test meaning src");
 
-        wl.addExampleSentence("work", "trabajar", "trabajar sentence", "test sentence src");
-        wl.addExampleSentence("work", "funcionar", "funcionar sentence", "test sentence src");
-        wl.addExampleSentence("take", "tomar", "tomar sentence", "test sentence src");
+        wl.addExampleSentence("work", "trabajar", "verb", "trabajar sentence", "test sentence src");
+        wl.addExampleSentence("work", "funcionar", "verb", "funcionar sentence", "test sentence src");
+        wl.addExampleSentence("take", "tomar", "verb", "tomar sentence", "test sentence src");
 
         // then
         assertThat(wl.getTranslations().size(), is(2));
@@ -86,7 +86,7 @@ public class WordlistTest {
         var workTranslation = wl.findTranslationForWord("work");
 
         // then
-        assertThat(wl.findMeaning(workTranslation, "funcionar").getWordMeaning(), is("funcionar"));
+        assertThat(wl.findMeaning(workTranslation, "funcionar", "verb").getWordMeaning(), is("funcionar"));
     }
 
     @Test

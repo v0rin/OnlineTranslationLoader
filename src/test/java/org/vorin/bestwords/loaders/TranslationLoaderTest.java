@@ -96,10 +96,10 @@ public class TranslationLoaderTest {
 
     private Wordlist getExpectedWordlist() {
         var expectedWordlist = new Wordlist();
-        expectedWordlist.addMeaning(TEST_WORD_INFO.getForeignWord(), TEST_MEANING1, null, TEST_SOURCE);
-        expectedWordlist.addMeaning(TEST_WORD_INFO.getForeignWord(), TEST_MEANING2, null, TEST_SOURCE);
-        expectedWordlist.addMeaning(TEST_WORD_INFO.getForeignWord(), TEST_WORD_INFO.getWordMeaning(), null, TEST_SOURCE);
-        expectedWordlist.addExampleSentence(TEST_WORD_INFO.getForeignWord(), TEST_WORD_INFO.getWordMeaning(), TEST_EXAMPLE_SENTENCE, TEST_SOURCE);
+        expectedWordlist.addMeaning(TEST_WORD_INFO.getForeignWord(), TEST_MEANING1, "not-implemented", TEST_SOURCE);
+        expectedWordlist.addMeaning(TEST_WORD_INFO.getForeignWord(), TEST_MEANING2, "not-implemented", TEST_SOURCE);
+        expectedWordlist.addMeaning(TEST_WORD_INFO.getForeignWord(), TEST_WORD_INFO.getWordMeaning(), "not-implemented", TEST_SOURCE);
+        expectedWordlist.addExampleSentence(TEST_WORD_INFO.getForeignWord(), TEST_WORD_INFO.getWordMeaning(), "not-implemented", TEST_EXAMPLE_SENTENCE, TEST_SOURCE);
         return expectedWordlist;
     }
 
@@ -126,10 +126,10 @@ public class TranslationLoaderTest {
             String dataStr = IOUtils.toString(translationData, StandardCharsets.UTF_8);
 
             if (dataStr.equals(expectedContent)) {
-                translationPublisher.addMeaning(wordInfo.getForeignWord(), TEST_MEANING1, TEST_SOURCE);
-                translationPublisher.addMeaning(wordInfo.getForeignWord(), TEST_MEANING2, TEST_SOURCE);
-                translationPublisher.addMeaning(wordInfo.getForeignWord(), wordInfo.getWordMeaning(), TEST_SOURCE);
-                translationPublisher.addExampleSentence(wordInfo.getForeignWord(), wordInfo.getWordMeaning(), TEST_EXAMPLE_SENTENCE, TEST_SOURCE);
+                translationPublisher.addMeaning(wordInfo.getForeignWord(), TEST_MEANING1, "not-implemented", TEST_SOURCE);
+                translationPublisher.addMeaning(wordInfo.getForeignWord(), TEST_MEANING2, "not-implemented", TEST_SOURCE);
+                translationPublisher.addMeaning(wordInfo.getForeignWord(), wordInfo.getWordMeaning(), "not-implemented", TEST_SOURCE);
+                translationPublisher.addExampleSentence(wordInfo.getForeignWord(), wordInfo.getWordMeaning(), "not-implemented", TEST_EXAMPLE_SENTENCE, TEST_SOURCE);
             }
             translationData.close();
         }

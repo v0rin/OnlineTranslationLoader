@@ -53,29 +53,42 @@ public class EnEsTranslationLoaderApp {
         var booksWordlistContent = FileUtil.readFileToString(new File(RES_DIR + "books-10_000-words.txt"), Charset.forName("cp1252"));
         var subtitlesWordlistContent = FileUtil.readFileToString(new File(RES_DIR + "subtitles-10_000-words.txt"), Charset.forName("cp1252"));
 
-        var inputWordlist = Wordlist.loadFromTxtList(new File(inputWordlistFilePath));
+        List<WordInfo> wordInfos = Util.loadWordsFromTxtFile2(new File(inputWordlistFilePath)).stream().flatMap(inLine -> {
+            var outputWordInfos = new ArrayList<WordInfo>();
 
-//        createWordlists(inputWordlist.getTranslations().stream().map(t -> new WordInfo(t.getForeignWord(), null)).collect(toList()),
-//                googleWordlistFilePath, lingueeWordlistFilePath);
+            // clean -> workout / training;noun;sports & healthy / sick;adjective;medicine by splitting and duplicating
+            var lines = Arrays.asList(inLine.split(" */ *"));
+            String lastLine = lines.get(lines.size() - 1);
+            String linePartToDuplicate = lastLine.substring(lastLine.indexOf(";") >= 0 ? lastLine.indexOf(";") : 0);
+            lines = lines.stream().limit(lines.size()-1).map(l -> l + linePartToDuplicate).collect(toList());
+            lines.add(lastLine);
+            for (var line : lines) {
+                // clean -> "to " for verbs by removing
+                line = line.replaceAll("^to ", "");
+
+                String[] items = line.split(";");
+                outputWordInfos.add(new WordInfo(items[0], null, items.length >= 2 ? items[1] : "", items.length >= 3 ? items[2] : ""));
+            }
+            return outputWordInfos.stream();
+        }).collect(toList());
+
+        createWordlists(wordInfos, googleWordlistFilePath, lingueeWordlistFilePath);
 
 //        combineWordlists(
-//                inputWordlist,
+//                wordInfos,
 //                Map.of(
 //                        Sources.GOOGLE_TRANSLATE_SOURCE, Wordlist.loadFromXml(new File(googleWordlistFilePath)),
 //                        Sources.LINGUEE_SOURCE, Wordlist.loadFromXml(new File(lingueeWordlistFilePath))),
 //                outputWordlistFilePath);
-
-
+//
 //        findTranslationsForContextPhrases(FileUtil.readFileToLines(new File(contextPhrasesToTranslateFilePath), Charset.forName("cp1252")), translatedContextPhrasesFilePath);
+//
+//
+//        printoutWordlistAsEasyToCheckList(Wordlist.loadFromXml(new File(outputWordlistFilePath)), wordInfos, outputPrettyPrintFilePath,
+//                contextPhrasesToTranslateFilePath, translatedContextPhrasesFilePath, booksWordlistContent,
+//                subtitlesWordlistContent, 2);
 
-        List<WordInfo> wordInfos = Util.loadWordsFromTxtFile2(new File(inputWordlistFilePath)).stream().map(line -> {
-                String[] items = line.split(";");
-                return new WordInfo(items[0], null, items[1], items[2]);
-            }).collect(toList());
-        printoutWordlistAsEasyToCheckList(Wordlist.loadFromXml(new File(outputWordlistFilePath)), wordInfos, outputPrettyPrintFilePath,
-                contextPhrasesToTranslateFilePath, translatedContextPhrasesFilePath, booksWordlistContent,
-                subtitlesWordlistContent, wordType, 2);
-
+        // unused for now - needs checking and working on (possibly) if to be used
 //        processWordlist(inputWordlist, processedWordlistFilePath);
     }
 
@@ -95,7 +108,7 @@ public class EnEsTranslationLoaderApp {
 
     private static void printoutWordlistAsEasyToCheckList(Wordlist wordlist, List<WordInfo> wordInfos, String outputPrettyPrintFilePath, String contextPhrasesToTranslateFilePath,
                                                           String translatedContextPhrasesFilePath, String booksWordlistContent,
-                                                          String subtitlesWordlistContent, String wordType, int maxMeaningCount) throws IOException {
+                                                          String subtitlesWordlistContent, int maxMeaningCount) throws IOException {
         var content = new StringJoiner("\n");
         var contextsToTranslate = new StringJoiner("\n");
         var translatedContextPhrases = Wordlist.loadFromXml(new File(translatedContextPhrasesFilePath));
@@ -105,7 +118,11 @@ public class EnEsTranslationLoaderApp {
             content.add(format("%s (%s - %s)", t.getForeignWord(), wordInfo.getWordType(), wordInfo.getComment()));
             int meaningCount = 0;
             for (var m : t.getMeanings()) {
-                if (!m.getWordType().equals(wordType)) {
+                if ((wordInfo.getWordType().equals("verb") && !m.getWordType().equals("verb")) ||
+                        (!wordInfo.getWordType().equals("verb") && m.getWordType().equals("verb"))) {
+                    // it seems to me that the only words that can be confused are verbs (with nouns or adverbs or adjectives)
+                    // that's why the input words (wordinfos) need to have defined if they are verbs and that is enough
+                    // we don't necessarily need to define other types, because nouns and adjectives e.g. cannot be confused
                     continue;
                 }
                 var wordInBooks = parseContentForWord(booksWordlistContent, m.getWordMeaning(), contextsToTranslate, translatedContextPhrases);
@@ -127,10 +144,12 @@ public class EnEsTranslationLoaderApp {
     }
 
 
-    private static void combineWordlists(Wordlist wordlist, Map<String, Wordlist> sourceWordlists, String outputWordlistFile) throws IOException {
-        for (var t : wordlist.getTranslations()) {
-            t.setMeanings(new ArrayList<>());
-            WordlistProcessor.combineMeanings(t, sourceWordlists);
+    private static void combineWordlists(List<WordInfo> wordInfos, Map<String, Wordlist> sourceWordlists, String outputWordlistFile) throws IOException {
+        var wordlist = new Wordlist();
+        for (var wordInfo : wordInfos) {
+            var translation = new Translation(wordInfo.getForeignWord(), "", "", new ArrayList<>());
+            WordlistProcessor.combineMeanings(translation, sourceWordlists);
+            wordlist.getTranslations().add(translation);
         }
 
         wordlist.writeToXml(new File(outputWordlistFile));

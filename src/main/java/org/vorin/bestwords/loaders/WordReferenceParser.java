@@ -58,9 +58,10 @@ public class WordReferenceParser implements TranslationDataParser {
                 if (foreignSentence != null) {
                     for (int i = 0; i < Math.min(meanings.size(), translatedSentences.size()); i++) {
                         var meaning = meanings.get(i);
-                        if (!meaning.isBlank() && !translationPublisher.exampleSentenceExists(wordInfo.getForeignWord(), meaning)) {
+                        // TODO wordType
+                        if (!meaning.isBlank() && !translationPublisher.exampleSentenceExists(wordInfo.getForeignWord(), meaning, "not-implemented")) {
                             String sentence = Util.createExampleSentence(foreignSentence, translatedSentences.get(i));
-                            translationPublisher.addExampleSentence(wordInfo.getForeignWord(), meaning, sentence, WORD_REFERENCE_SOURCE);
+                            translationPublisher.addExampleSentence(wordInfo.getForeignWord(), meaning, "not-implemented", sentence, WORD_REFERENCE_SOURCE);
                         }
                     }
                 }
@@ -89,7 +90,8 @@ public class WordReferenceParser implements TranslationDataParser {
                     }
                     if (!isNullOrEmpty(meaning)) {
                         if (!addedMeaninigs.contains(meaning) && !isMeaningToDiscard) {
-                            translationPublisher.addMeaning(wordInfo.getForeignWord(), meaning, WORD_REFERENCE_SOURCE);
+                            // TODO add wordType
+                            translationPublisher.addMeaning(wordInfo.getForeignWord(), meaning, "not-implemented", WORD_REFERENCE_SOURCE);
                             addedMeaninigs.add(meaning);
                         }
                         if (!isMeaningToDiscard) {

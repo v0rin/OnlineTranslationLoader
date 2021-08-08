@@ -166,7 +166,7 @@ public class WordlistProcessor {
             }
             sourcesCount++;
             int googleWordlist = 1;
-            if (!existsInWordlist(this.googleWordlist, sanitizedForeignWord, sanitizedMeaning, "GOOGLE_WORDLIST")) {
+            if (!existsInWordlist(this.googleWordlist, sanitizedForeignWord, sanitizedMeaning, "not-implemented", "GOOGLE_WORDLIST")) {
                 addMeaningComment(t.getForeignWord(), m, "not in GOOGLE_WORDLIST");
                 googleWordlist = 0;
             }
@@ -178,13 +178,13 @@ public class WordlistProcessor {
 //            }
             sourcesCount++;
             int wordReferenceWordlist = 1;
-            if (!existsInWordlist(this.wordReferenceWordlist, sanitizedForeignWord, sanitizedMeaning, "WORD_REFERENCE_WORDLIST")) {
+            if (!existsInWordlist(this.wordReferenceWordlist, sanitizedForeignWord, sanitizedMeaning, "not-implemented", "WORD_REFERENCE_WORDLIST")) {
                 addMeaningComment(t.getForeignWord(), m, "not in WORD_REFERENCE_WORDLIST");
                 wordReferenceWordlist = 0;
             }
             sourcesCount++;
             int lingueeWordlist = 1;
-            if (!existsInWordlist(this.lingueeWordlist, sanitizedForeignWord, sanitizedMeaning, "LINGUEE_WORDLIST")) {
+            if (!existsInWordlist(this.lingueeWordlist, sanitizedForeignWord, sanitizedMeaning, "not-implemented", "LINGUEE_WORDLIST")) {
                 addMeaningComment(t.getForeignWord(), m, "not in LINGUEE_WORDLIST");
                 lingueeWordlist = 0;
             }
@@ -232,7 +232,7 @@ public class WordlistProcessor {
             // get the most important meaning - the order of meanings should be according to importance
             var wordMeaning = group.get(0);
             // find it in the meanings and schedule to add the comment with synonyms
-            var meaning = Wordlist.findMeaning(t, wordMeaning);
+            var meaning = Wordlist.findMeaning(t, wordMeaning, "not-implemented");
             group.remove(wordMeaning);
             wordMeaningsToKeep.add(wordMeaning);
             if (!group.isEmpty()) {
@@ -250,7 +250,7 @@ public class WordlistProcessor {
                 if (wordMeaningsToKeep.contains(wordMeaningToRemove)) {
                     continue;
                 }
-                var meaningToRemove = Wordlist.findMeaning(t, wordMeaningToRemove);
+                var meaningToRemove = Wordlist.findMeaning(t, wordMeaningToRemove, "not-implemented");
                 if (meaningToRemove != null) {
                     meaningsToRemove.add(meaningToRemove);
                 }
@@ -289,7 +289,7 @@ public class WordlistProcessor {
             List<Pair<String, String>> exampleSentences = parseExampleSentences(m);
 
             if (collinsReverseWordlist != null) {
-                var collinsMeaning = collinsReverseWordlist.findMeaning(m.getWordMeaning(), targetTranslation.getForeignWord());
+                var collinsMeaning = collinsReverseWordlist.findMeaning(m.getWordMeaning(), targetTranslation.getForeignWord(), "not-implemented");
                 if (collinsMeaning != null && !collinsMeaning.getExampleSentence().isBlank()) {
                     exampleSentences.add(ImmutablePair.of(collinsMeaning.getExampleSentence(), COLLINS_SOURCE));
                 }
@@ -317,14 +317,14 @@ public class WordlistProcessor {
     }
 
 
-    private boolean existsInWordlist(Wordlist wordlist, String foreignWord, String wordMeaning, String wordlistName) {
+    private boolean existsInWordlist(Wordlist wordlist, String foreignWord, String wordMeaning, String wordType, String wordlistName) {
         var t = wordlist.findTranslationForWord(foreignWord);
         if (t == null) {
             LOG.error(format("could not find translation for word [%s] in %s", wordMeaning, wordlistName));
             return false;
         }
 
-        if (wordlist.findMeaning(foreignWord, wordMeaning) != null) {
+        if (wordlist.findMeaning(foreignWord, wordMeaning, wordType) != null) {
             return true;
         }
         else {
@@ -333,14 +333,14 @@ public class WordlistProcessor {
     }
 
 
-    private boolean existsInReverseWordlist(Wordlist wordlist, String foreignWord, String wordMeaning, String wordlistName) {
+    private boolean existsInReverseWordlist(Wordlist wordlist, String foreignWord, String wordMeaning, String wordType, String wordlistName) {
         var t = wordlist.findTranslationForWord(wordMeaning);
         if (t == null) {
             LOG.error(format("could not find translation for word [%s] in %s", wordMeaning, wordlistName));
             return false;
         }
 
-        if (wordlist.findMeaning(wordMeaning, foreignWord) != null) {
+        if (wordlist.findMeaning(wordMeaning, foreignWord, wordType) != null) {
             return true;
         }
         else {

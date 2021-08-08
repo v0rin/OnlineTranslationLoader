@@ -22,11 +22,6 @@ public class XmlTranslationPublisher implements TranslationPublisher {
 	}
 
 	@Override
-	public void addMeaning(String foreignWord, String meaning, String source) {
-		addMeaning(foreignWord, meaning, null, source, null);
-	}
-
-	@Override
 	public void addMeaning(String foreignWord, String meaning, String wordType, String source) {
 		addMeaning(foreignWord, meaning, wordType, source, null);
 	}
@@ -42,16 +37,17 @@ public class XmlTranslationPublisher implements TranslationPublisher {
 	@Override
 	public void addExampleSentence(String foreignWord,
 								   String wordMeaning,
+								   String wordType,
 								   String exampleSentence,
 								   String source) {
-		LOG.info(format("added example sentence from [%s]: foreignWord=%s, meaning=%s, exampleSentence=%s",
-						source, foreignWord, wordMeaning, exampleSentence));
-		wordlist.addExampleSentence(foreignWord, wordMeaning, exampleSentence, source);
+		LOG.info(format("added example sentence from [%s]: foreignWord=%s, meaning=%s, wordType=%s, exampleSentence=%s",
+				source, foreignWord, wordMeaning, wordType, exampleSentence));
+		wordlist.addExampleSentence(foreignWord, wordMeaning, wordType, exampleSentence, source);
 	}
 
 	@Override
-	public boolean exampleSentenceExists(String foreignWord, String wordMeaning) {
-		var meaning = wordlist.findMeaning(foreignWord, wordMeaning);
+	public boolean exampleSentenceExists(String foreignWord, String wordMeaning, String wordType) {
+		var meaning = wordlist.findMeaning(foreignWord, wordMeaning, wordType);
 
 		if (meaning != null && !isNullOrEmpty(meaning.getExampleSentence())) {
 			return true;

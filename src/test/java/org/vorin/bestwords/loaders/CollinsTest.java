@@ -25,8 +25,8 @@ public class CollinsTest {
         var parser = new CollinsSentencesParser(30);
 
         var expectedWordlist = new Wordlist();
-        expectedWordlist.addMeaning(TEST_WORD_INFO.getForeignWord(), "take", null, COLLINS_SOURCE);
-        expectedWordlist.addExampleSentence(TEST_WORD_INFO.getForeignWord(), "take", "lo toma o lo deja - take it or leave it", COLLINS_SOURCE);
+        expectedWordlist.addMeaning(TEST_WORD_INFO.getForeignWord(), "take", "not-implemented", COLLINS_SOURCE);
+        expectedWordlist.addExampleSentence(TEST_WORD_INFO.getForeignWord(), "take", "not-implemented", "lo toma o lo deja - take it or leave it", COLLINS_SOURCE);
 
         // when
         try (var canCacheFileIS = new FileInputStream(new File(TEST_CACHE_FILE_PATH))) {

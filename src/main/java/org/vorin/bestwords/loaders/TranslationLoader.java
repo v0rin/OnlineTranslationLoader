@@ -58,7 +58,8 @@ public class TranslationLoader {
         var addedWordInfos = new HashSet<WordInfo>();
         for (var wordInfo : wordInfos) {
             if (addedWordInfos.contains(wordInfo)) {
-                throw new RuntimeException(format("source [%s] - wordInfo [%s] has been already added - there are some duplicated words it seems", translationDataParser.getSource(), wordInfo));
+//                throw new RuntimeException(format("source [%s] - wordInfo [%s] has been already added - there are some duplicated words it seems", translationDataParser.getSource(), wordInfo));
+                LOG.warn(format("source [%s] - wordInfo [%s] has been already added - there are some duplicated words it seems", translationDataParser.getSource(), wordInfo));
             }
 
             translationDataParser.parseAndPublish(wordInfo, getDataForForeignWord(wordInfo.getParsedForeignWord()), translationPublisher);

@@ -28,7 +28,8 @@ public class GoogleTranslateSynonymParser implements TranslationDataParser {
         for (var n1 : node.get(11)) {
             for (var n2 : n1.get(1)) {
                 var synonym = stripSurroundingQuotes(n2.get(0).get(0).toString());
-                translationPublisher.addMeaning(wordInfo.getParsedForeignWord(), synonym, GOOGLE_TRANSLATE_SOURCE);
+                // TODO wordType
+                translationPublisher.addMeaning(wordInfo.getParsedForeignWord(), synonym, "not-implemented", GOOGLE_TRANSLATE_SOURCE);
                 synonymCount++;
             }
         }

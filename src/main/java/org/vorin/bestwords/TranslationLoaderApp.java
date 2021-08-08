@@ -59,6 +59,7 @@ public class TranslationLoaderApp {
     private static final Dictionary REVERSE_DICT = Dictionary.ES_EN;
     private static final TranslationDataParser SYNONYM_PARSER = new GoogleTranslateSynonymParser();
     private static final TranslationDataDownloader SYNONYM_DOWNLOADER = new GoogleTranslateDownloader(REVERSE_DICT);
+    private static final long WAIT_BETWEEN_REQUESTS_MS = 6000;
     // ##########################
 
     private static final SynonymStore SYNONYM_STORE = new SynonymStore(REVERSE_DICT, SYNONYM_PARSER);
@@ -139,7 +140,7 @@ public class TranslationLoaderApp {
         var xmlPublisher = new XmlTranslationPublisher(new File(outputXml));
         var downloader = new GoogleTranslateDownloader(dict);
         var parser = new GoogleTranslateParser(0.01, maxMeaningCount);
-        var loader = new TranslationLoader(downloader, parser, xmlPublisher, true, 1000);
+        var loader = new TranslationLoader(downloader, parser, xmlPublisher, true, WAIT_BETWEEN_REQUESTS_MS);
 
         loader.load(wordInfos);
         xmlPublisher.writeToTarget();
@@ -150,7 +151,7 @@ public class TranslationLoaderApp {
         var xmlPublisher = new XmlTranslationPublisher(new File(outputXml));
         var downloader = new WordReferenceDownloader(dict);
         var parser = new WordReferenceParser(dict, getMeaningSanitizer(dict));
-        var loader = new TranslationLoader(downloader, parser, xmlPublisher, true);
+        var loader = new TranslationLoader(downloader, parser, xmlPublisher, true, WAIT_BETWEEN_REQUESTS_MS);
 
         loader.load(wordInfos);
         xmlPublisher.writeToTarget();
@@ -161,7 +162,7 @@ public class TranslationLoaderApp {
         var xmlPublisher = new XmlTranslationPublisher(new File(outputXml));
         var downloader = new LingueeDownloader(dict);
         var parser = new LingueeParser(getMeaningSanitizer(dict), maxMeaningCount);
-        var loader = new TranslationLoader(downloader, parser, xmlPublisher, true);
+        var loader = new TranslationLoader(downloader, parser, xmlPublisher, true, WAIT_BETWEEN_REQUESTS_MS);
 
         loader.load(wordInfos);
         xmlPublisher.writeToTarget();
@@ -172,7 +173,7 @@ public class TranslationLoaderApp {
         var xmlPublisher = new XmlTranslationPublisher(new File(outputXml));
         var downloader = new CollinsDownloader(dict);
         var parser = new CollinsSentencesParser(36);
-        var loader = new TranslationLoader(downloader, parser, xmlPublisher, true);
+        var loader = new TranslationLoader(downloader, parser, xmlPublisher, true, WAIT_BETWEEN_REQUESTS_MS);
 
         loader.load(wordInfos);
         xmlPublisher.writeToTarget();

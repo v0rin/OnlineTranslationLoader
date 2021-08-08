@@ -91,7 +91,7 @@ public class LingueeParser implements TranslationDataParser {
 //                LOG.info(format("meanings for [%s] - %s - %s", wordInfo.getForeignWord(), meaning, wordType));
             translationPublisher.addMeaning(wordInfo.getForeignWord(), meaning, wordType, LINGUEE_SOURCE + "#" + (addedMeaningsCount+1));
             if (!sentences.isEmpty()) {
-                translationPublisher.addExampleSentence(wordInfo.getForeignWord(), meaning, Util.chooseShortestString(sentences), LINGUEE_SOURCE);
+                translationPublisher.addExampleSentence(wordInfo.getForeignWord(), meaning, wordType, Util.chooseShortestString(sentences), LINGUEE_SOURCE);
             }
             sentences.clear();
             if (++addedMeaningsCount >= maxMeaningCount) {
