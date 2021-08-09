@@ -212,7 +212,7 @@ public class EnEsTranslationLoaderApp {
 
     private static void createWordlists(List<WordInfo> wordInfos, String googleWordlistFilePath, String lingueeWordlistFilePath) throws IOException {
 
-        TranslationLoaderApp.createGoogleWordlist(DICT, wordInfos, googleWordlistFilePath, MAX_MEANING_COUNT_FROM_SRC);
+//        TranslationLoaderApp.createGoogleWordlist(DICT, wordInfos, googleWordlistFilePath, MAX_MEANING_COUNT_FROM_SRC);
 
         TranslationLoaderApp.createLingueeWordlist(DICT, wordInfos, lingueeWordlistFilePath, MAX_MEANING_COUNT_FROM_SRC);
     }

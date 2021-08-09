@@ -3,6 +3,7 @@ package org.vorin.bestwords;
 import org.vorin.bestwords.loaders.*;
 import org.vorin.bestwords.model.Wordlist;
 import org.vorin.bestwords.model.Dictionary;
+import org.vorin.bestwords.proxy.DefaultProxyProvider;
 import org.vorin.bestwords.util.LangUtil;
 import org.vorin.bestwords.util.Logger;
 import org.vorin.bestwords.util.Sources;
@@ -59,7 +60,7 @@ public class TranslationLoaderApp {
     private static final Dictionary REVERSE_DICT = Dictionary.ES_EN;
     private static final TranslationDataParser SYNONYM_PARSER = new GoogleTranslateSynonymParser();
     private static final TranslationDataDownloader SYNONYM_DOWNLOADER = new GoogleTranslateDownloader(REVERSE_DICT);
-    private static final long WAIT_BETWEEN_REQUESTS_MS = 6000;
+    private static final long WAIT_BETWEEN_REQUESTS_MS = 1000; // google works well with 6s, linguee needed proxies anyway 1s is my courtesy ;)
     // ##########################
 
     private static final SynonymStore SYNONYM_STORE = new SynonymStore(REVERSE_DICT, SYNONYM_PARSER);
@@ -160,7 +161,7 @@ public class TranslationLoaderApp {
 
     static void createLingueeWordlist(Dictionary dict, List<WordInfo> wordInfos, String outputXml, int maxMeaningCount) throws IOException {
         var xmlPublisher = new XmlTranslationPublisher(new File(outputXml));
-        var downloader = new LingueeDownloader(dict);
+        var downloader = new LingueeDownloader(dict, new DefaultProxyProvider());
         var parser = new LingueeParser(getMeaningSanitizer(dict), maxMeaningCount);
         var loader = new TranslationLoader(downloader, parser, xmlPublisher, true, WAIT_BETWEEN_REQUESTS_MS);
 

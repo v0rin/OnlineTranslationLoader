@@ -61,7 +61,7 @@ public class LingueeParser implements TranslationDataParser {
             String wordType = wordTypeElem.stream().map(e -> e.attributes().get("title")
                     .replaceAll(",\\p{Z}(feminine|masculine)", "")
                     .replaceAll(",\\p{Z}(plural)", ""))
-                    .findFirst().orElse("");
+                    .findFirst().orElse("unknown");
 
             Matcher matcher = MEANING_PATTERN.matcher(meaningElem.toString());
             String meaning;

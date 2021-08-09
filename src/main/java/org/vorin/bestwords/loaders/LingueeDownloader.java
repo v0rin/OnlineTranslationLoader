@@ -1,10 +1,14 @@
 package org.vorin.bestwords.loaders;
 
+import org.jsoup.HttpStatusException;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.select.Elements;
-import org.vorin.bestwords.ProxyProvider;
 import org.vorin.bestwords.model.Dictionary;
+import org.vorin.bestwords.proxy.ProxyHost;
+import org.vorin.bestwords.proxy.ProxyProvider;
+import org.vorin.bestwords.proxy.ProxyTester;
+import org.vorin.bestwords.proxy.SimpleProxyTester;
 
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
@@ -21,9 +25,17 @@ public class LingueeDownloader implements TranslationDataDownloader {
 
     private String url;
     private Dictionary dictionary;
+    private final ProxyProvider proxyProvider;
+    private ProxyHost currProxy;
+    private ProxyTester proxyTester;
 
     public LingueeDownloader(Dictionary dictionary) {
+        this(dictionary, null);
+    }
+
+    public LingueeDownloader(Dictionary dictionary, ProxyProvider proxyProvider) {
         this.dictionary = dictionary;
+        this.proxyProvider = proxyProvider;
         switch (dictionary) {
             case EN_ES: url = URL_EN_ES; break;
             case ES_EN: url = URL_ES_EN; break;
@@ -31,21 +43,16 @@ public class LingueeDownloader implements TranslationDataDownloader {
             case EN_PL: url = URL_EN_PL; break;
             case PL_EN: url = URL_PL_EN; break;
         }
+        if (proxyProvider != null) {
+            proxyTester = new SimpleProxyTester(URL_EN_ES + "carpet", "carpet");
+            currProxy = proxyProvider.getNextWorkingProxy(proxyTester);
+        }
     }
 
     @Override
     public InputStream download(String word) throws IOException {
         String fullUrl = this.url + URLEncoder.encode(word, StandardCharsets.ISO_8859_1);
-        Document doc = Jsoup.connect(fullUrl).get();
-//        Document doc;
-//        try {
-//            setProxy(ProxyProvider.getCurrProxy());
-//            doc = Jsoup.connect(fullUrl).get();
-//        }
-//        catch (HttpStatusException e) {
-//            setProxy(ProxyProvider.getNextWorkingProxyForUrl(fullUrl, response -> response.contains(word)));
-//            doc = Jsoup.connect(fullUrl).get();
-//        }
+        Document doc = jsoupGet(fullUrl, word);
         Elements rows = doc.select("div.isMainTerm > div.exact");
         if (rows.size() == 0) {
             rows = doc.select("div.isForeignTerm > div.exact");
@@ -54,10 +61,16 @@ public class LingueeDownloader implements TranslationDataDownloader {
         return new ByteArrayInputStream(output.getBytes(StandardCharsets.UTF_8));
     }
 
-    private void setProxy(ProxyProvider.ProxyHost proxy) {
-        if (proxy != null) {
-            System.setProperty("http.proxyHost", proxy.getHostName());
-            System.setProperty("http.proxyPort", Integer.toString(proxy.getPort()));
+    private Document jsoupGet(String url, String word) throws IOException {
+        if (currProxy != null) {
+            try {
+                return Jsoup.connect(url).proxy(currProxy.getHostName(), currProxy.getPort()).get();
+            } catch (HttpStatusException e) {
+                currProxy = proxyProvider.getNextWorkingProxy(proxyTester);
+                return Jsoup.connect(url).proxy(currProxy.getHostName(), currProxy.getPort()).get();
+            }
+        } else {
+            return Jsoup.connect(url).get();
         }
     }
 
