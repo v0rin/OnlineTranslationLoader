@@ -2,6 +2,7 @@ package org.vorin.bestwords.loaders;
 
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
+import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 import org.vorin.bestwords.util.Logger;
 import org.vorin.bestwords.util.Util;
@@ -40,62 +41,74 @@ public class LingueeParser implements TranslationDataParser {
                                 TranslationPublisher translationPublisher) throws IOException {
         Document doc = Jsoup.parse(translationData, StandardCharsets.UTF_8.name(), "");
 
-        Elements rows = doc.select("div.translation_lines > div.translation, div.translation_lines > div.translation_group > div.translation_group_line");
-        for (var iter = rows.iterator(); iter.hasNext();) {
-            if (!iter.next().select("span.notascommon").isEmpty()) {
-                iter.remove();
+        int rowsNewCount = 0;
+        Elements featuredLemmas = doc.select("div.lemma");
+        for (var lemmaIter = featuredLemmas.iterator(); lemmaIter.hasNext();) {
+            Element lemma = lemmaIter.next();
+            Elements rows = lemma.select("div.translation_lines > div.translation, div.translation_lines > div.translation_group > div.translation_group_line");
+            for (var iter = rows.iterator(); iter.hasNext(); ) {
+                if (!iter.next().select("span.notascommon").isEmpty()) {
+                    iter.remove();
+                }
             }
-        }
-        rows = rows.select("div.translation");
+            rows = rows.select("div.translation");
+            rowsNewCount += rows.size();
 
-        var sentences = new ArrayList<String>();
-        int addedMeaningsCount = 0;
-        for (var iter = rows.iterator(); iter.hasNext();) {
-            var row = iter.next();
-            var meaningElem = row.select(".translation_desc > span.tag_trans > a.dictLink[id~=dictEntry]");
+            var sentences = new ArrayList<String>();
+            int addedMeaningsCount = 0;
+            for (var iter = rows.iterator(); iter.hasNext(); ) {
+                var row = iter.next();
+                var meaningElem = row.select(".translation_desc > span.tag_trans > a.dictLink[id~=dictEntry]");
 
-            var wordTypeElem = row.select(".translation_desc > span.tag_trans > span.tag_type");
-            if (wordTypeElem.size() > 1) {
-                throw new RuntimeException("more than one word type in linguee: " + wordTypeElem);
-            }
-            String wordType = wordTypeElem.stream().map(e -> e.attributes().get("title")
-                    .replaceAll(",\\p{Z}(feminine|masculine)", "")
-                    .replaceAll(",\\p{Z}(plural)", ""))
-                    .findFirst().orElse("unknown");
+                var wordTypeElem = row.select(".translation_desc > span.tag_trans > span.tag_type");
+                if (wordTypeElem.size() > 1) {
+                    throw new RuntimeException("more than one word type in linguee: " + wordTypeElem);
+                }
+                String wordType = wordTypeElem.stream().map(e -> e.attributes().get("title")
+                        .replaceAll(",\\p{Z}(feminine|masculine)", "")
+                        .replaceAll(",\\p{Z}(plural)", ""))
+                        .findFirst().orElse("unknown");
 
-            Matcher matcher = MEANING_PATTERN.matcher(meaningElem.toString());
-            String meaning;
-            if (matcher.find()) {
-                meaning = matcher.group(1);
-            }
-            else {
-                throw new RuntimeException(format("Couldn't match the meaning, meaningElem=[%s]", meaningElem));
-            }
+                String comment = "";
+                if (wordType.equals("verb")) {
+//                   <h2 class="line lemma_desc"><span class="tag_lemma"><a class="dictLink">estar
+                    String verbBaseForm = lemma.select("h2.lemma_desc > span.tag_lemma > a.dictLink").text();
+                    comment += "baseForm=" + verbBaseForm;
+                }
 
-            var foreignSentenceRows = row.select("div.example_lines > div.example  > span.tag_e > span.tag_s");
-            var translatedSentenceRows = row.select("div.example_lines > div.example  > span.tag_e > span.tag_t");
-            if (foreignSentenceRows.size() != translatedSentenceRows.size()) {
-                throw new RuntimeException(format("Unexpected scenario foreignSentenceRows.size()[%s] != translatedSentenceRows.size()[%s]",
-                                                  foreignSentenceRows.size(), translatedSentenceRows.size()));
-            }
-            for (int i = 0; i < foreignSentenceRows.size(); i++) {
-                sentences.add(Util.createExampleSentence(foreignSentenceRows.get(i).text(), translatedSentenceRows.get(i).text()));
-            }
+                Matcher matcher = MEANING_PATTERN.matcher(meaningElem.toString());
+                String meaning;
+                if (matcher.find()) {
+                    meaning = matcher.group(1);
+                } else {
+                    throw new RuntimeException(format("Couldn't match the meaning, meaningElem=[%s]", meaningElem));
+                }
 
-            meaning = meaningSanitizer.apply(meaning);
+                var foreignSentenceRows = row.select("div.example_lines > div.example  > span.tag_e > span.tag_s");
+                var translatedSentenceRows = row.select("div.example_lines > div.example  > span.tag_e > span.tag_t");
+                if (foreignSentenceRows.size() != translatedSentenceRows.size()) {
+                    throw new RuntimeException(format("Unexpected scenario foreignSentenceRows.size()[%s] != translatedSentenceRows.size()[%s]",
+                            foreignSentenceRows.size(), translatedSentenceRows.size()));
+                }
+                for (int i = 0; i < foreignSentenceRows.size(); i++) {
+                    sentences.add(Util.createExampleSentence(foreignSentenceRows.get(i).text(), translatedSentenceRows.get(i).text()));
+                }
 
-            if (meaning.isBlank()) {
-                continue;
-            }
+                meaning = meaningSanitizer.apply(meaning);
+
+                if (meaning.isBlank()) {
+                    continue;
+                }
 
 //                LOG.info(format("meanings for [%s] - %s - %s", wordInfo.getForeignWord(), meaning, wordType));
-            translationPublisher.addMeaning(wordInfo.getForeignWord(), meaning, wordType, LINGUEE_SOURCE + "#" + (addedMeaningsCount+1));
-            if (!sentences.isEmpty()) {
-                translationPublisher.addExampleSentence(wordInfo.getForeignWord(), meaning, wordType, Util.chooseShortestString(sentences), LINGUEE_SOURCE);
-            }
-            sentences.clear();
-            if (++addedMeaningsCount >= maxMeaningCount) {
-                break;
+                translationPublisher.addMeaning(wordInfo.getForeignWord(), meaning, wordType, LINGUEE_SOURCE + "#" + (addedMeaningsCount + 1), comment);
+                if (!sentences.isEmpty()) {
+                    translationPublisher.addExampleSentence(wordInfo.getForeignWord(), meaning, wordType, Util.chooseShortestString(sentences), LINGUEE_SOURCE);
+                }
+                sentences.clear();
+                if (++addedMeaningsCount >= maxMeaningCount) {
+                    break;
+                }
             }
         }
     }

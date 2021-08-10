@@ -36,13 +36,14 @@ public class EnEsTranslationLoaderApp {
 
     // ### ES CONFIG ###############
     private static final Dictionary DICT = Dictionary.EN_ES;
+//    private static final Dictionary DICT = Dictionary.ES_EN;
     private static final Dictionary REVERSE_DICT = Dictionary.ES_EN;
     private static final int MAX_MEANING_COUNT_FROM_SRC = 6;
     // ##########################
 
     public static void main(String... args) throws IOException {
         var inputWordlistFilePath = RES_DIR + DICT.name() + "-InputEnglishWordlist.txt";
-        var wordType = "noun";
+//        var inputWordlistFilePath = RES_DIR + DICT.name() + "-InputSpanishWordlist.txt";
         var outputWordlistFilePath = RES_DIR + DICT.name() + "-CombinedWordlist.xml";
         var outputPrettyPrintFilePath = RES_DIR + DICT.name() + "-CombinedWordlistPrettyPrint.txt";
         var processedWordlistFilePath = RES_DIR + DICT.name() + "-ProcessedWordlist.xml";
@@ -74,19 +75,19 @@ public class EnEsTranslationLoaderApp {
 
         createWordlists(wordInfos, googleWordlistFilePath, lingueeWordlistFilePath);
 
-//        combineWordlists(
-//                wordInfos,
-//                Map.of(
-//                        Sources.GOOGLE_TRANSLATE_SOURCE, Wordlist.loadFromXml(new File(googleWordlistFilePath)),
-//                        Sources.LINGUEE_SOURCE, Wordlist.loadFromXml(new File(lingueeWordlistFilePath))),
-//                outputWordlistFilePath);
-//
+        combineWordlists(
+                wordInfos,
+                Map.of(
+                        Sources.GOOGLE_TRANSLATE_SOURCE, Wordlist.loadFromXml(new File(googleWordlistFilePath)),
+                        Sources.LINGUEE_SOURCE, Wordlist.loadFromXml(new File(lingueeWordlistFilePath))),
+                outputWordlistFilePath);
+
 //        findTranslationsForContextPhrases(FileUtil.readFileToLines(new File(contextPhrasesToTranslateFilePath), Charset.forName("cp1252")), translatedContextPhrasesFilePath);
-//
-//
-//        printoutWordlistAsEasyToCheckList(Wordlist.loadFromXml(new File(outputWordlistFilePath)), wordInfos, outputPrettyPrintFilePath,
-//                contextPhrasesToTranslateFilePath, translatedContextPhrasesFilePath, booksWordlistContent,
-//                subtitlesWordlistContent, 2);
+
+
+        printoutWordlistAsEasyToCheckList(Wordlist.loadFromXml(new File(outputWordlistFilePath)), wordInfos, outputPrettyPrintFilePath,
+                contextPhrasesToTranslateFilePath, translatedContextPhrasesFilePath, booksWordlistContent,
+                subtitlesWordlistContent, 2);
 
         // unused for now - needs checking and working on (possibly) if to be used
 //        processWordlist(inputWordlist, processedWordlistFilePath);
@@ -212,7 +213,7 @@ public class EnEsTranslationLoaderApp {
 
     private static void createWordlists(List<WordInfo> wordInfos, String googleWordlistFilePath, String lingueeWordlistFilePath) throws IOException {
 
-//        TranslationLoaderApp.createGoogleWordlist(DICT, wordInfos, googleWordlistFilePath, MAX_MEANING_COUNT_FROM_SRC);
+        TranslationLoaderApp.createGoogleWordlist(DICT, wordInfos, googleWordlistFilePath, MAX_MEANING_COUNT_FROM_SRC);
 
         TranslationLoaderApp.createLingueeWordlist(DICT, wordInfos, lingueeWordlistFilePath, MAX_MEANING_COUNT_FROM_SRC);
     }

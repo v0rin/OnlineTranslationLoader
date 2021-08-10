@@ -27,7 +27,7 @@ public class LingueeDownloader implements TranslationDataDownloader {
     private Dictionary dictionary;
     private final ProxyProvider proxyProvider;
     private ProxyHost currProxy;
-    private ProxyTester proxyTester;
+    private ProxyTester proxyTester = new SimpleProxyTester(URL_EN_ES + "carpet", "carpet");
 
     public LingueeDownloader(Dictionary dictionary) {
         this(dictionary, null);
@@ -42,10 +42,6 @@ public class LingueeDownloader implements TranslationDataDownloader {
 
             case EN_PL: url = URL_EN_PL; break;
             case PL_EN: url = URL_PL_EN; break;
-        }
-        if (proxyProvider != null) {
-            proxyTester = new SimpleProxyTester(URL_EN_ES + "carpet", "carpet");
-            currProxy = proxyProvider.getNextWorkingProxy(proxyTester);
         }
     }
 
@@ -62,7 +58,10 @@ public class LingueeDownloader implements TranslationDataDownloader {
     }
 
     private Document jsoupGet(String url, String word) throws IOException {
-        if (currProxy != null) {
+        if (proxyProvider != null) {
+            if (currProxy == null) {
+                currProxy = proxyProvider.getNextWorkingProxy(proxyTester);
+            }
             try {
                 return Jsoup.connect(url).proxy(currProxy.getHostName(), currProxy.getPort()).get();
             } catch (HttpStatusException e) {

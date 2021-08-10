@@ -19,7 +19,8 @@ public class DefaultProxyProvider implements ProxyProvider {
 //            new ProxyHost("196.242.89.3", 10003),
 //            new ProxyHost("196.242.89.3", 10004),
 //            new ProxyHost("196.242.89.3", 10005));
-    private final List<ProxyHost> PROXY_LIST = IntStream.range(10_000, 11_000).boxed().map(port -> new ProxyHost("196.242.89.3", port)).collect(toList());
+    // I got the server proxy list for $9 from https://rsocks.net/
+    private final List<ProxyHost> PROXY_LIST = IntStream.range(10_110, 11_000).boxed().map(port -> new ProxyHost("196.242.89.3", port)).collect(toList());
 
     private int currProxyIdx = 0;
 

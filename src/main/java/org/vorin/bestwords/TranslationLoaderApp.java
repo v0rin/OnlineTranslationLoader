@@ -161,7 +161,8 @@ public class TranslationLoaderApp {
 
     static void createLingueeWordlist(Dictionary dict, List<WordInfo> wordInfos, String outputXml, int maxMeaningCount) throws IOException {
         var xmlPublisher = new XmlTranslationPublisher(new File(outputXml));
-        var downloader = new LingueeDownloader(dict, new DefaultProxyProvider());
+//        var downloader = new LingueeDownloader(dict, new DefaultProxyProvider());
+        var downloader = new LingueeDownloader(dict);
         var parser = new LingueeParser(getMeaningSanitizer(dict), maxMeaningCount);
         var loader = new TranslationLoader(downloader, parser, xmlPublisher, true, WAIT_BETWEEN_REQUESTS_MS);
 
@@ -185,6 +186,8 @@ public class TranslationLoaderApp {
         switch (dict) {
             case EN_ES:
                 return LangUtil::sanitizeSpanishMeaning;
+            case ES_EN:
+                return s -> s.trim();
             case EN_PL:
                 return LangUtil::sanitizePolishMeaning;
             default:
